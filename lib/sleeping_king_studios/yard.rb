@@ -10,5 +10,7 @@ module SleepingKingStudios
         VERSION
       end
     end
+
+    autoload :Data, 'sleeping_king_studios/yard/data'
   end
 end
