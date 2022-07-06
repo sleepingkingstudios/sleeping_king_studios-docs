@@ -4,4 +4,4 @@ module Alchemy; end
 
 module Clockwork; end
 
-module Sorcery; end
+module ShadowMagic; end

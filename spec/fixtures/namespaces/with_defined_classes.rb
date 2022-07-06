@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Assembly; end
+class FuelTank; end
 
 class Part; end
 

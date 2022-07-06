@@ -4,7 +4,7 @@ ELDRITCH = 'Unearthly, supernatural, eerie.'
 
 SQUAMOUS = 'Covered, made of, or resembling scales.'
 
-class Assembly; end
+class FuelTank; end
 
 class Part; end
 
@@ -14,7 +14,7 @@ module Alchemy; end
 
 module Clockwork; end
 
-module Sorcery; end
+module ShadowMagic; end
 
 class << self
   attr_reader :gravity

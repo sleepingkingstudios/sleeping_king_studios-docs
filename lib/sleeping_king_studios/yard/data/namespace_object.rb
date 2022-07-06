@@ -25,7 +25,18 @@ module SleepingKingStudios::Yard::Data
   #
   # @see SleepingKingStudios::Yard::Data::ClassObject
   # @see SleepingKingStudios::Yard::Data::ModuleObject
-  class NamespaceObject
+  class NamespaceObject # rubocop:disable Metrics/ClassLength
+    JSON_PROPERTIES = %i[
+      class_attributes
+      class_methods
+      constants
+      defined_classes
+      defined_modules
+      instance_attributes
+      instance_methods
+    ].freeze
+    private_constant :JSON_PROPERTIES
+
     # @param native [YARD::CodeObjects::NamespaceObject] the YARD object
     #   representing the documented namespace.
     def initialize(native)
@@ -34,19 +45,37 @@ module SleepingKingStudios::Yard::Data
 
     # Generates a JSON-compatible representation of the namespace.
     #
+    # Returns a Hash with the following keys:
+    #
+    # - 'name': The full, qualified name of the namespace.
+    # - 'slug': The name of the namespace in url-safe format.
+    #
+    # Additionally, the returned Hash will conditionally include the following
+    # keys, if the namespace defines at least one of the corresponding code
+    # objects.
+    #
+    # - 'class_attributes': The class attributes, if any.
+    # - 'class_methods': The class methods, if any.
+    # - 'constants': The constants, if any.
+    # - 'defined_classes': The defined Classes, if any.
+    # - 'defined_modules': The defined Modules, if any.
+    # - 'instance_attributes': The instance attributes, if any.
+    # - 'instance_methods': The instance methods, if any.
+    #
     # @return [Hash{String => Object}] the representation of the namespace.
-    def as_json # rubocop:disable Metrics/MethodLength
-      {
-        'class_attributes'    => class_attributes,
-        'class_methods'       => class_methods,
-        'constants'           => constants,
-        'defined_classes'     => defined_classes,
-        'defined_modules'     => defined_modules,
-        'instance_attributes' => instance_attributes,
-        'instance_methods'    => instance_methods,
-        'name'                => name,
-        'slug'                => slug
+    def as_json
+      hsh = {
+        'name' => name,
+        'slug' => slug
       }
+
+      JSON_PROPERTIES.reduce(hsh) do |memo, property_name|
+        value = send(property_name)
+
+        next memo if empty?(value)
+
+        memo.update(property_name.to_s => value)
+      end
     end
 
     # Finds the class attributes defined for the namespace.
@@ -91,16 +120,21 @@ module SleepingKingStudios::Yard::Data
         .sort
     end
 
-    # Finds the names of the Classes defined under this namespace, if any.
+    # Finds the Classes defined under this namespace, if any.
     #
-    # @return [Array<String>] the names of the defined classes.
+    # For each defined Class, it returns a Hash with the following keys:
+    #
+    # - 'name': The name of the defined Class.
+    # - 'slug': A url-safe representation of the name.
+    #
+    # @return [Array<Hash>] the defined classes.
     def defined_classes
       @defined_classes ||=
         native
         .children
         .select { |obj| obj.type == :class }
-        .map { |obj| obj.name.to_s }
-        .sort
+        .map { |obj| format_definition(obj) }
+        .sort_by { |hsh| hsh['name'] }
     end
 
     # Finds the names of the Modules defined under this namespace, if any.
@@ -111,8 +145,8 @@ module SleepingKingStudios::Yard::Data
         native
         .children
         .select { |obj| obj.type == :module }
-        .map { |obj| obj.name.to_s }
-        .sort
+        .map { |obj| format_definition(obj) }
+        .sort_by { |hsh| hsh['name'] }
     end
 
     # Finds the instance attributes defined for the namespace.
@@ -160,12 +194,20 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [String] the qualified name.
     def slug
-      @slug ||= tools.string_tools.underscore(name).tr('_', '-')
+      @slug ||= slugify(name)
     end
 
     private
 
     attr_reader :native
+
+    def empty?(value)
+      return true if value.nil?
+
+      return false unless value.respond_to?(:empty?)
+
+      value.empty?
+    end
 
     def format_attribute(name, methods)
       {
@@ -173,6 +215,17 @@ module SleepingKingStudios::Yard::Data
         'read'  => !methods[:read].nil?,
         'write' => !methods[:write].nil?
       }
+    end
+
+    def format_definition(obj)
+      {
+        'name' => obj.name.to_s,
+        'slug' => slugify(obj.name)
+      }
+    end
+
+    def slugify(str)
+      tools.string_tools.underscore(str).tr('_', '-').tr(':', '-')
     end
 
     def tools

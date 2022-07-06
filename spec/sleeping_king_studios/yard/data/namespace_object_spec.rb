@@ -29,15 +29,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
   describe '#as_json' do
     let(:expected) do
       {
-        'class_attributes'    => namespace.class_attributes,
-        'class_methods'       => namespace.class_methods,
-        'constants'           => namespace.constants,
-        'defined_classes'     => namespace.defined_classes,
-        'defined_modules'     => namespace.defined_modules,
-        'instance_attributes' => namespace.instance_attributes,
-        'instance_methods'    => namespace.instance_methods,
-        'name'                => namespace.name,
-        'slug'                => namespace.slug
+        'name' => namespace.name,
+        'slug' => namespace.slug
       }
     end
 
@@ -46,34 +39,74 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     it { expect(namespace.as_json).to be == expected }
 
     wrap_context 'using fixture', 'with class attributes' do
+      let(:expected) do
+        super().merge('class_attributes' => namespace.class_attributes)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with class methods' do
+      let(:expected) do
+        super().merge('class_methods' => namespace.class_methods)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with constants' do
+      let(:expected) do
+        super().merge('constants' => namespace.constants)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with defined classes' do
+      let(:expected) do
+        super().merge('defined_classes' => namespace.defined_classes)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with defined modules' do
+      let(:expected) do
+        super().merge('defined_modules' => namespace.defined_modules)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with instance attributes' do
+      let(:expected) do
+        super().merge('instance_attributes' => namespace.instance_attributes)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with instance methods' do
+      let(:expected) do
+        super().merge('instance_methods' => namespace.instance_methods)
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
 
     wrap_context 'using fixture', 'with everything' do
+      let(:expected) do
+        super().merge(
+          'class_attributes'    => namespace.class_attributes,
+          'class_methods'       => namespace.class_methods,
+          'constants'           => namespace.constants,
+          'defined_classes'     => namespace.defined_classes,
+          'defined_modules'     => namespace.defined_modules,
+          'instance_attributes' => namespace.instance_attributes,
+          'instance_methods'    => namespace.instance_methods
+        )
+      end
+
       it { expect(namespace.as_json).to be == expected }
     end
   end
@@ -166,13 +199,43 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     include_examples 'should define reader', :defined_classes, []
 
     wrap_context 'using fixture', 'with defined classes' do
-      let(:expected) { %w[Assembly Part Rocket] }
+      let(:expected) do
+        [
+          {
+            'name' => 'FuelTank',
+            'slug' => 'fuel-tank'
+          },
+          {
+            'name' => 'Part',
+            'slug' => 'part'
+          },
+          {
+            'name' => 'Rocket',
+            'slug' => 'rocket'
+          }
+        ]
+      end
 
       it { expect(namespace.defined_classes).to be == expected }
     end
 
     wrap_context 'using fixture', 'with everything' do
-      let(:expected) { %w[Assembly Part Rocket] }
+      let(:expected) do
+        [
+          {
+            'name' => 'FuelTank',
+            'slug' => 'fuel-tank'
+          },
+          {
+            'name' => 'Part',
+            'slug' => 'part'
+          },
+          {
+            'name' => 'Rocket',
+            'slug' => 'rocket'
+          }
+        ]
+      end
 
       it { expect(namespace.defined_classes).to be == expected }
     end
@@ -182,13 +245,43 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     include_examples 'should define reader', :defined_modules, []
 
     wrap_context 'using fixture', 'with defined modules' do
-      let(:expected) { %w[Alchemy Clockwork Sorcery] }
+      let(:expected) do
+        [
+          {
+            'name' => 'Alchemy',
+            'slug' => 'alchemy'
+          },
+          {
+            'name' => 'Clockwork',
+            'slug' => 'clockwork'
+          },
+          {
+            'name' => 'ShadowMagic',
+            'slug' => 'shadow-magic'
+          }
+        ]
+      end
 
       it { expect(namespace.defined_modules).to be == expected }
     end
 
     wrap_context 'using fixture', 'with everything' do
-      let(:expected) { %w[Alchemy Clockwork Sorcery] }
+      let(:expected) do
+        [
+          {
+            'name' => 'Alchemy',
+            'slug' => 'alchemy'
+          },
+          {
+            'name' => 'Clockwork',
+            'slug' => 'clockwork'
+          },
+          {
+            'name' => 'ShadowMagic',
+            'slug' => 'shadow-magic'
+          }
+        ]
+      end
 
       it { expect(namespace.defined_modules).to be == expected }
     end
