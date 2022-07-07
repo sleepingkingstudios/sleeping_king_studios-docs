@@ -5,6 +5,8 @@ require 'sleeping_king_studios/yard'
 module SleepingKingStudios::Yard
   # Namespace for data objects, which represent documented code.
   module Data
+    autoload :ModuleMetadata,
+      'sleeping_king_studios/yard/data/module_metadata'
     autoload :NamespaceObject,
       'sleeping_king_studios/yard/data/namespace_object'
     autoload :SeeTag,
