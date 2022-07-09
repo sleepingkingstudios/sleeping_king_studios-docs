@@ -26,10 +26,10 @@ module SleepingKingStudios::Yard::Data
     private_constant :METADATA_PROPERTIES
 
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
-    # @param registry [Module] the YARD registry.
+    # @param registry [Enumerable] the YARD registry.
     def initialize(native:, registry:)
-      @native         = native
-      @registry       = registry
+      @native   = native
+      @registry = registry
     end
 
     # Generates a JSON-compatible representation of the metadata.

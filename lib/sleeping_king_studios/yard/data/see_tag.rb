@@ -9,6 +9,8 @@ module SleepingKingStudios::Yard::Data
   # freeform text used for display purposes. A referenced object may have a
   # corresponding object in the YARD registry, in which case it should be
   # displayed as an internal link.
+  #
+  # @see SleepingKingStudios::Yard::Data::ModuleMetadata.
   class SeeTag # rubocop:disable Metrics/ClassLength
     # Pattern used to identify a class method.
     CLASS_METHOD_PATTERN = /(\.|::)[a-z_][a-z0-9_]*\z/.freeze
@@ -35,7 +37,7 @@ module SleepingKingStudios::Yard::Data
     private_constant :UNDEFINED
 
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
-    # @param registry [Module] the YARD registry.
+    # @param registry [Enumerable] the YARD registry.
     def initialize(native:, registry:)
       @native         = native
       @registry       = registry

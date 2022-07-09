@@ -7,6 +7,8 @@ module SleepingKingStudios::Yard
   module Data
     autoload :ModuleMetadata,
       'sleeping_king_studios/yard/data/module_metadata'
+    autoload :ModuleObject,
+      'sleeping_king_studios/yard/data/module_object'
     autoload :NamespaceObject,
       'sleeping_king_studios/yard/data/namespace_object'
     autoload :SeeTag,

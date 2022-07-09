@@ -61,6 +61,9 @@ RSpec/ExampleWording:
 RSpec/HookArgument:
   EnforcedStyle: example
 
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
 Style/AccessorGrouping:
   Enabled: false
 
