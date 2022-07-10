@@ -174,7 +174,7 @@ module SleepingKingStudios::Yard::Data
     def split_docstring
       match = native.docstring.match(PARAGRAPH_BREAK)
 
-      return native.docstring unless match
+      return native.docstring.to_s unless match
 
       [match.pre_match, match.post_match]
     end

@@ -362,6 +362,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         TEXT
       end
 
+      it { expect(module_object.description).to be_a String }
+
       it { expect(module_object.description).to be == expected }
     end
 
@@ -728,6 +730,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     let(:expected) { 'This module is out of this world.' }
 
     include_examples 'should define reader', :short_description, -> { expected }
+
+    it { expect(module_object.short_description.class).to be String }
 
     wrap_context 'using fixture', 'undocumented' do
       it { expect(module_object.short_description).to be == '' }
