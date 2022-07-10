@@ -32,12 +32,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
     end
   end
 
-  def format_see_tag(tag)
-    SleepingKingStudios::Yard::Data::SeeTag
-      .new(native: tag, registry: ::YARD::Registry)
-      .as_json
-  end
-
   include_contract 'should be a data object',
     expected_json: expected_json
 

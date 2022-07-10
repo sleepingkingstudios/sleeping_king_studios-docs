@@ -7,6 +7,8 @@ module SleepingKingStudios::Yard
   module Data
     autoload :Base,
       'sleeping_king_studios/yard/data/base'
+    autoload :ClassObject,
+      'sleeping_king_studios/yard/data/class_object'
     autoload :ConstantObject,
       'sleeping_king_studios/yard/data/constant_object'
     autoload :Metadata,

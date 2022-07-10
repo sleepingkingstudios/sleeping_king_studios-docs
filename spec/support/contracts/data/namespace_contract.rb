@@ -15,7 +15,9 @@ module Spec::Support::Contracts::Data
     #     for #as_json.
     #   @param include_mixins [Boolean] if true, includes expected class and
     #     instance methods from extend-ed and include-ed modules.
-    contract do |expected_json:, include_mixins: true|
+    #   @param inherit_mixins [Boolean] if true, includes expected class and
+    #     instance methods from inherited classes.
+    contract do |expected_json:, include_mixins: true, inherit_mixins: false|
       let(:data_object) { subject }
 
       describe '#as_json' do
@@ -153,13 +155,22 @@ module Spec::Support::Contracts::Data
           end
         end
 
+        if inherit_mixins
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) { %w[design] }
+
+            it { expect(data_object.class_methods).to be == expected }
+          end
+        end
+
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            if include_mixins
-              %w[calculate_isp dew_point plot_trajectory temperature]
-            else
-              %w[calculate_isp plot_trajectory]
-            end
+            ary = %w[calculate_isp plot_trajectory]
+
+            ary += %w[dew_point temperature] if include_mixins
+            ary += %w[design]                if inherit_mixins
+
+            ary.sort
           end
 
           it { expect(data_object.class_methods).to be == expected }
@@ -337,6 +348,26 @@ module Spec::Support::Contracts::Data
           end
         end
 
+        if inherit_mixins
+          wrap_context 'using fixture', 'with constructor' do
+            let(:expected) { %w[initialize] }
+
+            it { expect(data_object.instance_methods).to be == expected }
+          end
+
+          wrap_context 'using fixture', 'with inherited constructor' do
+            let(:expected) { %w[initialize] }
+
+            it { expect(data_object.instance_methods).to be == expected }
+          end
+
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) { %w[project_orion] }
+
+            it { expect(data_object.instance_methods).to be == expected }
+          end
+        end
+
         wrap_context 'using fixture', 'with instance methods' do
           let(:expected) { %w[convert_mana summon_dark_lord] }
 
@@ -345,11 +376,12 @@ module Spec::Support::Contracts::Data
 
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            if include_mixins
-              %w[cardinality convert_mana summon_dark_lord]
-            else
-              %w[convert_mana summon_dark_lord]
-            end
+            ary = %w[convert_mana summon_dark_lord]
+
+            ary += %w[cardinality]              if include_mixins
+            ary += %w[initialize project_orion] if inherit_mixins
+
+            ary.sort
           end
 
           it { expect(data_object.instance_methods).to be == expected }

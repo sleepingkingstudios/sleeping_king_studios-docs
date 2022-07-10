@@ -99,6 +99,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
+            'name' => 'Forwardable',
+            'slug' => 'forwardable'
+          },
+          {
             'name' => 'Phenomena::WeatherEffects',
             'path' => 'phenomena/weather-effects',
             'slug' => 'weather-effects'
@@ -117,6 +121,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     wrap_context 'using fixture', 'with everything' do
       let(:expected) do
         [
+          {
+            'name' => 'Forwardable',
+            'slug' => 'forwardable'
+          },
           {
             'name' => 'Phenomena::WeatherEffects',
             'path' => 'phenomena/weather-effects',
@@ -164,6 +172,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
+            'name' => 'Comparable',
+            'slug' => 'comparable'
+          },
+          {
             'name' => 'Dimensions',
             'slug' => 'dimensions',
             'path' => 'dimensions'
@@ -182,6 +194,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     wrap_context 'using fixture', 'with everything' do
       let(:expected) do
         [
+          {
+            'name' => 'Comparable',
+            'slug' => 'comparable'
+          },
           {
             'name' => 'Dimensions',
             'slug' => 'dimensions',

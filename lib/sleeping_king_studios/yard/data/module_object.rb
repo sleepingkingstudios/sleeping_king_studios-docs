@@ -109,6 +109,9 @@ module SleepingKingStudios::Yard::Data
     #
     # - 'name': The name of the extending module.
     # - 'slug': A url-safe, hyphen-separated representation of the name.
+    # - 'path': The path to the data file for the module.
+    #
+    # @return [Array<Hash{String, String}>] the extended modules.
     def extended_modules
       @extended_modules ||=
         native
@@ -130,6 +133,9 @@ module SleepingKingStudios::Yard::Data
     #
     # - 'name': The name of the included module.
     # - 'slug': A url-safe, hyphen-separated representation of the name.
+    # - 'path': The path to the data file for the module.
+    #
+    # @return [Array<Hash{String, String}>] the included modules.
     def included_modules
       @included_modules ||=
         native
@@ -164,11 +170,16 @@ module SleepingKingStudios::Yard::Data
     private
 
     def format_inclusion(obj)
-      {
+      json = {
         'name' => obj.path,
-        'path' => obj.path.split('::').map { |str| slugify(str) }.join('/'),
         'slug' => slugify(obj.name)
       }
+
+      return json unless registry.include?(obj)
+
+      json.merge(
+        'path' => obj.path.split('::').map { |str| slugify(str) }.join('/')
+      )
     end
 
     def format_metadata
