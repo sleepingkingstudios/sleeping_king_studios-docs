@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# This module is out of this world.
-module Space
+# This class is out of this world.
+class Rocketry
   class << self
     attr_reader :gravity
 

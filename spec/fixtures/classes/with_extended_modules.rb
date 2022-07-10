@@ -20,8 +20,8 @@ module Phenomena
   end
 end
 
-# This module is out of this world.
-module Space
+# This class is out of this world.
+class Rocketry
   extend Forwardable
   extend Revenge
   extend Phenomena::WeatherEffects

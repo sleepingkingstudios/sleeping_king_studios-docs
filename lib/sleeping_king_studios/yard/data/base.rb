@@ -14,6 +14,11 @@ module SleepingKingStudios::Yard::Data
       @registry = registry
     end
 
+    # Generates a JSON-compatible representation of the namespace.
+    def as_json
+      {}
+    end
+
     private
 
     attr_reader :native
@@ -29,7 +34,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def slugify(str)
-      tools.string_tools.underscore(str).tr('_', '-').tr(':', '-')
+      tools.string_tools.underscore(str).tr('_', '-')
     end
 
     def tools

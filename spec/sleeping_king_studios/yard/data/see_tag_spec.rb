@@ -2,9 +2,11 @@
 
 require 'sleeping_king_studios/yard/data/see_tag'
 
+require 'support/contracts/data/base_contract'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
+  include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
   subject(:see_tag) do
@@ -21,22 +23,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
       .find { |tag| tag.tag_name == 'see' }
   end
 
-  describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:native, :registry)
-    end
-  end
+  include_contract 'should be a data object',
+    expected_json: -> { { 'text' => see_tag.text } }
 
   describe '#as_json' do
-    let(:expected) { { 'text' => see_tag.text } }
-
-    it { expect(see_tag).to respond_to(:as_json).with(0).arguments }
-
-    it { expect(see_tag.as_json).to be == expected }
-
     wrap_context 'using fixture', 'class method' do
       let(:expected) do
         {
@@ -179,7 +169,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
         {
           'text' => see_tag.text,
           'type' => 'definition',
-          'path' => 'cosmos--spiral-galaxy'
+          'path' => 'cosmos/spiral-galaxy'
         }
       end
 
@@ -191,7 +181,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
         {
           'text' => see_tag.text,
           'type' => 'definition',
-          'path' => 'cosmos--spiral-galaxy'
+          'path' => 'cosmos/spiral-galaxy'
         }
       end
 
@@ -256,10 +246,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'unmatched definition' do
       it { expect(see_tag.link?).to be false }
     end
-  end
-
-  describe '#native' do
-    include_examples 'should define private reader', :native, -> { native }
   end
 
   describe '#plain_text?' do
@@ -376,12 +362,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'unmatched instance method' do
       it { expect(see_tag.reference_type).to be nil }
     end
-  end
-
-  describe '#registry' do
-    include_examples 'should define private reader',
-      :registry,
-      -> { ::YARD::Registry }
   end
 
   describe '#text' do

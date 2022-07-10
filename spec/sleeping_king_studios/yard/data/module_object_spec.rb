@@ -2,9 +2,13 @@
 
 require 'sleeping_king_studios/yard/data/module_object'
 
+require 'support/contracts/data/base_contract'
+require 'support/contracts/data/describable_contract'
+require 'support/contracts/data/namespace_contract'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
+  include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
   subject(:module_object) do
@@ -13,28 +17,13 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
 
   include_context 'with fixture files', 'modules'
 
-  let(:fixture)     { 'basic.rb' }
-  let(:module_name) { 'Space' }
-  let(:registry)    { ::YARD::Registry }
-  let(:native)      { registry.find { |obj| obj.title == module_name } }
+  let(:fixture)      { 'basic.rb' }
+  let(:fixture_name) { 'Space' }
+  let(:registry)     { ::YARD::Registry }
+  let(:native)       { registry.find { |obj| obj.title == fixture_name } }
 
-  def format_see_tag(tag)
-    SleepingKingStudios::Yard::Data::SeeTag
-      .new(native: tag, registry: ::YARD::Registry)
-      .as_json
-  end
-
-  describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:native, :registry)
-    end
-  end
-
-  describe '#as_json' do
-    let(:expected) do
+  def self.expected_json
+    lambda do
       {
         'name'              => module_object.name,
         'slug'              => module_object.slug,
@@ -42,56 +31,23 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         'short_description' => module_object.short_description
       }
     end
+  end
 
-    it { expect(module_object).to respond_to(:as_json).with(0).arguments }
+  include_contract 'should be a data object',
+    expected_json: expected_json
 
-    it { expect(module_object.as_json).to be == expected }
+  include_contract 'should be a describable object',
+    basic_name:    'Space',
+    complex_name:  'SpaceAndTime',
+    scoped_name:   'Cosmos::LocalDimension::SpaceAndTime',
+    description:   'This module is out of this world.',
+    expected_json: expected_json
 
-    wrap_context 'using fixture', 'with class attributes' do
-      let(:expected) do
-        super().merge('class_attributes' => module_object.class_attributes)
-      end
+  include_contract 'should implement the namespace methods',
+    expected_json: expected_json
 
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with class methods' do
-      let(:expected) do
-        super().merge('class_methods' => module_object.class_methods)
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with complex name' do
-      let(:module_name) { 'SpaceAndTime' }
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with constants' do
-      let(:expected) do
-        super().merge('constants' => module_object.constants)
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with defined classes' do
-      let(:expected) do
-        super().merge('defined_classes' => module_object.defined_classes)
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with defined modules' do
-      let(:expected) do
-        super().merge('defined_modules' => module_object.defined_modules)
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
+  describe '#as_json' do
+    let(:expected) { instance_exec(&self.class.expected_json) }
 
     wrap_context 'using fixture', 'with extended modules' do
       let(:expected) do
@@ -104,46 +60,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       it { expect(module_object.as_json).to be == expected }
     end
 
-    wrap_context 'using fixture', 'with full description' do
-      let(:expected) do
-        super().merge('description' => module_object.description)
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
     wrap_context 'using fixture', 'with included modules' do
       let(:expected) do
         super().merge(
           'included_modules' => module_object.included_modules,
           'instance_methods' => module_object.instance_methods
         )
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with instance attributes' do
-      let(:expected) do
-        super().merge(
-          'instance_attributes' => module_object.instance_attributes
-        )
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with instance methods' do
-      let(:expected) do
-        super().merge('instance_methods' => module_object.instance_methods)
-      end
-
-      it { expect(module_object.as_json).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with metadata' do
-      let(:expected) do
-        super().merge('metadata' => module_object.metadata)
       end
 
       it { expect(module_object.as_json).to be == expected }
@@ -170,220 +92,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     end
   end
 
-  describe '#class_attributes' do
-    include_examples 'should define reader', :class_attributes, []
-
-    wrap_context 'using fixture', 'with class attributes' do
-      let(:expected) do
-        [
-          {
-            'name'  => 'curvature',
-            'read'  => true,
-            'write' => true
-          },
-          {
-            'name'  => 'gravity',
-            'read'  => true,
-            'write' => false
-          }
-        ]
-      end
-
-      it { expect(module_object.class_attributes).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) do
-        [
-          {
-            'name'  => 'curvature',
-            'read'  => true,
-            'write' => true
-          },
-          {
-            'name'  => 'gravity',
-            'read'  => true,
-            'write' => false
-          }
-        ]
-      end
-
-      it { expect(module_object.class_attributes).to be == expected }
-    end
-  end
-
-  describe '#class_methods' do
-    include_examples 'should define reader', :class_methods, []
-
-    wrap_context 'using fixture', 'with class methods' do
-      let(:expected) { %w[calculate_isp plot_trajectory] }
-
-      it { expect(module_object.class_methods).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with extended modules' do
-      let(:expected) { %w[dew_point temperature] }
-
-      it { expect(module_object.class_methods).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) { %w[calculate_isp dew_point plot_trajectory temperature] }
-
-      it { expect(module_object.class_methods).to be == expected }
-    end
-  end
-
-  describe '#constants' do
-    include_examples 'should define reader', :constants, []
-
-    wrap_context 'using fixture', 'with constants' do
-      let(:expected) { %w[ELDRITCH SQUAMOUS] }
-
-      it { expect(module_object.constants).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) { %w[ELDRITCH SQUAMOUS] }
-
-      it { expect(module_object.constants).to be == expected }
-    end
-  end
-
-  describe '#defined_classes' do
-    include_examples 'should define reader', :defined_classes, []
-
-    wrap_context 'using fixture', 'with defined classes' do
-      let(:expected) do
-        [
-          {
-            'name' => 'FuelTank',
-            'slug' => 'fuel-tank'
-          },
-          {
-            'name' => 'Part',
-            'slug' => 'part'
-          },
-          {
-            'name' => 'Rocket',
-            'slug' => 'rocket'
-          }
-        ]
-      end
-
-      it { expect(module_object.defined_classes).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) do
-        [
-          {
-            'name' => 'FuelTank',
-            'slug' => 'fuel-tank'
-          },
-          {
-            'name' => 'Part',
-            'slug' => 'part'
-          },
-          {
-            'name' => 'Rocket',
-            'slug' => 'rocket'
-          }
-        ]
-      end
-
-      it { expect(module_object.defined_classes).to be == expected }
-    end
-  end
-
-  describe '#defined_modules' do
-    include_examples 'should define reader', :defined_modules, []
-
-    wrap_context 'using fixture', 'with defined modules' do
-      let(:expected) do
-        [
-          {
-            'name' => 'Alchemy',
-            'slug' => 'alchemy'
-          },
-          {
-            'name' => 'Clockwork',
-            'slug' => 'clockwork'
-          },
-          {
-            'name' => 'ShadowMagic',
-            'slug' => 'shadow-magic'
-          }
-        ]
-      end
-
-      it { expect(module_object.defined_modules).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) do
-        [
-          {
-            'name' => 'Alchemy',
-            'slug' => 'alchemy'
-          },
-          {
-            'name' => 'Clockwork',
-            'slug' => 'clockwork'
-          },
-          {
-            'name' => 'ShadowMagic',
-            'slug' => 'shadow-magic'
-          }
-        ]
-      end
-
-      it { expect(module_object.defined_modules).to be == expected }
-    end
-  end
-
-  describe '#description' do
-    include_examples 'should define reader', :description, nil
-
-    wrap_context 'using fixture', 'undocumented' do
-      it { expect(module_object.description).to be nil }
-    end
-
-    wrap_context 'using fixture', 'with full description' do
-      let(:expected) do
-        <<~TEXT.strip
-          This module has a full description. It is comprised of a short description,
-          followed by a multiline explanation, a list, and an essay cliche.
-
-          - This is a description item.
-          - This is another description item.
-
-          In conclusion, space is a land of contrasts.
-        TEXT
-      end
-
-      it { expect(module_object.description.class).to be String }
-
-      it { expect(module_object.description).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) do
-        <<~TEXT.strip
-          This module has a full description. It is comprised of a short description,
-          followed by a multiline explanation, a list, and an essay cliche.
-
-          - This is a description item.
-          - This is another description item.
-
-          In conclusion, space is a land of contrasts.
-        TEXT
-      end
-
-      it { expect(module_object.description).to be == expected }
-    end
-  end
-
   describe '#extended_modules' do
     include_examples 'should define reader', :extended_modules, []
 
@@ -391,12 +99,18 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
-            'name' => 'Revenge',
-            'slug' => 'revenge'
+            'name' => 'Forwardable',
+            'slug' => 'forwardable'
           },
           {
-            'name' => 'WeatherEffects',
+            'name' => 'Phenomena::WeatherEffects',
+            'path' => 'phenomena/weather-effects',
             'slug' => 'weather-effects'
+          },
+          {
+            'name' => 'Revenge',
+            'path' => 'revenge',
+            'slug' => 'revenge'
           }
         ]
       end
@@ -408,12 +122,18 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
-            'name' => 'Revenge',
-            'slug' => 'revenge'
+            'name' => 'Forwardable',
+            'slug' => 'forwardable'
           },
           {
-            'name' => 'WeatherEffects',
+            'name' => 'Phenomena::WeatherEffects',
+            'path' => 'phenomena/weather-effects',
             'slug' => 'weather-effects'
+          },
+          {
+            'name' => 'Revenge',
+            'path' => 'revenge',
+            'slug' => 'revenge'
           }
         ]
       end
@@ -452,12 +172,18 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
-            'name' => 'Dimensions',
-            'slug' => 'dimensions'
+            'name' => 'Comparable',
+            'slug' => 'comparable'
           },
           {
-            'name' => 'HigherDimensions',
-            'slug' => 'higher-dimensions'
+            'name' => 'Dimensions',
+            'slug' => 'dimensions',
+            'path' => 'dimensions'
+          },
+          {
+            'name' => 'Dimensions::HigherDimensions',
+            'slug' => 'higher-dimensions',
+            'path' => 'dimensions/higher-dimensions'
           }
         ]
       end
@@ -469,193 +195,23 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
-            'name' => 'Dimensions',
-            'slug' => 'dimensions'
+            'name' => 'Comparable',
+            'slug' => 'comparable'
           },
           {
-            'name' => 'HigherDimensions',
-            'slug' => 'higher-dimensions'
+            'name' => 'Dimensions',
+            'slug' => 'dimensions',
+            'path' => 'dimensions'
+          },
+          {
+            'name' => 'Dimensions::HigherDimensions',
+            'slug' => 'higher-dimensions',
+            'path' => 'dimensions/higher-dimensions'
           }
         ]
       end
 
       it { expect(module_object.included_modules).to be == expected }
-    end
-  end
-
-  describe '#instance_attributes' do
-    include_examples 'should define reader', :instance_attributes, []
-
-    wrap_context 'using fixture', 'with instance attributes' do
-      let(:expected) do
-        [
-          {
-            'name'  => 'base_mana',
-            'read'  => true,
-            'write' => false
-          },
-          {
-            'name'  => 'magic_enabled',
-            'read'  => true,
-            'write' => true
-          },
-          {
-            'name'  => 'secret_formula',
-            'read'  => false,
-            'write' => true
-          }
-        ]
-      end
-
-      it { expect(module_object.instance_attributes).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) do
-        [
-          {
-            'name'  => 'base_mana',
-            'read'  => true,
-            'write' => false
-          },
-          {
-            'name'  => 'magic_enabled',
-            'read'  => true,
-            'write' => true
-          },
-          {
-            'name'  => 'secret_formula',
-            'read'  => false,
-            'write' => true
-          }
-        ]
-      end
-
-      it { expect(module_object.instance_attributes).to be == expected }
-    end
-  end
-
-  describe '#instance_methods' do
-    include_examples 'should define reader', :instance_methods, []
-
-    wrap_context 'using fixture', 'with instance methods' do
-      let(:expected) { %w[convert_mana summon_dark_lord] }
-
-      it { expect(module_object.instance_methods).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with included modules' do
-      let(:expected) { %w[cardinality] }
-
-      it { expect(module_object.instance_methods).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:expected) { %w[cardinality convert_mana summon_dark_lord] }
-
-      it { expect(module_object.instance_methods).to be == expected }
-    end
-  end
-
-  describe '#metadata' do
-    include_examples 'should define reader', :metadata, {}
-
-    wrap_context 'using fixture', 'with metadata' do
-      let(:see_tags) do
-        native
-          .tags
-          .select { |tag| tag.tag_name == 'see' }
-          .map { |tag| format_see_tag(tag) }
-      end
-      let(:expected) do
-        {
-          'notes'    => ['This is a note.'],
-          'examples' => [
-            {
-              'name' => 'Named Example',
-              'text' => '# This is a named example.'
-            }
-          ],
-          'see'      => see_tags,
-          'todos'    => ['Remove the plutonium.']
-        }
-      end
-
-      it { expect(module_object.metadata).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      let(:see_tags) do
-        native
-          .tags
-          .select { |tag| tag.tag_name == 'see' }
-          .map { |tag| format_see_tag(tag) }
-      end
-      let(:expected) do
-        {
-          'notes'    => ['This is a note.'],
-          'examples' => [
-            {
-              'name' => 'Named Example',
-              'text' => '# This is a named example.'
-            }
-          ],
-          'see'      => see_tags,
-          'todos'    => ['Remove the plutonium.']
-        }
-      end
-
-      it { expect(module_object.metadata).to be == expected }
-    end
-  end
-
-  describe '#name' do
-    include_examples 'should define reader', :name, 'Space'
-
-    wrap_context 'using fixture', 'with complex name' do
-      let(:module_name) { 'SpaceAndTime' }
-
-      it { expect(module_object.name).to be == module_name }
-    end
-  end
-
-  describe '#native' do
-    include_examples 'should define private reader', :native, -> { native }
-  end
-
-  describe '#registry' do
-    include_examples 'should define private reader',
-      :registry,
-      -> { ::YARD::Registry }
-  end
-
-  describe '#short_description' do
-    let(:expected) { 'This module is out of this world.' }
-
-    include_examples 'should define reader', :short_description, -> { expected }
-
-    it { expect(module_object.short_description.class).to be String }
-
-    wrap_context 'using fixture', 'undocumented' do
-      it { expect(module_object.short_description).to be == '' }
-    end
-
-    wrap_context 'using fixture', 'with full description' do
-      it { expect(module_object.short_description).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'with everything' do
-      it { expect(module_object.short_description).to be == expected }
-    end
-  end
-
-  describe '#slug' do
-    include_examples 'should define reader', :slug, 'space'
-
-    wrap_context 'using fixture', 'with complex name' do
-      let(:module_name) { 'SpaceAndTime' }
-
-      it { expect(module_object.slug).to be == 'space-and-time' }
     end
   end
 end

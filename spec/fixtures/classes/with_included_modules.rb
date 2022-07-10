@@ -14,8 +14,8 @@ module Dimensions
   def cardinality; end
 end
 
-# This module is out of this world.
-module Space
+# This class is out of this world.
+class Rocketry
   include Comparable
   include Dimensions
   include Dimensions::HigherDimensions

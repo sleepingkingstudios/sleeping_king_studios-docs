@@ -45,6 +45,13 @@ module SleepingKingStudios::Yard::Data
       end
     end
 
+    # The path to the data file.
+    #
+    # @return [String] the file path.
+    def data_path
+      @data_path ||= name.split('::').map { |str| slugify(str) }.join('/')
+    end
+
     # The full description of the constant, minus the first clause.
     #
     # The remainder of the constant description, if any, after subtracting the
@@ -91,11 +98,11 @@ module SleepingKingStudios::Yard::Data
       @short_description
     end
 
-    # The full, qualified name of the constant in url-safe format.
+    # The name of the constant in url-safe format.
     #
-    # @return [String] the qualified name.
+    # @return [String] the constant name.
     def slug
-      @slug ||= slugify(name)
+      @slug ||= slugify(name.split('::').last)
     end
 
     # A String representation of the value of the constant.

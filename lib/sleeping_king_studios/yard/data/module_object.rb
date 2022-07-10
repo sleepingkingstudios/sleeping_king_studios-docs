@@ -80,6 +80,13 @@ module SleepingKingStudios::Yard::Data
       end
     end
 
+    # The path to the data file.
+    #
+    # @return [String] the file path.
+    def data_path
+      @data_path ||= name.split('::').map { |str| slugify(str) }.join('/')
+    end
+
     # The full description of the module, minus the first clause.
     #
     # The remainder of the module description, if any, after subtracting the
@@ -102,11 +109,14 @@ module SleepingKingStudios::Yard::Data
     #
     # - 'name': The name of the extending module.
     # - 'slug': A url-safe, hyphen-separated representation of the name.
+    # - 'path': The path to the data file for the module.
+    #
+    # @return [Array<Hash{String, String}>] the extended modules.
     def extended_modules
       @extended_modules ||=
         native
         .class_mixins
-        .map { |obj| format_definition(obj) }
+        .map { |obj| format_inclusion(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -123,11 +133,14 @@ module SleepingKingStudios::Yard::Data
     #
     # - 'name': The name of the included module.
     # - 'slug': A url-safe, hyphen-separated representation of the name.
+    # - 'path': The path to the data file for the module.
+    #
+    # @return [Array<Hash{String, String}>] the included modules.
     def included_modules
       @included_modules ||=
         native
         .instance_mixins
-        .map { |obj| format_definition(obj) }
+        .map { |obj| format_inclusion(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -155,6 +168,19 @@ module SleepingKingStudios::Yard::Data
     end
 
     private
+
+    def format_inclusion(obj)
+      json = {
+        'name' => obj.path,
+        'slug' => slugify(obj.name)
+      }
+
+      return json unless registry.include?(obj)
+
+      json.merge(
+        'path' => obj.path.split('::').map { |str| slugify(str) }.join('/')
+      )
+    end
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata
