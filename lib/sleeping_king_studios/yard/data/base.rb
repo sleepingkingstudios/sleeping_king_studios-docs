@@ -34,7 +34,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def slugify(str)
-      tools.string_tools.underscore(str).tr('_', '-').tr(':', '-')
+      tools.string_tools.underscore(str).tr('_', '-')
     end
 
     def tools

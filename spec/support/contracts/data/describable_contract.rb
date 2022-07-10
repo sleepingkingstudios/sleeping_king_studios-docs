@@ -18,12 +18,15 @@ module Spec::Support::Contracts::Data
     #     for #as_json.
     #   @param scoped_name [String] a name for the data object, including a
     #     class or module scope.
-    contract do |
+    #   @param separator [String] the string used to separate the named object
+    #     from the scope.
+    contract do | # rubocop:disable Metrics/ParameterLists
       basic_name:,
       complex_name:,
       description:,
       scoped_name:,
-      expected_json:
+      expected_json:,
+      separator: '::'
     |
       let(:data_object) { subject }
 
@@ -48,6 +51,37 @@ module Spec::Support::Contracts::Data
           end
 
           it { expect(data_object.as_json).to be == expected }
+        end
+      end
+
+      describe '#data_path' do
+        def tools
+          SleepingKingStudios::Tools::Toolbelt.instance
+        end
+
+        include_examples 'should define reader',
+          :data_path,
+          -> { tools.str.underscore(basic_name) }
+
+        wrap_context 'using fixture', 'with complex name' do
+          let(:fixture_name) { complex_name }
+          let(:expected) do
+            tools.str.underscore(complex_name).tr('_', '-')
+          end
+
+          it { expect(data_object.data_path).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with scoped name' do
+          let(:fixture_name) { scoped_name }
+          let(:expected) do
+            scoped_name
+              .split(separator)
+              .map { |str| tools.str.underscore(str).tr('_', '-') }
+              .join('/')
+          end
+
+          it { expect(data_object.data_path).to be == expected }
         end
       end
 
@@ -95,6 +129,12 @@ module Spec::Support::Contracts::Data
 
       describe '#metadata' do
         include_examples 'should define reader', :metadata, {}
+
+        def format_see_tag(tag)
+          SleepingKingStudios::Yard::Data::SeeTag
+            .new(native: tag, registry: ::YARD::Registry)
+            .as_json
+        end
 
         wrap_context 'using fixture', 'with metadata' do
           let(:see_tags) do
@@ -204,7 +244,11 @@ module Spec::Support::Contracts::Data
         wrap_context 'using fixture', 'with scoped name' do
           let(:fixture_name) { scoped_name }
           let(:expected) do
-            tools.str.underscore(scoped_name).tr('_', '-').tr(':', '-')
+            scoped_name
+              .split(separator)
+              .last
+              .then { |str| tools.str.underscore(str) }
+              .tr('_', '-')
           end
 
           it { expect(data_object.slug).to be == expected }

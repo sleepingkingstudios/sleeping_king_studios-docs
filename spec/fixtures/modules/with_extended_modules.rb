@@ -6,18 +6,20 @@ end
 
 module Revenge; end
 
-module WeatherEffects
-  include Atmosphere
+module Phenomena
+  module WeatherEffects
+    include Atmosphere
 
-  attr_accessor :pressure
+    attr_accessor :pressure
 
-  def temperature
-    'cold'
+    def temperature
+      'cold'
+    end
   end
 end
 
 # This module is out of this world.
 module Space
   extend Revenge
-  extend WeatherEffects
+  extend Phenomena::WeatherEffects
 end

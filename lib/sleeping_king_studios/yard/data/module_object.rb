@@ -80,6 +80,13 @@ module SleepingKingStudios::Yard::Data
       end
     end
 
+    # The path to the data file.
+    #
+    # @return [String] the file path.
+    def data_path
+      @data_path ||= name.split('::').map { |str| slugify(str) }.join('/')
+    end
+
     # The full description of the module, minus the first clause.
     #
     # The remainder of the module description, if any, after subtracting the
@@ -106,7 +113,7 @@ module SleepingKingStudios::Yard::Data
       @extended_modules ||=
         native
         .class_mixins
-        .map { |obj| format_definition(obj) }
+        .map { |obj| format_inclusion(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -127,7 +134,7 @@ module SleepingKingStudios::Yard::Data
       @included_modules ||=
         native
         .instance_mixins
-        .map { |obj| format_definition(obj) }
+        .map { |obj| format_inclusion(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -155,6 +162,14 @@ module SleepingKingStudios::Yard::Data
     end
 
     private
+
+    def format_inclusion(obj)
+      {
+        'name' => obj.path,
+        'path' => obj.path.split('::').map { |str| slugify(str) }.join('/'),
+        'slug' => slugify(obj.name)
+      }
+    end
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata

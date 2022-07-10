@@ -169,7 +169,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
         {
           'text' => see_tag.text,
           'type' => 'definition',
-          'path' => 'cosmos--spiral-galaxy'
+          'path' => 'cosmos/spiral-galaxy'
         }
       end
 
@@ -181,7 +181,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
         {
           'text' => see_tag.text,
           'type' => 'definition',
-          'path' => 'cosmos--spiral-galaxy'
+          'path' => 'cosmos/spiral-galaxy'
         }
       end
 

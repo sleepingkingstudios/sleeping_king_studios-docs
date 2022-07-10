@@ -168,7 +168,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_definition
       {
-        'path' => slugify(reference),
+        'path' => reference.split('::').map { |str| slugify(str) }.join('/'),
         'text' => text,
         'type' => 'definition'
       }

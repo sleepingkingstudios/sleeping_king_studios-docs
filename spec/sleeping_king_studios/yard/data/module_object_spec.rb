@@ -33,12 +33,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     end
   end
 
-  def format_see_tag(tag)
-    SleepingKingStudios::Yard::Data::SeeTag
-      .new(native: tag, registry: ::YARD::Registry)
-      .as_json
-  end
-
   include_contract 'should be a data object',
     expected_json: expected_json
 
@@ -105,12 +99,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
-            'name' => 'Revenge',
-            'slug' => 'revenge'
+            'name' => 'Phenomena::WeatherEffects',
+            'path' => 'phenomena/weather-effects',
+            'slug' => 'weather-effects'
           },
           {
-            'name' => 'WeatherEffects',
-            'slug' => 'weather-effects'
+            'name' => 'Revenge',
+            'path' => 'revenge',
+            'slug' => 'revenge'
           }
         ]
       end
@@ -122,12 +118,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       let(:expected) do
         [
           {
-            'name' => 'Revenge',
-            'slug' => 'revenge'
+            'name' => 'Phenomena::WeatherEffects',
+            'path' => 'phenomena/weather-effects',
+            'slug' => 'weather-effects'
           },
           {
-            'name' => 'WeatherEffects',
-            'slug' => 'weather-effects'
+            'name' => 'Revenge',
+            'path' => 'revenge',
+            'slug' => 'revenge'
           }
         ]
       end
@@ -167,11 +165,13 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         [
           {
             'name' => 'Dimensions',
-            'slug' => 'dimensions'
+            'slug' => 'dimensions',
+            'path' => 'dimensions'
           },
           {
-            'name' => 'HigherDimensions',
-            'slug' => 'higher-dimensions'
+            'name' => 'Dimensions::HigherDimensions',
+            'slug' => 'higher-dimensions',
+            'path' => 'dimensions/higher-dimensions'
           }
         ]
       end
@@ -184,11 +184,13 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         [
           {
             'name' => 'Dimensions',
-            'slug' => 'dimensions'
+            'slug' => 'dimensions',
+            'path' => 'dimensions'
           },
           {
-            'name' => 'HigherDimensions',
-            'slug' => 'higher-dimensions'
+            'name' => 'Dimensions::HigherDimensions',
+            'slug' => 'higher-dimensions',
+            'path' => 'dimensions/higher-dimensions'
           }
         ]
       end

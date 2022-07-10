@@ -6,13 +6,15 @@ end
 
 module Revenge; end
 
-module WeatherEffects
-  include Atmosphere
+module Phenomena
+  module WeatherEffects
+    include Atmosphere
 
-  attr_accessor :pressure
+    attr_accessor :pressure
 
-  def temperature
-    'cold'
+    def temperature
+      'cold'
+    end
   end
 end
 
@@ -25,10 +27,10 @@ end
 module Dimensions
   include Measurement
 
+  module HigherDimensions; end
+
   def cardinality; end
 end
-
-module HigherDimensions; end
 
 # This module is out of this world.
 #
@@ -50,9 +52,9 @@ module HigherDimensions; end
 # @todo Remove the plutonium.
 module Space
   extend Revenge
-  extend WeatherEffects
+  extend Phenomena::WeatherEffects
   include Dimensions
-  include HigherDimensions
+  include Dimensions::HigherDimensions
 
   ELDRITCH = 'Unearthly, supernatural, eerie.'
 

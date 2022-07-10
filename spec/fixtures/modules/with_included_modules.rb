@@ -9,13 +9,13 @@ end
 module Dimensions
   include Measurement
 
+  module HigherDimensions; end
+
   def cardinality; end
 end
-
-module HigherDimensions; end
 
 # This module is out of this world.
 module Space
   include Dimensions
-  include HigherDimensions
+  include Dimensions::HigherDimensions
 end

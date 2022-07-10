@@ -199,11 +199,11 @@ module SleepingKingStudios::Yard::Data
       @name ||= native.path
     end
 
-    # The full, qualified name of the namespace in url-safe format.
+    # The name of the namespace in url-safe format.
     #
-    # @return [String] the qualified name.
+    # @return [String] the namespace name.
     def slug
-      @slug ||= slugify(name)
+      @slug ||= slugify(name.split('::').last || '')
     end
 
     private
