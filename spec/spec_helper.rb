@@ -8,6 +8,7 @@ end
 
 require 'rspec/sleeping_king_studios/all'
 require 'byebug'
+require 'yard'
 
 # Isolated namespace for defining spec-only or transient objects.
 module Spec; end

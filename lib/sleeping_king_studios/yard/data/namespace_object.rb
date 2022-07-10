@@ -37,10 +37,10 @@ module SleepingKingStudios::Yard::Data
     ].freeze
     private_constant :JSON_PROPERTIES
 
-    # @param native [YARD::CodeObjects::NamespaceObject] the YARD object
-    #   representing the documented namespace.
-    def initialize(native)
-      @native = native
+    # @param registry [Enumerable, #root] the YARD registry.
+    def initialize(registry:)
+      @registry = registry
+      @native   = registry.root
     end
 
     # Generates a JSON-compatible representation of the namespace.
@@ -64,12 +64,7 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [Hash{String => Object}] the representation of the namespace.
     def as_json
-      hsh = {
-        'name' => name,
-        'slug' => slug
-      }
-
-      JSON_PROPERTIES.reduce(hsh) do |memo, property_name|
+      JSON_PROPERTIES.reduce(required_json) do |memo, property_name|
         value = send(property_name)
 
         next memo if empty?(value)
@@ -102,9 +97,7 @@ module SleepingKingStudios::Yard::Data
       @class_methods ||=
         native
         .meths
-        .select do |obj|
-          obj.type == :method && obj.sep == '::' && !obj.is_attribute?
-        end
+        .select { |obj| obj.scope == :class && !obj.is_attribute? }
         .map { |obj| obj.name.to_s }
         .sort
     end
@@ -125,7 +118,14 @@ module SleepingKingStudios::Yard::Data
     # For each defined Class, it returns a Hash with the following keys:
     #
     # - 'name': The name of the defined Class.
-    # - 'slug': A url-safe representation of the name.
+    # - 'slug': A url-safe, hyphen-separated representation of the name.
+    #
+    # @example
+    #   # Given a class LaunchWindow in the namespace Space::Operations:
+    #   namespace.name
+    #   #=> 'Space::Operations'
+    #   namespace.defined_classes
+    #   #=> [{ 'name' => 'LaunchWindow', 'slug' => 'launch-window' }]
     #
     # @return [Array<Hash>] the defined classes.
     def defined_classes
@@ -137,9 +137,21 @@ module SleepingKingStudios::Yard::Data
         .sort_by { |hsh| hsh['name'] }
     end
 
-    # Finds the names of the Modules defined under this namespace, if any.
+    # Finds the Modules defined under this namespace, if any.
     #
-    # @return [Array<String>] the names of the defined modules.
+    # For each defined Module, it returns a Hash with the following keys:
+    #
+    # - 'name': The name of the defined Module.
+    # - 'slug': A url-safe, hyphen-separated representation of the name.
+    #
+    # @example
+    #   # Given a class FuelConsumer in the namespace Space::Engineering:
+    #   namespace.name
+    #   #=> 'Space::Engineering'
+    #   namespace.defined_classes
+    #   #=> [{ 'name' => 'FuelConsumer', 'slug' => 'fuel-consumer' }]
+    #
+    # @return [Array<Hash>] the defined modules.
     def defined_modules
       @defined_modules ||=
         native
@@ -173,9 +185,7 @@ module SleepingKingStudios::Yard::Data
       @instance_methods ||=
         native
         .meths
-        .select do |obj|
-          obj.type == :method && obj.sep == '#' && !obj.is_attribute?
-        end
+        .select { |obj| obj.scope == :instance && !obj.is_attribute? }
         .map { |obj| obj.name.to_s }
         .sort
     end
@@ -201,6 +211,8 @@ module SleepingKingStudios::Yard::Data
 
     attr_reader :native
 
+    attr_reader :registry
+
     def empty?(value)
       return true if value.nil?
 
@@ -221,6 +233,13 @@ module SleepingKingStudios::Yard::Data
       {
         'name' => obj.name.to_s,
         'slug' => slugify(obj.name)
+      }
+    end
+
+    def required_json
+      {
+        'name' => name,
+        'slug' => slug
       }
     end
 

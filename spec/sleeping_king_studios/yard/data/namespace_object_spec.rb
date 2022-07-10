@@ -1,29 +1,26 @@
 # frozen_string_literal: true
 
-require 'yard'
-
 require 'sleeping_king_studios/yard/data/namespace_object'
 
-RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
-  subject(:namespace) { described_class.new(native) }
+require 'support/fixtures'
 
-  shared_context 'using fixture' do |fixture_name| # rubocop:disable RSpec/ContextWording
-    let(:fixture) { "#{fixture_name.tr ' ', '_'}.rb" }
-  end
+RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
+  include Spec::Support::Fixtures
+
+  subject(:namespace) { described_class.new(registry: ::YARD::Registry) }
+
+  include_context 'with fixture files', 'namespaces'
 
   let(:fixture) { 'empty.rb' }
   let(:native)  { ::YARD::Registry.root }
 
-  around(:example) do |example|
-    ::YARD.parse(File.join('spec/fixtures/namespaces', fixture))
-
-    example.call
-  ensure
-    ::YARD::Registry.clear
-  end
-
   describe '.new' do
-    it { expect(described_class).to be_constructible.with(1).argument }
+    it 'should define the constructor' do
+      expect(described_class)
+        .to be_constructible
+        .with(0).arguments
+        .and_keywords(:registry)
+    end
   end
 
   describe '#as_json' do
@@ -290,7 +287,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
   describe '#instance_attributes' do
     include_examples 'should define reader', :instance_attributes, []
 
-    wrap_context 'using fixture', 'with everything' do
+    wrap_context 'using fixture', 'with instance attributes' do
       let(:expected) do
         [
           {
@@ -314,7 +311,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
       it { expect(namespace.instance_attributes).to be == expected }
     end
 
-    wrap_context 'using fixture', 'with instance attributes' do
+    wrap_context 'using fixture', 'with everything' do
       let(:expected) do
         [
           {
@@ -360,7 +357,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
   end
 
   describe '#native' do
-    include_examples 'should define private reader', :native, -> { native }
+    include_examples 'should define private reader',
+      :native,
+      -> { ::YARD::Registry.root }
+  end
+
+  describe '#registry' do
+    include_examples 'should define private reader',
+      :registry,
+      -> { ::YARD::Registry }
   end
 
   describe '#slug' do
