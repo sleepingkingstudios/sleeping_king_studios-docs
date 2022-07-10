@@ -141,7 +141,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       it { expect(module_object.as_json).to be == expected }
     end
 
-    wrap_context 'using fixture', 'metadata/with everything' do
+    wrap_context 'using fixture', 'with metadata' do
       let(:expected) do
         super().merge('metadata' => module_object.metadata)
       end
@@ -362,7 +362,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         TEXT
       end
 
-      it { expect(module_object.description).to be_a String }
+      it { expect(module_object.description.class).to be String }
 
       it { expect(module_object.description).to be == expected }
     end
@@ -560,72 +560,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
   describe '#metadata' do
     include_examples 'should define reader', :metadata, {}
 
-    wrap_context 'using fixture', 'metadata/with examples' do
-      let(:expected) do
-        {
-          'examples' => [
-            {
-              'name' => '',
-              'text' => '# This is an anonymous example.'
-            },
-            {
-              'name' => '',
-              'text' => '# This is another anonymous example.'
-            },
-            {
-              'name' => 'Named Example',
-              'text' => '# This is a named example.'
-            }
-          ]
-        }
-      end
-
-      it { expect(module_object.metadata).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'metadata/with notes' do
-      let(:expected) do
-        {
-          'notes' => [
-            'This is a note.',
-            'This is another note.',
-            'This makes a chord.'
-          ]
-        }
-      end
-
-      it { expect(module_object.metadata).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'metadata/with see' do
-      let(:see_tags) do
-        native
-          .tags
-          .select { |tag| tag.tag_name == 'see' }
-          .map { |tag| format_see_tag(tag) }
-      end
-      let(:expected) do
-        { 'see' => see_tags }
-      end
-
-      it { expect(module_object.metadata).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'metadata/with todos' do
-      let(:expected) do
-        {
-          'todos' => [
-            'Cut the blue wire.',
-            'Cut the red wire.',
-            'Remove the plutonium.'
-          ]
-        }
-      end
-
-      it { expect(module_object.metadata).to be == expected }
-    end
-
-    wrap_context 'using fixture', 'metadata/with everything' do
+    wrap_context 'using fixture', 'with metadata' do
       let(:see_tags) do
         native
           .tags
@@ -634,31 +569,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       end
       let(:expected) do
         {
-          'notes'    => [
-            'This is a note.',
-            'This is another note.',
-            'This makes a chord.'
-          ],
+          'notes'    => ['This is a note.'],
           'examples' => [
-            {
-              'name' => '',
-              'text' => '# This is an anonymous example.'
-            },
-            {
-              'name' => '',
-              'text' => '# This is another anonymous example.'
-            },
             {
               'name' => 'Named Example',
               'text' => '# This is a named example.'
             }
           ],
           'see'      => see_tags,
-          'todos'    => [
-            'Cut the blue wire.',
-            'Cut the red wire.',
-            'Remove the plutonium.'
-          ]
+          'todos'    => ['Remove the plutonium.']
         }
       end
 
@@ -674,31 +593,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       end
       let(:expected) do
         {
-          'notes'    => [
-            'This is a note.',
-            'This is another note.',
-            'This makes a chord.'
-          ],
+          'notes'    => ['This is a note.'],
           'examples' => [
-            {
-              'name' => '',
-              'text' => '# This is an anonymous example.'
-            },
-            {
-              'name' => '',
-              'text' => '# This is another anonymous example.'
-            },
             {
               'name' => 'Named Example',
               'text' => '# This is a named example.'
             }
           ],
           'see'      => see_tags,
-          'todos'    => [
-            'Cut the blue wire.',
-            'Cut the red wire.',
-            'Remove the plutonium.'
-          ]
+          'todos'    => ['Remove the plutonium.']
         }
       end
 

@@ -10,8 +10,8 @@ module SleepingKingStudios::Yard::Data
   # corresponding object in the YARD registry, in which case it should be
   # displayed as an internal link.
   #
-  # @see SleepingKingStudios::Yard::Data::ModuleMetadata.
-  class SeeTag # rubocop:disable Metrics/ClassLength
+  # @see SleepingKingStudios::Yard::Data::Metadata.
+  class SeeTag < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     # Pattern used to identify a class method.
     CLASS_METHOD_PATTERN = /(\.|::)[a-z_][a-z0-9_]*\z/.freeze
 
@@ -39,8 +39,8 @@ module SleepingKingStudios::Yard::Data
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
     # @param registry [Enumerable] the YARD registry.
     def initialize(native:, registry:)
-      @native         = native
-      @registry       = registry
+      super
+
       @reference_type = UNDEFINED
     end
 
@@ -121,10 +121,6 @@ module SleepingKingStudios::Yard::Data
     end
 
     private
-
-    attr_reader :native
-
-    attr_reader :registry
 
     def class_method?
       reference.match?(CLASS_METHOD_PATTERN)
@@ -242,18 +238,10 @@ module SleepingKingStudios::Yard::Data
       SEPARATORS[reference_type]
     end
 
-    def slugify(str)
-      tools.string_tools.underscore(str).tr('_', '-').tr(':', '-')
-    end
-
     def strip_trailing_period(str)
       return str unless str.end_with?('.')
 
       str[0...-1]
-    end
-
-    def tools
-      SleepingKingStudios::Tools::Toolbelt.instance
     end
 
     def top_level_class_method_exists?

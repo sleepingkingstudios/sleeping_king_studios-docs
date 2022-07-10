@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/module_metadata'
+require 'sleeping_king_studios/yard/data/metadata'
 
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::ModuleMetadata do
+RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
   include Spec::Support::Fixtures
 
   subject(:metadata) do
     described_class.new(native: native, registry: ::YARD::Registry)
   end
 
-  include_context 'with fixture files', 'modules/metadata'
+  include_context 'with fixture files', 'metadata'
 
   let(:fixture) { 'none.rb' }
   let(:native)  { YARD::Registry.find { |obj| obj.title == 'Space' } }

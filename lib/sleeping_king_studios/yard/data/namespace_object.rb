@@ -25,7 +25,7 @@ module SleepingKingStudios::Yard::Data
   #
   # @see SleepingKingStudios::Yard::Data::ClassObject
   # @see SleepingKingStudios::Yard::Data::ModuleObject
-  class NamespaceObject # rubocop:disable Metrics/ClassLength
+  class NamespaceObject < SleepingKingStudios::Yard::Data::Base
     JSON_PROPERTIES = %i[
       class_attributes
       class_methods
@@ -39,8 +39,7 @@ module SleepingKingStudios::Yard::Data
 
     # @param registry [Enumerable, #root] the YARD registry.
     def initialize(registry:)
-      @registry = registry
-      @native   = registry.root
+      super(native: registry.root, registry: registry)
     end
 
     # Generates a JSON-compatible representation of the namespace.
@@ -209,18 +208,6 @@ module SleepingKingStudios::Yard::Data
 
     private
 
-    attr_reader :native
-
-    attr_reader :registry
-
-    def empty?(value)
-      return true if value.nil?
-
-      return false unless value.respond_to?(:empty?)
-
-      value.empty?
-    end
-
     def format_attribute(name, methods)
       {
         'name'  => name.to_s,
@@ -241,14 +228,6 @@ module SleepingKingStudios::Yard::Data
         'name' => name,
         'slug' => slug
       }
-    end
-
-    def slugify(str)
-      tools.string_tools.underscore(str).tr('_', '-').tr(':', '-')
-    end
-
-    def tools
-      SleepingKingStudios::Tools::Toolbelt.instance
     end
   end
 end

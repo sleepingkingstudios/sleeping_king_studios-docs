@@ -16,7 +16,7 @@ module SleepingKingStudios::Yard::Data
   #
   # @see SleepingKingStudios::Yard::Data::ModuleObject.
   # @see SleepingKingStudios::Yard::Data::SeeTag.
-  class ModuleMetadata
+  class Metadata < SleepingKingStudios::Yard::Data::Base
     METADATA_PROPERTIES = %i[
       examples
       notes
@@ -24,13 +24,6 @@ module SleepingKingStudios::Yard::Data
       todos
     ].freeze
     private_constant :METADATA_PROPERTIES
-
-    # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(native:, registry:)
-      @native   = native
-      @registry = registry
-    end
 
     # Generates a JSON-compatible representation of the metadata.
     #
@@ -112,18 +105,6 @@ module SleepingKingStudios::Yard::Data
     end
 
     private
-
-    attr_reader :native
-
-    attr_reader :registry
-
-    def empty?(value)
-      return true if value.nil?
-
-      return false unless value.respond_to?(:empty?)
-
-      value.empty?
-    end
 
     def format_see_tag(tag)
       SleepingKingStudios::Yard::Data::SeeTag
