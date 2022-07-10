@@ -5,6 +5,8 @@ module Space
   class << self
     attr_reader :gravity
 
-    attr_accessor :curvature
+    attr_writer :secret_key
+
+    attr_accessor :sandbox_mode
   end
 end

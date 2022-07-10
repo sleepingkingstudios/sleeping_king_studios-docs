@@ -2,9 +2,11 @@
 
 require 'sleeping_king_studios/yard/data/base'
 
+require 'support/contracts/data/base_contract'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Yard::Data::Base do
+  include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
   subject(:constant_object) do
@@ -17,22 +19,5 @@ RSpec.describe SleepingKingStudios::Yard::Data::Base do
   let(:registry) { ::YARD::Registry }
   let(:native)   { registry.root }
 
-  describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:native, :registry)
-    end
-  end
-
-  describe '#native' do
-    include_examples 'should define private reader', :native, -> { native }
-  end
-
-  describe '#registry' do
-    include_examples 'should define private reader',
-      :registry,
-      -> { ::YARD::Registry }
-  end
+  include_contract 'should be a data object'
 end

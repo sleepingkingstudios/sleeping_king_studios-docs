@@ -14,6 +14,11 @@ module SleepingKingStudios::Yard::Data
       @registry = registry
     end
 
+    # Generates a JSON-compatible representation of the namespace.
+    def as_json
+      {}
+    end
+
     private
 
     attr_reader :native

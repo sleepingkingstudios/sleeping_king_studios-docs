@@ -2,9 +2,11 @@
 
 require 'sleeping_king_studios/yard/data/metadata'
 
+require 'support/contracts/data/base_contract'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
+  include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
   subject(:metadata) do
@@ -22,20 +24,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
       .as_json
   end
 
-  describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:native, :registry)
-    end
-  end
+  include_contract 'should be a data object'
 
   describe '#as_json' do
-    it { expect(metadata).to respond_to(:as_json).with(0).arguments }
-
-    it { expect(metadata.as_json).to be == {} }
-
     wrap_context 'using fixture', 'with examples' do
       let(:expected) { { 'examples' => metadata.examples } }
 
@@ -120,10 +111,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
     end
   end
 
-  describe '#native' do
-    include_examples 'should define private reader', :native, -> { native }
-  end
-
   describe '#notes' do
     include_examples 'should define reader', :notes, []
 
@@ -150,12 +137,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
 
       it { expect(metadata.notes).to be == expected }
     end
-  end
-
-  describe '#registry' do
-    include_examples 'should define private reader',
-      :registry,
-      -> { ::YARD::Registry }
   end
 
   describe '#see' do

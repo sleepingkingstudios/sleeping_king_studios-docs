@@ -32,7 +32,7 @@ module HigherDimensions; end
 
 # This module is out of this world.
 #
-# This module has a full description. It is comprised of a short description,
+# This object has a full description. It is comprised of a short description,
 # followed by a multiline explanation, a list, and an essay cliche.
 #
 # - This is a description item.
@@ -73,7 +73,9 @@ module Space
   class << self
     attr_reader :gravity
 
-    attr_accessor :curvature
+    attr_writer :secret_key
+
+    attr_accessor :sandbox_mode
 
     def calculate_isp(engine); end
 
