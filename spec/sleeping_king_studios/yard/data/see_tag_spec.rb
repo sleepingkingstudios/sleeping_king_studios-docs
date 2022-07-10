@@ -11,7 +11,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     described_class.new(native: native, registry: ::YARD::Registry)
   end
 
-  include_context 'with fixture files', 'modules/metadata/see'
+  include_context 'with fixture files', 'metadata/see'
 
   let(:fixture) { 'plain_text.rb' }
   let(:native) do

@@ -7,7 +7,7 @@ module SleepingKingStudios::Yard::Data
   #
   # Each module can define the following elements:
   #
-  # - Defined In File.
+  # - Defined In files.
   # - extend-ed modules.
   # - include-ed modules.
   # - Definitions (classes and modules).
@@ -20,7 +20,7 @@ module SleepingKingStudios::Yard::Data
   # Additionally, a module can have a description and metadata tags.
   #
   # @see SleepingKingStudios::Yard::Data::ClassObject
-  # @see SleepingKingStudios::Yard::Data::ModuleMetadata
+  # @see SleepingKingStudios::Yard::Data::Metadata
   # @see SleepingKingStudios::Yard::Data::NamespaceObject
   class ModuleObject < NamespaceObject
     JSON_PROPERTIES = %i[
@@ -133,9 +133,7 @@ module SleepingKingStudios::Yard::Data
 
     # Additional metadata tags from the documentation.
     #
-    # Metadata can include any of the following keys:
-    #
-    # - 'examples': @todo
+    # @see SleepingKingStudios::Yard::Data::Metadata.
     def metadata
       @metadata ||= format_metadata
     end
@@ -159,7 +157,7 @@ module SleepingKingStudios::Yard::Data
     private
 
     def format_metadata
-      SleepingKingStudios::Yard::Data::ModuleMetadata
+      SleepingKingStudios::Yard::Data::Metadata
         .new(native: native, registry: registry)
         .as_json
     end
@@ -176,7 +174,7 @@ module SleepingKingStudios::Yard::Data
 
       return native.docstring.to_s unless match
 
-      [match.pre_match, match.post_match]
+      [match.pre_match.to_s, match.post_match.to_s]
     end
   end
 end
