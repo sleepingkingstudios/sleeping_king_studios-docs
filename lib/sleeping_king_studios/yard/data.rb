@@ -19,5 +19,7 @@ module SleepingKingStudios::Yard
       'sleeping_king_studios/yard/data/namespace_object'
     autoload :SeeTag,
       'sleeping_king_studios/yard/data/see_tag'
+    autoload :Types,
+      'sleeping_king_studios/yard/data/types'
   end
 end
