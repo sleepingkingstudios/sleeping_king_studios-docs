@@ -13,6 +13,8 @@ module SleepingKingStudios::Yard
       'sleeping_king_studios/yard/data/constant_object'
     autoload :Metadata,
       'sleeping_king_studios/yard/data/metadata'
+    autoload :MethodObject,
+      'sleeping_king_studios/yard/data/method_object'
     autoload :ModuleObject,
       'sleeping_king_studios/yard/data/module_object'
     autoload :NamespaceObject,

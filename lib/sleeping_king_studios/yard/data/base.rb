@@ -14,7 +14,9 @@ module SleepingKingStudios::Yard::Data
       @registry = registry
     end
 
-    # Generates a JSON-compatible representation of the namespace.
+    # Generates a JSON-compatible representation of the object.
+    #
+    # @return [Hash] the JSON representation.
     def as_json
       {}
     end
