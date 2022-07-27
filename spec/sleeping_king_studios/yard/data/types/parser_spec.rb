@@ -3,9 +3,7 @@
 require 'sleeping_king_studios/yard/data/types/parser'
 
 RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
-  subject(:parser) { described_class.new(registry: registry) }
-
-  let(:registry) { ::YARD::Registry }
+  subject(:parser) { described_class.new }
 
   before(:context) { ::YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
 
@@ -18,37 +16,27 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
   end
 
   describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:registry)
-    end
+    it { expect(described_class).to be_constructible.with(0).arguments }
   end
 
   describe '#parse' do
     def array_type(items:, name:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
-        name:     name,
-        items:    items,
-        ordered:  ordered,
-        registry: registry
+        name:    name,
+        items:   items,
+        ordered: ordered
       )
     end
 
     def basic_type(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(
-        name:     name,
-        registry: registry
-      )
+      SleepingKingStudios::Yard::Data::Types::Type.new(name: name)
     end
 
     def hash_type(keys:, name:, values:)
       SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
-        keys:     keys,
-        name:     name,
-        registry: registry,
-        values:   values
+        keys:   keys,
+        name:   name,
+        values: values
       )
     end
 
@@ -480,11 +468,5 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
       it { expect(parser.parse(type)).to be == expected }
     end
-  end
-
-  describe '#registry' do
-    include_examples 'should define private reader',
-      :registry,
-      -> { ::YARD::Registry }
   end
 end

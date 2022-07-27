@@ -125,7 +125,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata
-        .new(native: native, registry: registry)
+        .new(native: native)
         .as_json
     end
 

@@ -9,15 +9,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::Base do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:constant_object) do
-    described_class.new(native: native, registry: registry)
-  end
+  subject(:constant_object) { described_class.new(native: native) }
 
   include_context 'with fixture files', 'modules'
 
-  let(:fixture)  { 'basic.rb' }
-  let(:registry) { ::YARD::Registry }
-  let(:native)   { registry.root }
+  let(:fixture) { 'basic.rb' }
+  let(:native)  { ::YARD::Registry.root }
 
   include_contract 'should be a data object'
 end

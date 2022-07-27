@@ -24,7 +24,7 @@ module Spec::Support::Contracts::Data
             expect(described_class)
               .to be_constructible
               .with(0).arguments
-              .and_keywords(:native, :registry)
+              .and_keywords(:native)
           end
         end
       end

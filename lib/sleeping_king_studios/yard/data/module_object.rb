@@ -34,10 +34,9 @@ module SleepingKingStudios::Yard::Data
     PARAGRAPH_BREAK = /\n{2,}/.freeze
     private_constant :PARAGRAPH_BREAK
 
-    # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(native:, registry:)
-      super(registry: registry)
+    # @param native [YARD::Tags::Tag] the YARD object representing the module.
+    def initialize(native:)
+      super()
 
       @native = native
     end
@@ -184,7 +183,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata
-        .new(native: native, registry: registry)
+        .new(native: native)
         .as_json
     end
 

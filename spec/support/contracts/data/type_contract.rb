@@ -29,8 +29,6 @@ module Spec::Support::Contracts::Data
         end
       end
 
-      let(:registry) { ::YARD::Registry }
-
       before(:context) { ::YARD::Registry.clear }
 
       after(:example) { ::YARD::Registry.clear }

@@ -10,7 +10,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:namespace) { described_class.new(registry: ::YARD::Registry) }
+  subject(:namespace) { described_class.new }
 
   include_context 'with fixture files', 'namespaces'
 
@@ -35,12 +35,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     expected_json:  expected_json
 
   describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:registry)
-    end
+    it { expect(described_class).to be_constructible.with(0).arguments }
   end
 
   describe '#as_json' do

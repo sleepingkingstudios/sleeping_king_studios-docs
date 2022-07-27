@@ -8,11 +8,10 @@ module SleepingKingStudios::Yard::Data::Types
     # @param items [Array<SleepingKingStudios::Yard::Data::Types::Type>] the
     #   child types.
     # @param name [String] the name of the type.
-    # @param registry [Enumerable] the YARD registry.
     # @param ordered [Boolean] if true, indicates the type represents an order-
     #   dependent list.
-    def initialize(items:, name:, registry:, ordered: false)
-      super(name: name, registry: registry)
+    def initialize(items:, name:, ordered: false)
+      super(name: name)
 
       @items   = items
       @ordered = ordered

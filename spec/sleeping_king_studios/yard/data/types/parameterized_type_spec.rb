@@ -9,9 +9,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
 
   subject(:type) do
     described_class.new(
-      items:    items,
-      name:     name,
-      registry: registry,
+      items: items,
+      name:  name,
       **constructor_options
     )
   end
@@ -20,11 +19,11 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
     let(:items) do
       [
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: 'String', registry: registry),
+          .new(name: 'String'),
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: '#to_s', registry: registry),
+          .new(name: '#to_s'),
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: 'nil', registry: registry)
+          .new(name: 'nil')
       ]
     end
   end
@@ -33,14 +32,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
     let(:items) do
       [
         described_class.new(
-          items:    [
+          items: [
             SleepingKingStudios::Yard::Data::Types::Type.new(
-              name:     'ScienceExperiment',
-              registry: registry
+              name: 'ScienceExperiment'
             )
           ],
-          name:     'Payload',
-          registry: registry
+          name:  'Payload'
         )
       ]
     end
@@ -55,7 +52,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
       expect(described_class)
         .to be_constructible
         .with(0).arguments
-        .and_keywords(:items, :name, :ordered, :registry)
+        .and_keywords(:items, :name, :ordered)
     end
   end
 

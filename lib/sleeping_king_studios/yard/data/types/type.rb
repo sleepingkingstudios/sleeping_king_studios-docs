@@ -4,16 +4,14 @@ require 'sleeping_king_studios/yard/data/types'
 
 module SleepingKingStudios::Yard::Data::Types
   # Base class for a YARD type.
-  class Type < SleepingKingStudios::Yard::Data::Base
+  class Type
     LOWERCASE_LETTER = /\A[[:lower:]]/.freeze
     private_constant :LOWERCASE_LETTER
 
     # @param name [String] the name of the type.
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(name:, registry:)
-      super(native: registry.root, registry: registry)
-
-      @name = name
+    def initialize(name:)
+      @name     = name
+      @registry = ::YARD::Registry
     end
 
     # @return [String] the name of the type.
@@ -83,8 +81,18 @@ module SleepingKingStudios::Yard::Data::Types
 
     private
 
+    attr_reader :registry
+
     def inspect_attributes
       "@name=#{name.inspect}"
+    end
+
+    def slugify(str)
+      tools.string_tools.underscore(str).tr('_', '-')
+    end
+
+    def tools
+      SleepingKingStudios::Tools::Toolbelt.instance
     end
   end
 end

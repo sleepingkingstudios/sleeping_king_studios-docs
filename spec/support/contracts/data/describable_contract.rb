@@ -132,7 +132,7 @@ module Spec::Support::Contracts::Data
 
         def format_see_tag(tag)
           SleepingKingStudios::Yard::Data::SeeTag
-            .new(native: tag, registry: ::YARD::Registry)
+            .new(native: tag)
             .as_json
         end
 

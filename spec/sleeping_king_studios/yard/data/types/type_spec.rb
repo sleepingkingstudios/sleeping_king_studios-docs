@@ -7,7 +7,7 @@ require 'support/contracts/data/type_contract'
 RSpec.describe SleepingKingStudios::Yard::Data::Types::Type do
   include Spec::Support::Contracts::Data
 
-  subject(:type) { described_class.new(name: name, registry: registry) }
+  subject(:type) { described_class.new(name: name) }
 
   let(:name) { 'Rocket' }
 
@@ -16,7 +16,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Type do
       expect(described_class)
         .to be_constructible
         .with(0).arguments
-        .and_keywords(:name, :registry)
+        .and_keywords(:name)
     end
   end
 
