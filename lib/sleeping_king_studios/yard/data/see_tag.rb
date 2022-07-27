@@ -126,44 +126,28 @@ module SleepingKingStudios::Yard::Data
       reference.match?(CLASS_METHOD_PATTERN)
     end
 
-    def class_method_exists?(ref_name = nil)
-      ref_name ||= reference
-
-      # Handle top-level class methods.
-      return top_level_class_method_exists? if ref_name.start_with?('.')
-
-      # Handle legacy ::class_method format.
-      return legacy_class_method_exists? unless ref_name.include?('.')
-
-      registry.any? do |obj|
-        obj.type == :method && obj.scope == :class && obj.title == ref_name
-      end
+    def class_method_type
+      registry_query.class_method_exists?(reference) ? :class_method : nil
     end
 
     def constant?
       reference.match?(CONSTANT_PATTERN)
     end
 
-    def constant_exists?
-      registry.any? { |obj| obj.type == :constant && obj.title == reference }
+    def constant_type
+      registry_query.constant_exists?(reference) ? :constant : nil
     end
 
-    def definition_exists?
-      registry.any? do |obj|
-        (obj.type == :module || obj.type == :class) && obj.title == reference
-      end
+    def definition_type
+      registry_query.definition_exists?(reference) ? :definition : nil
     end
 
-    def find_reference_type # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      if class_method?
-        class_method_exists? ? :class_method : nil
-      elsif constant?
-        constant_exists? ? :constant : nil
-      elsif instance_method?
-        instance_method_exists? ? :instance_method : nil
-      elsif definition_exists?
-        :definition
-      end
+    def find_reference_type
+      return class_method_type    if class_method?
+      return constant_type        if constant?
+      return instance_method_type if instance_method?
+
+      definition_type
     end
 
     def format_definition
@@ -198,18 +182,8 @@ module SleepingKingStudios::Yard::Data
       reference.match?(INSTANCE_METHOD_PATTERN)
     end
 
-    def instance_method_exists?
-      registry.any? do |obj|
-        obj.type == :method && obj.scope == :instance && obj.title == reference
-      end
-    end
-
-    def legacy_class_method_exists?
-      ref_name ||= reference.reverse.sub('::', '.').reverse
-
-      registry.any? do |obj|
-        obj.type == :method && obj.scope == :class && obj.title == ref_name
-      end
+    def instance_method_type
+      registry_query.instance_method_exists?(reference) ? :instance_method : nil
     end
 
     def match_reference
@@ -234,6 +208,11 @@ module SleepingKingStudios::Yard::Data
       @reference_value ||= reference.split(separator).last
     end
 
+    def registry_query
+      @registry_query ||=
+        SleepingKingStudios::Yard::RegistryQuery.new(registry: registry)
+    end
+
     def separator
       SEPARATORS[reference_type]
     end
@@ -242,14 +221,6 @@ module SleepingKingStudios::Yard::Data
       return str unless str.end_with?('.')
 
       str[0...-1]
-    end
-
-    def top_level_class_method_exists?
-      ref_name ||= "::#{reference[1..]}"
-
-      registry.any? do |obj|
-        obj.type == :method && obj.scope == :class && obj.title == ref_name
-      end
     end
   end
 end

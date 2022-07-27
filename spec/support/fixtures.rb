@@ -17,8 +17,10 @@ module Spec::Support
     end
 
     shared_context 'with fixture files' do |directory|
+      let(:fixture_directory) { directory }
+
       around(:example) do |example|
-        filename = File.join('spec/fixtures', directory, fixture)
+        filename = File.join('spec/fixtures', fixture_directory, fixture)
 
         raise "Fixture not found at #{filename}" unless File.exist?(filename)
 

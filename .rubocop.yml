@@ -64,6 +64,9 @@ RSpec/HookArgument:
 RSpec/MultipleMemoizedHelpers:
   Max: 10
 
+RSpec/NestedGroups:
+  Max: 5
+
 Style/AccessorGrouping:
   Enabled: false
 
