@@ -9,9 +9,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:metadata) do
-    described_class.new(native: native, registry: ::YARD::Registry)
-  end
+  subject(:metadata) { described_class.new(native: native) }
 
   include_context 'with fixture files', 'metadata'
 
@@ -20,7 +18,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
 
   def format_see_tag(tag)
     SleepingKingStudios::Yard::Data::SeeTag
-      .new(native: tag, registry: ::YARD::Registry)
+      .new(native: tag)
       .as_json
   end
 

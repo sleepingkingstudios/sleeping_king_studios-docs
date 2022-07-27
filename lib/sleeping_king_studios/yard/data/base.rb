@@ -8,10 +8,9 @@ module SleepingKingStudios::Yard::Data
   # @abstract
   class Base
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(native:, registry:)
+    def initialize(native:)
       @native   = native
-      @registry = registry
+      @registry = ::YARD::Registry
     end
 
     # Generates a JSON-compatible representation of the object.

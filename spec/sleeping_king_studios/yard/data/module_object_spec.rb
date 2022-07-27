@@ -11,16 +11,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:module_object) do
-    described_class.new(native: native, registry: registry)
-  end
+  subject(:module_object) { described_class.new(native: native) }
 
   include_context 'with fixture files', 'modules'
 
   let(:fixture)      { 'basic.rb' }
   let(:fixture_name) { 'Space' }
-  let(:registry)     { ::YARD::Registry }
-  let(:native)       { registry.find { |obj| obj.title == fixture_name } }
+  let(:native) do
+    ::YARD::Registry.find { |obj| obj.title == fixture_name }
+  end
 
   def self.expected_json
     lambda do

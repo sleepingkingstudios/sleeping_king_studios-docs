@@ -285,7 +285,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata
-        .new(native: native, registry: registry)
+        .new(native: native)
         .as_json
     end
 
@@ -299,7 +299,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_overload(tag)
-      self.class.new(native: tag, registry: registry).as_json
+      self.class.new(native: tag).as_json
     end
 
     def format_param(tag)
@@ -388,8 +388,7 @@ module SleepingKingStudios::Yard::Data
 
     def type_parser
       @type_parser ||=
-        SleepingKingStudios::Yard::Data::Types::Parser
-        .new(registry: registry)
+        SleepingKingStudios::Yard::Data::Types::Parser.new
     end
   end
 end

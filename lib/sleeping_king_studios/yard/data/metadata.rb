@@ -108,7 +108,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_see_tag(tag)
       SleepingKingStudios::Yard::Data::SeeTag
-        .new(native: tag, registry: registry)
+        .new(native: tag)
         .as_json
     end
   end

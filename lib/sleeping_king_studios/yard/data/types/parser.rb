@@ -24,11 +24,6 @@ module SleepingKingStudios::Yard::Data::Types
     # Exception raised when encountering an invalid type string.
     class ParseError < StandardError; end
 
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(registry:)
-      @registry = registry
-    end
-
     # Parses a YARD type list.
     #
     # @return [Array<[SleepingKingStudios::Yard::Data::Types::Type]>] the parsed
@@ -40,8 +35,6 @@ module SleepingKingStudios::Yard::Data::Types
     end
 
     private
-
-    attr_reader :registry
 
     def append_item(stack:, token:)
       *stack, parent, context = stack
@@ -56,26 +49,21 @@ module SleepingKingStudios::Yard::Data::Types
 
     def build_array(name:, values:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
-        items:    values,
-        name:     name,
-        ordered:  ordered,
-        registry: registry
+        items:   values,
+        name:    name,
+        ordered: ordered
       )
     end
 
     def build_basic(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(
-        name:     name,
-        registry: registry
-      )
+      SleepingKingStudios::Yard::Data::Types::Type.new(name: name)
     end
 
     def build_hash(name:, keys:, values:)
       SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
-        keys:     keys,
-        name:     name,
-        registry: registry,
-        values:   values
+        keys:   keys,
+        name:   name,
+        values: values
       )
     end
 

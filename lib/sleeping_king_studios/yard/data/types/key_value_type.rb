@@ -8,11 +8,10 @@ module SleepingKingStudios::Yard::Data::Types
     # @param keys [Array<SleepingKingStudios::Yard::Data::Types::Type>] the key
     #   types.
     # @param name [String] the name of the type.
-    # @param registry [Enumerable] the YARD registry.
     # @param values [Array<SleepingKingStudios::Yard::Data::Types::Type>] the
     #   value types.
-    def initialize(keys:, name:, registry:, values:)
-      super(name: name, registry: registry)
+    def initialize(keys:, name:, values:)
+      super(name: name)
 
       @keys   = keys
       @values = values

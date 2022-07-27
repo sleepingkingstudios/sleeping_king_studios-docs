@@ -37,8 +37,7 @@ module SleepingKingStudios::Yard::Data
     private_constant :UNDEFINED
 
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(native:, registry:)
+    def initialize(native:)
       super
 
       @reference_type = UNDEFINED

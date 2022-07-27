@@ -9,10 +9,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
 
   subject(:type) do
     described_class.new(
-      keys:     keys,
-      name:     name,
-      registry: registry,
-      values:   values
+      keys:   keys,
+      name:   name,
+      values: values
     )
   end
 
@@ -20,9 +19,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
     let(:keys) do
       [
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: 'String', registry: registry),
+          .new(name: 'String'),
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: 'Symbol', registry: registry)
+          .new(name: 'Symbol')
       ]
     end
   end
@@ -31,9 +30,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
     let(:values) do
       [
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: 'Part', registry: registry),
+          .new(name: 'Part'),
         SleepingKingStudios::Yard::Data::Types::Type
-          .new(name: 'Payload', registry: registry)
+          .new(name: 'Payload')
       ]
     end
   end
@@ -52,7 +51,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
       expect(described_class)
         .to be_constructible
         .with(0).arguments
-        .and_keywords(:keys, :name, :registry, :values)
+        .and_keywords(:keys, :name, :values)
     end
   end
 

@@ -10,16 +10,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:method_object) do
-    described_class.new(native: native, registry: registry)
-  end
+  subject(:method_object) { described_class.new(native: native) }
 
   include_context 'with fixture files', 'methods'
 
   let(:fixture)      { 'basic.rb' }
   let(:fixture_name) { '#launch' }
-  let(:registry)     { ::YARD::Registry }
-  let(:native)       { registry.find { |obj| obj.title == fixture_name } }
+  let(:native) do
+    ::YARD::Registry.find { |obj| obj.title == fixture_name }
+  end
 
   def self.expected_json
     lambda do
@@ -37,7 +36,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
 
   def parse_type(type)
     SleepingKingStudios::Yard::Data::Types::Parser
-      .new(registry: registry)
+      .new
       .parse(type)
       .map(&:as_json)
   end

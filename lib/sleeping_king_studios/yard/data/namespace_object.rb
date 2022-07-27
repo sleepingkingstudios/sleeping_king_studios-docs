@@ -37,9 +37,8 @@ module SleepingKingStudios::Yard::Data
     ].freeze
     private_constant :JSON_PROPERTIES
 
-    # @param registry [Enumerable, #root] the YARD registry.
-    def initialize(registry:)
-      super(native: registry.root, registry: registry)
+    def initialize
+      super(native: YARD::Registry.root)
     end
 
     # Generates a JSON-compatible representation of the namespace.
