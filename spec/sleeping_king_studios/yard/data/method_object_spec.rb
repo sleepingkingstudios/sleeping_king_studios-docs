@@ -23,11 +23,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
 
   def self.expected_json
     lambda do
-      {
+      json = {
         'name'      => method_object.name,
         'slug'      => method_object.slug,
         'signature' => method_object.signature
       }
+
+      next json if method_object.short_description.empty?
+
+      json.merge('short_description' => method_object.short_description)
     end
   end
 
@@ -58,6 +62,18 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
           'params'  => method_object.params
         )
       end
+
+      it { expect(method_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'overloads/with overload' do
+      let(:expected) { super().merge('overloads' => method_object.overloads) }
+
+      it { expect(method_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'overloads/with multiple overloads' do
+      let(:expected) { super().merge('overloads' => method_object.overloads) }
 
       it { expect(method_object.as_json).to be == expected }
     end
@@ -124,6 +140,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
           'description'   => method_object.description,
           'metadata'      => method_object.metadata,
           'options'       => method_object.options,
+          'overloads'     => method_object.overloads,
           'params'        => method_object.params,
           'raises'        => method_object.raises,
           'returns'       => method_object.returns,
@@ -184,6 +201,116 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       end
 
       it { expect(method_object.options).to be == expected }
+    end
+  end
+
+  describe '#overloads' do
+    include_examples 'should define reader', :overloads, []
+
+    wrap_context 'using fixture', 'with overload' do
+      let(:fixture_directory) { 'methods/overloads' }
+      let(:expected) do
+        [
+          {
+            'name'              => '#launch',
+            'short_description' => "Don't forget to point the correct end " \
+                                   'toward space.',
+            'signature'         => 'launch(rocket, **options)',
+            'slug'              => '#launch'
+          }
+        ]
+      end
+
+      it { expect(method_object.overloads).to deep_match expected }
+    end
+
+    wrap_context 'using fixture', 'with overload with signature' do
+      let(:fixture_directory) { 'methods/overloads' }
+      let(:expected) do
+        [
+          {
+            'name'              => '#launch',
+            'params'            => [
+              {
+                'description' => 'the rocket to launch.',
+                'name'        => 'rocket',
+                'type'        => parse_type('Rocket')
+              },
+              {
+                'description' => 'if true, will attempt to recover the ' \
+                                 "rocket after\na successful launch.",
+                'name'        => 'recovery',
+                'type'        => parse_type('Boolean')
+              }
+            ],
+            'short_description' => "Don't forget to point the correct end " \
+                                   'toward space.',
+            'signature'         => 'launch(rocket, recovery:)',
+            'slug'              => '#launch'
+          }
+        ]
+      end
+
+      it { expect(method_object.overloads).to deep_match expected }
+    end
+
+    wrap_context 'using fixture', 'with overload with tags' do
+      let(:fixture_directory) { 'methods/overloads' }
+      let(:expected) do
+        [
+          {
+            'name'              => '#launch',
+            'params'            => [
+              {
+                'description' => 'the rocket to launch.',
+                'name'        => 'rocket',
+                'type'        => parse_type('Rocket')
+              },
+              {
+                'description' => 'additional options for the launch.',
+                'name'        => 'options',
+                'type'        => parse_type('Hash')
+              }
+            ],
+            'short_description' => "Don't forget to point the correct end " \
+                                   'toward space.',
+            'signature'         => 'launch(rocket, **options)',
+            'slug'              => '#launch'
+          }
+        ]
+      end
+
+      it { expect(method_object.overloads).to deep_match expected }
+    end
+
+    wrap_context 'using fixture', 'with multiple overloads' do
+      let(:fixture_directory) { 'methods/overloads' }
+      let(:expected) do
+        [
+          {
+            'name'              => '#launch',
+            'short_description' => "Don't forget to point the correct end " \
+                                   'toward space.',
+            'signature'         => 'launch(rocket)',
+            'slug'              => '#launch'
+          },
+          {
+            'name'              => '#launch',
+            'returns'           => [
+              {
+                'description' => 'the repair bill for the launch pad.',
+                'type'        => parse_type('BigDecimal')
+              }
+            ],
+            'short_description' => 'If not, you will not be going to space ' \
+                                   'today after all.',
+            'signature'         => 'launch(rocket, **options)',
+            'slug'              => '#launch'
+          }
+        ]
+      end
+
+      it { expect(method_object.overloads).to deep_match expected }
     end
   end
 

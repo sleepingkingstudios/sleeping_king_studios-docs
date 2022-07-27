@@ -20,9 +20,11 @@ module SleepingKingStudios::Yard::Data
       description
       metadata
       options
+      overloads
       params
       raises
       returns
+      short_description
       yield_params
       yield_returns
       yields
@@ -141,6 +143,20 @@ module SleepingKingStudios::Yard::Data
         .tags
         .select { |tag| tag.tag_name == 'option' }
         .map { |tag| format_option(tag) }
+    end
+
+    # The documented overloads for the method.
+    #
+    # Each overload is a JSON representation of a method, and includes the same
+    # tags and properties (with the exception that an overload cannot itself
+    # have overloads).
+    #
+    # @see #as_json
+    def overloads
+      native
+        .tags
+        .select { |tag| tag.tag_name == 'overload' }
+        .map { |tag| format_overload(tag) }
     end
 
     # The documented parameters of the method.
@@ -280,6 +296,10 @@ module SleepingKingStudios::Yard::Data
         'tag_name'    => tag.pair.name,
         'type'        => parse_types(tag.pair)
       }
+    end
+
+    def format_overload(tag)
+      self.class.new(native: tag, registry: registry).as_json
     end
 
     def format_param(tag)
