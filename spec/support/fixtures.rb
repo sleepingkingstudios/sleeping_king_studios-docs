@@ -29,6 +29,8 @@ module Spec::Support
         example.call
       ensure
         ::YARD::Registry.clear
+
+        SleepingKingStudios::Yard::Registry.clear
       end
     end
   end

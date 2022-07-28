@@ -12,6 +12,7 @@ module SleepingKingStudios
     end
 
     autoload :Data,          'sleeping_king_studios/yard/data'
+    autoload :Registry,      'sleeping_king_studios/yard/registry'
     autoload :RegistryQuery, 'sleeping_king_studios/yard/registry_query'
   end
 end

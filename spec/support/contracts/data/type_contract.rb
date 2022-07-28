@@ -29,9 +29,17 @@ module Spec::Support::Contracts::Data
         end
       end
 
-      before(:context) { ::YARD::Registry.clear }
+      before(:context) do
+        ::YARD::Registry.clear
 
-      after(:example) { ::YARD::Registry.clear }
+        SleepingKingStudios::Yard::Registry.clear
+      end
+
+      after(:example) do
+        ::YARD::Registry.clear
+
+        SleepingKingStudios::Yard::Registry.clear
+      end
 
       describe '#==' do
         def type_double(mock_class, json)
@@ -323,7 +331,21 @@ module Spec::Support::Contracts::Data
       describe '#registry' do
         include_examples 'should define private reader',
           :registry,
-          -> { ::YARD::Registry }
+          -> { be == [::YARD::Registry.root, *::YARD::Registry.to_a] }
+
+        context 'with a mocked registry' do
+          let(:mock_registry) do
+            [::YARD::Registry.root]
+          end
+
+          before(:example) do
+            allow(SleepingKingStudios::Yard::Registry)
+              .to receive(:instance)
+              .and_return(mock_registry)
+          end
+
+          it { expect(subject.send(:registry)).to be == mock_registry }
+        end
       end
     end
   end
