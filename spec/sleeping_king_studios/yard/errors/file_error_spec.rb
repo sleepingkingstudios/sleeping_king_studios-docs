@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/errors/invalid_path'
+require 'sleeping_king_studios/yard/errors/file_error'
 
-RSpec.describe SleepingKingStudios::Yard::Errors::InvalidPath do
-  subject(:error) do
-    described_class.new(path: path, **constructor_options)
-  end
+RSpec.describe SleepingKingStudios::Yard::Errors::FileError do
+  subject(:error) { described_class.new(message: message, path: path) }
 
-  let(:path)                { 'path/to/files' }
-  let(:constructor_options) { {} }
+  let(:message) { 'something went wrong' }
+  let(:path)    { 'path/to/files' }
 
   describe '::TYPE' do
     include_examples 'should define immutable constant',
       :TYPE,
-      'sleeping_king_studios.yard.errors.invalid_path'
+      'sleeping_king_studios.yard.errors.file_error'
   end
 
   describe '.new' do
@@ -38,17 +36,7 @@ RSpec.describe SleepingKingStudios::Yard::Errors::InvalidPath do
   end
 
   describe '#message' do
-    let(:expected) { "invalid file or directory path #{path.inspect}" }
-
-    include_examples 'should define reader', :message, -> { be == expected }
-
-    context 'when initialized with a message' do
-      let(:message)             { 'something went wrong' }
-      let(:constructor_options) { super().merge(message: message) }
-      let(:expected)            { "#{super()} - #{message}" }
-
-      it { expect(error.message).to be == expected }
-    end
+    include_examples 'should define reader', :message, -> { message }
   end
 
   describe '#path' do

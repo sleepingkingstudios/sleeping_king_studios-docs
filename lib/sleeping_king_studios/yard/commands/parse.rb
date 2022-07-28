@@ -24,8 +24,8 @@ module SleepingKingStudios::Yard::Commands
 
     private
 
-    def invalid_path_error(path)
-      SleepingKingStudios::Yard::Errors::InvalidPath.new(path: path)
+    def file_not_found_error(path)
+      SleepingKingStudios::Yard::Errors::FileNotFound.new(path: path)
     end
 
     def process(path = nil)
@@ -45,7 +45,7 @@ module SleepingKingStudios::Yard::Commands
     def validate_file_path(path)
       return if File.exist?(path)
 
-      failure(invalid_path_error(path))
+      failure(file_not_found_error(path))
     end
   end
 end
