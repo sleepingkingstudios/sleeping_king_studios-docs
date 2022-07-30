@@ -5,7 +5,7 @@ require 'rspec/sleeping_king_studios/contract'
 require 'support/contracts/data'
 
 module Spec::Support::Contracts::Data
-  class ShouldImplementTheNamespaceMethods # rubocop:disable Metrics/ClassLength
+  class ShouldImplementTheNamespaceMethods
     extend RSpec::SleepingKingStudios::Contract
 
     # @!method apply(example_group)

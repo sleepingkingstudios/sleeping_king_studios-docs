@@ -52,6 +52,10 @@ Lint/EmptyClass:
   Exclude:
     - spec/fixtures/**/*
 
+Metrics/ClassLength:
+  Exclude:
+    - spec/support/contracts/**/*.rb
+
 Naming/RescuedExceptionsVariableName:
   PreferredName: exception
 

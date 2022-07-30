@@ -5,7 +5,7 @@ require 'rspec/sleeping_king_studios/contract'
 require 'support/contracts/data'
 
 module Spec::Support::Contracts::Data
-  class ShouldBeATypeObject # rubocop:disable Metrics/ClassLength
+  class ShouldBeATypeObject
     extend RSpec::SleepingKingStudios::Contract
 
     # @!method apply(example_group)

@@ -12,6 +12,19 @@ module SleepingKingStudios::Yard::Commands
   class WriteFile < Cuprum::Command
     include Cuprum::ExceptionHandling
 
+    # @!method call(contents:, file_path:)
+    #   Writes the given contents to the specified file.
+    #
+    #   Recursively generates the required directories, if needed.
+    #
+    #   @param contents [String] the contents to write.
+    #   @param file_path [String] the path of the file.
+    #
+    #   @return [Cuprum::Result] a passing result if the directories are
+    #     successfully created and the file is successfully written.
+    #   @return [Cuprum::Result<Cuprum::Error>] a failing result if the command
+    #     was unable to create the directories or write the file.
+
     # @param force [Boolean] if true, overwrites an existing file.
     def initialize(force: false)
       super()
