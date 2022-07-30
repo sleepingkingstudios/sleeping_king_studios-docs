@@ -25,7 +25,7 @@ module SleepingKingStudios::Yard::Data
   #
   # @see SleepingKingStudios::Yard::Data::ClassObject
   # @see SleepingKingStudios::Yard::Data::ModuleObject
-  class NamespaceObject < SleepingKingStudios::Yard::Data::Base
+  class NamespaceObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
       class_attributes
       class_methods
@@ -38,7 +38,12 @@ module SleepingKingStudios::Yard::Data
     private_constant :JSON_PROPERTIES
 
     def initialize
-      super(native: YARD::Registry.root)
+      root =
+        SleepingKingStudios::Yard::Registry
+        .instance
+        .find { |obj| obj.name == :root }
+
+      super(native: root)
     end
 
     # Generates a JSON-compatible representation of the namespace.

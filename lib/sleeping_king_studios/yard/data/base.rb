@@ -10,7 +10,7 @@ module SleepingKingStudios::Yard::Data
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
     def initialize(native:)
       @native   = native
-      @registry = ::YARD::Registry
+      @registry = SleepingKingStudios::Yard::Registry.instance
     end
 
     # Generates a JSON-compatible representation of the object.

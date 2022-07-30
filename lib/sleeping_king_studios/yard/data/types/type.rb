@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::Types
     # @param name [String] the name of the type.
     def initialize(name:)
       @name     = name
-      @registry = ::YARD::Registry
+      @registry = SleepingKingStudios::Yard::Registry.instance
     end
 
     # @return [String] the name of the type.

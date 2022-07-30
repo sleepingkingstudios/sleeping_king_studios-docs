@@ -64,6 +64,10 @@ RSpec/HookArgument:
 RSpec/MultipleMemoizedHelpers:
   Max: 10
 
+RSpec/NamedSubject:
+  Exclude:
+    - spec/support/contracts/**/*.rb
+
 RSpec/NestedGroups:
   Max: 5
 
