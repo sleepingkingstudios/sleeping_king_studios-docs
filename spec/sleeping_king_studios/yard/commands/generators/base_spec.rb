@@ -27,4 +27,75 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::Base do
         .with_error(expected_error)
     end
   end
+
+  describe '#puts' do
+    let(:string)   { 'Greetings, starfighter!' }
+    let(:expected) { "Greetings, starfighter!\n" }
+
+    it { expect(command).to respond_to(:puts).with(1).argument }
+
+    it 'should write the string to STDOUT' do
+      expect { command.puts(string) }
+        .to output(expected)
+        .to_stdout
+    end
+
+    context 'when initialized with a custom output stream' do
+      let(:output_stream) { StringIO.new }
+      let(:options)       { super().merge(output_stream: output_stream) }
+
+      it 'should write the string to the stream' do
+        expect { command.puts(string) }
+          .to change(output_stream, :string)
+          .to be == expected
+      end
+    end
+  end
+
+  describe '#print' do
+    let(:string) { '> ' }
+
+    it { expect(command).to respond_to(:print).with(1).argument }
+
+    it 'should write the string to STDOUT' do
+      expect { command.print(string) }
+        .to output(string)
+        .to_stdout
+    end
+
+    context 'when initialized with a custom output stream' do
+      let(:output_stream) { StringIO.new }
+      let(:options)       { super().merge(output_stream: output_stream) }
+
+      it 'should write the string to the stream' do
+        expect { command.print(string) }
+          .to change(output_stream, :string)
+          .to be == string
+      end
+    end
+  end
+
+  describe '#warn' do
+    let(:string)   { 'End of line.' }
+    let(:expected) { "End of line.\n" }
+
+    it { expect(command).to respond_to(:warn).with(1).argument }
+
+    it 'should write the string to STDERR' do
+      expect { command.warn(string) }
+        .to output(expected)
+        .to_stderr
+    end
+
+    context 'when initialized with a custom error stream' do
+      let(:error_stream) { StringIO.new }
+      let(:options)      { super().merge(error_stream: error_stream) }
+
+      it 'should write the string to the stream' do
+        expect { command.warn(string) }
+          .to change(error_stream, :string)
+          .to be == expected
+      end
+    end
+  end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sleeping_king_studios/tools/toolbelt'
+
 require 'sleeping_king_studios/yard/data'
 
 module SleepingKingStudios::Yard::Data
@@ -7,7 +9,8 @@ module SleepingKingStudios::Yard::Data
   #
   # @abstract
   class Base
-    # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
+    # @param native [YARD::Tags::Tag] the YARD object representing the
+    #   documented object.
     def initialize(native:)
       @native   = native
       @registry = SleepingKingStudios::Yard::Registry.instance

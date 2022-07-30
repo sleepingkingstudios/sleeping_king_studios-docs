@@ -69,7 +69,7 @@ RSpec/HookArgument:
   EnforcedStyle: example
 
 RSpec/MultipleMemoizedHelpers:
-  Max: 10
+  Enabled: false
 
 RSpec/NamedSubject:
   Exclude:

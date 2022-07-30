@@ -49,7 +49,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     complex_name:  '#retrograde_launch',
     scoped_name:   'Wonders::FutureEra#use_space_elevator',
     description:   'You are going to space today.',
-    expected_json: expected_json
+    expected_json: expected_json,
+    data_path:     false
 
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }
@@ -150,6 +151,44 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       end
 
       it { expect(method_object.as_json).to be == expected }
+    end
+  end
+
+  describe '#class_method?' do
+    include_examples 'should define predicate', :class_method?, false
+
+    wrap_context 'using fixture', 'with class method' do
+      let(:fixture_name) { '::launch' }
+
+      it { expect(method_object.class_method?).to be true }
+    end
+  end
+
+  describe '#data_path' do
+    include_examples 'should define reader', :data_path, -> { 'i-launch' }
+
+    wrap_context 'using fixture', 'with complex name' do
+      let(:fixture_name) { '#retrograde_launch' }
+      let(:expected)     { 'i-retrograde-launch' }
+
+      it { expect(method_object.data_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped name' do
+      let(:fixture_name) { 'Wonders::FutureEra#use_space_elevator' }
+      let(:expected)     { 'wonders/future-era/i-use-space-elevator' }
+
+      it { expect(method_object.data_path).to be == expected }
+    end
+  end
+
+  describe '#instance_method?' do
+    include_examples 'should define predicate', :instance_method?, true
+
+    wrap_context 'using fixture', 'with class method' do
+      let(:fixture_name) { '::launch' }
+
+      it { expect(method_object.instance_method?).to be false }
     end
   end
 

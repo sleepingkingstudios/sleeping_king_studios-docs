@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'stringio'
+
 require 'rspec/sleeping_king_studios/contract'
 
 require 'support/contracts/commands'
