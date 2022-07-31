@@ -9,7 +9,7 @@ module SleepingKingStudios::Yard::Commands
       'sleeping_king_studios/yard/commands/generators/base'
     autoload :DataGenerator,
       'sleeping_king_studios/yard/commands/generators/data_generator'
-    autoload :ModuleGenerator,
-      'sleeping_king_studios/yard/commands/generators/module_generator'
+    autoload :ReferenceGenerator,
+      'sleeping_king_studios/yard/commands/generators/reference_generator'
   end
 end

@@ -2,23 +2,33 @@
 
 require 'stringio'
 
-require 'sleeping_king_studios/yard/commands/generators/module_generator'
+require 'sleeping_king_studios/yard/commands/generators/reference_generator'
 
 require 'support/contracts/commands/generator_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator do # rubocop:disable Layout/LineLength
+RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator do # rubocop:disable Layout/LineLength
   include Spec::Support::Contracts::Commands
 
-  subject(:command) { described_class.new(docs_path: docs_path, **options) }
+  subject(:command) do
+    described_class.new(
+      docs_path:       docs_path,
+      reference_class: reference_class,
+      reference_type:  reference_type,
+      **options
+    )
+  end
 
-  let(:docs_path)     { 'path/to/docs' }
-  let(:output_stream) { StringIO.new }
-  let(:error_stream)  { StringIO.new }
+  let(:reference_class) { SleepingKingStudios::Yard::Data::ClassObject }
+  let(:reference_type)  { :class }
+  let(:docs_path)       { 'path/to/docs' }
+  let(:output_stream)   { StringIO.new }
+  let(:error_stream)    { StringIO.new }
   let(:options) do
     { error_stream: error_stream, output_stream: output_stream }
   end
 
-  include_contract 'should be a generator command'
+  include_contract 'should be a generator command',
+    constructor_keywords: %i[reference_class reference_type]
 
   describe '#call' do
     let(:write_command) do
@@ -27,41 +37,36 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
         call: Cuprum::Result.new(status: :success)
       )
     end
-    let(:registry)  { parse_registry }
-    let(:native)    { registry.find { |obj| obj.name == :Space } }
-    let(:refs_path) { "#{docs_path}/reference" }
-    let(:file_path) { "#{refs_path}/space.md" }
-    let(:data_path) { "#{docs_path}/_modules" }
-    let(:yaml_path) { "#{data_path}/space.yml" }
+    let(:registry)         { parse_registry }
+    let(:native)           { registry.find { |obj| obj.name == :Rocketry } }
+    let(:reference_object) { reference_class.new(native: native) }
+    let(:reference_path)   { "#{docs_path}/reference" }
+    let(:file_path) do
+      "#{reference_path}/#{reference_object.data_path}.md"
+    end
     let(:file_data) do
       <<~MARKDOWN
         ---
-        data_path: "space"
+        data_path: "#{reference_object.data_path}"
         version: "*"
         ---
 
-        {% include templates/reference/module.md %}
+        {% include templates/reference/#{reference_type}.md %}
       MARKDOWN
-    end
-    let(:yaml_data) do
-      <<~YAML
-        ---
-        name: Space
-        slug: space
-        files:
-        - spec/fixtures/modules/basic.rb
-        short_description: This module is out of this world.
-        data_path: space
-        version: "*"
-      YAML
     end
 
     def parse_registry
       ::YARD::Registry.clear
 
-      ::YARD.parse('spec/fixtures/modules/basic.rb')
+      ::YARD.parse(
+        "spec/fixtures/#{tools.str.pluralize(reference_type.to_s)}/basic.rb"
+      )
 
       [::YARD::Registry.root, *::YARD::Registry.to_a]
+    end
+
+    def tools
+      SleepingKingStudios::Tools::Toolbelt.instance
     end
 
     before(:example) do
@@ -103,14 +108,6 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
         .with(contents: file_data, file_path: file_path)
     end
 
-    it 'should write the YAML file' do
-      command.call(native: native)
-
-      expect(write_command)
-        .to have_received(:call)
-        .with(contents: yaml_data, file_path: yaml_path)
-    end
-
     it 'should not write to STDERR' do
       expect { command.call(native: native) }
         .not_to change(error_stream, :string)
@@ -126,7 +123,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
 
       it { expect(command.call(native: native)).to be_a_passing_result }
 
-      it 'should not write the Markdown or YAML files' do
+      it 'should not write the Markdown file' do
         command.call(native: native)
 
         expect(write_command).not_to have_received(:call)
@@ -150,8 +147,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
     context 'when initialized with verbose: true' do
       let(:options) { super().merge(verbose: true) }
       let(:expected) do
-        "- #{native.path} to #{yaml_path}\n" \
-          "- #{native.path} to #{file_path}\n"
+        "- #{native.path} to #{file_path}\n"
       end
 
       it { expect(command.call(native: native)).to be_a_passing_result }
@@ -169,42 +165,21 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
     end
 
     context 'when initialized with version: value' do
-      let(:version)   { '1.10.101' }
-      let(:options)   { super().merge(version: version) }
-      let(:refs_path) { "#{docs_path}/versions/#{version}/reference" }
-      let(:data_path) { "#{docs_path}/_modules/_versions/#{version}" }
+      let(:version)        { '1.10.101' }
+      let(:options)        { super().merge(version: version) }
+      let(:reference_path) { "#{docs_path}/versions/#{version}/reference" }
       let(:file_data) do
         <<~MARKDOWN
           ---
-          data_path: "space"
-          version: "1.10.101"
+          data_path: "#{reference_object.data_path}"
+          version: "#{version}"
           ---
 
-          {% include templates/reference/module.md %}
+          {% include templates/reference/#{reference_type}.md %}
         MARKDOWN
-      end
-      let(:yaml_data) do
-        <<~YAML
-          ---
-          name: Space
-          slug: space
-          files:
-          - spec/fixtures/modules/basic.rb
-          short_description: This module is out of this world.
-          data_path: space
-          version: 1.10.101
-        YAML
       end
 
       it { expect(command.call(native: native)).to be_a_passing_result }
-
-      it 'should write the YAML file' do
-        command.call(native: native)
-
-        expect(write_command)
-          .to have_received(:call)
-          .with(contents: yaml_data, file_path: yaml_path)
-      end
 
       it 'should write the Markdown file' do
         command.call(native: native)
@@ -216,25 +191,19 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
     end
 
     context 'when writing the Markdown file fails' do
-      let(:original_error) do
+      let(:expected_error) do
         Cuprum::Error.new(message: 'something went wrong')
       end
       let(:error_result) do
-        Cuprum::Result.new(error: original_error)
-      end
-      let(:expected_error) do
-        Cuprum::Errors::MultipleErrors.new(errors: [nil, original_error])
+        Cuprum::Result.new(error: expected_error)
       end
       let(:expected) do
         "- [ERROR] #{native.path} to #{file_path} - " \
-          "#{original_error.class}: #{original_error.message}\n"
+          "#{expected_error.class}: #{expected_error.message}\n"
       end
 
       before(:example) do
-        allow(write_command)
-          .to receive(:call)
-          .with(contents: file_data, file_path: file_path)
-          .and_return(error_result)
+        allow(write_command).to receive(:call).and_return(error_result)
       end
 
       it 'should return a failing result' do
@@ -251,64 +220,24 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator 
 
       context 'when initialized with verbose: true' do
         let(:options) { super().merge(verbose: true) }
-        let(:expected) do
-          "- #{native.path} to #{yaml_path}\n"
-        end
 
-        it 'should write the status to STDOUT' do
+        it 'should not write to STDOUT' do
           expect { command.call(native: native) }
-            .to change(output_stream, :string)
-            .to be == expected
+            .not_to change(output_stream, :string)
         end
       end
     end
+  end
 
-    context 'when writing the YAML file fails' do
-      let(:original_error) do
-        Cuprum::Error.new(message: 'something went wrong')
-      end
-      let(:error_result) do
-        Cuprum::Result.new(error: original_error)
-      end
-      let(:expected_error) do
-        Cuprum::Errors::MultipleErrors.new(errors: [original_error, nil])
-      end
-      let(:expected) do
-        "- [ERROR] #{native.path} to #{yaml_path} - " \
-          "#{original_error.class}: #{original_error.message}\n"
-      end
+  describe '#reference_class' do
+    include_examples 'should define reader',
+      :reference_class,
+      -> { reference_class }
+  end
 
-      before(:example) do
-        allow(write_command)
-          .to receive(:call)
-          .with(contents: yaml_data, file_path: yaml_path)
-          .and_return(error_result)
-      end
-
-      it 'should return a failing result' do
-        expect(command.call(native: native))
-          .to be_a_failing_result
-          .with_error(expected_error)
-      end
-
-      it 'should write the error to STDERR' do
-        expect { command.call(native: native) }
-          .to change(error_stream, :string)
-          .to be == expected
-      end
-
-      context 'when initialized with verbose: true' do
-        let(:options) { super().merge(verbose: true) }
-        let(:expected) do
-          "- #{native.path} to #{file_path}\n"
-        end
-
-        it 'should write the status to STDOUT' do
-          expect { command.call(native: native) }
-            .to change(output_stream, :string)
-            .to be == expected
-        end
-      end
-    end
+  describe '#reference_type' do
+    include_examples 'should define reader',
+      :reference_type,
+      -> { reference_type }
   end
 end

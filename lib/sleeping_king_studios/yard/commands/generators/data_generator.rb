@@ -7,7 +7,7 @@ require 'sleeping_king_studios/tools/toolbelt'
 require 'sleeping_king_studios/yard/commands/generators'
 
 module SleepingKingStudios::Yard::Commands::Generators
-  # Abstract generator for objects with only data files.
+  # Generator for writing data files.
   class DataGenerator < SleepingKingStudios::Yard::Commands::Generators::Base
     # @param data_class [Class] the class of the data object used to generate
     #   the data file.
