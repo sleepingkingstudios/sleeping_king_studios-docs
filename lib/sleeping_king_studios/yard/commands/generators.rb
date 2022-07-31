@@ -7,8 +7,8 @@ module SleepingKingStudios::Yard::Commands
   module Generators
     autoload :Base,
       'sleeping_king_studios/yard/commands/generators/base'
-    autoload :MethodGenerator,
-      'sleeping_king_studios/yard/commands/generators/method_generator'
+    autoload :DataGenerator,
+      'sleeping_king_studios/yard/commands/generators/data_generator'
     autoload :ModuleGenerator,
       'sleeping_king_studios/yard/commands/generators/module_generator'
   end

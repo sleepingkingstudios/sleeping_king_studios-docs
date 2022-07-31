@@ -2,15 +2,24 @@
 
 require 'stringio'
 
-require 'sleeping_king_studios/yard/commands/generators/method_generator'
+require 'sleeping_king_studios/yard/commands/generators/data_generator'
 
 require 'support/contracts/commands/generator_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator do # rubocop:disable Layout/LineLength
+RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
   include Spec::Support::Contracts::Commands
 
-  subject(:command) { described_class.new(docs_path: docs_path, **options) }
+  subject(:command) do
+    described_class.new(
+      data_class: data_class,
+      data_type:  data_type,
+      docs_path:  docs_path,
+      **options
+    )
+  end
 
+  let(:data_class)    { SleepingKingStudios::Yard::Data::ConstantObject }
+  let(:data_type)     { :constant }
   let(:docs_path)     { 'path/to/docs' }
   let(:output_stream) { StringIO.new }
   let(:error_stream)  { StringIO.new }
@@ -18,7 +27,8 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     { error_stream: error_stream, output_stream: output_stream }
   end
 
-  include_contract 'should be a generator command'
+  include_contract 'should be a generator command',
+    constructor_keywords: %i[data_class data_type]
 
   describe '#call' do
     let(:write_command) do
@@ -27,28 +37,27 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
         call: Cuprum::Result.new(status: :success)
       )
     end
-    let(:registry)  { parse_registry }
-    let(:native)    { registry.find { |obj| obj.name == :launch } }
-    let(:data_path) { "#{docs_path}/_methods" }
-    let(:yaml_path) { "#{data_path}/i-launch.yml" }
-    let(:yaml_data) do
-      <<~YAML
-        ---
-        name: "#launch"
-        signature: def launch
-        slug: "#launch"
-        data_path: i-launch
-        short_description: You are going to space today.
-        version: "*"
-      YAML
+    let(:registry)    { parse_registry }
+    let(:native)      { registry.find { |obj| obj.name == :GRAVITY } }
+    let(:data_object) { data_class.new(native: native) }
+    let(:data_path) do
+      "#{docs_path}/_#{tools.str.pluralize(data_type.to_s)}"
     end
+    let(:file_path) { "#{data_path}/#{data_object.data_path}.yml" }
+    let(:file_data) { YAML.dump(data_object.as_json.merge('version' => '*')) }
 
     def parse_registry
       ::YARD::Registry.clear
 
-      ::YARD.parse('spec/fixtures/methods/basic.rb')
+      ::YARD.parse(
+        "spec/fixtures/#{tools.str.pluralize(data_type.to_s)}/basic.rb"
+      )
 
       [::YARD::Registry.root, *::YARD::Registry.to_a]
+    end
+
+    def tools
+      SleepingKingStudios::Tools::Toolbelt.instance
     end
 
     before(:example) do
@@ -87,7 +96,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
 
       expect(write_command)
         .to have_received(:call)
-        .with(contents: yaml_data, file_path: yaml_path)
+        .with(contents: file_data, file_path: file_path)
     end
 
     it 'should not write to STDERR' do
@@ -129,7 +138,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     context 'when initialized with verbose: true' do
       let(:options) { super().merge(verbose: true) }
       let(:expected) do
-        "- #{native.path} to #{yaml_path}\n"
+        "- #{native.path} to #{file_path}\n"
       end
 
       it { expect(command.call(native: native)).to be_a_passing_result }
@@ -149,17 +158,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     context 'when initialized with version: value' do
       let(:version)   { '1.10.101' }
       let(:options)   { super().merge(version: version) }
-      let(:data_path) { "#{docs_path}/_methods/_versions/#{version}" }
-      let(:yaml_data) do
-        <<~YAML
-          ---
-          name: "#launch"
-          signature: def launch
-          slug: "#launch"
-          data_path: i-launch
-          short_description: You are going to space today.
-          version: 1.10.101
-        YAML
+      let(:data_path) { "#{super()}/_versions/#{version}" }
+      let(:file_data) do
+        YAML.dump(data_object.as_json.merge('version' => version))
       end
 
       it { expect(command.call(native: native)).to be_a_passing_result }
@@ -169,7 +170,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
 
         expect(write_command)
           .to have_received(:call)
-          .with(contents: yaml_data, file_path: yaml_path)
+          .with(contents: file_data, file_path: file_path)
       end
     end
 
@@ -181,7 +182,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
         Cuprum::Result.new(error: expected_error)
       end
       let(:expected) do
-        "- [ERROR] #{native.path} to #{yaml_path} - " \
+        "- [ERROR] #{native.path} to #{file_path} - " \
           "#{expected_error.class}: #{expected_error.message}\n"
       end
 
@@ -210,5 +211,13 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
         end
       end
     end
+  end
+
+  describe '#data_class' do
+    include_examples 'should define reader', :data_class, -> { data_class }
+  end
+
+  describe '#data_type' do
+    include_examples 'should define reader', :data_type, -> { data_type }
   end
 end

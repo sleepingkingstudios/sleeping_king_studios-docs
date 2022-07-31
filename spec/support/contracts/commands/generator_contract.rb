@@ -12,13 +12,16 @@ module Spec::Support::Contracts::Commands
 
     # @!method apply(example_group)
     #   Adds the contract to the example group.
-    contract do
+    #
+    #   @param constructor_keywords [Array<Symbol>] additional keywords expected
+    #     by the constructor, if any.
+    contract do |constructor_keywords: []|
       describe '.new' do
         it 'should define the constructor' do
           expect(described_class)
             .to be_constructible
             .with(0).arguments
-            .and_keywords(:docs_path)
+            .and_keywords(:docs_path, *constructor_keywords)
             .and_any_keywords
         end
       end
