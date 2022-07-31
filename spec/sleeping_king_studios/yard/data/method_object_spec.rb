@@ -25,7 +25,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       json = {
         'name'      => method_object.name,
         'slug'      => method_object.slug,
-        'signature' => method_object.signature
+        'signature' => method_object.signature,
+        'data_path' => method_object.data_path
       }
 
       next json if method_object.short_description.empty?

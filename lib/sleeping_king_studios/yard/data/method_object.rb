@@ -17,6 +17,7 @@ module SleepingKingStudios::Yard::Data
   # metadata.
   class MethodObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
+      data_path
       description
       metadata
       options
@@ -321,7 +322,11 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_overload(tag)
-      self.class.new(native: tag).as_json
+      self
+        .class
+        .new(native: tag)
+        .as_json
+        .tap { |hsh| hsh.delete('data_path') }
     end
 
     def format_param(tag)

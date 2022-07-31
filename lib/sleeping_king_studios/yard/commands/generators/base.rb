@@ -107,8 +107,25 @@ module SleepingKingStudios::Yard::Commands::Generators
       }
     end
 
+    def report(message:, result:)
+      if verbose? && result.success?
+        puts("- #{message}")
+      elsif result.failure? && result.error
+        warn(
+          "- [ERROR] #{message} - #{result.error.class}: " \
+          "#{result.error.message}"
+        )
+      elsif result.failure?
+        warn("- [ERROR] #{message} - unable to generate file")
+      end
+    end
+
     def tools
       SleepingKingStudios::Tools::Toolbelt.instance
+    end
+
+    def version_string
+      version || '*'
     end
   end
 end

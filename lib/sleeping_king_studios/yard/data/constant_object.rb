@@ -9,6 +9,7 @@ module SleepingKingStudios::Yard::Data
   # short description, a full description, and metadata.
   class ConstantObject < SleepingKingStudios::Yard::Data::Base
     JSON_PROPERTIES = %i[
+      data_path
       description
       metadata
     ].freeze

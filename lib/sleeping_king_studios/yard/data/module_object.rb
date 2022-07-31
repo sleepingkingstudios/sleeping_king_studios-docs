@@ -24,6 +24,7 @@ module SleepingKingStudios::Yard::Data
   # @see SleepingKingStudios::Yard::Data::NamespaceObject
   class ModuleObject < NamespaceObject
     JSON_PROPERTIES = %i[
+      data_path
       description
       extended_modules
       included_modules

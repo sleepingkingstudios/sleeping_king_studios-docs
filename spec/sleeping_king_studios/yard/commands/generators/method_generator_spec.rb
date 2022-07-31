@@ -29,7 +29,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     end
     let(:registry)  { parse_registry }
     let(:native)    { registry.find { |obj| obj.name == :launch } }
-    let(:data_path) { "#{docs_path}/_methods/current" }
+    let(:data_path) { "#{docs_path}/_methods" }
     let(:yaml_path) { "#{data_path}/i-launch.yml" }
     let(:yaml_data) do
       <<~YAML
@@ -37,7 +37,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
         name: "#launch"
         signature: def launch
         slug: "#launch"
+        data_path: i-launch
         short_description: You are going to space today.
+        version: "*"
       YAML
     end
 
@@ -154,6 +156,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
           name: "#launch"
           signature: def launch
           slug: "#launch"
+          data_path: i-launch
           short_description: You are going to space today.
           version: 1.10.101
         YAML
@@ -178,7 +181,8 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
         Cuprum::Result.new(error: expected_error)
       end
       let(:expected) do
-        "- ERROR: #{native.path} to #{yaml_path}: #{expected_error.message}\n"
+        "- [ERROR] #{native.path} to #{yaml_path} - " \
+          "#{expected_error.class}: #{expected_error.message}\n"
       end
 
       before(:example) do

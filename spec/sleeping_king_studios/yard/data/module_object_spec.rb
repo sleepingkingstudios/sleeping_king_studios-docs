@@ -27,7 +27,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         'name'              => module_object.name,
         'slug'              => module_object.slug,
         'files'             => module_object.files,
-        'short_description' => module_object.short_description
+        'short_description' => module_object.short_description,
+        'data_path'         => module_object.data_path
       }
     end
   end

@@ -26,7 +26,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
         'name'              => constant_object.name,
         'slug'              => constant_object.slug,
         'value'             => constant_object.value,
-        'short_description' => constant_object.short_description
+        'short_description' => constant_object.short_description,
+        'data_path'         => constant_object.data_path
       }
     end
   end

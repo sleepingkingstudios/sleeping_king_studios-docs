@@ -75,6 +75,82 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::Base do
     end
   end
 
+  describe '#report' do
+    let(:message)       { 'Greetings, starfighter!' }
+    let(:error_stream)  { StringIO.new }
+    let(:output_stream) { StringIO.new }
+    let(:options) do
+      super().merge(error_stream: error_stream, output_stream: output_stream)
+    end
+
+    it 'should define the private method' do
+      expect(command)
+        .to respond_to(:report, true)
+        .with(0).arguments
+        .and_keywords(:message, :result)
+    end
+
+    describe 'with a passing result' do
+      let(:result)   { Cuprum::Result.new }
+      let(:expected) { "- #{message}\n" }
+
+      it 'should not output to STDERR' do
+        expect { command.send(:report, message: message, result: result) }
+          .not_to change(error_stream, :string)
+      end
+
+      it 'should not output to STDOUT' do
+        expect { command.send(:report, message: message, result: result) }
+          .not_to change(output_stream, :string)
+      end
+
+      context 'when initialized with verbose: true' do
+        let(:options) { super().merge(verbose: true) }
+
+        it 'should print the message to STDOUT' do
+          expect { command.send(:report, message: message, result: result) }
+            .to change(output_stream, :string)
+            .to be == expected
+        end
+      end
+    end
+
+    describe 'with a failing result' do
+      let(:result)   { Cuprum::Result.new(status: :failure) }
+      let(:expected) { "- [ERROR] #{message} - unable to generate file\n" }
+
+      it 'should print the message to STDERR' do
+        expect { command.send(:report, message: message, result: result) }
+          .to change(error_stream, :string)
+          .to be == expected
+      end
+
+      it 'should not output to STDOUT' do
+        expect { command.send(:report, message: message, result: result) }
+          .not_to change(output_stream, :string)
+      end
+    end
+
+    describe 'with a failing result with an error' do
+      let(:error)  { Cuprum::Error.new(message: 'something went wrong') }
+      let(:result) { Cuprum::Result.new(error: error) }
+      let(:expected) do
+        "- [ERROR] #{message} - #{error.class}: #{error.message}\n"
+      end
+
+      it 'should print the message to STDERR' do
+        expect { command.send(:report, message: message, result: result) }
+          .to change(error_stream, :string)
+          .to be == expected
+      end
+
+      it 'should not output to STDOUT' do
+        expect { command.send(:report, message: message, result: result) }
+          .not_to change(output_stream, :string)
+      end
+    end
+  end
+
   describe '#warn' do
     let(:string)   { 'End of line.' }
     let(:expected) { "End of line.\n" }
