@@ -2,11 +2,11 @@
 
 require 'stringio'
 
-require 'sleeping_king_studios/yard/commands/generators/method_generator'
+require 'sleeping_king_studios/yard/commands/generators/module_generator'
 
 require 'support/contracts/commands/generator_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator do # rubocop:disable Layout/LineLength
+RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ModuleGenerator do # rubocop:disable Layout/LineLength
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path: docs_path, **options) }
@@ -28,17 +28,30 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
       )
     end
     let(:registry)  { parse_registry }
-    let(:native)    { registry.find { |obj| obj.name == :launch } }
-    let(:data_path) { "#{docs_path}/_methods" }
-    let(:yaml_path) { "#{data_path}/i-launch.yml" }
+    let(:native)    { registry.find { |obj| obj.name == :Space } }
+    let(:refs_path) { "#{docs_path}/reference" }
+    let(:file_path) { "#{refs_path}/space.md" }
+    let(:data_path) { "#{docs_path}/_modules" }
+    let(:yaml_path) { "#{data_path}/space.yml" }
+    let(:file_data) do
+      <<~MARKDOWN
+        ---
+        data_path: "space"
+        version: "*"
+        ---
+
+        {% include templates/reference/module.md %}
+      MARKDOWN
+    end
     let(:yaml_data) do
       <<~YAML
         ---
-        name: "#launch"
-        signature: def launch
-        slug: "#launch"
-        data_path: i-launch
-        short_description: You are going to space today.
+        name: Space
+        slug: space
+        files:
+        - spec/fixtures/modules/basic.rb
+        short_description: This module is out of this world.
+        data_path: space
         version: "*"
       YAML
     end
@@ -46,7 +59,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     def parse_registry
       ::YARD::Registry.clear
 
-      ::YARD.parse('spec/fixtures/methods/basic.rb')
+      ::YARD.parse('spec/fixtures/modules/basic.rb')
 
       [::YARD::Registry.root, *::YARD::Registry.to_a]
     end
@@ -82,6 +95,14 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
         .with(force: false)
     end
 
+    it 'should write the Markdown file' do
+      command.call(native: native)
+
+      expect(write_command)
+        .to have_received(:call)
+        .with(contents: file_data, file_path: file_path)
+    end
+
     it 'should write the YAML file' do
       command.call(native: native)
 
@@ -105,7 +126,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
 
       it { expect(command.call(native: native)).to be_a_passing_result }
 
-      it 'should not write the YAML file' do
+      it 'should not write the Markdown or YAML files' do
         command.call(native: native)
 
         expect(write_command).not_to have_received(:call)
@@ -129,7 +150,8 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     context 'when initialized with verbose: true' do
       let(:options) { super().merge(verbose: true) }
       let(:expected) do
-        "- #{native.path} to #{yaml_path}\n"
+        "- #{native.path} to #{yaml_path}\n" \
+          "- #{native.path} to #{file_path}\n"
       end
 
       it { expect(command.call(native: native)).to be_a_passing_result }
@@ -149,15 +171,27 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
     context 'when initialized with version: value' do
       let(:version)   { '1.10.101' }
       let(:options)   { super().merge(version: version) }
-      let(:data_path) { "#{docs_path}/_methods/_versions/#{version}" }
+      let(:refs_path) { "#{docs_path}/versions/#{version}/reference" }
+      let(:data_path) { "#{docs_path}/_modules/_versions/#{version}" }
+      let(:file_data) do
+        <<~MARKDOWN
+          ---
+          data_path: "space"
+          version: "1.10.101"
+          ---
+
+          {% include templates/reference/module.md %}
+        MARKDOWN
+      end
       let(:yaml_data) do
         <<~YAML
           ---
-          name: "#launch"
-          signature: def launch
-          slug: "#launch"
-          data_path: i-launch
-          short_description: You are going to space today.
+          name: Space
+          slug: space
+          files:
+          - spec/fixtures/modules/basic.rb
+          short_description: This module is out of this world.
+          data_path: space
           version: 1.10.101
         YAML
       end
@@ -171,22 +205,36 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
           .to have_received(:call)
           .with(contents: yaml_data, file_path: yaml_path)
       end
+
+      it 'should write the Markdown file' do
+        command.call(native: native)
+
+        expect(write_command)
+          .to have_received(:call)
+          .with(contents: file_data, file_path: file_path)
+      end
     end
 
-    context 'when writing the YAML file fails' do
-      let(:expected_error) do
+    context 'when writing the Markdown file fails' do
+      let(:original_error) do
         Cuprum::Error.new(message: 'something went wrong')
       end
       let(:error_result) do
-        Cuprum::Result.new(error: expected_error)
+        Cuprum::Result.new(error: original_error)
+      end
+      let(:expected_error) do
+        Cuprum::Errors::MultipleErrors.new(errors: [nil, original_error])
       end
       let(:expected) do
-        "- [ERROR] #{native.path} to #{yaml_path} - " \
-          "#{expected_error.class}: #{expected_error.message}\n"
+        "- [ERROR] #{native.path} to #{file_path} - " \
+          "#{original_error.class}: #{original_error.message}\n"
       end
 
       before(:example) do
-        allow(write_command).to receive(:call).and_return(error_result)
+        allow(write_command)
+          .to receive(:call)
+          .with(contents: file_data, file_path: file_path)
+          .and_return(error_result)
       end
 
       it 'should return a failing result' do
@@ -203,10 +251,62 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::MethodGenerator 
 
       context 'when initialized with verbose: true' do
         let(:options) { super().merge(verbose: true) }
+        let(:expected) do
+          "- #{native.path} to #{yaml_path}\n"
+        end
 
-        it 'should not write to STDOUT' do
+        it 'should write the status to STDOUT' do
           expect { command.call(native: native) }
-            .not_to change(output_stream, :string)
+            .to change(output_stream, :string)
+            .to be == expected
+        end
+      end
+    end
+
+    context 'when writing the YAML file fails' do
+      let(:original_error) do
+        Cuprum::Error.new(message: 'something went wrong')
+      end
+      let(:error_result) do
+        Cuprum::Result.new(error: original_error)
+      end
+      let(:expected_error) do
+        Cuprum::Errors::MultipleErrors.new(errors: [original_error, nil])
+      end
+      let(:expected) do
+        "- [ERROR] #{native.path} to #{yaml_path} - " \
+          "#{original_error.class}: #{original_error.message}\n"
+      end
+
+      before(:example) do
+        allow(write_command)
+          .to receive(:call)
+          .with(contents: yaml_data, file_path: yaml_path)
+          .and_return(error_result)
+      end
+
+      it 'should return a failing result' do
+        expect(command.call(native: native))
+          .to be_a_failing_result
+          .with_error(expected_error)
+      end
+
+      it 'should write the error to STDERR' do
+        expect { command.call(native: native) }
+          .to change(error_stream, :string)
+          .to be == expected
+      end
+
+      context 'when initialized with verbose: true' do
+        let(:options) { super().merge(verbose: true) }
+        let(:expected) do
+          "- #{native.path} to #{file_path}\n"
+        end
+
+        it 'should write the status to STDOUT' do
+          expect { command.call(native: native) }
+            .to change(output_stream, :string)
+            .to be == expected
         end
       end
     end

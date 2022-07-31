@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Commands::Generators
 
     def data_path
       if version
-        File.join(docs_path, '_methods', version)
+        File.join(docs_path, '_methods', '_versions', version)
       else
         File.join(docs_path, '_methods')
       end

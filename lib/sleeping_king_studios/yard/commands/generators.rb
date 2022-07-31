@@ -9,5 +9,7 @@ module SleepingKingStudios::Yard::Commands
       'sleeping_king_studios/yard/commands/generators/base'
     autoload :MethodGenerator,
       'sleeping_king_studios/yard/commands/generators/method_generator'
+    autoload :ModuleGenerator,
+      'sleeping_king_studios/yard/commands/generators/module_generator'
   end
 end
