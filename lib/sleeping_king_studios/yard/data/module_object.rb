@@ -35,13 +35,6 @@ module SleepingKingStudios::Yard::Data
     PARAGRAPH_BREAK = /\n{2,}/.freeze
     private_constant :PARAGRAPH_BREAK
 
-    # @param native [YARD::Tags::Tag] the YARD object representing the module.
-    def initialize(native:)
-      super()
-
-      @native = native
-    end
-
     # Generates a JSON-compatible representation of the module.
     #
     # Returns a Hash with the following keys:

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/namespace_object'
+require 'sleeping_king_studios/yard/data/root_object'
 
 require 'support/contracts/data/base_contract'
 require 'support/contracts/data/namespace_contract'
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
+RSpec.describe SleepingKingStudios::Yard::Data::RootObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
@@ -53,11 +53,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     end
   end
 
+  describe '#data_path' do
+    include_examples 'should define reader', :data_path, 'root'
+  end
+
   describe '#name' do
-    include_examples 'should define reader', :name, ''
+    include_examples 'should define reader', :name, 'root'
   end
 
   describe '#slug' do
-    include_examples 'should define reader', :slug, ''
+    include_examples 'should define reader', :slug, 'root'
   end
 end
