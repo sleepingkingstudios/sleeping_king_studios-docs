@@ -36,7 +36,7 @@ module SleepingKingStudios::Yard::Data
     #   method for details.
     # - 'todo': An Array of Strings.
     #
-    # @return [Hash{String, Object}] the representation of the metadata.
+    # @return [Hash{String => Object}] the representation of the metadata.
     #
     # @see SleepingKingStudios::Yard::Data::SeeTag#as_json.
     def as_json
@@ -56,7 +56,7 @@ module SleepingKingStudios::Yard::Data
     # - 'name': The displayed name of the example. May be an empty String.
     # - 'text': The text for the example.
     #
-    # @return [Array<Hash{String, String}>] the collected examples.
+    # @return [Array<Hash{String => String}>] the collected examples.
     def examples
       @examples ||=
         native
@@ -82,7 +82,7 @@ module SleepingKingStudios::Yard::Data
     # has at a minimum the 'text' key. See the SeeTag#as_json method for
     # details.
     #
-    # @return [Array<Hash{String, String}>]
+    # @return [Array<Hash{String => String}>]
     #
     # @see SleepingKingStudios::Yard::Data::SeeTag#as_json.
     def see

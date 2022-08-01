@@ -85,7 +85,7 @@ module SleepingKingStudios::Yard::Data
     # - 'slug': A url-safe, hyphen-separated representation of the name.
     # - 'path': The path to the data file for the class.
     #
-    # @return [Array<Hash{String, String}>] the direct subclasses.
+    # @return [Array<Hash{String => String}>] the direct subclasses.
     def direct_subclasses
       registry
         .select do |obj|
@@ -103,7 +103,7 @@ module SleepingKingStudios::Yard::Data
     # - 'slug': A url-safe, hyphen-separated representation of the name.
     # - 'path': The path to the data file for the class.
     #
-    # @return [Array<Hash{String, String}>] the inherited classes.
+    # @return [Array<Hash{String => String}>] the inherited classes.
     def inherited_classes
       @inherited_classes ||=
         native

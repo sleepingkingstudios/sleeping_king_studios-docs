@@ -198,7 +198,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       let(:type) { 'Array<String>>' }
       let(:error_message) do
         %(invalid character `>' at index 13: ">" must terminate a ) \
-          'parameterized type'
+          "parameterized type - `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -210,7 +210,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     describe 'with an improperly opened parameterized type' do
       let(:type) { 'Array<<String>>' }
       let(:error_message) do
-        %(invalid character `<' at index 6: "<" must follow a token name)
+        %(invalid character `<' at index 6: "<" must follow a token name ) \
+          "- `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -222,7 +223,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     describe 'with an unclosed parameterized type' do
       let(:type) { 'Array<String' }
       let(:error_message) do
-        'unterminated parameterized type - is there a missing ">" character?'
+        'unterminated parameterized type - is there a missing ">" character? ' \
+          "- `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -278,7 +280,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       let(:type) { 'Array<(String))>' }
       let(:error_message) do
         %(invalid character `\)' at index 13: "\)>" must terminate an ) \
-          'order-dependent list'
+          "order-dependent list - `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -291,7 +293,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       let(:type) { 'Array(String)' }
       let(:error_message) do
         %(invalid character `\(' at index 5: "<\(" must start an ) \
-          'order-dependent list'
+          "order-dependent list - `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -304,7 +306,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       let(:type) { 'Array<(String)' }
       let(:error_message) do
         %(invalid character `\)' at index 13: "\)>" must terminate an ) \
-          'order-dependent list'
+          "order-dependent list - `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -365,7 +367,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       let(:type) { 'Hash{String=>String}}' }
       let(:error_message) do
         %(invalid character `}' at index 20: "}" must terminate a ) \
-          'key-value type'
+          "key-value type - `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -377,7 +379,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     describe 'with an improperly opened key-value type' do
       let(:type) { 'Hash{{String=>String}' }
       let(:error_message) do
-        %(invalid character `{' at index 5: "{" must follow a token name)
+        %(invalid character `{' at index 5: "{" must follow a token name ) \
+          "- `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -390,7 +393,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       let(:type) { 'Hash{String=String}' }
       let(:error_message) do
         %(invalid character `=' at index 11: "=>" must separate hash keys ) \
-          'and values'
+          "and values - `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -402,7 +405,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     describe 'with an unseparated key-value type' do
       let(:type) { 'Hash{String}' }
       let(:error_message) do
-        %(unterminated key-value type - is there a missing "=>" character?)
+        %(unterminated key-value type - is there a missing "=>" character? ) \
+          "- `#{type}'"
       end
 
       it 'should raise an exception' do
@@ -414,7 +418,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     describe 'with an unclosed key-value type' do
       let(:type) { 'Hash{String=>String' }
       let(:error_message) do
-        %(unterminated key-value type - is there a missing "}" character?)
+        %(unterminated key-value type - is there a missing "}" character? ) \
+          "- `#{type}'"
       end
 
       it 'should raise an exception' do

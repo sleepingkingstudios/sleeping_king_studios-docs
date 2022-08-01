@@ -11,7 +11,7 @@ module Spec::Support::Contracts::Data
     # @!method apply(example_group)
     #   Adds the contract to the example group.
     #
-    #   @param expected_json [Hash{String, Object}] the expected base response
+    #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
     contract do |expected_json: nil|
       shared_context 'when the definition exists' do

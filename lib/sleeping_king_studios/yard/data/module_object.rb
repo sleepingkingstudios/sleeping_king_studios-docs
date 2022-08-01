@@ -104,7 +104,7 @@ module SleepingKingStudios::Yard::Data
     # - 'slug': A url-safe, hyphen-separated representation of the name.
     # - 'path': The path to the data file for the module.
     #
-    # @return [Array<Hash{String, String}>] the extended modules.
+    # @return [Array<Hash{String => String}>] the extended modules.
     def extended_modules
       @extended_modules ||=
         native
@@ -128,7 +128,7 @@ module SleepingKingStudios::Yard::Data
     # - 'slug': A url-safe, hyphen-separated representation of the name.
     # - 'path': The path to the data file for the module.
     #
-    # @return [Array<Hash{String, String}>] the included modules.
+    # @return [Array<Hash{String => String}>] the included modules.
     def included_modules
       @included_modules ||=
         native

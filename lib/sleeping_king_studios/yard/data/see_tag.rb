@@ -64,7 +64,7 @@ module SleepingKingStudios::Yard::Data
     # - (optional) 'method': The name of the referenced constant, if any, in a
     #   url-safe, hyphen-separated format.
     #
-    # @return [Hash{String, String}] the representation of the tag.
+    # @return [Hash{String => String}] the representation of the tag.
     def as_json
       return format_link      if link?
       return format_reference if reference? && reference_type

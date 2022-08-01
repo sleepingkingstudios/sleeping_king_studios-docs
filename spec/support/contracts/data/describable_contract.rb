@@ -14,7 +14,7 @@ module Spec::Support::Contracts::Data
     #   @param basic_name [String] a basic name for the data object.
     #   @param complex_name [String] a multipart name for the data object.
     #   @param description [String] the short description for the data object.
-    #   @param expected_json [Hash{String, Object}] the expected base response
+    #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
     #   @param scoped_name [String] a name for the data object, including a
     #     class or module scope.
