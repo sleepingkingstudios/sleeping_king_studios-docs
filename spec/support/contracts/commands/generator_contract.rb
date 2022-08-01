@@ -67,9 +67,9 @@ module Spec::Support::Contracts::Commands
           return super() if defined?(super())
 
           {
-            'dry_run' => false,
-            'force'   => false,
-            'verbose' => false
+            dry_run: false,
+            force:   false,
+            verbose: false
           }
         end
 
@@ -85,7 +85,7 @@ module Spec::Support::Contracts::Commands
 
         context 'when initialized with dry_run: true' do
           let(:options)  { super().merge(dry_run: true) }
-          let(:expected) { default_options.merge('dry_run' => true) }
+          let(:expected) { default_options.merge(dry_run: true) }
 
           it { expect(subject.options).to be == expected }
         end
@@ -98,7 +98,7 @@ module Spec::Support::Contracts::Commands
 
         context 'when initialized with force: true' do
           let(:options)  { super().merge(force: true) }
-          let(:expected) { default_options.merge('force' => true) }
+          let(:expected) { default_options.merge(force: true) }
 
           it { expect(subject.options).to be == expected }
         end
@@ -111,21 +111,21 @@ module Spec::Support::Contracts::Commands
 
         context 'when initialized with verbose: true' do
           let(:options)  { super().merge(verbose: true) }
-          let(:expected) { default_options.merge('verbose' => true) }
-
-          it { expect(subject.options).to be == expected }
-        end
-
-        context 'when initialized with other options' do
-          let(:options)  { super().merge(key: 'value') }
-          let(:expected) { default_options.merge('key' => 'value') }
+          let(:expected) { default_options.merge(verbose: true) }
 
           it { expect(subject.options).to be == expected }
         end
 
         context 'when initialized with version: value' do
           let(:options)  { super().merge(version: '1.10.101') }
-          let(:expected) { default_options.merge('version' => '1.10.101') }
+          let(:expected) { default_options.merge(version: '1.10.101') }
+
+          it { expect(subject.options).to be == expected }
+        end
+
+        context 'when initialized with other options' do
+          let(:options)  { super().merge(key: 'value') }
+          let(:expected) { default_options.merge(key: 'value') }
 
           it { expect(subject.options).to be == expected }
         end

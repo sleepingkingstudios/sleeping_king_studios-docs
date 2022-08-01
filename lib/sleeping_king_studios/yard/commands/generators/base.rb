@@ -2,7 +2,6 @@
 
 require 'cuprum/command'
 require 'cuprum/exception_handling'
-require 'sleeping_king_studios/tools/toolbelt'
 
 require 'sleeping_king_studios/yard/commands/generators'
 
@@ -32,9 +31,7 @@ module SleepingKingStudios::Yard::Commands::Generators
       super()
 
       @docs_path     = docs_path
-      @options       = default_options.merge(
-        tools.hash_tools.convert_keys_to_strings(options)
-      )
+      @options       = default_options.merge(options)
       @error_stream  = error_stream
       @output_stream = output_stream
     end
@@ -48,12 +45,12 @@ module SleepingKingStudios::Yard::Commands::Generators
 
     # @return [Boolean] if true, does not make any changes to the filesystem.
     def dry_run?
-      @options['dry_run']
+      @options[:dry_run]
     end
 
     # @return [Boolean] if true, overwrites any existing files.
     def force?
-      @options['force']
+      @options[:force]
     end
 
     # Writes the given string to STDOUT.
@@ -75,12 +72,12 @@ module SleepingKingStudios::Yard::Commands::Generators
 
     # @return [Boolean] if true, prints status messages to STDOUT.
     def verbose?
-      @options['verbose']
+      @options[:verbose]
     end
 
     # @return [String] the code version for the generated documentation.
     def version
-      @options['version']
+      @options[:version]
     end
 
     # Writes the given string to STDERR.
@@ -101,9 +98,9 @@ module SleepingKingStudios::Yard::Commands::Generators
 
     def default_options
       {
-        'dry_run' => false,
-        'force'   => false,
-        'verbose' => false
+        dry_run: false,
+        force:   false,
+        verbose: false
       }
     end
 
@@ -118,10 +115,6 @@ module SleepingKingStudios::Yard::Commands::Generators
       elsif result.failure?
         warn("- [ERROR] #{message} - unable to generate file")
       end
-    end
-
-    def tools
-      SleepingKingStudios::Tools::Toolbelt.instance
     end
 
     def version_string
