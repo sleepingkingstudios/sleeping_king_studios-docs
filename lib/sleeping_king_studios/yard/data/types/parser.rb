@@ -1,28 +1,30 @@
 # frozen_string_literal: true
 
+require 'sleeping_king_studios/tools/toolbelt'
+require 'treetop'
+
 require 'sleeping_king_studios/yard/data/types'
 
 module SleepingKingStudios::Yard::Data::Types
   # Parses a YARD type list into a nested data object.
   #
+  # @note Certain combinations of comparable methods and parameterized types are
+  #   known not to parse: list types with `#<=` or `#>` methods, and hash types
+  #   with `#<`, `#==`, or `#>` keys. As a workaround, add trailing whitespace
+  #   between the method name and any subsequent control characters.
+  #
   # @see https://www.rubydoc.info/gems/yard/file/docs/Tags.md#types-specifier-list
-  class Parser # rubocop:disable Metrics/ClassLength
-    PARAMETERIZED_CHARS = {
-      array:       '">"',
-      hash_keys:   '"=>"',
-      hash_values: '"}"'
-    }.freeze
-    private_constant :PARAMETERIZED_CHARS
-
-    PARAMETERIZED_TYPES = {
-      array:       'parameterized type',
-      hash_keys:   'key-value type',
-      hash_values: 'key-value type'
-    }.freeze
-    private_constant :PARAMETERIZED_TYPES
-
+  class Parser
     # Exception raised when encountering an invalid type string.
     class ParseError < StandardError; end
+
+    def initialize
+      Treetop.load 'lib/sleeping_king_studios/yard/data/types/grammar'
+
+      @parser = TypesSpecifierListParser.new
+
+      generate_node_map
+    end
 
     # Parses a YARD type list.
     #
@@ -33,23 +35,18 @@ module SleepingKingStudios::Yard::Data::Types
     def parse(type)
       return [] if type.nil? || type.empty?
 
-      parse_types(type)
-    rescue ParseError => exception
-      raise ParseError, "#{exception.message} - `#{type}'"
+      result = parser.parse(type)
+
+      raise ParseError, "unable to parse type `#{type}'" if result.nil?
+
+      Array(handle_node(result))
     end
 
     private
 
-    def append_item(stack:, token:)
-      *stack, parent, context = stack
+    attr_reader :node_map
 
-      context = context.merge(name: token.strip) unless context.key?(:name)
-      parent  = parent.merge(
-        values: parent[:values] + [build_type(**context)]
-      )
-
-      [*stack, parent]
-    end
+    attr_reader :parser
 
     def build_array(name:, values:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
@@ -71,200 +68,77 @@ module SleepingKingStudios::Yard::Data::Types
       )
     end
 
-    def build_type(name:, type: nil, **options)
-      case type
-      when :array
-        build_array(name: name, **options)
-      when :hash_values
-        build_hash(name: name, **options)
-      when nil
-        build_basic(name: name, **options)
-      else
-        # :nocov:
-        raise ParseError, "unable to build type #{type.inspect}"
-        # :nocov:
+    def generate_node_map # rubocop:disable Metrics/MethodLength
+      @node_map =
+        TypesSpecifierList
+        .constants
+        .select { |const_name| const_name.to_s.end_with?('0') }
+        .sort
+        .to_h \
+      do |const_name|
+        ext   = TypesSpecifierList.const_get(const_name)
+        value = tools.string_tools.underscore(const_name.to_s[0...-1]).intern
+
+        [ext, value]
       end
     end
 
-    def close_array(offset:, stack:, token:)
-      parent = stack[-2]
+    def handle_key_value_type(node)
+      name   = node.elements.first.text_value
+      keys   = Array(handle_node(node.elements[2]))
+      values = Array(handle_node(node.elements[4]))
 
-      unless parent[:type] == :array
-        message = '">" must terminate a parameterized type'
-
-        raise ParseError,
-          invalid_character(char: '>', offset: offset, message: message)
-      end
-
-      stack = append_item(stack: stack, token: token)
-
-      [stack, '', offset + 1]
+      build_hash(name: name, keys: keys, values: values)
     end
 
-    def close_hash(offset:, stack:, token:) # rubocop:disable Metrics/MethodLength
-      parent = stack[-2]
+    def handle_identifier_with_whitespace(node)
+      name = node.text_value.strip
 
-      if parent[:type] == :hash_keys
-        raise ParseError, unclosed_parameterized_type(parent[:type])
-      end
-
-      unless parent[:type] == :hash_values
-        message = '"}" must terminate a key-value type'
-
-        raise ParseError,
-          invalid_character(char: '}', offset: offset, message: message)
-      end
-
-      stack = append_item(stack: stack, token: token)
-
-      [stack, '', offset + 1]
+      build_basic(name: name)
     end
 
-    def close_item(offset:, stack:, token:)
-      stack = append_item(stack: stack, token: token) + [{}]
+    def handle_node(node)
+      node_type = identify_node_type(node)
+      handler   = :"handle_#{node_type}"
 
-      [stack, '', offset + 1]
+      send(handler, node)
     end
 
-    def close_ordered(offset:, stack:, str:, token:)
-      parent = stack[-2]
+    def handle_ordered_type(node)
+      name   = node.elements.first.text_value
+      values = Array(handle_node(node.elements[2]))
 
-      unless parent[:type] == :array && str[offset + 1] == '>'
-        message = '")>" must terminate an order-dependent list'
+      build_array(name: name, ordered: true, values: values)
+    end
 
-        raise ParseError,
-          invalid_character(char: ')', offset: offset, message: message)
+    def handle_parameterized_type(node)
+      name   = node.elements.first.text_value
+      values = Array(handle_node(node.elements[2]))
+
+      build_array(name: name, values: values)
+    end
+
+    def handle_type_list(node)
+      if identify_node_type(node.elements.last) == :type_list
+        return [
+          handle_node(node.elements.first),
+          *handle_type_list(node.elements.last)
+        ]
       end
 
-      stack = append_item(stack: stack, token: token)
-
-      [stack, '', offset + 2]
+      [handle_node(node.elements.first), *handle_node(node.elements.last)]
     end
 
-    def invalid_character(char:, offset:, message: nil)
-      return "invalid character `#{char}' at index #{offset}" unless message
+    def identify_node_type(node)
+      return :text if node.extension_modules.empty?
 
-      "invalid character `#{char}' at index #{offset}: #{message}"
+      node_map
+        .find { |type, _| node.extension_modules.include?(type) }
+        &.last || :unknown_type
     end
 
-    def open_array(offset:, stack:, str:, token:) # rubocop:disable Metrics/MethodLength
-      *stack, context = stack
-
-      if token.empty?
-        message = '"<" must follow a token name'
-
-        raise ParseError,
-          invalid_character(char: '<', offset: offset, message: message)
-      end
-
-      ordered = str[offset + 1] == '('
-      context = context.merge(
-        name:    token.strip,
-        type:    :array,
-        ordered: ordered,
-        values:  []
-      )
-      stack   = [*stack, context, {}]
-
-      [stack, '', offset + (ordered ? 2 : 1)]
-    end
-
-    def open_hash(offset:, stack:, token:) # rubocop:disable Metrics/MethodLength
-      *stack, context = stack
-
-      if token.empty?
-        message = '"{" must follow a token name'
-
-        raise ParseError,
-          invalid_character(char: '{', offset: offset, message: message)
-      end
-
-      context = context.merge(
-        name:   token.strip,
-        type:   :hash_keys,
-        values: []
-      )
-      stack   = [*stack, context, {}]
-
-      [stack, '', offset + 1]
-    end
-
-    def parse_char(offset:, stack:, str:, token:) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
-      char = str[offset]
-
-      case char
-      when '<'
-        open_array(offset: offset, stack: stack, str: str, token: token)
-      when '>'
-        close_array(offset: offset, stack: stack, token: token)
-      when '('
-        message = '"<(" must start an order-dependent list'
-
-        raise ParseError,
-          invalid_character(char: '(', offset: offset, message: message)
-      when ')'
-        close_ordered(offset: offset, stack: stack, str: str, token: token)
-      when '{'
-        open_hash(offset: offset, stack: stack, token: token)
-      when '}'
-        close_hash(offset: offset, stack: stack, token: token)
-      when '='
-        switch_hash(offset: offset, stack: stack, str: str, token: token)
-      when ','
-        close_item(offset: offset, stack: stack, token: token)
-      else
-        [stack, token + char, offset + 1]
-      end
-    end
-
-    def parse_types(str) # rubocop:disable Metrics/MethodLength
-      token  = ''
-      stack  = [{ type: :top, values: [] }, {}]
-      offset = 0
-
-      while offset < str.size
-        stack, token, offset = parse_char(
-          offset: offset,
-          stack:  stack,
-          str:    str,
-          token:  token
-        )
-      end
-
-      stack = append_item(stack: stack, token: token)
-
-      unless stack.last[:type] == :top
-        raise ParseError, unclosed_parameterized_type(stack.last[:type])
-      end
-
-      stack.last[:values]
-    end
-
-    def switch_hash(offset:, stack:, str:, token:) # rubocop:disable Metrics/MethodLength
-      parent = stack[-2]
-
-      unless parent[:type] == :hash_keys && str[offset + 1] == '>'
-        message = '"=>" must separate hash keys and values'
-
-        raise ParseError,
-          invalid_character(char: '=', offset: offset, message: message)
-      end
-
-      *stack, parent = append_item(stack: stack, token: token)
-
-      parent = parent.merge(
-        type:   :hash_values,
-        keys:   parent[:values],
-        values: []
-      )
-      stack = [*stack, parent, {}]
-
-      [stack, '', offset + 2]
-    end
-
-    def unclosed_parameterized_type(type)
-      "unterminated #{PARAMETERIZED_TYPES[type]} - is there a missing " \
-        "#{PARAMETERIZED_CHARS[type]} character?"
+    def tools
+      SleepingKingStudios::Tools::Toolbelt.instance
     end
   end
 end

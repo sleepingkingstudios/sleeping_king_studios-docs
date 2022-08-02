@@ -26,10 +26,17 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.7.0'
   gem.require_path = 'lib'
-  gem.files        = Dir['lib/**/*.rb', 'LICENSE', '*.md']
+  gem.files        =
+    Dir[
+      'lib/**/*.rb',
+      'lib/**/*.treetop',
+      'LICENSE',
+      '*.md'
+  ]
 
   gem.add_runtime_dependency 'cuprum',                      '~> 1.0'
   gem.add_runtime_dependency 'sleeping_king_studios-tools', '~> 1.0'
+  gem.add_runtime_dependency 'treetop',                     '~> 1.6'
   gem.add_runtime_dependency 'yard',                        '~> 0.9'
 
   gem.add_development_dependency 'rspec',                       '~> 3.11'
