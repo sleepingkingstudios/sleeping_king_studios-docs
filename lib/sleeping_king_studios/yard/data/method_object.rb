@@ -17,6 +17,7 @@ module SleepingKingStudios::Yard::Data
   # metadata.
   class MethodObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
+      data_path
       description
       metadata
       options
@@ -30,6 +31,9 @@ module SleepingKingStudios::Yard::Data
       yields
     ].freeze
     private_constant :JSON_PROPERTIES
+
+    NAME_SEPARATOR = /::|#|\./.freeze
+    private_constant :NAME_SEPARATOR
 
     PARAGRAPH_BREAK = /\n{2,}/.freeze
     private_constant :PARAGRAPH_BREAK
@@ -75,27 +79,24 @@ module SleepingKingStudios::Yard::Data
       end
     end
 
-    # A short description of the method.
-    #
-    # The first part of the method description, separated by the first
-    # paragraph break. Typically should fit on a single line of text.
-    #
-    # @return [String] the short description.
-    #
-    # @see #description.
-    def short_description
-      return @short_description if @short_description
-
-      @short_description, @description = split_docstring
-
-      @short_description
+    # @return [Boolean] true if the method is a class method; otherwise false.
+    def class_method?
+      !instance_method?
     end
 
     # The path to the data file.
     #
     # @return [String] the file path.
     def data_path
-      @data_path ||= name.split('::').map { |str| slugify(str) }.join('/')
+      return @data_path if @data_path
+
+      *scope_names, method_name =
+        name.split(NAME_SEPARATOR).reject(&:empty?)
+
+      scope_names = scope_names.map { |str| slugify(str) }
+      scope_names << "#{instance_method? ? 'i' : 'c'}-#{slugify(method_name)}"
+
+      @data_path = scope_names.join('/')
     end
 
     # The full description of the method, minus the first clause.
@@ -112,6 +113,12 @@ module SleepingKingStudios::Yard::Data
       @short_description, @description = split_docstring
 
       @description
+    end
+
+    # @return [Boolean] true if the method is an instance method; otherwise
+    #   false.
+    def instance_method?
+      native.path[-(1 + native.name.length)] == '#'
     end
 
     # Additional metadata tags from the documentation.
@@ -212,6 +219,22 @@ module SleepingKingStudios::Yard::Data
         .map { |tag| format_return(tag) }
     end
 
+    # A short description of the method.
+    #
+    # The first part of the method description, separated by the first
+    # paragraph break. Typically should fit on a single line of text.
+    #
+    # @return [String] the short description.
+    #
+    # @see #description.
+    def short_description
+      return @short_description if @short_description
+
+      @short_description, @description = split_docstring
+
+      @short_description
+    end
+
     # The name and parameters of the method.
     #
     # @return [String] the method signature.
@@ -299,7 +322,11 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_overload(tag)
-      self.class.new(native: tag).as_json
+      self
+        .class
+        .new(native: tag)
+        .as_json
+        .tap { |hsh| hsh.delete('data_path') }
     end
 
     def format_param(tag)

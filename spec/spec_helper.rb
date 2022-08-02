@@ -6,6 +6,8 @@ unless ENV['COVERAGE'] == 'false'
   SimpleCov.start
 end
 
+require 'cuprum/rspec/be_a_result'
+require 'cuprum/rspec/be_callable'
 require 'rspec/sleeping_king_studios/all'
 require 'byebug'
 require 'yard'
@@ -15,6 +17,7 @@ module Spec; end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.include Cuprum::RSpec::Matchers
   config.extend  RSpec::SleepingKingStudios::Concerns::ExampleConstants
   config.extend  RSpec::SleepingKingStudios::Concerns::IncludeContract
   config.extend  RSpec::SleepingKingStudios::Concerns::FocusExamples

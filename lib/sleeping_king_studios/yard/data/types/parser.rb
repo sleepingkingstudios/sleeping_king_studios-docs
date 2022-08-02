@@ -28,10 +28,14 @@ module SleepingKingStudios::Yard::Data::Types
     #
     # @return [Array<[SleepingKingStudios::Yard::Data::Types::Type]>] the parsed
     #   types.
+    #
+    # @raise [ParserError] if unable to parse the type.
     def parse(type)
       return [] if type.nil? || type.empty?
 
       parse_types(type)
+    rescue ParseError => exception
+      raise ParseError, "#{exception.message} - `#{type}'"
     end
 
     private

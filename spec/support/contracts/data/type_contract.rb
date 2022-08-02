@@ -5,13 +5,13 @@ require 'rspec/sleeping_king_studios/contract'
 require 'support/contracts/data'
 
 module Spec::Support::Contracts::Data
-  class ShouldBeATypeObject # rubocop:disable Metrics/ClassLength
+  class ShouldBeATypeObject
     extend RSpec::SleepingKingStudios::Contract
 
     # @!method apply(example_group)
     #   Adds the contract to the example group.
     #
-    #   @param expected_json [Hash{String, Object}] the expected base response
+    #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
     contract do |expected_json: nil|
       shared_context 'when the definition exists' do

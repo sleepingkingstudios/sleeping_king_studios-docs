@@ -24,6 +24,7 @@ module SleepingKingStudios::Yard::Data
   # @see SleepingKingStudios::Yard::Data::NamespaceObject
   class ModuleObject < NamespaceObject
     JSON_PROPERTIES = %i[
+      data_path
       description
       extended_modules
       included_modules
@@ -33,13 +34,6 @@ module SleepingKingStudios::Yard::Data
 
     PARAGRAPH_BREAK = /\n{2,}/.freeze
     private_constant :PARAGRAPH_BREAK
-
-    # @param native [YARD::Tags::Tag] the YARD object representing the module.
-    def initialize(native:)
-      super()
-
-      @native = native
-    end
 
     # Generates a JSON-compatible representation of the module.
     #
@@ -110,7 +104,7 @@ module SleepingKingStudios::Yard::Data
     # - 'slug': A url-safe, hyphen-separated representation of the name.
     # - 'path': The path to the data file for the module.
     #
-    # @return [Array<Hash{String, String}>] the extended modules.
+    # @return [Array<Hash{String => String}>] the extended modules.
     def extended_modules
       @extended_modules ||=
         native
@@ -134,7 +128,7 @@ module SleepingKingStudios::Yard::Data
     # - 'slug': A url-safe, hyphen-separated representation of the name.
     # - 'path': The path to the data file for the module.
     #
-    # @return [Array<Hash{String, String}>] the included modules.
+    # @return [Array<Hash{String => String}>] the included modules.
     def included_modules
       @included_modules ||=
         native

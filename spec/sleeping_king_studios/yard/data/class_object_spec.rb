@@ -28,7 +28,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
         'slug'              => class_object.slug,
         'files'             => class_object.files,
         'constructor'       => class_object.constructor?,
-        'short_description' => class_object.short_description
+        'short_description' => class_object.short_description,
+        'data_path'         => class_object.data_path
       }
     end
   end

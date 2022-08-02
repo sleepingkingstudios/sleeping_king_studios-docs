@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sleeping_king_studios/tools/toolbelt'
+
 require 'sleeping_king_studios/yard/data/types'
 
 module SleepingKingStudios::Yard::Data::Types

@@ -52,6 +52,13 @@ Lint/EmptyClass:
   Exclude:
     - spec/fixtures/**/*
 
+Metrics/ClassLength:
+  Exclude:
+    - spec/support/contracts/**/*.rb
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: exception
+
 RSpec/BeNil:
   Enabled: false
 
@@ -62,7 +69,7 @@ RSpec/HookArgument:
   EnforcedStyle: example
 
 RSpec/MultipleMemoizedHelpers:
-  Max: 10
+  Enabled: false
 
 RSpec/NamedSubject:
   Exclude:

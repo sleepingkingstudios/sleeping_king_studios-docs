@@ -5,13 +5,13 @@ require 'rspec/sleeping_king_studios/contract'
 require 'support/contracts/data'
 
 module Spec::Support::Contracts::Data
-  class ShouldImplementTheNamespaceMethods # rubocop:disable Metrics/ClassLength
+  class ShouldImplementTheNamespaceMethods
     extend RSpec::SleepingKingStudios::Contract
 
     # @!method apply(example_group)
     #   Adds the contract to the example group.
     #
-    #   @param expected_json [Hash{String, Object}] the expected base response
+    #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
     #   @param include_mixins [Boolean] if true, includes expected class and
     #     instance methods from extend-ed and include-ed modules.

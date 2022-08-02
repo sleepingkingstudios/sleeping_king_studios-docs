@@ -11,11 +11,9 @@ module Spec::Support::Contracts::Data
     # @!method apply(example_group)
     #   Adds the contract to the example group.
     #
-    #   @param constructor [Boolean] if true, assert the standard constructor
-    #     for namespace objects.
-    #   @param expected_json [Hash{String, Object}] the expected base response
+    #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
-    contract do |expected_json: nil, constructor: true|
+    contract do |expected_json: nil|
       let(:data_object) { subject }
 
       before(:context) do
@@ -30,14 +28,12 @@ module Spec::Support::Contracts::Data
         SleepingKingStudios::Yard::Registry.clear
       end
 
-      if constructor
-        describe '.new' do
-          it 'should define the constructor' do
-            expect(described_class)
-              .to be_constructible
-              .with(0).arguments
-              .and_keywords(:native)
-          end
+      describe '.new' do
+        it 'should define the constructor' do
+          expect(described_class)
+            .to be_constructible
+            .with(0).arguments
+            .and_keywords(:native)
         end
       end
 

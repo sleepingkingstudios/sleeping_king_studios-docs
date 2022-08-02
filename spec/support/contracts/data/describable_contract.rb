@@ -5,7 +5,7 @@ require 'rspec/sleeping_king_studios/contract'
 require 'support/contracts/data'
 
 module Spec::Support::Contracts::Data
-  class ShouldBeADescribableObject # rubocop:disable Metrics/ClassLength
+  class ShouldBeADescribableObject
     extend RSpec::SleepingKingStudios::Contract
 
     # @!method apply(example_group)
@@ -14,7 +14,7 @@ module Spec::Support::Contracts::Data
     #   @param basic_name [String] a basic name for the data object.
     #   @param complex_name [String] a multipart name for the data object.
     #   @param description [String] the short description for the data object.
-    #   @param expected_json [Hash{String, Object}] the expected base response
+    #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
     #   @param scoped_name [String] a name for the data object, including a
     #     class or module scope.
@@ -26,6 +26,7 @@ module Spec::Support::Contracts::Data
       description:,
       scoped_name:,
       expected_json:,
+      data_path: true,
       separator: '::'
     |
       let(:data_object) { subject }
@@ -54,34 +55,36 @@ module Spec::Support::Contracts::Data
         end
       end
 
-      describe '#data_path' do
-        def tools
-          SleepingKingStudios::Tools::Toolbelt.instance
-        end
-
-        include_examples 'should define reader',
-          :data_path,
-          -> { tools.str.underscore(basic_name) }
-
-        wrap_context 'using fixture', 'with complex name' do
-          let(:fixture_name) { complex_name }
-          let(:expected) do
-            tools.str.underscore(complex_name).tr('_', '-')
+      if data_path
+        describe '#data_path' do
+          def tools
+            SleepingKingStudios::Tools::Toolbelt.instance
           end
 
-          it { expect(data_object.data_path).to be == expected }
-        end
+          include_examples 'should define reader',
+            :data_path,
+            -> { tools.str.underscore(basic_name) }
 
-        wrap_context 'using fixture', 'with scoped name' do
-          let(:fixture_name) { scoped_name }
-          let(:expected) do
-            scoped_name
-              .split(separator)
-              .map { |str| tools.str.underscore(str).tr('_', '-') }
-              .join('/')
+          wrap_context 'using fixture', 'with complex name' do
+            let(:fixture_name) { complex_name }
+            let(:expected) do
+              tools.str.underscore(complex_name).tr('_', '-')
+            end
+
+            it { expect(data_object.data_path).to be == expected }
           end
 
-          it { expect(data_object.data_path).to be == expected }
+          wrap_context 'using fixture', 'with scoped name' do
+            let(:fixture_name) { scoped_name }
+            let(:expected) do
+              scoped_name
+                .split(separator)
+                .map { |str| tools.str.underscore(str).tr('_', '-') }
+                .join('/')
+            end
+
+            it { expect(data_object.data_path).to be == expected }
+          end
         end
       end
 
