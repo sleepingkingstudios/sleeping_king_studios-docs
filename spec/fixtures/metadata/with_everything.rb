@@ -2,6 +2,16 @@
 
 # This module is out of this world.
 #
+# @abstract Also requires Time.
+#
+# @api internal
+#
+# @author Alan Bradley
+# @author Ed Dillinger
+# @author Kevin Flynn
+#
+# @deprecated Alas, poor Yorick!
+#
 # @example
 #   # This is an anonymous example.
 #
@@ -33,9 +43,15 @@
 #
 # @see https://foo.
 #
+# @since alpha
+# @since beta
+#
 # @todo Cut the blue wire.
 #
 # @todo Cut the red wire.
 #
 # @todo Remove the plutonium.
+#
+# @version 1.0
+# @version 1.0.10.101
 module Space; end
