@@ -1,0 +1,49 @@
+grammar TypesSpecifierList
+  rule type_list
+    type ',\s+'r type_list / type
+  end
+
+  rule type
+    parameterized_type / ordered_type / key_value_type / identifier_with_whitespace
+  end
+
+  # Parameterized types.
+
+  rule key_value_type
+    identifier_with_whitespace '{' type_list '\s*=>\s*'r type_list '}'
+  end
+
+  rule ordered_type
+    identifier_with_whitespace '<(' type_list ')>'
+  end
+
+  rule parameterized_type
+    identifier_with_whitespace '<' type_list '>'
+  end
+
+  # Identifiers.
+
+  rule identifier_with_whitespace
+    '\s*'r identifier '\s*'r
+  end
+
+  rule identifier
+    class_method / instance_method / literal
+  end
+
+  rule class_method
+    '.' method_name
+  end
+
+  rule instance_method
+    '#' method_name
+  end
+
+  rule literal
+    '[^#\. ,=\<\>\(\)\{\}]+'r
+  end
+
+  rule method_name
+    literal / '<<' / '<=>' / '<=' / '<' / '===' / '==' / '>=' / '>>' / '>'
+  end
+end

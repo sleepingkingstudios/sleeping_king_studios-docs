@@ -20,6 +20,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
   end
 
   describe '#parse' do
+    let(:error_message) { "unable to parse type `#{type}'" }
+
     def array_type(items:, name:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
         name:    name,
@@ -81,6 +83,21 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       end
 
       it { expect(parser.parse(type)).to be == expected }
+    end
+
+    describe 'with a comparison method' do
+      %w[< << <= <=> == === > >= >>].each do |method_name|
+        describe %("##{method_name}") do
+          let(:type) { "##{method_name}" }
+          let(:expected) do
+            [
+              basic_type(name: "##{method_name}")
+            ]
+          end
+
+          it { expect(parser.parse(type)).to be == expected }
+        end
+      end
     end
 
     describe 'with a literal' do
@@ -194,12 +211,39 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
       it { expect(parser.parse(type)).to be == expected }
     end
 
+    describe 'with a parameterized type with comparison method' do
+      %w[< << <=> == === >= >>].each do |method_name|
+        describe %("##{method_name}") do
+          let(:type) { "Array<##{method_name}>" }
+          let(:expected) do
+            [
+              array_type(
+                name:  'Array',
+                items: [
+                  basic_type(name: "##{method_name}")
+                ]
+              )
+            ]
+          end
+
+          it { expect(parser.parse(type)).to be == expected }
+        end
+      end
+
+      %w[<= >].each do |method_name|
+        describe %("##{method_name}") do
+          let(:type) { "Array<##{method_name}>" }
+
+          it 'should raise an exception' do
+            expect { parser.parse(type) }
+              .to raise_error described_class::ParseError, error_message
+          end
+        end
+      end
+    end
+
     describe 'with an improperly closed parameterized type' do
       let(:type) { 'Array<String>>' }
-      let(:error_message) do
-        %(invalid character `>' at index 13: ">" must terminate a ) \
-          "parameterized type - `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -209,10 +253,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an improperly opened parameterized type' do
       let(:type) { 'Array<<String>>' }
-      let(:error_message) do
-        %(invalid character `<' at index 6: "<" must follow a token name ) \
-          "- `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -222,10 +262,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an unclosed parameterized type' do
       let(:type) { 'Array<String' }
-      let(:error_message) do
-        'unterminated parameterized type - is there a missing ">" character? ' \
-          "- `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -278,10 +314,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an improperly closed ordered type' do
       let(:type) { 'Array<(String))>' }
-      let(:error_message) do
-        %(invalid character `\)' at index 13: "\)>" must terminate an ) \
-          "order-dependent list - `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -291,10 +323,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an improperly opened ordered type' do
       let(:type) { 'Array(String)' }
-      let(:error_message) do
-        %(invalid character `\(' at index 5: "<\(" must start an ) \
-          "order-dependent list - `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -304,10 +332,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an partially closed ordered type' do
       let(:type) { 'Array<(String)' }
-      let(:error_message) do
-        %(invalid character `\)' at index 13: "\)>" must terminate an ) \
-          "order-dependent list - `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -365,10 +389,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an improperly closed key-value type' do
       let(:type) { 'Hash{String=>String}}' }
-      let(:error_message) do
-        %(invalid character `}' at index 20: "}" must terminate a ) \
-          "key-value type - `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -378,10 +398,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an improperly opened key-value type' do
       let(:type) { 'Hash{{String=>String}' }
-      let(:error_message) do
-        %(invalid character `{' at index 5: "{" must follow a token name ) \
-          "- `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -391,10 +407,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an improperly unseparated key-value type' do
       let(:type) { 'Hash{String=String}' }
-      let(:error_message) do
-        %(invalid character `=' at index 11: "=>" must separate hash keys ) \
-          "and values - `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -404,10 +416,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an unseparated key-value type' do
       let(:type) { 'Hash{String}' }
-      let(:error_message) do
-        %(unterminated key-value type - is there a missing "=>" character? ) \
-          "- `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
@@ -417,14 +425,67 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     describe 'with an unclosed key-value type' do
       let(:type) { 'Hash{String=>String' }
-      let(:error_message) do
-        %(unterminated key-value type - is there a missing "}" character? ) \
-          "- `#{type}'"
-      end
 
       it 'should raise an exception' do
         expect { parser.parse(type) }
           .to raise_error described_class::ParseError, error_message
+      end
+    end
+
+    describe 'with a key-value type with comparison method keys' do
+      %w[<< <=> === >= >>].each do |method_name|
+        describe %("##{method_name}") do
+          let(:type) { "Hash{##{method_name}=>String}" }
+          let(:expected) do
+            [
+              hash_type(
+                name:   'Hash',
+                keys:   [
+                  basic_type(name: "##{method_name}")
+                ],
+                values: [
+                  basic_type(name: 'String')
+                ]
+              )
+            ]
+          end
+
+          it { expect(parser.parse(type)).to be == expected }
+        end
+      end
+
+      %w[< == >].each do |method_name|
+        describe %("##{method_name}") do
+          let(:type) { "Hash{##{method_name}=>String}" }
+
+          it 'should raise an exception' do
+            expect { parser.parse(type) }
+              .to raise_error described_class::ParseError, error_message
+          end
+        end
+      end
+    end
+
+    describe 'with a key-value type with comparison method values' do
+      %w[< << <=> == === >= >>].each do |method_name|
+        describe %("##{method_name}") do
+          let(:type) { "Hash{String=>##{method_name}}" }
+          let(:expected) do
+            [
+              hash_type(
+                name:   'Hash',
+                keys:   [
+                  basic_type(name: 'String')
+                ],
+                values: [
+                  basic_type(name: "##{method_name}")
+                ]
+              )
+            ]
+          end
+
+          it { expect(parser.parse(type)).to be == expected }
+        end
       end
     end
 
