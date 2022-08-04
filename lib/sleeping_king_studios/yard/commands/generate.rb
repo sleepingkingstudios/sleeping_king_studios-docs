@@ -10,28 +10,42 @@ module SleepingKingStudios::Yard::Commands
   class Generate < SleepingKingStudios::Yard::Commands::Generators::Base # rubocop:disable Metrics/ClassLength
     private
 
-    def data_commands # rubocop:disable Metrics/MethodLength
-      @data_commands ||= Hash.new do |hsh, data_type|
-        class_name = "#{tools.string_tools.camelize(data_type.to_s)}Object"
-        data_class = SleepingKingStudios::Yard::Data.const_get(class_name)
+    def build_constant(native:)
+      SleepingKingStudios::Yard::Data::ConstantObject.new(native: native)
+    end
 
-        hsh[data_type] =
-          SleepingKingStudios::Yard::Commands::Generators::DataGenerator
-          .new(
-            data_class: data_class,
-            data_type:  data_type,
-            docs_path:  docs_path,
-            **options
-          )
-      end
+    def build_class(native:)
+      SleepingKingStudios::Yard::Data::ClassObject.new(native: native)
+    end
+
+    def build_method(native:)
+      SleepingKingStudios::Yard::Data::MethodObject.new(native: native)
+    end
+
+    def build_module(native:)
+      SleepingKingStudios::Yard::Data::ModuleObject.new(native: native)
+    end
+
+    def build_root_namespace(native:)
+      SleepingKingStudios::Yard::Data::RootObject.new(native: native)
+    end
+
+    def data_command
+      @data_command ||=
+        SleepingKingStudios::Yard::Commands::Generators::DataGenerator
+        .new(docs_path: docs_path, **options)
     end
 
     def generate_classes
       puts "\nGenerating Classes:" if verbose? && !registry_classes.empty?
 
       registry_classes.each do |native|
-        data_commands[:class].call(native: native)
-        reference_commands[:class].call(native: native)
+        data_object = build_class(native: native)
+
+        puts "- #{data_object.name}" if verbose?
+
+        generate_data_file(data_object: data_object)
+        generate_reference_file(data_object: data_object)
       end
     end
 
@@ -39,15 +53,32 @@ module SleepingKingStudios::Yard::Commands
       puts "\nGenerating Constants:" if verbose? && !registry_constants.empty?
 
       registry_constants.each do |native|
-        data_commands[:constant].call(native: native)
+        data_object = build_constant(native: native)
+
+        puts "- #{data_object.name}" if verbose?
+
+        generate_data_file(data_object: data_object)
       end
+    end
+
+    def generate_data_file(data_object:, **options)
+      report_result(
+        command:     data_command,
+        data_object: data_object,
+        result:      data_command.call(data_object: data_object, **options),
+        **options
+      )
     end
 
     def generate_methods
       puts "\nGenerating Methods:" if verbose? && !registry_methods.empty?
 
       registry_methods.each do |native|
-        data_commands[:method].call(native: native)
+        data_object = build_method(native: native)
+
+        puts "- #{data_object.name}" if verbose?
+
+        generate_data_file(data_object: data_object)
       end
     end
 
@@ -55,26 +86,35 @@ module SleepingKingStudios::Yard::Commands
       puts "\nGenerating Modules:" if verbose? && !registry_modules.empty?
 
       registry_modules.each do |native|
-        data_commands[:module].call(native: native)
-        reference_commands[:module].call(native: native)
+        data_object = build_module(native: native)
+
+        puts "- #{data_object.name}" if verbose?
+
+        generate_data_file(data_object: data_object)
+        generate_reference_file(data_object: data_object)
       end
+    end
+
+    def generate_reference_file(data_object:, **options)
+      report_result(
+        command:     reference_command,
+        data_object: data_object,
+        result:      reference_command.call(
+          data_object: data_object,
+          **options
+        ),
+        **options
+      )
     end
 
     def generate_root_namespace
       puts 'Generating Root Namespace:' if verbose?
 
-      namespace_command.call(native: registry_root)
-    end
+      data_object = build_root_namespace(native: registry_root)
 
-    def namespace_command
-      @namespace_command ||=
-        SleepingKingStudios::Yard::Commands::Generators::DataGenerator
-        .new(
-          data_class: SleepingKingStudios::Yard::Data::RootObject,
-          data_type:  :namespace,
-          docs_path:  docs_path,
-          **options
-        )
+      puts '- root namespace' if verbose?
+
+      generate_data_file(data_object: data_object, data_type: :namespace)
     end
 
     def parse_registry(file_path:)
@@ -93,22 +133,14 @@ module SleepingKingStudios::Yard::Commands
       nil
     end
 
-    def reference_commands # rubocop:disable Metrics/MethodLength
-      @reference_commands ||= Hash.new do |hsh, reference_type|
-        class_name      =
-          "#{tools.string_tools.camelize(reference_type.to_s)}Object"
-        reference_class =
-          SleepingKingStudios::Yard::Data.const_get(class_name)
+    def puts(string)
+      output_stream.puts(string)
+    end
 
-        hsh[reference_type] =
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
-          .new(
-            docs_path:       docs_path,
-            reference_class: reference_class,
-            reference_type:  reference_type,
-            **options
-          )
-      end
+    def reference_command
+      @reference_command ||=
+        SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+        .new(docs_path: docs_path, **options)
     end
 
     def registry
@@ -144,8 +176,45 @@ module SleepingKingStudios::Yard::Commands
         .find { |obj| obj.type == :root }
     end
 
+    def report_failure(file_path:, result:)
+      message = verbose? ? '  - ' : ''
+      message +=
+        "FAILURE: unable to write file to #{file_path} - " \
+        "#{result.error.class}: #{result.error.message}"
+
+      warn message
+    end
+
+    def report_result(command:, data_object:, result:, data_type: nil) # rubocop:disable Metrics/MethodLength
+      data_type ||= data_object_type(data_object: data_object)
+      file_path   = command.file_path(
+        data_object: data_object,
+        data_type:   data_type
+      )
+
+      if result.success?
+        report_success(file_path: file_path)
+      else
+        report_failure(file_path: file_path, result: result)
+      end
+
+      result
+    end
+
+    def report_success(file_path:)
+      return unless verbose?
+
+      message = "  - SUCCESS: file written to #{file_path}"
+
+      puts message
+    end
+
     def tools
       SleepingKingStudios::Tools::Toolbelt.instance
+    end
+
+    def warn(string)
+      error_stream.puts(string)
     end
   end
 end
