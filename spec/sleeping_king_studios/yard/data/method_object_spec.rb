@@ -480,6 +480,19 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       it { expect(method_object.returns).to be == expected }
     end
 
+    wrap_context 'using fixture', 'with return without type' do
+      let(:expected) do
+        [
+          {
+            'type'        => [],
+            'description' => 'an array of strings.'
+          }
+        ]
+      end
+
+      it { expect(method_object.returns).to be == expected }
+    end
+
     wrap_context 'using fixture', 'with multiple return types' do
       let(:expected) do
         [
@@ -605,6 +618,30 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
 
   describe '#yield_params' do
     include_examples 'should define reader', :yield_params, []
+
+    wrap_context 'using fixture', 'with yield without types' do
+      let(:expected) do
+        [
+          {
+            'description' => 'the rocket to launch.',
+            'name'        => 'rocket',
+            'type'        => parse_type('Rocket')
+          },
+          {
+            'description' => 'the payload to launch.',
+            'name'        => 'payload',
+            'type'        => parse_type('Object')
+          },
+          {
+            'description' => 'the destinations to visit.',
+            'name'        => 'destinations',
+            'type'        => parse_type('Hash')
+          }
+        ]
+      end
+
+      it { expect(method_object.yield_params).to be == expected }
+    end
 
     wrap_context 'using fixture', 'with yield params' do
       let(:expected) do

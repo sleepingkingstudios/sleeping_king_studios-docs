@@ -346,7 +346,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         registry.select { |obj| obj.type == :class }
       end
       let(:expected_constants) do
-        registry.select { |obj| obj.type == :constant }
+        registry
+          .select { |obj| obj.type == :constant }
+          .select { |obj| obj.visibility == :public }
       end
       let(:expected_methods) do
         registry
