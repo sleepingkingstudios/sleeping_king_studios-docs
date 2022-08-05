@@ -155,7 +155,7 @@ module SleepingKingStudios::Yard::Commands
 
     def registry_constants
       registry
-        .select { |obj| obj.type == :constant }
+        .select { |obj| obj.type == :constant && obj.visibility == :public }
         .sort_by(&:path)
     end
 

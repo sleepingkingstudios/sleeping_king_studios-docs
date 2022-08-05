@@ -369,7 +369,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def parse_types(tag)
-      tag.types.reduce([]) do |memo, type|
+      (tag.types || []).reduce([]) do |memo, type|
         memo + type_parser.parse(type).map(&:as_json)
       end
     end
@@ -379,19 +379,6 @@ module SleepingKingStudios::Yard::Data
         native
         .signature[(5 + native.name.size)..-2]
         .split(', ')
-        .map { |param| param.split(/ = |: ?/) }
-        .select { |tuple| tuple.size == 2 }
-        .to_h
-    end
-
-    def yield_defaults
-      yield_tag = native.tags.find { |tag| tag.tag_name == 'yield' }
-
-      return {} unless yield_tag
-
-      @yield_defaults ||=
-        yield_tag
-        .types
         .map { |param| param.split(/ = |: ?/) }
         .select { |tuple| tuple.size == 2 }
         .to_h
@@ -416,6 +403,19 @@ module SleepingKingStudios::Yard::Data
     def type_parser
       @type_parser ||=
         SleepingKingStudios::Yard::Data::Types::Parser.new
+    end
+
+    def yield_defaults # rubocop:disable Metrics/CyclomaticComplexity
+      yield_tag = native.tags.find { |tag| tag.tag_name == 'yield' }
+
+      return {} unless yield_tag
+
+      @yield_defaults ||=
+        yield_tag
+        .types
+        &.map { |param| param.split(/ = |: ?/) }
+        &.select { |tuple| tuple.size == 2 }
+        .to_h
     end
   end
 end

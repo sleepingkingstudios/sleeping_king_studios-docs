@@ -4,6 +4,7 @@ require 'sleeping_king_studios/tools/toolbelt'
 require 'treetop'
 
 require 'sleeping_king_studios/yard/data/types'
+require 'sleeping_king_studios/yard/data/types/grammar'
 
 module SleepingKingStudios::Yard::Data::Types
   # Parses a YARD type list into a nested data object.
@@ -19,8 +20,6 @@ module SleepingKingStudios::Yard::Data::Types
     class ParseError < StandardError; end
 
     def initialize
-      Treetop.load 'lib/sleeping_king_studios/yard/data/types/grammar'
-
       @parser = TypesSpecifierListParser.new
 
       generate_node_map

@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# This is a private constant.
+PRIVATE_CONSTANT = nil
+private_constant :PRIVATE_CONSTANT
+
 # This is a constant in the top-level namespace.
 TOP_LEVEL_CONSTANT = nil
 
