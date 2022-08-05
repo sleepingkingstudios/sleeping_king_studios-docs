@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 require 'sleeping_king_studios/yard/data'
 
 module SleepingKingStudios::Yard::Data

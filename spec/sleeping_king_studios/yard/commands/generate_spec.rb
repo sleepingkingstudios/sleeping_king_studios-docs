@@ -29,142 +29,63 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
     end
 
-    shared_examples 'should initialize the data commands' do
-      it 'should initialize the class data command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
-          .to have_received(:new)
-          .with(
-            data_class: SleepingKingStudios::Yard::Data::ClassObject,
-            data_type:  :class,
-            docs_path:  docs_path,
-            **command.options
-          )
-      end
-
-      it 'should initialize the constant data command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
-          .to have_received(:new)
-          .with(
-            data_class: SleepingKingStudios::Yard::Data::ConstantObject,
-            data_type:  :constant,
-            docs_path:  docs_path,
-            **command.options
-          )
-      end
-
-      it 'should initialize the method data command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
-          .to have_received(:new)
-          .with(
-            data_class: SleepingKingStudios::Yard::Data::MethodObject,
-            data_type:  :method,
-            docs_path:  docs_path,
-            **command.options
-          )
-      end
-
-      it 'should initialize the module data command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
-          .to have_received(:new)
-          .with(
-            data_class: SleepingKingStudios::Yard::Data::ModuleObject,
-            data_type:  :module,
-            docs_path:  docs_path,
-            **command.options
-          )
-      end
-
-      it 'should initialize the namespace data command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
-          .to have_received(:new)
-          .with(
-            data_class: SleepingKingStudios::Yard::Data::RootObject,
-            data_type:  :namespace,
-            docs_path:  docs_path,
-            **command.options
-          )
-      end
-    end
-
-    shared_examples 'should initialize the reference commands' do
-      it 'should initialize the class reference command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
-        )
-          .to have_received(:new)
-          .with(
-            docs_path:       docs_path,
-            reference_class: SleepingKingStudios::Yard::Data::ClassObject,
-            reference_type:  :class,
-            **command.options
-          )
-      end
-
-      it 'should initialize the module reference command' do # rubocop:disable RSpec/ExampleLength
-        command.call
-
-        expect(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
-        )
-          .to have_received(:new)
-          .with(
-            docs_path:       docs_path,
-            reference_class: SleepingKingStudios::Yard::Data::ModuleObject,
-            reference_type:  :module,
-            **command.options
-          )
-      end
-    end
-
-    shared_examples 'should not generate data files' do
+    shared_examples 'should only generate root data file' do
       it 'should not generate the class data files' do
+        data_class = SleepingKingStudios::Yard::Data::ClassObject
+
         command.call
 
-        expect(class_data_command).not_to have_received(:call)
+        expect(data_command)
+          .not_to have_received(:call)
+          .with(hash_including(data_object: an_instance_of(data_class)))
       end
 
       it 'should not generate the constant data files' do
+        data_class = SleepingKingStudios::Yard::Data::ConstantObject
+
         command.call
 
-        expect(constant_data_command).not_to have_received(:call)
+        expect(data_command)
+          .not_to have_received(:call)
+          .with(hash_including(data_object: an_instance_of(data_class)))
       end
 
       it 'should not generate the method data files' do
+        data_class = SleepingKingStudios::Yard::Data::MethodObject
+
         command.call
 
-        expect(method_data_command).not_to have_received(:call)
+        expect(data_command)
+          .not_to have_received(:call)
+          .with(hash_including(data_object: an_instance_of(data_class)))
       end
 
       it 'should not generate the module data files' do
+        data_class = SleepingKingStudios::Yard::Data::ModuleObject
+
         command.call
 
-        expect(module_data_command).not_to have_received(:call)
+        expect(data_command)
+          .not_to have_received(:call)
+          .with(hash_including(data_object: an_instance_of(data_class)))
+      end
+
+      it 'should generate the root namespace data file' do
+        data_class = SleepingKingStudios::Yard::Data::RootObject
+
+        command.call
+
+        expect(data_command)
+          .to have_received(:call)
+          .with(data_object: an_instance_of(data_class), data_type: :namespace)
       end
     end
 
     shared_examples 'should not generate reference files' do
-      it 'should not generate the class reference files' do
+      it 'should not generate the reference files' do
         command.call
 
-        expect(class_reference_command).not_to have_received(:call)
-      end
-
-      it 'should not generate the module reference files' do
-        command.call
-
-        expect(module_reference_command).not_to have_received(:call)
+        expect(reference_command).not_to have_received(:call)
       end
     end
 
@@ -173,9 +94,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expected_classes.each do |native|
-          expect(class_data_command)
+          expect(data_command)
             .to have_received(:call)
-            .with(native: native)
+            .with(data_object: class_object(native: native))
         end
       end
 
@@ -183,9 +104,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expected_constants.each do |native|
-          expect(constant_data_command)
+          expect(data_command)
             .to have_received(:call)
-            .with(native: native)
+            .with(data_object: constant_object(native: native))
         end
       end
 
@@ -193,9 +114,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expected_methods.each do |native|
-          expect(method_data_command)
+          expect(data_command)
             .to have_received(:call)
-            .with(native: native)
+            .with(data_object: method_object(native: native))
         end
       end
 
@@ -203,29 +124,31 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expected_modules.each do |native|
-          expect(module_data_command)
+          expect(data_command)
             .to have_received(:call)
-            .with(native: native)
+            .with(data_object: module_object(native: native))
         end
       end
 
       it 'should generate the root namespace data file' do
+        data_class = SleepingKingStudios::Yard::Data::RootObject
+
         command.call
 
-        expect(namespace_data_command)
+        expect(data_command)
           .to have_received(:call)
-          .with(native: expected_root)
+          .with(data_object: an_instance_of(data_class), data_type: :namespace)
       end
     end
 
     shared_examples 'should generate the reference files' do
-      it 'should generate the class reference files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+      it 'should generate the class data files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call
 
         expected_classes.each do |native|
-          expect(class_reference_command)
+          expect(reference_command)
             .to have_received(:call)
-            .with(native: native)
+            .with(data_object: class_object(native: native))
         end
       end
 
@@ -233,84 +156,56 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expected_modules.each do |native|
-          expect(module_reference_command)
+          expect(reference_command)
             .to have_received(:call)
-            .with(native: native)
+            .with(data_object: module_object(native: native))
         end
       end
     end
 
-    def self.data_command(data_type) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      let(:"#{data_type}_data_command") do
-        instance_double(
-          SleepingKingStudios::Yard::Commands::Generators::DataGenerator,
-          "#{data_type}_data_command",
-          call: nil
-        )
-      end
-
-      before(:example) do # rubocop:disable RSpec/ScatteredSetup
-        command = send(:"#{data_type}_data_command")
-
-        allow(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
-          .to receive(:new)
-          .with(hash_including(data_type: data_type))
-          .and_return(command)
-
-        allow(command).to receive(:call) do |native:|
-          path = native.path.empty? ? '(root)' : native.path
-          output_stream.puts "- #{path}: data"
-
-          Cuprum::Result.new(status: :success)
-        end
-      end
+    let(:data_command) do
+      instance_double(
+        SleepingKingStudios::Yard::Commands::Generators::DataGenerator,
+        call:      Cuprum::Result.new(status: :success),
+        file_path: nil
+      )
     end
-
-    def self.reference_command(reference_type) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      let(:"#{reference_type}_reference_command") do
-        instance_double(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator,
-          "#{reference_type}_reference_command",
-          call: Cuprum::Result.new(status: :success)
-        )
-      end
-
-      before(:example) do # rubocop:disable RSpec/ScatteredSetup
-        command = send(:"#{reference_type}_reference_command")
-
-        allow(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
-        )
-          .to receive(:new)
-          .with(hash_including(reference_type: reference_type))
-          .and_return(command)
-
-        allow(command).to receive(:call) do |native:|
-          output_stream.puts "- #{native.path}: reference"
-
-          Cuprum::Result.new(status: :success)
-        end
-      end
-    end
-
-    data_command :class
-    data_command :constant
-    data_command :method
-    data_command :module
-    data_command :namespace
-
-    reference_command :class
-    reference_command :module
-
     let(:parse_command) do
       instance_double(
         SleepingKingStudios::Yard::Commands::Parse,
         call: Cuprum::Result.new(status: :success)
       )
     end
+    let(:reference_command) do
+      instance_double(
+        SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator,
+        call:      Cuprum::Result.new(status: :success),
+        file_path: nil
+      )
+    end
     let(:output_stream) { StringIO.new }
     let(:registry)      { parse_registry }
     let(:expected_root) { registry.first }
+
+    def class_object(native:)
+      be_a(SleepingKingStudios::Yard::Data::ClassObject)
+        .and(have_attributes(name: native.path))
+    end
+
+    def constant_object(native:)
+      be_a(SleepingKingStudios::Yard::Data::ConstantObject)
+        .and(have_attributes(name: native.path))
+    end
+
+    def method_object(native:)
+      be_a(SleepingKingStudios::Yard::Data::MethodObject)
+        .and(have_attributes(name: native.path))
+    end
+
+    def module_object(native:)
+      be_a(SleepingKingStudios::Yard::Data::ModuleObject)
+        .and(have_attributes(name: native.path))
+    end
 
     def parse_registry
       ::YARD::Registry.clear
@@ -320,14 +215,34 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       [::YARD::Registry.root]
     end
 
-    before(:example) do # rubocop:disable RSpec/ScatteredSetup
+    def tools
+      SleepingKingStudios::Tools::Toolbelt.instance
+    end
+
+    before(:example) do
+      allow(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+        .to receive(:new)
+        .and_return(data_command)
+
       allow(SleepingKingStudios::Yard::Commands::Parse)
         .to receive(:new)
         .and_return(parse_command)
 
+      allow(SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator)
+        .to receive(:new)
+        .and_return(reference_command)
+
       allow(SleepingKingStudios::Yard::Registry)
         .to receive(:instance)
         .and_return(registry)
+
+      allow(data_command).to receive(:file_path) do |data_object:, data_type:|
+        "#{tools.str.pluralize(data_type)}/#{data_object.data_path}.yml"
+      end
+
+      allow(reference_command).to receive(:file_path) do |data_object:, **_|
+        "reference/#{data_object.data_path}.md"
+      end
     end
 
     it 'should define the method' do
@@ -347,17 +262,84 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       expect(parse_command).to have_received(:call).with(nil)
     end
 
-    include_examples 'should not generate data files'
-
-    it 'should generate the root namespace data file' do
+    it 'should initialize the data command' do
       command.call
 
-      expect(namespace_data_command)
-        .to have_received(:call)
-        .with(native: expected_root)
+      expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+        .to have_received(:new)
+        .with(docs_path: docs_path, **command.options)
     end
 
+    include_examples 'should only generate root data file'
+
     include_examples 'should not generate reference files'
+
+    context 'when the YARD parser returns a failing result' do
+      let(:expected_error) do
+        Cuprum::Error.new(message: 'something went wrong')
+      end
+      let(:error_result) do
+        Cuprum::Result.new(error: expected_error)
+      end
+
+      before(:example) do
+        allow(parse_command).to receive(:call).and_return(error_result)
+      end
+
+      it 'should return a failing result' do
+        expect(command.call)
+          .to be_a_failing_result
+          .with_error(expected_error)
+      end
+
+      it 'should not generate data files' do
+        command.call
+
+        expect(data_command).not_to have_received(:call)
+      end
+
+      include_examples 'should not generate reference files'
+
+      wrap_context 'when the parsed registry has many items' do
+        it 'should not generate data files' do
+          command.call
+
+          expect(data_command).not_to have_received(:call)
+        end
+
+        include_examples 'should not generate reference files'
+      end
+    end
+
+    context 'when writing the data files returns failing results' do
+      let(:expected_error) do
+        Cuprum::Error.new(message: 'something went wrong')
+      end
+      let(:error_result) do
+        Cuprum::Result.new(error: expected_error)
+      end
+      let(:error_stream) { StringIO.new }
+      let(:options) do
+        super().merge(error_stream: error_stream)
+      end
+      let(:expected) do
+        <<~OUTPUT
+          FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+        OUTPUT
+      end
+
+      before(:example) do
+        allow(data_command)
+          .to receive(:call)
+          .and_return(error_result)
+      end
+
+      it 'should write the errors to STDERR' do
+        expect { command.call }
+          .to change(error_stream, :string)
+          .to be == expected
+      end
+    end
 
     wrap_context 'when the parsed registry has many items' do
       let(:expected_classes) do
@@ -379,47 +361,99 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expect(command.call).to be_a_passing_result
       end
 
-      include_examples 'should initialize the data commands'
+      it 'should initialize the data command' do
+        command.call
 
-      include_examples 'should initialize the reference commands'
+        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
+
+      it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
+        command.call
+
+        expect(
+          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+        )
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
 
       include_examples 'should generate the data files'
 
       include_examples 'should generate the reference files'
-    end
 
-    context 'when the YARD parser returns a failing result' do
-      let(:expected_error) do
-        Cuprum::Error.new(message: 'something went wrong')
+      context 'when writing the data files returns failing results' do
+        let(:expected_error) do
+          Cuprum::Error.new(message: 'something went wrong')
+        end
+        let(:error_result) do
+          Cuprum::Result.new(error: expected_error)
+        end
+        let(:error_stream) { StringIO.new }
+        let(:options) do
+          super().merge(error_stream: error_stream)
+        end
+        let(:expected) do
+          <<~OUTPUT
+            FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
+          OUTPUT
+        end
+
+        before(:example) do
+          allow(data_command)
+            .to receive(:call)
+            .and_return(error_result)
+        end
+
+        it 'should write the errors to STDERR' do
+          expect { command.call }
+            .to change(error_stream, :string)
+            .to be == expected
+        end
       end
-      let(:error_result) do
-        Cuprum::Result.new(error: expected_error)
-      end
 
-      before(:example) do
-        allow(parse_command).to receive(:call).and_return(error_result)
-      end
+      context 'when writing the reference files returns failing results' do
+        let(:expected_error) do
+          Cuprum::Error.new(message: 'something went wrong')
+        end
+        let(:error_result) do
+          Cuprum::Result.new(error: expected_error)
+        end
+        let(:error_stream) { StringIO.new }
+        let(:options) do
+          super().merge(error_stream: error_stream)
+        end
+        let(:expected) do
+          <<~OUTPUT
+            FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
+            FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
+          OUTPUT
+        end
 
-      it 'should return a failing result' do
-        expect(command.call)
-          .to be_a_failing_result
-          .with_error(expected_error)
-      end
+        before(:example) do
+          allow(reference_command)
+            .to receive(:call)
+            .and_return(error_result)
+        end
 
-      include_examples 'should not generate data files'
-
-      it 'should not generate the root namespace data file' do
-        command.call
-
-        expect(namespace_data_command).not_to have_received(:call)
-      end
-
-      include_examples 'should not generate reference files'
-
-      wrap_context 'when the parsed registry has many items' do
-        include_examples 'should not generate data files'
-
-        include_examples 'should not generate reference files'
+        it 'should write the errors to STDERR' do
+          expect { command.call }
+            .to change(error_stream, :string)
+            .to be == expected
+        end
       end
     end
 
@@ -446,9 +480,23 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expect(command.call).to be_a_passing_result
       end
 
-      include_examples 'should initialize the data commands'
+      it 'should initialize the data command' do
+        command.call
 
-      include_examples 'should initialize the reference commands'
+        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
+
+      it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
+        command.call
+
+        expect(
+          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+        )
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
     end
 
     context 'when initialized with force: true' do
@@ -460,9 +508,23 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expect(command.call).to be_a_passing_result
       end
 
-      include_examples 'should initialize the data commands'
+      it 'should initialize the data command' do
+        command.call
 
-      include_examples 'should initialize the reference commands'
+        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
+
+      it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
+        command.call
+
+        expect(
+          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+        )
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
     end
 
     context 'when initialized with verbose: true' do
@@ -475,8 +537,16 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       let(:expected) do
         <<~OUTPUT
           Generating Root Namespace:
-          - (root): data
+          - root namespace
+            - SUCCESS: file written to namespaces/root.yml
         OUTPUT
+      end
+
+      def indent_lines(str)
+        str
+          .lines
+          .map { |line| line.empty? ? '' : "  #{line}" }
+          .join
       end
 
       it 'should return a passing result' do
@@ -489,33 +559,114 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           .to be == expected
       end
 
+      context 'when writing the data files returns failing results' do
+        let(:expected_error) do
+          Cuprum::Error.new(message: 'something went wrong')
+        end
+        let(:error_result) do
+          Cuprum::Result.new(error: expected_error)
+        end
+        let(:error_stream)  { StringIO.new }
+        let(:merged_stream) { StringIO.new }
+        let(:options) do
+          super().merge(error_stream: error_stream)
+        end
+        let(:expected_status) do
+          <<~OUTPUT
+            Generating Root Namespace:
+            - root namespace
+          OUTPUT
+        end
+        let(:expected_errors) do
+          <<~OUTPUT.then { |str| indent_lines(str) }
+            - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+          OUTPUT
+        end
+        let(:expected_output) do
+          <<~OUTPUT
+            Generating Root Namespace:
+            - root namespace
+              - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+          OUTPUT
+        end
+
+        before(:example) do
+          allow(data_command)
+            .to receive(:call)
+            .and_return(error_result)
+
+          allow(output_stream).to receive(:puts).and_wrap_original \
+          do |original, str|
+            original.call(str)
+
+            merged_stream.puts(str)
+          end
+
+          allow(error_stream).to receive(:puts).and_wrap_original \
+          do |original, str|
+            original.call(str)
+
+            merged_stream.puts(str)
+          end
+        end
+
+        it 'should write the status to STDOUT' do
+          expect { command.call }
+            .to change(output_stream, :string)
+            .to be == expected_status
+        end
+
+        it 'should write the errors to STDERR' do
+          expect { command.call }
+            .to change(error_stream, :string)
+            .to be == expected_errors
+        end
+
+        it 'should write the output to STDOUT and STDERR' do
+          expect { command.call }
+            .to change(merged_stream, :string)
+            .to be == expected_output
+        end
+      end
+
       wrap_context 'when the parsed registry has many items' do
         let(:expected) do
           <<~OUTPUT
             Generating Root Namespace:
-            - (root): data
+            - root namespace
+              - SUCCESS: file written to namespaces/root.yml
 
             Generating Classes:
-            - TopLevelClass: data
-            - TopLevelClass: reference
-            - TopLevelModule::ScopedClass: data
-            - TopLevelModule::ScopedClass: reference
+            - TopLevelClass
+              - SUCCESS: file written to classes/top-level-class.yml
+              - SUCCESS: file written to reference/top-level-class.md
+            - TopLevelModule::ScopedClass
+              - SUCCESS: file written to classes/top-level-module/scoped-class.yml
+              - SUCCESS: file written to reference/top-level-module/scoped-class.md
 
             Generating Constants:
-            - TOP_LEVEL_CONSTANT: data
-            - TopLevelModule::SCOPED_CONSTANT: data
+            - TOP_LEVEL_CONSTANT
+              - SUCCESS: file written to constants/top-level-constant.yml
+            - TopLevelModule::SCOPED_CONSTANT
+              - SUCCESS: file written to constants/top-level-module/scoped-constant.yml
 
             Generating Methods:
-            - #top_level_instance_method: data
-            - ::top_level_class_method: data
-            - TopLevelModule#scoped_instance_method: data
-            - TopLevelModule.scoped_class_method: data
+            - #top_level_instance_method
+              - SUCCESS: file written to methods/i-top-level-instance-method.yml
+            - ::top_level_class_method
+              - SUCCESS: file written to methods/c-top-level-class-method.yml
+            - TopLevelModule#scoped_instance_method
+              - SUCCESS: file written to methods/top-level-module/i-scoped-instance-method.yml
+            - TopLevelModule.scoped_class_method
+              - SUCCESS: file written to methods/top-level-module/c-scoped-class-method.yml
 
             Generating Modules:
-            - TopLevelModule: data
-            - TopLevelModule: reference
-            - TopLevelModule::ScopedModule: data
-            - TopLevelModule::ScopedModule: reference
+            - TopLevelModule
+              - SUCCESS: file written to modules/top-level-module.yml
+              - SUCCESS: file written to reference/top-level-module.md
+            - TopLevelModule::ScopedModule
+              - SUCCESS: file written to modules/top-level-module/scoped-module.yml
+              - SUCCESS: file written to reference/top-level-module/scoped-module.md
           OUTPUT
         end
 
@@ -523,6 +674,274 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           expect { command.call }
             .to change(output_stream, :string)
             .to be == expected
+        end
+
+        context 'when writing the data files returns failing results' do
+          let(:expected_error) do
+            Cuprum::Error.new(message: 'something went wrong')
+          end
+          let(:error_result) do
+            Cuprum::Result.new(error: expected_error)
+          end
+          let(:error_stream)  { StringIO.new }
+          let(:merged_stream) { StringIO.new }
+          let(:options) do
+            super().merge(error_stream: error_stream)
+          end
+          let(:expected_status) do
+            <<~OUTPUT
+              Generating Root Namespace:
+              - root namespace
+
+              Generating Classes:
+              - TopLevelClass
+                - SUCCESS: file written to reference/top-level-class.md
+              - TopLevelModule::ScopedClass
+                - SUCCESS: file written to reference/top-level-module/scoped-class.md
+
+              Generating Constants:
+              - TOP_LEVEL_CONSTANT
+              - TopLevelModule::SCOPED_CONSTANT
+
+              Generating Methods:
+              - #top_level_instance_method
+              - ::top_level_class_method
+              - TopLevelModule#scoped_instance_method
+              - TopLevelModule.scoped_class_method
+
+              Generating Modules:
+              - TopLevelModule
+                - SUCCESS: file written to reference/top-level-module.md
+              - TopLevelModule::ScopedModule
+                - SUCCESS: file written to reference/top-level-module/scoped-module.md
+            OUTPUT
+          end
+          let(:expected_errors) do
+            <<~OUTPUT.then { |str| indent_lines(str) }
+              - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
+            OUTPUT
+          end
+          let(:expected_output) do
+            <<~OUTPUT
+              Generating Root Namespace:
+              - root namespace
+                - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+
+              Generating Classes:
+              - TopLevelClass
+                - FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
+                - SUCCESS: file written to reference/top-level-class.md
+              - TopLevelModule::ScopedClass
+                - FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
+                - SUCCESS: file written to reference/top-level-module/scoped-class.md
+
+              Generating Constants:
+              - TOP_LEVEL_CONSTANT
+                - FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
+              - TopLevelModule::SCOPED_CONSTANT
+                - FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
+
+              Generating Methods:
+              - #top_level_instance_method
+                - FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
+              - ::top_level_class_method
+                - FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
+              - TopLevelModule#scoped_instance_method
+                - FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
+              - TopLevelModule.scoped_class_method
+                - FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
+
+              Generating Modules:
+              - TopLevelModule
+                - FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
+                - SUCCESS: file written to reference/top-level-module.md
+              - TopLevelModule::ScopedModule
+                - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
+                - SUCCESS: file written to reference/top-level-module/scoped-module.md
+            OUTPUT
+          end
+
+          before(:example) do
+            allow(data_command)
+              .to receive(:call)
+              .and_return(error_result)
+
+            allow(output_stream).to receive(:puts).and_wrap_original \
+            do |original, str|
+              original.call(str)
+
+              merged_stream.puts(str)
+            end
+
+            allow(error_stream).to receive(:puts).and_wrap_original \
+            do |original, str|
+              original.call(str)
+
+              merged_stream.puts(str)
+            end
+          end
+
+          it 'should write the status to STDOUT' do
+            expect { command.call }
+              .to change(output_stream, :string)
+              .to be == expected_status
+          end
+
+          it 'should write the errors to STDERR' do
+            expect { command.call }
+              .to change(error_stream, :string)
+              .to be == expected_errors
+          end
+
+          it 'should write the output to STDOUT and STDERR' do
+            expect { command.call }
+              .to change(merged_stream, :string)
+              .to be == expected_output
+          end
+        end
+
+        context 'when writing the reference files returns failing results' do
+          let(:expected_error) do
+            Cuprum::Error.new(message: 'something went wrong')
+          end
+          let(:error_result) do
+            Cuprum::Result.new(error: expected_error)
+          end
+          let(:error_stream)  { StringIO.new }
+          let(:merged_stream) { StringIO.new }
+          let(:options) do
+            super().merge(error_stream: error_stream)
+          end
+          let(:expected_status) do
+            <<~OUTPUT
+              Generating Root Namespace:
+              - root namespace
+                - SUCCESS: file written to namespaces/root.yml
+
+              Generating Classes:
+              - TopLevelClass
+                - SUCCESS: file written to classes/top-level-class.yml
+              - TopLevelModule::ScopedClass
+                - SUCCESS: file written to classes/top-level-module/scoped-class.yml
+
+              Generating Constants:
+              - TOP_LEVEL_CONSTANT
+                - SUCCESS: file written to constants/top-level-constant.yml
+              - TopLevelModule::SCOPED_CONSTANT
+                - SUCCESS: file written to constants/top-level-module/scoped-constant.yml
+
+              Generating Methods:
+              - #top_level_instance_method
+                - SUCCESS: file written to methods/i-top-level-instance-method.yml
+              - ::top_level_class_method
+                - SUCCESS: file written to methods/c-top-level-class-method.yml
+              - TopLevelModule#scoped_instance_method
+                - SUCCESS: file written to methods/top-level-module/i-scoped-instance-method.yml
+              - TopLevelModule.scoped_class_method
+                - SUCCESS: file written to methods/top-level-module/c-scoped-class-method.yml
+
+              Generating Modules:
+              - TopLevelModule
+                - SUCCESS: file written to modules/top-level-module.yml
+              - TopLevelModule::ScopedModule
+                - SUCCESS: file written to modules/top-level-module/scoped-module.yml
+            OUTPUT
+          end
+          let(:expected_errors) do
+            <<~OUTPUT.then { |str| indent_lines(str) }
+              - FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
+              - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
+            OUTPUT
+          end
+          let(:expected_output) do
+            <<~OUTPUT
+              Generating Root Namespace:
+              - root namespace
+                - SUCCESS: file written to namespaces/root.yml
+
+              Generating Classes:
+              - TopLevelClass
+                - SUCCESS: file written to classes/top-level-class.yml
+                - FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
+              - TopLevelModule::ScopedClass
+                - SUCCESS: file written to classes/top-level-module/scoped-class.yml
+                - FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
+
+              Generating Constants:
+              - TOP_LEVEL_CONSTANT
+                - SUCCESS: file written to constants/top-level-constant.yml
+              - TopLevelModule::SCOPED_CONSTANT
+                - SUCCESS: file written to constants/top-level-module/scoped-constant.yml
+
+              Generating Methods:
+              - #top_level_instance_method
+                - SUCCESS: file written to methods/i-top-level-instance-method.yml
+              - ::top_level_class_method
+                - SUCCESS: file written to methods/c-top-level-class-method.yml
+              - TopLevelModule#scoped_instance_method
+                - SUCCESS: file written to methods/top-level-module/i-scoped-instance-method.yml
+              - TopLevelModule.scoped_class_method
+                - SUCCESS: file written to methods/top-level-module/c-scoped-class-method.yml
+
+              Generating Modules:
+              - TopLevelModule
+                - SUCCESS: file written to modules/top-level-module.yml
+                - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
+              - TopLevelModule::ScopedModule
+                - SUCCESS: file written to modules/top-level-module/scoped-module.yml
+                - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
+            OUTPUT
+          end
+
+          before(:example) do
+            allow(reference_command)
+              .to receive(:call)
+              .and_return(error_result)
+
+            allow(output_stream).to receive(:puts).and_wrap_original \
+            do |original, str|
+              original.call(str)
+
+              merged_stream.puts(str)
+            end
+
+            allow(error_stream).to receive(:puts).and_wrap_original \
+            do |original, str|
+              original.call(str)
+
+              merged_stream.puts(str)
+            end
+          end
+
+          it 'should write the status to STDOUT' do
+            expect { command.call }
+              .to change(output_stream, :string)
+              .to be == expected_status
+          end
+
+          it 'should write the errors to STDERR' do
+            expect { command.call }
+              .to change(error_stream, :string)
+              .to be == expected_errors
+          end
+
+          it 'should write the output to STDOUT and STDERR' do
+            expect { command.call }
+              .to change(merged_stream, :string)
+              .to be == expected_output
+          end
         end
       end
     end
@@ -536,9 +955,23 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expect(command.call).to be_a_passing_result
       end
 
-      include_examples 'should initialize the data commands'
+      it 'should initialize the data command' do
+        command.call
 
-      include_examples 'should initialize the reference commands'
+        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
+
+      it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
+        command.call
+
+        expect(
+          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+        )
+          .to have_received(:new)
+          .with(docs_path: docs_path, **command.options)
+      end
     end
   end
 end

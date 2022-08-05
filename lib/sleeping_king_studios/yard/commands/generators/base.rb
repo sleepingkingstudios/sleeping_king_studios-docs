@@ -2,6 +2,7 @@
 
 require 'cuprum/command'
 require 'cuprum/exception_handling'
+require 'sleeping_king_studios/tools/toolbelt'
 
 require 'sleeping_king_studios/yard/commands/generators'
 
@@ -53,23 +54,6 @@ module SleepingKingStudios::Yard::Commands::Generators
       @options[:force]
     end
 
-    # Writes the given string to STDOUT.
-    #
-    # @param string [String] the string to write.
-    def print(string)
-      output_stream.print(string)
-    end
-
-    # Writes the given string to STDOUT.
-    #
-    # Appends a trailing newline character `\n' if the string does not end with
-    # a newline.
-    #
-    # @param string [String] the string to write.
-    def puts(string)
-      output_stream.puts(string)
-    end
-
     # @return [Boolean] if true, prints status messages to STDOUT.
     def verbose?
       @options[:verbose]
@@ -80,21 +64,21 @@ module SleepingKingStudios::Yard::Commands::Generators
       @options[:version]
     end
 
-    # Writes the given string to STDERR.
-    #
-    # Appends a trailing newline character `\n' if the string does not end with
-    # a newline.
-    #
-    # @param string [String] the string to write.
-    def warn(string)
-      error_stream.puts(string)
-    end
-
     private
 
     attr_reader :error_stream
 
     attr_reader :output_stream
+
+    def data_object_type(data_object:)
+      data_object
+        .class
+        .name
+        .split('::')
+        .last
+        .then { |str| str[0...-6] }
+        .then { |str| tools.string_tools.underscore(str) }
+    end
 
     def default_options
       {
@@ -104,17 +88,8 @@ module SleepingKingStudios::Yard::Commands::Generators
       }
     end
 
-    def report(message:, result:)
-      if verbose? && result.success?
-        puts("- #{message}")
-      elsif result.failure? && result.error
-        warn(
-          "- [ERROR] #{message} - #{result.error.class}: " \
-          "#{result.error.message}"
-        )
-      elsif result.failure?
-        warn("- [ERROR] #{message} - unable to generate file")
-      end
+    def tools
+      SleepingKingStudios::Tools::Toolbelt.instance
     end
 
     def version_string
