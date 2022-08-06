@@ -22,6 +22,7 @@ RSpec.configure do |config|
   config.extend  RSpec::SleepingKingStudios::Concerns::IncludeContract
   config.extend  RSpec::SleepingKingStudios::Concerns::FocusExamples
   config.extend  RSpec::SleepingKingStudios::Concerns::WrapExamples
+  config.include RSpec::SleepingKingStudios::Concerns::Toolbelt
   config.include RSpec::SleepingKingStudios::Examples::PropertyExamples
 
   config.disable_monkey_patching!
