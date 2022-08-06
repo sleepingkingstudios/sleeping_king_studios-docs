@@ -1,3 +1,30 @@
 # SleepingKingStudios::Yard
 
 Tooling for working with YARD documentation.
+
+## Generating Documentation
+
+To generate documentation, use the `Generate` command:
+
+```ruby
+require 'sleeping_king_studios/yard'
+
+docs_path = './docs'
+command   =
+  SleepingKingStudios::Yard::Commands::Generate.new(docs_path: docs_path)
+
+command.call
+```
+
+You can also pass an optional `:file_path` keyword, which specifies the location from which `YARD` will parse the source files.
+
+```ruby
+command.call('./app')
+```
+
+The `Generate` command also defines the following options:
+
+- **dry_run:** *Boolean*. If `true`, the command does not write any files to disk. Defaults to `false`.
+- **force:** *Boolean*. If `true`, the command will overwrite any existing files. Defaults to `false`.
+- **verbose:** *Boolean*. If `true`, the command will write a status update to `STDOUT` for each file written to disk. Defaults to `false`.
+- **version:** *String*. If provided, the command will scope the generated data and reference files to a versioned directory, and writes the version directly to data files (in the file data) and referene files (in the template data). Defaults to `nil`.
