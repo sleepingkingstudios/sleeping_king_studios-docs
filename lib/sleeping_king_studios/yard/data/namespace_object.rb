@@ -26,7 +26,7 @@ module SleepingKingStudios::Yard::Data
   # @see SleepingKingStudios::Yard::Data::ClassObject
   # @see SleepingKingStudios::Yard::Data::ModuleObject
   # @see SleepingKingStudios::Yard::Data::RootObject
-  class NamespaceObject < SleepingKingStudios::Yard::Data::Base
+  class NamespaceObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
       class_attributes
       class_methods
@@ -75,6 +75,8 @@ module SleepingKingStudios::Yard::Data
     # - 'name': The name of the attribute.
     # - 'read': True if the attribute defines a reader method.
     # - 'write': True if the attribute defines a writer method.
+    # - 'path': The path to the reader method data file, or the writer method
+    #   data file if the attribute does not define a reader method.
     #
     # @return [Array<Hash>] the class attributes.
     def class_attributes
@@ -85,16 +87,22 @@ module SleepingKingStudios::Yard::Data
         .sort_by { |hsh| hsh['name'] }
     end
 
-    # Finds the names of the class methods defined for the namespace.
+    # Finds the class methods defined for the namespace.
     #
-    # @return [Array<String>] the names of the class methods.
+    # For each method, it returns a Hash with the following keys:
+    #
+    # - 'name': The name of the method, including trailing characters such as
+    #   `=' or `?'.
+    # - 'path': The path to the method data file.
+    #
+    # @return [Array<Hash{String => String}>] the documented class methods.
     def class_methods
       @class_methods ||=
         native
         .meths
         .select { |obj| obj.scope == :class && !obj.is_attribute? }
-        .map { |obj| obj.name.to_s }
-        .sort
+        .map { |obj| format_method(obj) }
+        .sort_by { |hsh| hsh['name'] }
     end
 
     # Finds the names of the constants defined under this namespace.
@@ -163,6 +171,8 @@ module SleepingKingStudios::Yard::Data
     # - 'name': The name of the attribute.
     # - 'read': True if the attribute defines a reader method.
     # - 'write': True if the attribute defines a writer method.
+    # - 'path': The path to the reader method data file, or the writer method
+    #   data file if the attribute does not define a reader method.
     #
     # @return [Array<Hash>] the instance attributes.
     def instance_attributes
@@ -173,16 +183,22 @@ module SleepingKingStudios::Yard::Data
         .sort_by { |hsh| hsh['name'] }
     end
 
-    # Finds the names of the instance methods defined for the namespace.
+    # Finds the instance methods defined for the namespace.
     #
-    # @return [Array<String>] the names of the instance methods.
+    # For each method, it returns a Hash with the following keys:
+    #
+    # - 'name': The name of the method, including trailing characters such as
+    #   `=' or `?'.
+    # - 'path': The path to the method data file.
+    #
+    # @return [Array<Hash{String => String}>] the documented instance methods.
     def instance_methods
       @instance_methods ||=
         native
         .meths
         .select { |obj| obj.scope == :instance && !obj.is_attribute? }
-        .map { |obj| obj.name.to_s }
-        .sort
+        .map { |obj| format_method(obj) }
+        .sort_by { |hsh| hsh['name'] }
     end
 
     # The full, qualified name of the namespace.
@@ -205,10 +221,15 @@ module SleepingKingStudios::Yard::Data
     private
 
     def format_attribute(name, methods)
+      method_object =
+        SleepingKingStudios::Yard::Data::MethodObject
+        .new(native: methods.values.find { |method| !method.nil? })
+
       {
         'name'  => name.to_s,
         'read'  => !methods[:read].nil?,
-        'write' => !methods[:write].nil?
+        'write' => !methods[:write].nil?,
+        'path'  => method_object.data_path
       }
     end
 
@@ -216,6 +237,17 @@ module SleepingKingStudios::Yard::Data
       {
         'name' => obj.name.to_s,
         'slug' => slugify(obj.name)
+      }
+    end
+
+    def format_method(native_method)
+      method_object =
+        SleepingKingStudios::Yard::Data::MethodObject
+        .new(native: native_method)
+
+      {
+        'name' => native_method.name.to_s,
+        'path' => method_object.data_path
       }
     end
 

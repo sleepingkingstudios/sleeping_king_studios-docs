@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec/sleeping_king_studios/contract'
+require 'sleeping_king_studios/tools/toolbelt'
 
 require 'support/contracts/data'
 
@@ -87,6 +88,12 @@ module Spec::Support::Contracts::Data
       end
 
       describe '#class_attributes' do
+        def relative_path(path)
+          return path if data_object.name.empty? || data_object.name == 'root'
+
+          "#{tools.str.underscore(data_object.name)}/#{path}"
+        end
+
         include_examples 'should define reader', :class_attributes, []
 
         wrap_context 'using fixture', 'with class attributes' do
@@ -95,17 +102,20 @@ module Spec::Support::Contracts::Data
               {
                 'name'  => 'gravity',
                 'read'  => true,
-                'write' => false
+                'write' => false,
+                'path'  => relative_path('c-gravity')
               },
               {
                 'name'  => 'sandbox_mode',
                 'read'  => true,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('c-sandbox-mode')
               },
               {
                 'name'  => 'secret_key',
                 'read'  => false,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('c-secret-key=')
               }
             ]
           end
@@ -119,17 +129,20 @@ module Spec::Support::Contracts::Data
               {
                 'name'  => 'gravity',
                 'read'  => true,
-                'write' => false
+                'write' => false,
+                'path'  => relative_path('c-gravity')
               },
               {
                 'name'  => 'sandbox_mode',
                 'read'  => true,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('c-sandbox-mode')
               },
               {
                 'name'  => 'secret_key',
                 'read'  => false,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('c-secret-key=')
               }
             ]
           end
@@ -139,17 +152,45 @@ module Spec::Support::Contracts::Data
       end
 
       describe '#class_methods' do
+        def relative_path(path)
+          return path if data_object.name.empty? || data_object.name == 'root'
+
+          "#{tools.str.underscore(data_object.name)}/#{path}"
+        end
+
         include_examples 'should define reader', :class_methods, []
 
         wrap_context 'using fixture', 'with class methods' do
-          let(:expected) { %w[calculate_isp plot_trajectory] }
+          let(:expected) do
+            [
+              {
+                'name' => 'calculate_isp',
+                'path' => relative_path('c-calculate-isp')
+              },
+              {
+                'name' => 'plot_trajectory',
+                'path' => relative_path('c-plot-trajectory')
+              }
+            ]
+          end
 
           it { expect(data_object.class_methods).to be == expected }
         end
 
         if include_mixins
           wrap_context 'using fixture', 'with extended modules' do
-            let(:expected) { %w[dew_point temperature] }
+            let(:expected) do
+              [
+                {
+                  'name' => 'dew_point',
+                  'path' => 'atmosphere/i-dew-point'
+                },
+                {
+                  'name' => 'temperature',
+                  'path' => 'phenomena/weather-effects/i-temperature'
+                }
+              ]
+            end
 
             it { expect(data_object.class_methods).to be == expected }
           end
@@ -157,7 +198,14 @@ module Spec::Support::Contracts::Data
 
         if inherit_mixins
           wrap_context 'using fixture', 'with inherited classes' do
-            let(:expected) { %w[design] }
+            let(:expected) do
+              [
+                {
+                  'name' => 'design',
+                  'path' => 'engineering/c-design'
+                }
+              ]
+            end
 
             it { expect(data_object.class_methods).to be == expected }
           end
@@ -165,12 +213,40 @@ module Spec::Support::Contracts::Data
 
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            ary = %w[calculate_isp plot_trajectory]
+            ary = [
+              {
+                'name' => 'calculate_isp',
+                'path' => relative_path('c-calculate-isp')
+              },
+              {
+                'name' => 'plot_trajectory',
+                'path' => relative_path('c-plot-trajectory')
+              }
+            ]
 
-            ary += %w[dew_point temperature] if include_mixins
-            ary += %w[design]                if inherit_mixins
+            if include_mixins
+              ary += [
+                {
+                  'name' => 'dew_point',
+                  'path' => 'atmosphere/i-dew-point'
+                },
+                {
+                  'name' => 'temperature',
+                  'path' => 'phenomena/weather-effects/i-temperature'
+                }
+              ]
+            end
 
-            ary.sort
+            if inherit_mixins
+              ary += [
+                {
+                  'name' => 'design',
+                  'path' => 'engineering/c-design'
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.class_methods).to be == expected }
@@ -286,6 +362,12 @@ module Spec::Support::Contracts::Data
       end
 
       describe '#instance_attributes' do
+        def relative_path(path)
+          return path if data_object.name.empty? || data_object.name == 'root'
+
+          "#{tools.str.underscore(data_object.name)}/#{path}"
+        end
+
         include_examples 'should define reader', :instance_attributes, []
 
         wrap_context 'using fixture', 'with instance attributes' do
@@ -294,17 +376,20 @@ module Spec::Support::Contracts::Data
               {
                 'name'  => 'base_mana',
                 'read'  => true,
-                'write' => false
+                'write' => false,
+                'path'  => relative_path('i-base-mana')
               },
               {
                 'name'  => 'magic_enabled',
                 'read'  => true,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('i-magic-enabled')
               },
               {
                 'name'  => 'secret_formula',
                 'read'  => false,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('i-secret-formula=')
               }
             ]
           end
@@ -318,17 +403,20 @@ module Spec::Support::Contracts::Data
               {
                 'name'  => 'base_mana',
                 'read'  => true,
-                'write' => false
+                'write' => false,
+                'path'  => relative_path('i-base-mana')
               },
               {
                 'name'  => 'magic_enabled',
                 'read'  => true,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('i-magic-enabled')
               },
               {
                 'name'  => 'secret_formula',
                 'read'  => false,
-                'write' => true
+                'write' => true,
+                'path'  => relative_path('i-secret-formula=')
               }
             ]
           end
@@ -338,11 +426,24 @@ module Spec::Support::Contracts::Data
       end
 
       describe '#instance_methods' do
+        def relative_path(path)
+          return path if data_object.name.empty? || data_object.name == 'root'
+
+          "#{tools.str.underscore(data_object.name)}/#{path}"
+        end
+
         include_examples 'should define reader', :instance_methods, []
 
         if include_mixins
           wrap_context 'using fixture', 'with included modules' do
-            let(:expected) { %w[cardinality] }
+            let(:expected) do
+              [
+                {
+                  'name' => 'cardinality',
+                  'path' => 'dimensions/i-cardinality'
+                }
+              ]
+            end
 
             it { expect(data_object.instance_methods).to be == expected }
           end
@@ -350,38 +451,98 @@ module Spec::Support::Contracts::Data
 
         if inherit_mixins
           wrap_context 'using fixture', 'with constructor' do
-            let(:expected) { %w[initialize] }
+            let(:expected) do
+              [
+                {
+                  'name' => 'initialize',
+                  'path' => relative_path('i-initialize')
+                }
+              ]
+            end
 
             it { expect(data_object.instance_methods).to be == expected }
           end
 
           wrap_context 'using fixture', 'with inherited constructor' do
-            let(:expected) { %w[initialize] }
+            let(:expected) do
+              [
+                {
+                  'name' => 'initialize',
+                  'path' => 'rocket-science/i-initialize'
+                }
+              ]
+            end
 
             it { expect(data_object.instance_methods).to be == expected }
           end
 
           wrap_context 'using fixture', 'with inherited classes' do
-            let(:expected) { %w[project_orion] }
+            let(:expected) do
+              [
+                {
+                  'name' => 'project_orion',
+                  'path' => 'physics/rocket-science/i-project-orion'
+                }
+              ]
+            end
 
             it { expect(data_object.instance_methods).to be == expected }
           end
         end
 
         wrap_context 'using fixture', 'with instance methods' do
-          let(:expected) { %w[convert_mana summon_dark_lord] }
+          let(:expected) do
+            [
+              {
+                'name' => 'convert_mana',
+                'path' => relative_path('i-convert-mana')
+              },
+              {
+                'name' => 'summon_dark_lord',
+                'path' => relative_path('i-summon-dark-lord')
+              }
+            ]
+          end
 
           it { expect(data_object.instance_methods).to be == expected }
         end
 
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            ary = %w[convert_mana summon_dark_lord]
+            ary = [
+              {
+                'name' => 'convert_mana',
+                'path' => relative_path('i-convert-mana')
+              },
+              {
+                'name' => 'summon_dark_lord',
+                'path' => relative_path('i-summon-dark-lord')
+              }
+            ]
 
-            ary += %w[cardinality]              if include_mixins
-            ary += %w[initialize project_orion] if inherit_mixins
+            if include_mixins
+              ary += [
+                {
+                  'name' => 'cardinality',
+                  'path' => 'dimensions/i-cardinality'
+                }
+              ]
+            end
 
-            ary.sort
+            if inherit_mixins
+              ary += [
+                {
+                  'name' => 'initialize',
+                  'path' => 'rocketry/i-initialize'
+                },
+                {
+                  'name' => 'project_orion',
+                  'path' => 'physics/rocket-science/i-project-orion'
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.instance_methods).to be == expected }
