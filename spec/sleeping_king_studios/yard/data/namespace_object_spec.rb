@@ -21,7 +21,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     lambda do
       {
         'name' => namespace.name,
-        'slug' => namespace.slug
+        'slug' => namespace.slug,
+        'type' => namespace.type
       }
     end
   end
@@ -39,6 +40,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
         {
           'name'                => namespace.name,
           'slug'                => namespace.slug,
+          'type'                => namespace.type,
           'class_attributes'    => namespace.class_attributes,
           'class_methods'       => namespace.class_methods,
           'constants'           => namespace.constants,
@@ -49,7 +51,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
         }
       end
 
-      it { expect(namespace.as_json).to be == expected }
+      it { expect(namespace.as_json).to deep_match expected }
     end
   end
 
@@ -59,5 +61,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
 
   describe '#slug' do
     include_examples 'should define reader', :slug, ''
+  end
+
+  describe '#type' do
+    include_examples 'should define reader', :type, 'namespace'
   end
 end

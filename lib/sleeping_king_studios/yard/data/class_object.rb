@@ -110,5 +110,10 @@ module SleepingKingStudios::Yard::Data
         .inheritance_tree[1..]
         .map { |obj| format_inclusion(obj) }
     end
+
+    # @return [String] the type of the namespace.
+    def type
+      'class'
+    end
   end
 end
