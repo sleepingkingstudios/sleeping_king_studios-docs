@@ -21,7 +21,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::RootObject do
     lambda do
       {
         'name' => namespace.name,
-        'slug' => namespace.slug
+        'slug' => namespace.slug,
+        'type' => namespace.type
       }
     end
   end
@@ -39,6 +40,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::RootObject do
         {
           'name'                => namespace.name,
           'slug'                => namespace.slug,
+          'type'                => namespace.type,
           'class_attributes'    => namespace.class_attributes,
           'class_methods'       => namespace.class_methods,
           'constants'           => namespace.constants,

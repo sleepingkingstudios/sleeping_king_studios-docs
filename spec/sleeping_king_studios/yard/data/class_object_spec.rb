@@ -21,11 +21,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
     ::YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
-  def self.expected_json
+  def self.expected_json # rubocop:disable Metrics/MethodLength
     lambda do
       {
         'name'              => class_object.name,
         'slug'              => class_object.slug,
+        'type'              => class_object.type,
         'files'             => class_object.files,
         'constructor'       => class_object.constructor?,
         'short_description' => class_object.short_description,
@@ -337,5 +338,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
 
       it { expect(class_object.inherited_classes).to be == expected }
     end
+  end
+
+  describe '#type' do
+    include_examples 'should define reader', :type, 'class'
   end
 end

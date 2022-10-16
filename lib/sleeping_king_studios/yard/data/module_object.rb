@@ -160,6 +160,11 @@ module SleepingKingStudios::Yard::Data
       @short_description
     end
 
+    # @return [String] the type of the namespace.
+    def type
+      'module'
+    end
+
     private
 
     def format_inclusion(obj)

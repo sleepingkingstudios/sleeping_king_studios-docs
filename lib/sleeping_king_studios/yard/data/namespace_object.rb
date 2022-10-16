@@ -218,6 +218,11 @@ module SleepingKingStudios::Yard::Data
       @slug ||= slugify(name.split('::').last || '')
     end
 
+    # @return [String] the type of the namespace.
+    def type
+      'namespace'
+    end
+
     private
 
     def format_attribute(name, methods)
@@ -254,7 +259,8 @@ module SleepingKingStudios::Yard::Data
     def required_json
       {
         'name' => name,
-        'slug' => slug
+        'slug' => slug,
+        'type' => type
       }
     end
   end
