@@ -257,13 +257,49 @@ module Spec::Support::Contracts::Data
         include_examples 'should define reader', :constants, []
 
         wrap_context 'using fixture', 'with constants' do
-          let(:expected) { %w[ELDRITCH SQUAMOUS] }
+          let(:base_path) do
+            return '' unless data_object.respond_to?(:data_path)
+
+            return '' if data_object.data_path == 'root'
+
+            "#{data_object.data_path}/"
+          end
+          let(:expected) do
+            [
+              {
+                'name' => 'ELDRITCH',
+                'path' => "#{base_path}eldritch"
+              },
+              {
+                'name' => 'SQUAMOUS',
+                'path' => "#{base_path}squamous"
+              }
+            ]
+          end
 
           it { expect(data_object.constants).to be == expected }
         end
 
         wrap_context 'using fixture', 'with everything' do
-          let(:expected) { %w[ELDRITCH SQUAMOUS] }
+          let(:base_path) do
+            return '' unless data_object.respond_to?(:data_path)
+
+            return '' if data_object.data_path == 'root'
+
+            "#{data_object.data_path}/"
+          end
+          let(:expected) do
+            [
+              {
+                'name' => 'ELDRITCH',
+                'path' => "#{base_path}eldritch"
+              },
+              {
+                'name' => 'SQUAMOUS',
+                'path' => "#{base_path}squamous"
+              }
+            ]
+          end
 
           it { expect(data_object.constants).to be == expected }
         end
