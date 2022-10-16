@@ -112,8 +112,8 @@ module SleepingKingStudios::Yard::Data
       @constants ||=
         native
         .constants
-        .map { |obj| obj.name.to_s }
-        .sort
+        .map { |obj| format_constant(obj) }
+        .sort_by { |hsh| hsh['name'] }
     end
 
     # Finds the Classes defined under this namespace, if any.
@@ -235,6 +235,17 @@ module SleepingKingStudios::Yard::Data
         'read'  => !methods[:read].nil?,
         'write' => !methods[:write].nil?,
         'path'  => method_object.data_path
+      }
+    end
+
+    def format_constant(native_constant)
+      constant_object =
+        SleepingKingStudios::Yard::Data::ConstantObject
+        .new(native: native_constant)
+
+      {
+        'name' => native_constant.name.to_s,
+        'path' => constant_object.data_path
       }
     end
 
