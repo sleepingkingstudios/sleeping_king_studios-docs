@@ -529,88 +529,88 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
   end
 
   describe '#signature' do
-    let(:expected) { 'def launch' }
+    let(:expected) { 'launch' }
 
     include_examples 'should define reader', :signature, -> { expected }
 
     wrap_context 'using fixture', 'with block parameter' do
-      let(:expected) { 'def launch(&block)' }
+      let(:expected) { 'launch(&block)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with complex name' do
       let(:fixture_name) { '#retrograde_launch' }
-      let(:expected)     { 'def retrograde_launch' }
+      let(:expected)     { 'retrograde_launch' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with optional arguments' do
-      let(:expected) { 'def launch(payload = nil, mission_flag = nil)' }
+      let(:expected) { 'launch(payload = nil, mission_flag = nil)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with optional keywords' do
-      let(:expected) { 'def launch(inclination: 0.0, recovery: true)' }
+      let(:expected) { 'launch(inclination: 0.0, recovery: true)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with options' do
-      let(:expected) { 'def launch(**options)' }
+      let(:expected) { 'launch(**options)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with required arguments' do
-      let(:expected) { 'def launch(rocket, launchsite)' }
+      let(:expected) { 'launch(rocket, launchsite)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with required keywords' do
-      let(:expected) { 'def launch(apoapsis:, periapsis:)' }
+      let(:expected) { 'launch(apoapsis:, periapsis:)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with scoped name' do
       let(:fixture_name) { 'Wonders::FutureEra#use_space_elevator' }
-      let(:expected)     { 'def use_space_elevator' }
+      let(:expected)     { 'use_space_elevator' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with undocumented parameters' do
       let(:expected) do
-        'def launch(rocket, payload = nil, apoapsis:, inclination: 0, &block)'
+        'launch(rocket, payload = nil, apoapsis:, inclination: 0, &block)'
       end
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with variadic arguments' do
-      let(:expected) { 'def launch(*rideshares)' }
+      let(:expected) { 'launch(*rideshares)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with variadic keywords' do
-      let(:expected) { 'def launch(**destinations)' }
+      let(:expected) { 'launch(**destinations)' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with yield' do
-      let(:expected) { 'def launch' }
+      let(:expected) { 'launch' }
 
       it { expect(method_object.signature).to be == expected }
     end
 
     wrap_context 'using fixture', 'with yield signature' do
-      let(:expected) { 'def launch' }
+      let(:expected) { 'launch' }
 
       it { expect(method_object.signature).to be == expected }
     end

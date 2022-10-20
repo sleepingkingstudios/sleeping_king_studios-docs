@@ -239,7 +239,7 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [String] the method signature.
     def signature
-      @signature ||= native.signature
+      @signature ||= native.signature.sub(/^def /, '')
     end
 
     # The name of the method in url-safe format.
