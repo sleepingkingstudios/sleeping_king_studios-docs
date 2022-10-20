@@ -18,8 +18,8 @@ module Spec::Support::Contracts::Data
     #     for #as_json.
     #   @param scoped_name [String] a name for the data object, including a
     #     class or module scope.
-    #   @param separator [String] the string used to separate the named object
-    #     from the scope.
+    #   @param separator [Regexp, String] the string or pattern used to separate
+    #     the named object from the scope.
     contract do | # rubocop:disable Metrics/ParameterLists
       basic_name:,
       complex_name:,
@@ -227,32 +227,28 @@ module Spec::Support::Contracts::Data
       end
 
       describe '#slug' do
+        let(:expected) do
+          fixture_name
+            .split(separator)
+            .last
+            .then { |str| tools.str.underscore(str) }
+            .tr('_', '-')
+        end
+
         def tools
           SleepingKingStudios::Tools::Toolbelt.instance
         end
 
-        include_examples 'should define reader',
-          :slug,
-          -> { tools.str.underscore(basic_name) }
+        include_examples 'should define reader', :slug, -> { be == expected }
 
         wrap_context 'using fixture', 'with complex name' do
           let(:fixture_name) { complex_name }
-          let(:expected) do
-            tools.str.underscore(complex_name).tr('_', '-')
-          end
 
           it { expect(data_object.slug).to be == expected }
         end
 
         wrap_context 'using fixture', 'with scoped name' do
           let(:fixture_name) { scoped_name }
-          let(:expected) do
-            scoped_name
-              .split(separator)
-              .last
-              .then { |str| tools.str.underscore(str) }
-              .tr('_', '-')
-          end
 
           it { expect(data_object.slug).to be == expected }
         end
