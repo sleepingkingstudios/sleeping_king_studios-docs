@@ -51,7 +51,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     scoped_name:   'Wonders::FutureEra#use_space_elevator',
     description:   'You are going to space today.',
     expected_json: expected_json,
-    data_path:     false
+    data_path:     false,
+    separator:     /#|\./
 
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }
@@ -255,7 +256,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket, **options)',
-            'slug'              => '#launch'
+            'slug'              => 'launch'
           }
         ]
       end
@@ -285,7 +286,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket, recovery:)',
-            'slug'              => '#launch'
+            'slug'              => 'launch'
           }
         ]
       end
@@ -314,7 +315,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket, **options)',
-            'slug'              => '#launch'
+            'slug'              => 'launch'
           }
         ]
       end
@@ -331,7 +332,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket)',
-            'slug'              => '#launch'
+            'slug'              => 'launch'
           },
           {
             'name'              => '#launch',
@@ -344,7 +345,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'short_description' => 'If not, you will not be going to space ' \
                                    'today after all.',
             'signature'         => 'launch(rocket, **options)',
-            'slug'              => '#launch'
+            'slug'              => 'launch'
           }
         ]
       end
