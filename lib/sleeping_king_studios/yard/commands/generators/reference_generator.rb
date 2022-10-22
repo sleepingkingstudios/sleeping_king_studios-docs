@@ -46,7 +46,7 @@ module SleepingKingStudios::Yard::Commands::Generators
         version: "#{version_string}"
         ---
 
-        {% include templates/reference/#{data_type}.md %}
+        {% include #{template_path}/#{data_type}.md %}
       MARKDOWN
     end
 

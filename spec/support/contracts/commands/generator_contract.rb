@@ -103,6 +103,16 @@ module Spec::Support::Contracts::Commands
           it { expect(subject.options).to be == expected }
         end
 
+        context 'when initialized with template_path: value' do
+          let(:template_path) { 'templates/reference' }
+          let(:options)       { super().merge(template_path: template_path) }
+          let(:expected) do
+            default_options.merge(template_path: template_path)
+          end
+
+          it { expect(subject.options).to be == expected }
+        end
+
         context 'when initialized with verbose: false' do
           let(:options) { super().merge(verbose: false) }
 
@@ -128,6 +138,17 @@ module Spec::Support::Contracts::Commands
           let(:expected) { default_options.merge(key: 'value') }
 
           it { expect(subject.options).to be == expected }
+        end
+      end
+
+      describe '#template_path' do
+        include_examples 'should define reader', :template_path, 'reference'
+
+        context 'when initialized with template_path: value' do
+          let(:template_path) { 'templates/reference' }
+          let(:options)       { super().merge(template_path: template_path) }
+
+          it { expect(subject.template_path).to be == template_path }
         end
       end
 

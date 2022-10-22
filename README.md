@@ -22,9 +22,10 @@ You can also pass an optional `:file_path` keyword to `#call`, which specifies t
 command.call(file_path: './app')
 ```
 
-The `Generate` command also defines the following constructor options:
+The `Generate` command defines the following constructor options:
 
 - **dry_run:** *Boolean*. If `true`, the command does not write any files to disk. Defaults to `false`.
 - **force:** *Boolean*. If `true`, the command will overwrite any existing files. Defaults to `false`.
+- **template_path:** *String*. The relative path to the Jekyll templates for each data type; used when generating the reference Markdown files. Defaults to `reference`.
 - **verbose:** *Boolean*. If `true`, the command will write a status update to `STDOUT` for each file written to disk. Defaults to `false`.
 - **version:** *String*. If provided, the command will scope the generated data and reference files to a versioned directory, and writes the version directly to data files (in the file data) and reference files (in the template data). Defaults to `nil`.
