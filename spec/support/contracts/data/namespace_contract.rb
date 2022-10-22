@@ -490,8 +490,9 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name' => 'initialize',
-                  'path' => relative_path('i-initialize')
+                  'name'        => 'initialize',
+                  'path'        => relative_path('i-initialize'),
+                  'constructor' => true
                 }
               ]
             end
@@ -503,8 +504,9 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name' => 'initialize',
-                  'path' => 'rocket-science/i-initialize'
+                  'name'        => 'initialize',
+                  'path'        => 'rocket-science/i-initialize',
+                  'constructor' => true
                 }
               ]
             end
@@ -568,8 +570,9 @@ module Spec::Support::Contracts::Data
             if inherit_mixins
               ary += [
                 {
-                  'name' => 'initialize',
-                  'path' => 'rocketry/i-initialize'
+                  'name'        => 'initialize',
+                  'path'        => 'rocketry/i-initialize',
+                  'constructor' => true
                 },
                 {
                   'name' => 'project_orion',
