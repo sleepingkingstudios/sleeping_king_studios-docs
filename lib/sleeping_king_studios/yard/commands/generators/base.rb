@@ -11,30 +11,22 @@ module SleepingKingStudios::Yard::Commands::Generators
   class Base < Cuprum::Command
     include Cuprum::ExceptionHandling
 
-    # @overload initialize(docs_path:, **options)
-    #   @param docs_path [String] the directory path for generating the
-    #     documentation files.
-    #   @param options [Hash] the configured options for the generator.
+    # @param docs_path [String] the directory path for generating the
+    #   documentation files.
+    # @param options [Hash] the configured options for the generator.
     #
-    #   @option options dry_run [Boolean] if true, does not make any changes to
-    #     the filesystem.
-    #   @option options force [Boolean] if true, overwrites any existing files.
-    #   @option options version [String] the code version for the generated
-    #     documentation.
-    #   @option options verbose [Boolean] if true, prints status messages to
-    #     STDOUT.
-    def initialize(
-      docs_path:,
-      error_stream:  $stderr,
-      output_stream: $stdout,
-      **options
-    )
+    # @option options dry_run [Boolean] if true, does not make any changes to
+    #   the filesystem.
+    # @option options force [Boolean] if true, overwrites any existing files.
+    # @option options version [String] the code version for the generated
+    #   documentation.
+    # @option options verbose [Boolean] if true, prints status messages to
+    #   STDOUT.
+    def initialize(docs_path:, **options)
       super()
 
-      @docs_path     = docs_path
-      @options       = default_options.merge(options)
-      @error_stream  = error_stream
-      @output_stream = output_stream
+      @docs_path = docs_path
+      @options   = default_options.merge(options)
     end
 
     # @return [String] the directory path for generating the documentation
@@ -52,6 +44,12 @@ module SleepingKingStudios::Yard::Commands::Generators
     # @return [Boolean] if true, overwrites any existing files.
     def force?
       @options[:force]
+    end
+
+    # @return [String] the relative path to the Jekyll templates for each data
+    #   type.
+    def template_path
+      @options.fetch(:template_path, 'reference')
     end
 
     # @return [Boolean] if true, prints status messages to STDOUT.

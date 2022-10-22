@@ -8,6 +8,30 @@ require 'sleeping_king_studios/yard/commands'
 module SleepingKingStudios::Yard::Commands
   # Generates YARD documentation files.
   class Generate < SleepingKingStudios::Yard::Commands::Generators::Base # rubocop:disable Metrics/ClassLength
+    # @overload initialize(docs_path:, **options)
+    #   @param docs_path [String] the directory path for generating the
+    #     documentation files.
+    #   @param options [Hash] the configured options for the generator.
+    #
+    #   @option options dry_run [Boolean] if true, does not make any changes to
+    #     the filesystem.
+    #   @option options force [Boolean] if true, overwrites any existing files.
+    #   @option options version [String] the code version for the generated
+    #     documentation.
+    #   @option options verbose [Boolean] if true, prints status messages to
+    #     STDOUT.
+    def initialize(
+      docs_path:,
+      error_stream:  $stderr,
+      output_stream: $stdout,
+      **options
+    )
+      super(docs_path: docs_path, **options)
+
+      @error_stream  = error_stream
+      @output_stream = output_stream
+    end
+
     private
 
     def build_constant(native:)

@@ -36,7 +36,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
         version: "*"
         ---
 
-        {% include templates/reference/class.md %}
+        {% include #{command.template_path}/class.md %}
       MARKDOWN
     end
 
@@ -117,6 +117,20 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
       end
     end
 
+    context 'when initialized with template_path: value' do
+      let(:template_path) { 'templates/reference' }
+
+      it { expect(call_command).to be_a_passing_result }
+
+      it 'should write the Markdown file' do
+        call_command
+
+        expect(write_command)
+          .to have_received(:call)
+          .with(contents: file_data, file_path: file_path)
+      end
+    end
+
     context 'when initialized with version: value' do
       let(:version) { '1.10.101' }
       let(:options) { super().merge(version: version) }
@@ -127,7 +141,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
           version: "#{version}"
           ---
 
-          {% include templates/reference/class.md %}
+          {% include #{command.template_path}/class.md %}
         MARKDOWN
       end
 

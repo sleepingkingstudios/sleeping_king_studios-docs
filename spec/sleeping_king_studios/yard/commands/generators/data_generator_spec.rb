@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'stringio'
-
 require 'sleeping_king_studios/yard/commands/generators/data_generator'
 
 require 'support/contracts/commands/generator_contract'
@@ -11,12 +9,8 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
 
   subject(:command) { described_class.new(docs_path: docs_path, **options) }
 
-  let(:docs_path)     { 'path/to/docs' }
-  let(:output_stream) { StringIO.new }
-  let(:error_stream)  { StringIO.new }
-  let(:options) do
-    { error_stream: error_stream, output_stream: output_stream }
-  end
+  let(:docs_path) { 'path/to/docs' }
+  let(:options)   { {} }
 
   include_contract 'should be a generator command'
 
