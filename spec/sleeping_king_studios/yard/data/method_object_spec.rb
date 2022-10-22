@@ -20,13 +20,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     ::YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
-  def self.expected_json
+  # rubocop:disable Metrics/MethodLength
+  def self.expected_json # rubocop:disable Metrics/AbcSize
     lambda do
       json = {
-        'name'      => method_object.name,
-        'slug'      => method_object.slug,
-        'signature' => method_object.signature,
-        'data_path' => method_object.data_path
+        'constructor' => method_object.constructor?,
+        'name'        => method_object.name,
+        'slug'        => method_object.slug,
+        'signature'   => method_object.signature,
+        'data_path'   => method_object.data_path
       }
 
       next json if method_object.short_description.empty?
@@ -34,6 +36,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       json.merge('short_description' => method_object.short_description)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def parse_type(type)
     SleepingKingStudios::Yard::Data::Types::Parser
@@ -76,6 +79,46 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
 
     wrap_context 'using fixture', 'overloads/with multiple overloads' do
       let(:expected) { super().merge('overloads' => method_object.overloads) }
+
+      it { expect(method_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with constructor' do
+      let(:fixture_name) { 'Rocketry#initialize' }
+      let(:expected) do
+        super().merge(
+          'constructor' => method_object.constructor?,
+          'returns'     => [
+            {
+              'description' => 'a new instance of Rocketry',
+              'type'        => [
+                {
+                  'name' => 'Rocketry',
+                  'path' => 'rocketry'
+                }
+              ]
+            }
+          ]
+        )
+      end
+
+      it { expect(method_object.as_json).to deep_match expected }
+    end
+
+    wrap_context 'using fixture', 'with initialize' do
+      let(:fixture_name) { '#initialize' }
+      let(:expected) do
+        super().merge('constructor' => method_object.constructor?)
+      end
+
+      it { expect(method_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with module initialize' do
+      let(:fixture_name) { 'Space#initialize' }
+      let(:expected) do
+        super().merge('constructor' => method_object.constructor?)
+      end
 
       it { expect(method_object.as_json).to be == expected }
     end
@@ -166,6 +209,34 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     end
   end
 
+  describe '#constructor' do
+    include_examples 'should define predicate', :constructor?, false
+
+    it 'should alias the method' do
+      expect(method_object)
+        .to have_aliased_method(:constructor?)
+        .as(:constructor)
+    end
+
+    wrap_context 'using fixture', 'with constructor' do
+      let(:fixture_name) { 'Rocketry#initialize' }
+
+      it { expect(method_object.constructor?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with initialize' do
+      let(:fixture_name) { '#initialize' }
+
+      it { expect(method_object.constructor?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with module initialize' do
+      let(:fixture_name) { 'Space#initialize' }
+
+      it { expect(method_object.constructor?).to be false }
+    end
+  end
+
   describe '#data_path' do
     include_examples 'should define reader', :data_path, -> { 'i-launch' }
 
@@ -252,6 +323,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       let(:expected) do
         [
           {
+            'constructor'       => false,
             'name'              => '#launch',
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
@@ -269,6 +341,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       let(:expected) do
         [
           {
+            'constructor'       => false,
             'name'              => '#launch',
             'params'            => [
               {
@@ -299,6 +372,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       let(:expected) do
         [
           {
+            'constructor'       => false,
             'name'              => '#launch',
             'params'            => [
               {
@@ -328,6 +402,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       let(:expected) do
         [
           {
+            'constructor'       => false,
             'name'              => '#launch',
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
@@ -335,6 +410,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'slug'              => 'launch'
           },
           {
+            'constructor'       => false,
             'name'              => '#launch',
             'returns'           => [
               {

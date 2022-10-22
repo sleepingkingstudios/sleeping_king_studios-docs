@@ -17,6 +17,7 @@ module SleepingKingStudios::Yard::Data
   # metadata.
   class MethodObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
+      constructor
       data_path
       description
       metadata
@@ -83,6 +84,12 @@ module SleepingKingStudios::Yard::Data
     def class_method?
       !instance_method?
     end
+
+    # @return [Boolean] true if the method is a constructor; otherwise false.
+    def constructor?
+      native.constructor?
+    end
+    alias constructor constructor?
 
     # The path to the data file.
     #
