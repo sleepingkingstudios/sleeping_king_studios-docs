@@ -53,6 +53,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     wrap_context 'using fixture', 'with extended modules' do
       let(:expected) do
         super().merge(
+          'class_attributes' => module_object.class_attributes,
           'class_methods'    => module_object.class_methods,
           'extended_modules' => module_object.extended_modules
         )
@@ -64,8 +65,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     wrap_context 'using fixture', 'with included modules' do
       let(:expected) do
         super().merge(
-          'included_modules' => module_object.included_modules,
-          'instance_methods' => module_object.instance_methods
+          'included_modules'    => module_object.included_modules,
+          'instance_attributes' => module_object.instance_attributes,
+          'instance_methods'    => module_object.instance_methods
         )
       end
 

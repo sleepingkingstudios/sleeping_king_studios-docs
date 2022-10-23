@@ -64,9 +64,11 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
     wrap_context 'using fixture', 'with inherited classes' do
       let(:expected) do
         super().merge(
-          'class_methods'     => class_object.class_methods,
-          'inherited_classes' => class_object.inherited_classes,
-          'instance_methods'  => class_object.instance_methods
+          'class_attributes'    => class_object.class_attributes,
+          'class_methods'       => class_object.class_methods,
+          'inherited_classes'   => class_object.inherited_classes,
+          'instance_attributes' => class_object.instance_attributes,
+          'instance_methods'    => class_object.instance_methods
         )
       end
 

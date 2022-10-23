@@ -123,9 +123,43 @@ module Spec::Support::Contracts::Data
           it { expect(data_object.class_attributes).to be == expected }
         end
 
+        if include_mixins
+          wrap_context 'using fixture', 'with extended modules' do
+            let(:expected) do
+              [
+                {
+                  'name'  => 'pressure',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'phenomena/weather-effects/i-pressure'
+                }
+              ]
+            end
+
+            it { expect(data_object.class_attributes).to deep_match expected }
+          end
+        end
+
+        if inherit_mixins
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) do
+              [
+                {
+                  'name'  => 'blueprints',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'engineering/c-blueprints'
+                }
+              ]
+            end
+
+            it { expect(data_object.class_attributes).to deep_match expected }
+          end
+        end
+
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            [
+            ary = [
               {
                 'name'  => 'gravity',
                 'read'  => true,
@@ -145,6 +179,30 @@ module Spec::Support::Contracts::Data
                 'path'  => relative_path('c-secret-key=')
               }
             ]
+
+            if include_mixins
+              ary += [
+                {
+                  'name'  => 'pressure',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'phenomena/weather-effects/i-pressure'
+                }
+              ]
+            end
+
+            if inherit_mixins
+              ary += [
+                {
+                  'name'  => 'blueprints',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'engineering/c-blueprints'
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.class_attributes).to be == expected }
@@ -406,6 +464,52 @@ module Spec::Support::Contracts::Data
 
         include_examples 'should define reader', :instance_attributes, []
 
+        if include_mixins
+          wrap_context 'using fixture', 'with included modules' do
+            let(:expected) do
+              [
+                {
+                  'name'  => 'depth',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'measurement/i-depth'
+                },
+                {
+                  'name'  => 'height',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'measurement/i-height'
+                },
+                {
+                  'name'  => 'width',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'measurement/i-width'
+                }
+              ]
+            end
+
+            it { expect(data_object.instance_attributes).to be == expected }
+          end
+        end
+
+        if inherit_mixins
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) do
+              [
+                {
+                  'name'  => 'difficulty',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'physics/rocket-science/i-difficulty'
+                }
+              ]
+            end
+
+            it { expect(data_object.instance_attributes).to be == expected }
+          end
+        end
+
         wrap_context 'using fixture', 'with instance attributes' do
           let(:expected) do
             [
@@ -435,7 +539,7 @@ module Spec::Support::Contracts::Data
 
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            [
+            ary = [
               {
                 'name'  => 'base_mana',
                 'read'  => true,
@@ -455,6 +559,42 @@ module Spec::Support::Contracts::Data
                 'path'  => relative_path('i-secret-formula=')
               }
             ]
+
+            if include_mixins
+              ary += [
+                {
+                  'name'  => 'depth',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'measurement/i-depth'
+                },
+                {
+                  'name'  => 'height',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'measurement/i-height'
+                },
+                {
+                  'name'  => 'width',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'measurement/i-width'
+                }
+              ]
+            end
+
+            if inherit_mixins
+              ary += [
+                {
+                  'name'  => 'difficulty',
+                  'read'  => true,
+                  'write' => true,
+                  'path'  => 'physics/rocket-science/i-difficulty'
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.instance_attributes).to be == expected }
