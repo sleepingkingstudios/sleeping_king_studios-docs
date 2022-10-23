@@ -100,22 +100,25 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             [
               {
-                'name'  => 'gravity',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('c-gravity')
+                'name'      => 'gravity',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('c-gravity'),
+                'inherited' => false
               },
               {
-                'name'  => 'sandbox_mode',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('c-sandbox-mode')
+                'name'      => 'sandbox_mode',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('c-sandbox-mode'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_key',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('c-secret-key=')
+                'name'      => 'secret_key',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('c-secret-key='),
+                'inherited' => false
               }
             ]
           end
@@ -123,28 +126,93 @@ module Spec::Support::Contracts::Data
           it { expect(data_object.class_attributes).to be == expected }
         end
 
+        if include_mixins
+          wrap_context 'using fixture', 'with extended modules' do
+            let(:expected) do
+              [
+                {
+                  'name'      => 'pressure',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'phenomena/weather-effects/i-pressure',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            it { expect(data_object.class_attributes).to deep_match expected }
+          end
+        end
+
+        if inherit_mixins
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) do
+              [
+                {
+                  'name'      => 'blueprints',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'engineering/c-blueprints',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            it { expect(data_object.class_attributes).to deep_match expected }
+          end
+        end
+
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            [
+            ary = [
               {
-                'name'  => 'gravity',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('c-gravity')
+                'name'      => 'gravity',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('c-gravity'),
+                'inherited' => false
               },
               {
-                'name'  => 'sandbox_mode',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('c-sandbox-mode')
+                'name'      => 'sandbox_mode',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('c-sandbox-mode'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_key',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('c-secret-key=')
+                'name'      => 'secret_key',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('c-secret-key='),
+                'inherited' => false
               }
             ]
+
+            if include_mixins
+              ary += [
+                {
+                  'name'      => 'pressure',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'phenomena/weather-effects/i-pressure',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            if inherit_mixins
+              ary += [
+                {
+                  'name'      => 'blueprints',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'engineering/c-blueprints',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.class_attributes).to be == expected }
@@ -406,26 +474,79 @@ module Spec::Support::Contracts::Data
 
         include_examples 'should define reader', :instance_attributes, []
 
+        if include_mixins
+          wrap_context 'using fixture', 'with included modules' do
+            let(:expected) do
+              [
+                {
+                  'name'      => 'depth',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-depth',
+                  'inherited' => true
+                },
+                {
+                  'name'      => 'height',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-height',
+                  'inherited' => true
+                },
+                {
+                  'name'      => 'width',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-width',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            it { expect(data_object.instance_attributes).to be == expected }
+          end
+        end
+
+        if inherit_mixins
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) do
+              [
+                {
+                  'name'      => 'difficulty',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'physics/rocket-science/i-difficulty',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            it { expect(data_object.instance_attributes).to be == expected }
+          end
+        end
+
         wrap_context 'using fixture', 'with instance attributes' do
           let(:expected) do
             [
               {
-                'name'  => 'base_mana',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('i-base-mana')
+                'name'      => 'base_mana',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('i-base-mana'),
+                'inherited' => false
               },
               {
-                'name'  => 'magic_enabled',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('i-magic-enabled')
+                'name'      => 'magic_enabled',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('i-magic-enabled'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_formula',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('i-secret-formula=')
+                'name'      => 'secret_formula',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('i-secret-formula='),
+                'inherited' => false
               }
             ]
           end
@@ -435,26 +556,69 @@ module Spec::Support::Contracts::Data
 
         wrap_context 'using fixture', 'with everything' do
           let(:expected) do
-            [
+            ary = [
               {
-                'name'  => 'base_mana',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('i-base-mana')
+                'name'      => 'base_mana',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('i-base-mana'),
+                'inherited' => false
               },
               {
-                'name'  => 'magic_enabled',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('i-magic-enabled')
+                'name'      => 'magic_enabled',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('i-magic-enabled'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_formula',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('i-secret-formula=')
+                'name'      => 'secret_formula',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('i-secret-formula='),
+                'inherited' => false
               }
             ]
+
+            if include_mixins
+              ary += [
+                {
+                  'name'      => 'depth',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-depth',
+                  'inherited' => true
+                },
+                {
+                  'name'      => 'height',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-height',
+                  'inherited' => true
+                },
+                {
+                  'name'      => 'width',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-width',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            if inherit_mixins
+              ary += [
+                {
+                  'name'      => 'difficulty',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'physics/rocket-science/i-difficulty',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.instance_attributes).to be == expected }

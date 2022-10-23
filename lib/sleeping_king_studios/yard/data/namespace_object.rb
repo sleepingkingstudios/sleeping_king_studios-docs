@@ -81,9 +81,8 @@ module SleepingKingStudios::Yard::Data
     # @return [Array<Hash>] the class attributes.
     def class_attributes
       @class_attributes ||=
-        native
-        .class_attributes
-        .map { |name, methods| format_attribute(name, methods) }
+        find_class_attributes(native)
+        .map { |name, options| format_attribute(name, options) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -177,9 +176,8 @@ module SleepingKingStudios::Yard::Data
     # @return [Array<Hash>] the instance attributes.
     def instance_attributes
       @instance_attributes ||=
-        native
-        .instance_attributes
-        .map { |name, methods| format_attribute(name, methods) }
+        find_instance_attributes(native)
+        .map { |name, options| format_attribute(name, options) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -225,16 +223,65 @@ module SleepingKingStudios::Yard::Data
 
     private
 
-    def format_attribute(name, methods)
+    def find_class_attributes(native_object) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      attributes = {}
+
+      if native_object.is_a?(YARD::CodeObjects::ClassObject)
+        ancestors  = native_object.inheritance_tree - [native_object]
+        attributes = ancestors.reverse.reduce(attributes) do |hsh, obj|
+          next hsh if obj.is_a?(YARD::CodeObjects::Proxy)
+
+          hsh.merge(find_class_attributes(obj))
+        end
+      end
+
+      attributes = native_object.class_mixins.reverse.reduce(attributes) \
+      do |hsh, obj|
+        next hsh if obj.is_a?(YARD::CodeObjects::Proxy)
+
+        hsh.merge(find_instance_attributes(obj))
+      end
+
+      attributes
+        .transform_values { |attribute| attribute.merge(inherited: true) }
+        .merge(native_object.class_attributes)
+    end
+
+    def find_instance_attributes(native_object) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      attributes = {}
+
+      if native_object.is_a?(YARD::CodeObjects::ClassObject)
+        ancestors  = native_object.inheritance_tree - [native_object]
+        attributes = ancestors.reverse.reduce(attributes) do |hsh, obj|
+          next hsh if obj.is_a?(YARD::CodeObjects::Proxy)
+
+          hsh.merge(find_instance_attributes(obj))
+        end
+      end
+
+      attributes = native_object.instance_mixins.reverse.reduce(attributes) \
+      do |hsh, obj|
+        next hsh if obj.is_a?(YARD::CodeObjects::Proxy)
+
+        hsh.merge(find_instance_attributes(obj))
+      end
+
+      attributes
+        .transform_values { |attribute| attribute.merge(inherited: true) }
+        .merge(native_object.instance_attributes)
+    end
+
+    def format_attribute(name, options)
       method_object =
         SleepingKingStudios::Yard::Data::MethodObject
-        .new(native: methods.values.find { |method| !method.nil? })
+        .new(native: options.values.find { |method| !method.nil? })
 
       {
-        'name'  => name.to_s,
-        'read'  => !methods[:read].nil?,
-        'write' => !methods[:write].nil?,
-        'path'  => method_object.data_path
+        'name'      => name.to_s,
+        'read'      => !options[:read].nil?,
+        'write'     => !options[:write].nil?,
+        'path'      => method_object.data_path,
+        'inherited' => !!options[:inherited] # rubocop:disable Style/DoubleNegation
       }
     end
 

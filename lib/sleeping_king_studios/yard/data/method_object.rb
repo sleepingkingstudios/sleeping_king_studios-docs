@@ -190,6 +190,25 @@ module SleepingKingStudios::Yard::Data
         .map { |tag| format_param(tag) }
     end
 
+    # The path to the defining class or method's data file.
+    #
+    # @return [String] the file path.
+    def parent_path
+      return @parent_path if @parent_path
+
+      return @parent_path = '' if native.parent.root?
+
+      parent_class  =
+        if native.parent.is_a?(YARD::CodeObjects::ClassObject)
+          SleepingKingStudios::Yard::Data::ClassObject
+        else
+          SleepingKingStudios::Yard::Data::ModuleObject
+        end
+      parent_object = parent_class.new(native: native.parent)
+
+      @parent_path = parent_object.data_path
+    end
+
     # The documented raised exceptions of the method.
     #
     # Each raised exception is a Hash with the following keys:
@@ -393,9 +412,10 @@ module SleepingKingStudios::Yard::Data
 
     def required_json
       {
-        'name'      => name,
-        'signature' => signature,
-        'slug'      => slug
+        'name'        => name,
+        'parent_path' => parent_path,
+        'signature'   => signature,
+        'slug'        => slug
       }
     end
 
