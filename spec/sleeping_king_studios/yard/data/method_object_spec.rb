@@ -20,15 +20,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     ::YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
-  # rubocop:disable Metrics/MethodLength
-  def self.expected_json # rubocop:disable Metrics/AbcSize
+  def self.expected_json # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     lambda do
       json = {
         'constructor' => method_object.constructor?,
         'name'        => method_object.name,
         'slug'        => method_object.slug,
         'signature'   => method_object.signature,
-        'data_path'   => method_object.data_path
+        'data_path'   => method_object.data_path,
+        'parent_path' => method_object.parent_path
       }
 
       next json if method_object.short_description.empty?
@@ -36,7 +36,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       json.merge('short_description' => method_object.short_description)
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def parse_type(type)
     SleepingKingStudios::Yard::Data::Types::Parser
@@ -325,6 +324,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
           {
             'constructor'       => false,
             'name'              => '#launch',
+            'parent_path'       => '',
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket, **options)',
@@ -356,6 +356,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
                 'type'        => parse_type('Boolean')
               }
             ],
+            'parent_path'       => '',
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket, recovery:)',
@@ -386,6 +387,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
                 'type'        => parse_type('Hash')
               }
             ],
+            'parent_path'       => '',
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket, **options)',
@@ -404,6 +406,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
           {
             'constructor'       => false,
             'name'              => '#launch',
+            'parent_path'       => '',
             'short_description' => "Don't forget to point the correct end " \
                                    'toward space.',
             'signature'         => 'launch(rocket)',
@@ -412,6 +415,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
           {
             'constructor'       => false,
             'name'              => '#launch',
+            'parent_path'       => '',
             'returns'           => [
               {
                 'description' => 'the repair bill for the launch pad.',
@@ -500,6 +504,24 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       end
 
       it { expect(method_object.params).to be == expected }
+    end
+  end
+
+  describe '#parent_path' do
+    include_examples 'should define reader', :parent_path, ''
+
+    wrap_context 'using fixture', 'with constructor' do
+      let(:fixture_name) { 'Rocketry#initialize' }
+      let(:expected)     { 'rocketry' }
+
+      it { expect(method_object.parent_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped_name' do
+      let(:fixture_name) { 'Wonders::FutureEra#use_space_elevator' }
+      let(:expected)     { 'wonders/future-era' }
+
+      it { expect(method_object.parent_path).to be == expected }
     end
   end
 
