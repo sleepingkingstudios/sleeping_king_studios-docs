@@ -100,22 +100,25 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             [
               {
-                'name'  => 'gravity',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('c-gravity')
+                'name'      => 'gravity',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('c-gravity'),
+                'inherited' => false
               },
               {
-                'name'  => 'sandbox_mode',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('c-sandbox-mode')
+                'name'      => 'sandbox_mode',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('c-sandbox-mode'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_key',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('c-secret-key=')
+                'name'      => 'secret_key',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('c-secret-key='),
+                'inherited' => false
               }
             ]
           end
@@ -128,10 +131,11 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name'  => 'pressure',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'phenomena/weather-effects/i-pressure'
+                  'name'      => 'pressure',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'phenomena/weather-effects/i-pressure',
+                  'inherited' => true
                 }
               ]
             end
@@ -145,10 +149,11 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name'  => 'blueprints',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'engineering/c-blueprints'
+                  'name'      => 'blueprints',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'engineering/c-blueprints',
+                  'inherited' => true
                 }
               ]
             end
@@ -161,32 +166,36 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             ary = [
               {
-                'name'  => 'gravity',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('c-gravity')
+                'name'      => 'gravity',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('c-gravity'),
+                'inherited' => false
               },
               {
-                'name'  => 'sandbox_mode',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('c-sandbox-mode')
+                'name'      => 'sandbox_mode',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('c-sandbox-mode'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_key',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('c-secret-key=')
+                'name'      => 'secret_key',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('c-secret-key='),
+                'inherited' => false
               }
             ]
 
             if include_mixins
               ary += [
                 {
-                  'name'  => 'pressure',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'phenomena/weather-effects/i-pressure'
+                  'name'      => 'pressure',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'phenomena/weather-effects/i-pressure',
+                  'inherited' => true
                 }
               ]
             end
@@ -194,10 +203,11 @@ module Spec::Support::Contracts::Data
             if inherit_mixins
               ary += [
                 {
-                  'name'  => 'blueprints',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'engineering/c-blueprints'
+                  'name'      => 'blueprints',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'engineering/c-blueprints',
+                  'inherited' => true
                 }
               ]
             end
@@ -469,22 +479,25 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name'  => 'depth',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'measurement/i-depth'
+                  'name'      => 'depth',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-depth',
+                  'inherited' => true
                 },
                 {
-                  'name'  => 'height',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'measurement/i-height'
+                  'name'      => 'height',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-height',
+                  'inherited' => true
                 },
                 {
-                  'name'  => 'width',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'measurement/i-width'
+                  'name'      => 'width',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-width',
+                  'inherited' => true
                 }
               ]
             end
@@ -498,10 +511,11 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name'  => 'difficulty',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'physics/rocket-science/i-difficulty'
+                  'name'      => 'difficulty',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'physics/rocket-science/i-difficulty',
+                  'inherited' => true
                 }
               ]
             end
@@ -514,22 +528,25 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             [
               {
-                'name'  => 'base_mana',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('i-base-mana')
+                'name'      => 'base_mana',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('i-base-mana'),
+                'inherited' => false
               },
               {
-                'name'  => 'magic_enabled',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('i-magic-enabled')
+                'name'      => 'magic_enabled',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('i-magic-enabled'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_formula',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('i-secret-formula=')
+                'name'      => 'secret_formula',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('i-secret-formula='),
+                'inherited' => false
               }
             ]
           end
@@ -541,44 +558,50 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             ary = [
               {
-                'name'  => 'base_mana',
-                'read'  => true,
-                'write' => false,
-                'path'  => relative_path('i-base-mana')
+                'name'      => 'base_mana',
+                'read'      => true,
+                'write'     => false,
+                'path'      => relative_path('i-base-mana'),
+                'inherited' => false
               },
               {
-                'name'  => 'magic_enabled',
-                'read'  => true,
-                'write' => true,
-                'path'  => relative_path('i-magic-enabled')
+                'name'      => 'magic_enabled',
+                'read'      => true,
+                'write'     => true,
+                'path'      => relative_path('i-magic-enabled'),
+                'inherited' => false
               },
               {
-                'name'  => 'secret_formula',
-                'read'  => false,
-                'write' => true,
-                'path'  => relative_path('i-secret-formula=')
+                'name'      => 'secret_formula',
+                'read'      => false,
+                'write'     => true,
+                'path'      => relative_path('i-secret-formula='),
+                'inherited' => false
               }
             ]
 
             if include_mixins
               ary += [
                 {
-                  'name'  => 'depth',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'measurement/i-depth'
+                  'name'      => 'depth',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-depth',
+                  'inherited' => true
                 },
                 {
-                  'name'  => 'height',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'measurement/i-height'
+                  'name'      => 'height',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-height',
+                  'inherited' => true
                 },
                 {
-                  'name'  => 'width',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'measurement/i-width'
+                  'name'      => 'width',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'measurement/i-width',
+                  'inherited' => true
                 }
               ]
             end
@@ -586,10 +609,11 @@ module Spec::Support::Contracts::Data
             if inherit_mixins
               ary += [
                 {
-                  'name'  => 'difficulty',
-                  'read'  => true,
-                  'write' => true,
-                  'path'  => 'physics/rocket-science/i-difficulty'
+                  'name'      => 'difficulty',
+                  'read'      => true,
+                  'write'     => true,
+                  'path'      => 'physics/rocket-science/i-difficulty',
+                  'inherited' => true
                 }
               ]
             end

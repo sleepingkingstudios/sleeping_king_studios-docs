@@ -82,7 +82,7 @@ module SleepingKingStudios::Yard::Data
     def class_attributes
       @class_attributes ||=
         find_class_attributes(native)
-        .map { |name, methods| format_attribute(name, methods) }
+        .map { |name, options| format_attribute(name, options) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -177,7 +177,7 @@ module SleepingKingStudios::Yard::Data
     def instance_attributes
       @instance_attributes ||=
         find_instance_attributes(native)
-        .map { |name, methods| format_attribute(name, methods) }
+        .map { |name, options| format_attribute(name, options) }
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -242,7 +242,9 @@ module SleepingKingStudios::Yard::Data
         hsh.merge(find_instance_attributes(obj))
       end
 
-      attributes.merge(native_object.class_attributes)
+      attributes
+        .transform_values { |attribute| attribute.merge(inherited: true) }
+        .merge(native_object.class_attributes)
     end
 
     def find_instance_attributes(native_object) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -264,19 +266,22 @@ module SleepingKingStudios::Yard::Data
         hsh.merge(find_instance_attributes(obj))
       end
 
-      attributes.merge(native_object.instance_attributes)
+      attributes
+        .transform_values { |attribute| attribute.merge(inherited: true) }
+        .merge(native_object.instance_attributes)
     end
 
-    def format_attribute(name, methods)
+    def format_attribute(name, options)
       method_object =
         SleepingKingStudios::Yard::Data::MethodObject
-        .new(native: methods.values.find { |method| !method.nil? })
+        .new(native: options.values.find { |method| !method.nil? })
 
       {
-        'name'  => name.to_s,
-        'read'  => !methods[:read].nil?,
-        'write' => !methods[:write].nil?,
-        'path'  => method_object.data_path
+        'name'      => name.to_s,
+        'read'      => !options[:read].nil?,
+        'write'     => !options[:write].nil?,
+        'path'      => method_object.data_path,
+        'inherited' => !!options[:inherited] # rubocop:disable Style/DoubleNegation
       }
     end
 
