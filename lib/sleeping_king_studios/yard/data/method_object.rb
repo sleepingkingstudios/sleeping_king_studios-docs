@@ -404,6 +404,7 @@ module SleepingKingStudios::Yard::Data
       @parameter_defaults ||=
         native
         .signature[(5 + native.name.size)..-2]
+        .then { |str| str || '' }
         .split(', ')
         .map { |param| param.split(/ = |: ?/) }
         .select { |tuple| tuple.size == 2 }
