@@ -11,11 +11,14 @@
 # In conclusion, space is a land of contrasts.
 #
 # @param apoapsis [Float] the highest point in the orbit.
+# @param config [Hash] even more options for the launch.
 # @param payload [Object] the payload to launch.
 # @param recovery [Boolean] if true, will attempt to recover the rocket after a
 #   successful launch.
 # @param rocket [Rocket] the rocket to launch.
 # @param options [Hash] additional options for the launch.
+#
+# @option config [Boolean] enable_cheats if true, enables cheat codes.
 #
 # @option options [Boolean] recovery_transponder if true, adds a recovery
 #   transponder to the rocket.
@@ -53,4 +56,11 @@
 #   If not, you will not be going to space today after all.
 #
 #   @return [BigDecimal] the repair bill for the launch pad.
-def launch(rocket, payload = nil, apoapsis:, recovery: false, **options); end
+def launch( # rubocop:disable Metrics/ParameterLists
+  rocket,
+  payload = nil,
+  apoapsis:,
+  config: {},
+  recovery: false,
+  **options
+); end

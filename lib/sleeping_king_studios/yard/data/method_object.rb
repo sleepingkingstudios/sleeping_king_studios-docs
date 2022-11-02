@@ -156,7 +156,8 @@ module SleepingKingStudios::Yard::Data
         native
         .tags
         .select { |tag| tag.tag_name == 'option' }
-        .map { |tag| format_option(tag) }
+        .group_by(&:name)
+        .map { |name, tags| format_options(name, tags) }
     end
 
     # The documented overloads for the method.
@@ -341,9 +342,15 @@ module SleepingKingStudios::Yard::Data
     def format_option(tag)
       {
         'description' => tag.pair.text,
-        'name'        => tag.name,
-        'tag_name'    => tag.pair.name,
+        'name'        => tag.pair.name,
         'type'        => parse_types(tag.pair)
+      }
+    end
+
+    def format_options(name, tags)
+      {
+        'name' => name,
+        'opts' => tags.map { |tag| format_option(tag) }
       }
     end
 
