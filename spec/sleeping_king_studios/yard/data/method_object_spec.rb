@@ -271,18 +271,31 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       let(:expected) do
         [
           {
-            'name'        => 'options',
-            'tag_name'    => 'recovery_transponder',
-            'type'        => parse_type('Boolean'),
-            'description' => "if true, adds a recovery\ntransponder to the " \
-                             'rocket.'
+            'name' => 'config',
+            'opts' => [
+              {
+                'name'        => 'enable_cheats',
+                'type'        => parse_type('Boolean'),
+                'description' => 'if true, enables cheat codes.'
+              }
+            ]
           },
           {
-            'name'        => 'options',
-            'tag_name'    => 'flight_termination_system',
-            'type'        => parse_type('Boolean'),
-            'description' => "if true, adds a flight\ntermination system to " \
-                             'the rocket in case of launch failure.'
+            'name' => 'options',
+            'opts' => [
+              {
+                'name'        => 'recovery_transponder',
+                'type'        => parse_type('Boolean'),
+                'description' => "if true, adds a recovery\ntransponder to " \
+                                 'the rocket.'
+              },
+              {
+                'name'        => 'flight_termination_system',
+                'type'        => parse_type('Boolean'),
+                'description' => "if true, adds a flight\ntermination system " \
+                                 'to the rocket in case of launch failure.'
+              }
+            ]
           }
         ]
       end
@@ -294,18 +307,31 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       let(:expected) do
         [
           {
-            'name'        => 'options',
-            'tag_name'    => 'recovery_transponder',
-            'type'        => parse_type('Boolean'),
-            'description' => "if true, adds a recovery\ntransponder to the " \
-                             'rocket.'
+            'name' => 'config',
+            'opts' => [
+              {
+                'name'        => 'enable_cheats',
+                'type'        => parse_type('Boolean'),
+                'description' => 'if true, enables cheat codes.'
+              }
+            ]
           },
           {
-            'name'        => 'options',
-            'tag_name'    => 'flight_termination_system',
-            'type'        => parse_type('Boolean'),
-            'description' => "if true, adds a flight\ntermination system to " \
-                             'the rocket in case of launch failure.'
+            'name' => 'options',
+            'opts' => [
+              {
+                'name'        => 'recovery_transponder',
+                'type'        => parse_type('Boolean'),
+                'description' => "if true, adds a recovery\ntransponder to " \
+                                 'the rocket.'
+              },
+              {
+                'name'        => 'flight_termination_system',
+                'type'        => parse_type('Boolean'),
+                'description' => "if true, adds a flight\ntermination system " \
+                                 'to the rocket in case of launch failure.'
+              }
+            ]
           }
         ]
       end
@@ -476,6 +502,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
             'name'        => 'apoapsis',
             'type'        => parse_type('Float'),
             'description' => 'the highest point in the orbit.'
+          },
+          {
+            'name'        => 'config',
+            'type'        => parse_type('Hash'),
+            'default'     => '{}',
+            'description' => 'even more options for the launch.'
           },
           {
             'name'        => 'payload',
@@ -658,7 +690,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     end
 
     wrap_context 'using fixture', 'with options' do
-      let(:expected) { 'launch(**options)' }
+      let(:expected) { 'launch(config = {}, **options)' }
 
       it { expect(method_object.signature).to be == expected }
     end
