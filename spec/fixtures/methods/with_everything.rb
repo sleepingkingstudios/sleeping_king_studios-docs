@@ -56,11 +56,11 @@
 #   If not, you will not be going to space today after all.
 #
 #   @return [BigDecimal] the repair bill for the launch pad.
-def launch( # rubocop:disable Metrics/ParameterLists
+def launch( # rubocop:disable Lint/RedundantCopDisableDirective, Metrics/ParameterLists
   rocket,
   payload = nil,
-  apoapsis:,
+  apoapsis:, # rubocop:disable Lint/RedundantCopDisableDirective
   config: {},
   recovery: false,
-  **options
+  **options # rubocop:disable Lint/RedundantCopDisableDirective
 ); end

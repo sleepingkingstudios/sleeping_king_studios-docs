@@ -535,7 +535,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
         ]
       end
 
-      it { expect(method_object.params).to be == expected }
+      it { expect(method_object.params).to deep_match expected }
     end
   end
 
@@ -742,6 +742,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
 
     wrap_context 'using fixture', 'with yield signature' do
       let(:expected) { 'launch' }
+
+      it { expect(method_object.signature).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with everything' do
+      let(:expected) do
+        'launch(rocket, payload = nil, apoapsis:, config: {}, recovery: ' \
+          'false, **options)'
+      end
 
       it { expect(method_object.signature).to be == expected }
     end

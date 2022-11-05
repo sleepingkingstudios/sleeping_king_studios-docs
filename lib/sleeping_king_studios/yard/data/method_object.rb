@@ -266,7 +266,13 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [String] the method signature.
     def signature
-      @signature ||= native.signature.sub(/^def /, '')
+      return @signature if @signature
+
+      unless native.signature.include?('(')
+        return @signature = native.signature.sub(/\Adef /, '')
+      end
+
+      @signature = strip_rubocop_directives
     end
 
     # The name of the method in url-safe format.
@@ -332,6 +338,10 @@ module SleepingKingStudios::Yard::Data
     end
 
     private
+
+    def extract_parameters
+      native.signature.sub(/\A(def )?#{native.name}\(/, '').sub(/\)\z/, '')
+    end
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata
@@ -408,10 +418,12 @@ module SleepingKingStudios::Yard::Data
     end
 
     def parameter_defaults
+      return @parameter_defaults if @parameter_defaults
+
+      return @parameter_defaults = {} unless signature.include?('(')
+
       @parameter_defaults ||=
-        native
-        .signature[(5 + native.name.size)..-2]
-        .then { |str| str || '' }
+        signature[(1 + native.name.size)...-1]
         .split(', ')
         .map { |param| param.split(/ = |: ?/) }
         .select { |tuple| tuple.size == 2 }
@@ -427,12 +439,35 @@ module SleepingKingStudios::Yard::Data
       }
     end
 
+    def rubocop_directive?(str)
+      return true if str == 'rubocop:disable'
+
+      str.include? '/'
+    end
+
     def split_docstring
       match = native.docstring.match(PARAGRAPH_BREAK)
 
       return native.docstring.to_s unless match
 
       [match.pre_match.to_s, match.post_match.to_s]
+    end
+
+    def strip_rubocop_directives
+      extract_parameters
+        .split(/, +/)
+        .map { |segment| strip_rubocop_directives_from_segment(segment) }
+        .reject(&:empty?)
+        .join(', ')
+        .then { |params| "#{native.name}(#{params})" }
+    end
+
+    def strip_rubocop_directives_from_segment(segment)
+      segment
+        .strip
+        .split(/ +/)
+        .reject { |str| str == '#' || rubocop_directive?(str) }
+        .join(' ')
     end
 
     def type_parser
