@@ -21,7 +21,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     ::YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
-  def self.expected_json
+  def self.expected_json # rubocop:disable Metrics/MethodLength
     lambda do
       {
         'name'              => module_object.name,
@@ -29,7 +29,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
         'type'              => module_object.type,
         'files'             => module_object.files,
         'short_description' => module_object.short_description,
-        'data_path'         => module_object.data_path
+        'data_path'         => module_object.data_path,
+        'parent_path'       => module_object.parent_path
       }
     end
   end
@@ -49,6 +50,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
 
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }
+
+    wrap_context 'using fixture', 'with class scoped name' do
+      let(:fixture_name) { 'Cosmos::Physics::SpaceAndTime' }
+
+      it { expect(module_object.as_json).to be == expected }
+    end
 
     wrap_context 'using fixture', 'with extended modules' do
       let(:expected) do
@@ -71,6 +78,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
           'instance_methods'    => module_object.instance_methods
         )
       end
+
+      it { expect(module_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped name' do
+      let(:fixture_name) { 'Cosmos::LocalDimension::SpaceAndTime' }
 
       it { expect(module_object.as_json).to be == expected }
     end
@@ -216,6 +229,30 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
       end
 
       it { expect(module_object.included_modules).to be == expected }
+    end
+  end
+
+  describe '#parent_path' do
+    include_examples 'should define reader', :parent_path, ''
+
+    wrap_context 'using fixture', 'with class scoped name' do
+      let(:fixture_name) { 'Cosmos::Physics::SpaceAndTime' }
+      let(:expected)     { 'cosmos/physics' }
+
+      it { expect(module_object.parent_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped name' do
+      let(:fixture_name) { 'Cosmos::LocalDimension::SpaceAndTime' }
+      let(:expected)     { 'cosmos/local-dimension' }
+
+      it { expect(module_object.parent_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with everything' do
+      let(:expected) { '' }
+
+      it { expect(module_object.parent_path).to be == expected }
     end
   end
 
