@@ -232,12 +232,14 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             [
               {
-                'name' => 'calculate_isp',
-                'path' => relative_path('c-calculate-isp')
+                'name'      => 'calculate_isp',
+                'path'      => relative_path('c-calculate-isp'),
+                'inherited' => false
               },
               {
-                'name' => 'plot_trajectory',
-                'path' => relative_path('c-plot-trajectory')
+                'name'      => 'plot_trajectory',
+                'path'      => relative_path('c-plot-trajectory'),
+                'inherited' => false
               }
             ]
           end
@@ -250,12 +252,14 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name' => 'dew_point',
-                  'path' => 'atmosphere/i-dew-point'
+                  'name'      => 'dew_point',
+                  'path'      => 'atmosphere/i-dew-point',
+                  'inherited' => true
                 },
                 {
-                  'name' => 'temperature',
-                  'path' => 'phenomena/weather-effects/i-temperature'
+                  'name'      => 'temperature',
+                  'path'      => 'phenomena/weather-effects/i-temperature',
+                  'inherited' => true
                 }
               ]
             end
@@ -269,8 +273,9 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name' => 'design',
-                  'path' => 'engineering/c-design'
+                  'name'      => 'design',
+                  'path'      => 'engineering/c-design',
+                  'inherited' => true
                 }
               ]
             end
@@ -283,24 +288,28 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             ary = [
               {
-                'name' => 'calculate_isp',
-                'path' => relative_path('c-calculate-isp')
+                'name'      => 'calculate_isp',
+                'path'      => relative_path('c-calculate-isp'),
+                'inherited' => false
               },
               {
-                'name' => 'plot_trajectory',
-                'path' => relative_path('c-plot-trajectory')
+                'name'      => 'plot_trajectory',
+                'path'      => relative_path('c-plot-trajectory'),
+                'inherited' => false
               }
             ]
 
             if include_mixins
               ary += [
                 {
-                  'name' => 'dew_point',
-                  'path' => 'atmosphere/i-dew-point'
+                  'name'      => 'dew_point',
+                  'path'      => 'atmosphere/i-dew-point',
+                  'inherited' => true
                 },
                 {
-                  'name' => 'temperature',
-                  'path' => 'phenomena/weather-effects/i-temperature'
+                  'name'      => 'temperature',
+                  'path'      => 'phenomena/weather-effects/i-temperature',
+                  'inherited' => true
                 }
               ]
             end
@@ -308,8 +317,9 @@ module Spec::Support::Contracts::Data
             if inherit_mixins
               ary += [
                 {
-                  'name' => 'design',
-                  'path' => 'engineering/c-design'
+                  'name'      => 'design',
+                  'path'      => 'engineering/c-design',
+                  'inherited' => true
                 }
               ]
             end
@@ -639,8 +649,9 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name' => 'cardinality',
-                  'path' => 'dimensions/i-cardinality'
+                  'name'      => 'cardinality',
+                  'path'      => 'dimensions/i-cardinality',
+                  'inherited' => true
                 }
               ]
             end
@@ -656,7 +667,8 @@ module Spec::Support::Contracts::Data
                 {
                   'name'        => 'initialize',
                   'path'        => relative_path('i-initialize'),
-                  'constructor' => true
+                  'constructor' => true,
+                  'inherited'   => false
                 }
               ]
             end
@@ -670,7 +682,8 @@ module Spec::Support::Contracts::Data
                 {
                   'name'        => 'initialize',
                   'path'        => 'rocket-science/i-initialize',
-                  'constructor' => true
+                  'constructor' => true,
+                  'inherited'   => true
                 }
               ]
             end
@@ -682,8 +695,9 @@ module Spec::Support::Contracts::Data
             let(:expected) do
               [
                 {
-                  'name' => 'project_orion',
-                  'path' => 'physics/rocket-science/i-project-orion'
+                  'name'      => 'project_orion',
+                  'path'      => 'physics/rocket-science/i-project-orion',
+                  'inherited' => true
                 }
               ]
             end
@@ -696,12 +710,14 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             [
               {
-                'name' => 'convert_mana',
-                'path' => relative_path('i-convert-mana')
+                'name'      => 'convert_mana',
+                'path'      => relative_path('i-convert-mana'),
+                'inherited' => false
               },
               {
-                'name' => 'summon_dark_lord',
-                'path' => relative_path('i-summon-dark-lord')
+                'name'      => 'summon_dark_lord',
+                'path'      => relative_path('i-summon-dark-lord'),
+                'inherited' => false
               }
             ]
           end
@@ -713,20 +729,23 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             ary = [
               {
-                'name' => 'convert_mana',
-                'path' => relative_path('i-convert-mana')
+                'name'      => 'convert_mana',
+                'path'      => relative_path('i-convert-mana'),
+                'inherited' => false
               },
               {
-                'name' => 'summon_dark_lord',
-                'path' => relative_path('i-summon-dark-lord')
+                'name'      => 'summon_dark_lord',
+                'path'      => relative_path('i-summon-dark-lord'),
+                'inherited' => false
               }
             ]
 
             if include_mixins
               ary += [
                 {
-                  'name' => 'cardinality',
-                  'path' => 'dimensions/i-cardinality'
+                  'name'      => 'cardinality',
+                  'path'      => 'dimensions/i-cardinality',
+                  'inherited' => true
                 }
               ]
             end
@@ -736,11 +755,13 @@ module Spec::Support::Contracts::Data
                 {
                   'name'        => 'initialize',
                   'path'        => 'rocketry/i-initialize',
-                  'constructor' => true
+                  'constructor' => true,
+                  'inherited'   => false
                 },
                 {
-                  'name' => 'project_orion',
-                  'path' => 'physics/rocket-science/i-project-orion'
+                  'name'      => 'project_orion',
+                  'path'      => 'physics/rocket-science/i-project-orion',
+                  'inherited' => true
                 }
               ]
             end
