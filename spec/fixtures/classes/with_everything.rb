@@ -31,6 +31,8 @@ module Dimensions
 
   module HigherDimensions; end
 
+  LENGTH = '1 meter'
+
   def cardinality; end
 end
 
@@ -44,6 +46,8 @@ end
 
 module Physics
   class RocketScience < Engineering
+    MODEL = 'standard'
+
     attr_accessor :difficulty
 
     def project_orion; end

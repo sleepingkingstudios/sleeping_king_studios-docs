@@ -27,7 +27,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
         'slug'              => constant_object.slug,
         'value'             => constant_object.value,
         'short_description' => constant_object.short_description,
-        'data_path'         => constant_object.data_path
+        'data_path'         => constant_object.data_path,
+        'parent_path'       => constant_object.parent_path
       }
     end
   end
@@ -54,6 +55,24 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
       end
 
       it { expect(constant_object.as_json).to be == expected }
+    end
+  end
+
+  describe '#parent_path' do
+    include_examples 'should define reader', :parent_path, ''
+
+    wrap_context 'using fixture', 'with class scoped name' do
+      let(:fixture_name) { 'Cosmos::Physics::SPEED_OF_LIGHT' }
+      let(:expected)     { 'cosmos/physics' }
+
+      it { expect(constant_object.parent_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped name' do
+      let(:fixture_name) { 'Cosmos::PhysicalConstants::SPEED_OF_LIGHT' }
+      let(:expected)     { 'cosmos/physical-constants' }
+
+      it { expect(constant_object.parent_path).to be == expected }
     end
   end
 

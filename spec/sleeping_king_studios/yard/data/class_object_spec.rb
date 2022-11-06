@@ -66,6 +66,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
         super().merge(
           'class_attributes'    => class_object.class_attributes,
           'class_methods'       => class_object.class_methods,
+          'constants'           => class_object.constants,
           'inherited_classes'   => class_object.inherited_classes,
           'instance_attributes' => class_object.instance_attributes,
           'instance_methods'    => class_object.instance_methods

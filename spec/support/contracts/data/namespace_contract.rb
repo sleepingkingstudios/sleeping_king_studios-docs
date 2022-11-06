@@ -345,17 +345,51 @@ module Spec::Support::Contracts::Data
           let(:expected) do
             [
               {
-                'name' => 'ELDRITCH',
-                'path' => "#{base_path}eldritch"
+                'name'      => 'ELDRITCH',
+                'path'      => "#{base_path}eldritch",
+                'inherited' => false
               },
               {
-                'name' => 'SQUAMOUS',
-                'path' => "#{base_path}squamous"
+                'name'      => 'SQUAMOUS',
+                'path'      => "#{base_path}squamous",
+                'inherited' => false
               }
             ]
           end
 
           it { expect(data_object.constants).to be == expected }
+        end
+
+        if include_mixins
+          wrap_context 'using fixture', 'with included modules' do
+            let(:expected) do
+              [
+                {
+                  'name'      => 'LENGTH',
+                  'path'      => 'dimensions/length',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            it { expect(data_object.constants).to be == expected }
+          end
+        end
+
+        if inherit_mixins
+          wrap_context 'using fixture', 'with inherited classes' do
+            let(:expected) do
+              [
+                {
+                  'name'      => 'MODEL',
+                  'path'      => 'physics/rocket-science/model',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            it { expect(data_object.constants).to be == expected }
+          end
         end
 
         wrap_context 'using fixture', 'with everything' do
@@ -367,16 +401,40 @@ module Spec::Support::Contracts::Data
             "#{data_object.data_path}/"
           end
           let(:expected) do
-            [
+            ary = [
               {
-                'name' => 'ELDRITCH',
-                'path' => "#{base_path}eldritch"
+                'name'      => 'ELDRITCH',
+                'path'      => "#{base_path}eldritch",
+                'inherited' => false
               },
               {
-                'name' => 'SQUAMOUS',
-                'path' => "#{base_path}squamous"
+                'name'      => 'SQUAMOUS',
+                'path'      => "#{base_path}squamous",
+                'inherited' => false
               }
             ]
+
+            if include_mixins
+              ary += [
+                {
+                  'name'      => 'LENGTH',
+                  'path'      => 'dimensions/length',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            if inherit_mixins
+              ary += [
+                {
+                  'name'      => 'MODEL',
+                  'path'      => 'physics/rocket-science/model',
+                  'inherited' => true
+                }
+              ]
+            end
+
+            ary.sort_by { |hsh| hsh['name'] }
           end
 
           it { expect(data_object.constants).to be == expected }

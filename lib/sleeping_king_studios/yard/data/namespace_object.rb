@@ -291,8 +291,9 @@ module SleepingKingStudios::Yard::Data
         .new(native: native_constant)
 
       {
-        'name' => native_constant.name.to_s,
-        'path' => constant_object.data_path
+        'name'      => native_constant.name.to_s,
+        'path'      => constant_object.data_path,
+        'inherited' => inherited_constant?(constant_object)
       }
     end
 
@@ -316,6 +317,10 @@ module SleepingKingStudios::Yard::Data
       return hsh unless method_object.constructor?
 
       hsh.merge('constructor' => true)
+    end
+
+    def inherited_constant?(_constant_object)
+      false
     end
 
     def inherited_method?(_method_object)

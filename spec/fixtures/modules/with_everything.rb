@@ -31,6 +31,8 @@ module Dimensions
 
   module HigherDimensions; end
 
+  LENGTH = '1 meter'
+
   def cardinality; end
 end
 
