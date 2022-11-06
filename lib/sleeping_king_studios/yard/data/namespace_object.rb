@@ -307,14 +307,19 @@ module SleepingKingStudios::Yard::Data
       method_object =
         SleepingKingStudios::Yard::Data::MethodObject
         .new(native: native_method)
-      hsh = {
-        'name' => native_method.name.to_s,
-        'path' => method_object.data_path
+      hsh           = {
+        'name'      => native_method.name.to_s,
+        'path'      => method_object.data_path,
+        'inherited' => inherited_method?(method_object)
       }
 
       return hsh unless method_object.constructor?
 
       hsh.merge('constructor' => true)
+    end
+
+    def inherited_method?(_method_object)
+      false
     end
 
     def required_json

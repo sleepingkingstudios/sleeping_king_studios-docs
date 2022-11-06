@@ -186,6 +186,12 @@ module SleepingKingStudios::Yard::Data
         .as_json
     end
 
+    def inherited_method?(method_object)
+      !method_object.data_path.match?(
+        %r{\A#{data_path}/(c|i)-#{method_object.slug}\z}
+      )
+    end
+
     def required_json
       super.merge(
         'files'             => files,
