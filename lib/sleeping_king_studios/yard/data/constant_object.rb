@@ -83,6 +83,25 @@ module SleepingKingStudios::Yard::Data
       @name ||= native.path
     end
 
+    # The path to the defining class or module's data file.
+    #
+    # @return [String] the file path.
+    def parent_path
+      return @parent_path if @parent_path
+
+      return @parent_path = '' if native.parent.root?
+
+      parent_class  =
+        if native.parent.is_a?(YARD::CodeObjects::ClassObject)
+          SleepingKingStudios::Yard::Data::ClassObject
+        else
+          SleepingKingStudios::Yard::Data::ModuleObject
+        end
+      parent_object = parent_class.new(native: native.parent)
+
+      @parent_path = parent_object.data_path
+    end
+
     # A short description of the constant.
     #
     # The first part of the constant description, separated by the first
@@ -118,6 +137,7 @@ module SleepingKingStudios::Yard::Data
     def required_json
       {
         'name'              => name,
+        'parent_path'       => parent_path,
         'slug'              => slug,
         'short_description' => short_description,
         'value'             => value

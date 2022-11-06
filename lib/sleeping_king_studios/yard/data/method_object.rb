@@ -209,7 +209,7 @@ module SleepingKingStudios::Yard::Data
         .map { |tag| format_param(tag) }
     end
 
-    # The path to the defining class or method's data file.
+    # The path to the defining class or module's data file.
     #
     # @return [String] the file path.
     def parent_path
