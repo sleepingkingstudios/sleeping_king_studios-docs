@@ -186,6 +186,10 @@ module SleepingKingStudios::Yard::Data
         .as_json
     end
 
+    def inherited_constant?(constant_object)
+      constant_object.data_path != "#{data_path}/#{constant_object.slug}"
+    end
+
     def inherited_method?(method_object)
       !method_object.data_path.match?(
         %r{\A#{data_path}/(c|i)-#{method_object.slug}\z}

@@ -10,6 +10,8 @@ end
 
 module Physics
   class RocketScience < Engineering
+    MODEL = 'standard'
+
     attr_accessor :difficulty
 
     def project_orion; end
