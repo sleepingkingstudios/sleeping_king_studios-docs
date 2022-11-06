@@ -22,7 +22,7 @@ module SleepingKingStudios::Yard::Data
   # @see SleepingKingStudios::Yard::Data::ClassObject
   # @see SleepingKingStudios::Yard::Data::Metadata
   # @see SleepingKingStudios::Yard::Data::NamespaceObject
-  class ModuleObject < NamespaceObject
+  class ModuleObject < NamespaceObject # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
       data_path
       description
@@ -144,6 +144,25 @@ module SleepingKingStudios::Yard::Data
       @metadata ||= format_metadata
     end
 
+    # The path to the defining class or module's data file.
+    #
+    # @return [String] the file path.
+    def parent_path
+      return @parent_path if @parent_path
+
+      return @parent_path = '' if native.parent.root?
+
+      parent_class  =
+        if native.parent.is_a?(YARD::CodeObjects::ClassObject)
+          SleepingKingStudios::Yard::Data::ClassObject
+        else
+          SleepingKingStudios::Yard::Data::ModuleObject
+        end
+      parent_object = parent_class.new(native: native.parent)
+
+      @parent_path = parent_object.data_path
+    end
+
     # A short description of the module.
     #
     # The first part of the module description, separated by the first paragraph
@@ -199,6 +218,7 @@ module SleepingKingStudios::Yard::Data
     def required_json
       super.merge(
         'files'             => files,
+        'parent_path'       => parent_path,
         'short_description' => short_description
       )
     end

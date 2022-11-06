@@ -30,7 +30,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
         'files'             => class_object.files,
         'constructor'       => class_object.constructor?,
         'short_description' => class_object.short_description,
-        'data_path'         => class_object.data_path
+        'data_path'         => class_object.data_path,
+        'parent_path'       => class_object.parent_path
       }
     end
   end
@@ -53,10 +54,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }
 
-    wrap_context 'using fixture', 'with subclasses' do
-      let(:expected) do
-        super().merge('direct_subclasses' => class_object.direct_subclasses)
-      end
+    wrap_context 'using fixture', 'with class scoped name' do
+      let(:fixture_name) { 'RocketScience::Assembly::Rocketry' }
 
       it { expect(class_object.as_json).to be == expected }
     end
@@ -82,6 +81,20 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
           'instance_methods'  => class_object.instance_methods,
           'inherited_classes' => class_object.inherited_classes
         )
+      end
+
+      it { expect(class_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped name' do
+      let(:fixture_name) { 'RocketScience::Engineering::Rocketry' }
+
+      it { expect(class_object.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with subclasses' do
+      let(:expected) do
+        super().merge('direct_subclasses' => class_object.direct_subclasses)
       end
 
       it { expect(class_object.as_json).to be == expected }
@@ -340,6 +353,30 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
       end
 
       it { expect(class_object.inherited_classes).to be == expected }
+    end
+  end
+
+  describe '#parent_path' do
+    include_examples 'should define reader', :parent_path, ''
+
+    wrap_context 'using fixture', 'with class scoped name' do
+      let(:fixture_name) { 'RocketScience::Assembly::Rocketry' }
+      let(:expected)     { 'rocket-science/assembly' }
+
+      it { expect(class_object.parent_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with scoped name' do
+      let(:fixture_name) { 'RocketScience::Engineering::Rocketry' }
+      let(:expected)     { 'rocket-science/engineering' }
+
+      it { expect(class_object.parent_path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with everything' do
+      let(:expected) { '' }
+
+      it { expect(class_object.parent_path).to be == expected }
     end
   end
 
