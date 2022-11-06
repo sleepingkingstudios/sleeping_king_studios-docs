@@ -82,6 +82,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       it { expect(method_object.as_json).to be == expected }
     end
 
+    wrap_context 'using fixture', 'overloads/with pure overload' do
+      let(:expected) { super().merge(method_object.overloads.first) }
+
+      it { expect(method_object.as_json).to deep_match expected }
+    end
+
     wrap_context 'using fixture', 'with constructor' do
       let(:fixture_name) { 'Rocketry#initialize' }
       let(:expected) do
@@ -337,6 +343,26 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       end
 
       it { expect(method_object.options).to be == expected }
+    end
+  end
+
+  describe '#overloaded?' do
+    include_examples 'should define predicate', :overloaded?, false
+
+    wrap_context 'using fixture', 'overloads/with multiple overloads' do
+      it { expect(method_object.overloaded?).to be false }
+    end
+
+    wrap_context 'using fixture', 'overloads/with pure overload' do
+      it { expect(method_object.overloaded?).to be true }
+    end
+
+    wrap_context 'using fixture', 'overloads/with overload' do
+      it { expect(method_object.overloaded?).to be false }
+    end
+
+    wrap_context 'using fixture', 'undocumented' do
+      it { expect(method_object.overloaded?).to be false }
     end
   end
 

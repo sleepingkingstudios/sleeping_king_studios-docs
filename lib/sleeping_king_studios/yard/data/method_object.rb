@@ -71,13 +71,15 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [Hash{String => Object}] the representation of the method.
     def as_json
-      JSON_PROPERTIES.reduce(required_json) do |memo, property_name|
-        value = send(property_name)
+      JSON_PROPERTIES
+        .reduce(required_json) do |memo, property_name|
+          value = send(property_name)
 
-        next memo if empty?(value)
+          next memo if empty?(value)
 
-        memo.update(property_name.to_s => value)
-      end
+          memo.update(property_name.to_s => value)
+        end
+        .then { |json| merge_pure_overload(json) }
     end
 
     # @return [Boolean] true if the method is a class method; otherwise false.
@@ -158,6 +160,22 @@ module SleepingKingStudios::Yard::Data
         .select { |tag| tag.tag_name == 'option' }
         .group_by(&:name)
         .map { |name, tags| format_options(name, tags) }
+    end
+
+    # Checks if the method has been completely overloaded.
+    #
+    # A completely overloaded method has no description and no tags other than
+    # exactly one @overload tag. This case is common when documenting a method
+    # with a different signature.
+    #
+    # @return [true, false] true if the method is completely overloaded;
+    #   otherwise false.
+    def overloaded?
+      return false unless native.docstring.empty?
+
+      return false unless native.tags.all? { |tag| tag.tag_name == 'overload' }
+
+      native.tags.size == 1
     end
 
     # The documented overloads for the method.
@@ -409,6 +427,14 @@ module SleepingKingStudios::Yard::Data
       return json unless yield_defaults.key?(tag.name)
 
       json.merge('default' => yield_defaults[tag.name])
+    end
+
+    def merge_pure_overload(json)
+      return json unless overloaded?
+
+      overload = json.delete('overloads').first
+
+      json.merge(overload)
     end
 
     def parse_types(tag)
