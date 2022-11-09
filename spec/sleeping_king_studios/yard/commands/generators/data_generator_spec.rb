@@ -207,8 +207,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
         File.join(
           docs_path,
           data_scope,
-          '_versions',
-          options[:version],
+          "version--#{options[:version]}",
           "#{data_path}.yml"
         )
       end
