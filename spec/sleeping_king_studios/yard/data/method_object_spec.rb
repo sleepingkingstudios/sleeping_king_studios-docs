@@ -721,6 +721,20 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       it { expect(method_object.signature).to be == expected }
     end
 
+    wrap_context 'using fixture', 'with predicate' do
+      let(:fixture_name) { '#launch?' }
+      let(:expected)     { 'launch?' }
+
+      it { expect(method_object.signature).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'with predicate and parameters' do
+      let(:fixture_name) { '#launch?' }
+      let(:expected)     { 'launch?(rocket)' }
+
+      it { expect(method_object.signature).to be == expected }
+    end
+
     wrap_context 'using fixture', 'with required arguments' do
       let(:expected) { 'launch(rocket, launchsite)' }
 

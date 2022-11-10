@@ -358,7 +358,10 @@ module SleepingKingStudios::Yard::Data
     private
 
     def extract_parameters
-      native.signature.sub(/\A(def )?#{native.name}\(/, '').sub(/\)\z/, '')
+      native
+        .signature
+        .sub(/\A(def )?#{Regexp.escape(native.name)}\(/, '')
+        .sub(/\)\z/, '')
     end
 
     def format_metadata
