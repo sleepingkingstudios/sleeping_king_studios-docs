@@ -101,6 +101,7 @@ module SleepingKingStudios::Yard::Data
         native
         .meths
         .select { |obj| obj.scope == :class && !obj.is_attribute? }
+        .select { |obj| obj.visibility == :public }
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -198,6 +199,7 @@ module SleepingKingStudios::Yard::Data
         native
         .meths
         .select { |obj| obj.scope == :instance && !obj.is_attribute? }
+        .select { |obj| obj.visibility == :public }
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end

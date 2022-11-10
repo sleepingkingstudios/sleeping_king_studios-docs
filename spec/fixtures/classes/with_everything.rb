@@ -28,6 +28,8 @@ module Measurement
   private
 
   attr_accessor :chirality
+
+  def measure; end
 end
 
 module Dimensions
@@ -65,6 +67,8 @@ module Physics
     private
 
     attr_reader :alien_technology
+
+    def launch_ufo; end
   end
 end
 
@@ -127,6 +131,8 @@ class Rocketry < Physics::RocketScience
     private
 
     attr_reader :curvature
+
+    def solve_three_body_problem; end
   end
 
   def initialize
@@ -148,6 +154,8 @@ class Rocketry < Physics::RocketScience
   private
 
   attr_reader :thaumaturgy
+
+  def generate_prophesy; end
 end
 
 class LiquidFueledRocketry < Rocketry; end

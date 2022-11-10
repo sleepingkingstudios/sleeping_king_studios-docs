@@ -8,6 +8,8 @@ module Measurement
   private
 
   attr_accessor :chirality
+
+  def measure; end
 end
 
 module Dimensions

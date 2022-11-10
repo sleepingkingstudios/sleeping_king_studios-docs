@@ -22,6 +22,8 @@ module Physics
     private
 
     attr_reader :alien_technology
+
+    def launch_ufo; end
   end
 end
 

@@ -28,6 +28,8 @@ module Measurement
   private
 
   attr_accessor :chirality
+
+  def measure; end
 end
 
 module Dimensions
@@ -102,6 +104,8 @@ module Space
     private
 
     attr_reader :curvature
+
+    def solve_three_body_problem; end
   end
 
   attr_reader :base_mana
@@ -117,4 +121,6 @@ module Space
   private
 
   attr_reader :thaumaturgy
+
+  def generate_prophesy; end
 end

@@ -33,6 +33,8 @@ class << self
   private
 
   attr_reader :curvature
+
+  def solve_three_body_problem; end
 end
 
 attr_reader :base_mana
@@ -48,3 +50,5 @@ def summon_dark_lord(name:); end
 private
 
 attr_reader :thaumaturgy
+
+def generate_prophesy; end
