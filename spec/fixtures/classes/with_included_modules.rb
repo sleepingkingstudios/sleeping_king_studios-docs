@@ -11,6 +11,9 @@ module Dimensions
 
   module HigherDimensions; end
 
+  FURLONG = '660 feet'
+  private_constant :FURLONG
+
   LENGTH = '1 meter'
 
   def cardinality; end

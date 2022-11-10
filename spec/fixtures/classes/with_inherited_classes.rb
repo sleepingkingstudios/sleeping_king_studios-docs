@@ -10,6 +10,9 @@ end
 
 module Physics
   class RocketScience < Engineering
+    ANTIGRAVITY = false
+    private_constant :ANTIGRAVITY
+
     MODEL = 'standard'
 
     attr_accessor :difficulty

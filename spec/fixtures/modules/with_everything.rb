@@ -31,6 +31,9 @@ module Dimensions
 
   module HigherDimensions; end
 
+  FURLONG = '660 feet'
+  private_constant :FURLONG
+
   LENGTH = '1 meter'
 
   def cardinality; end
@@ -65,6 +68,9 @@ module Space
   ELDRITCH = 'Unearthly, supernatural, eerie.'
 
   SQUAMOUS = 'Covered, made of, or resembling scales.'
+
+  UNDETECTABLE = 'Cannot be seen.'
+  private_constant :UNDETECTABLE
 
   class FuelTank; end
 

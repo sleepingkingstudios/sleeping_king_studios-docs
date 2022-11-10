@@ -111,6 +111,7 @@ module SleepingKingStudios::Yard::Data
       @constants ||=
         native
         .constants
+        .select { |obj| obj.visibility == :public }
         .map { |obj| format_constant(obj) }
         .sort_by { |hsh| hsh['name'] }
     end

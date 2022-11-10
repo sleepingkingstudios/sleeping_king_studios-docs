@@ -31,6 +31,9 @@ module Dimensions
 
   module HigherDimensions; end
 
+  FURLONG = '660 feet'
+  private_constant :FURLONG
+
   LENGTH = '1 meter'
 
   def cardinality; end
@@ -46,6 +49,9 @@ end
 
 module Physics
   class RocketScience < Engineering
+    ANTIGRAVITY = false
+    private_constant :ANTIGRAVITY
+
     MODEL = 'standard'
 
     attr_accessor :difficulty
@@ -83,6 +89,9 @@ class Rocketry < Physics::RocketScience
   ELDRITCH = 'Unearthly, supernatural, eerie.'
 
   SQUAMOUS = 'Covered, made of, or resembling scales.'
+
+  UNDETECTABLE = 'Cannot be seen.'
+  private_constant :UNDETECTABLE
 
   class FuelTank; end
 
