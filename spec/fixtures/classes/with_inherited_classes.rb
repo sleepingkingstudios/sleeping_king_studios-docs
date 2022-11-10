@@ -18,6 +18,10 @@ module Physics
     attr_accessor :difficulty
 
     def project_orion; end
+
+    private
+
+    attr_reader :alien_technology
   end
 end
 

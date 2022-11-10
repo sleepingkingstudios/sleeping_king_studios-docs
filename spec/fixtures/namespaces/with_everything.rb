@@ -29,6 +29,10 @@ class << self
   def calculate_isp(engine); end
 
   def plot_trajectory; end
+
+  private
+
+  attr_reader :curvature
 end
 
 attr_reader :base_mana
@@ -40,3 +44,7 @@ attr_accessor :magic_enabled
 def convert_mana; end
 
 def summon_dark_lord(name:); end
+
+private
+
+attr_reader :thaumaturgy

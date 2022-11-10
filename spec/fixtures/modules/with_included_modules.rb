@@ -4,6 +4,10 @@ module Measurement
   attr_accessor :depth,
     :height,
     :width
+
+  private
+
+  attr_accessor :chirality
 end
 
 module Dimensions

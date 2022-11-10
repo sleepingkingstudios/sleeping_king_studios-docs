@@ -24,6 +24,10 @@ module Measurement
   attr_accessor :depth,
     :height,
     :width
+
+  private
+
+  attr_accessor :chirality
 end
 
 module Dimensions
@@ -57,6 +61,10 @@ module Physics
     attr_accessor :difficulty
 
     def project_orion; end
+
+    private
+
+    attr_reader :alien_technology
   end
 end
 
@@ -115,6 +123,10 @@ class Rocketry < Physics::RocketScience
     def calculate_isp(engine); end
 
     def plot_trajectory; end
+
+    private
+
+    attr_reader :curvature
   end
 
   def initialize
@@ -132,6 +144,10 @@ class Rocketry < Physics::RocketScience
   def convert_mana; end
 
   def summon_dark_lord(name:); end
+
+  private
+
+  attr_reader :thaumaturgy
 end
 
 class LiquidFueledRocketry < Rocketry; end

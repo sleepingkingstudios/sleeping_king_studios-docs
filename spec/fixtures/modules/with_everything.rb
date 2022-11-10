@@ -24,6 +24,10 @@ module Measurement
   attr_accessor :depth,
     :height,
     :width
+
+  private
+
+  attr_accessor :chirality
 end
 
 module Dimensions
@@ -94,6 +98,10 @@ module Space
     def calculate_isp(engine); end
 
     def plot_trajectory; end
+
+    private
+
+    attr_reader :curvature
   end
 
   attr_reader :base_mana
@@ -105,4 +113,8 @@ module Space
   def convert_mana; end
 
   def summon_dark_lord(name:); end
+
+  private
+
+  attr_reader :thaumaturgy
 end
