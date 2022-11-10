@@ -28,7 +28,7 @@ module SleepingKingStudios::Yard::Commands::Generators
       scope = "_#{tools.string_tools.pluralize(data_type.to_s)}"
 
       if version
-        File.join(docs_path, scope, '_versions', version)
+        File.join(docs_path, scope, "version--#{version}")
       else
         File.join(docs_path, scope)
       end
