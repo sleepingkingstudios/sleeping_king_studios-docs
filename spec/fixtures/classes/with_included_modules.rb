@@ -4,12 +4,21 @@ module Measurement
   attr_accessor :depth,
     :height,
     :width
+
+  private
+
+  attr_accessor :chirality
+
+  def measure; end
 end
 
 module Dimensions
   include Measurement
 
   module HigherDimensions; end
+
+  FURLONG = '660 feet'
+  private_constant :FURLONG
 
   LENGTH = '1 meter'
 

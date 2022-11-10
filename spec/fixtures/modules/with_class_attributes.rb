@@ -8,5 +8,9 @@ module Space
     attr_writer :secret_key
 
     attr_accessor :sandbox_mode
+
+    private
+
+    attr_reader :curvature
   end
 end

@@ -4,6 +4,9 @@ ELDRITCH = 'Unearthly, supernatural, eerie.'
 
 SQUAMOUS = 'Covered, made of, or resembling scales.'
 
+UNDETECTABLE = 'Cannot be seen.'
+private_constant :UNDETECTABLE
+
 class FuelTank; end
 
 class Part; end
@@ -26,6 +29,12 @@ class << self
   def calculate_isp(engine); end
 
   def plot_trajectory; end
+
+  private
+
+  attr_reader :curvature
+
+  def solve_three_body_problem; end
 end
 
 attr_reader :base_mana
@@ -37,3 +46,9 @@ attr_accessor :magic_enabled
 def convert_mana; end
 
 def summon_dark_lord(name:); end
+
+private
+
+attr_reader :thaumaturgy
+
+def generate_prophesy; end

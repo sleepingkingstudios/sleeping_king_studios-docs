@@ -10,11 +10,20 @@ end
 
 module Physics
   class RocketScience < Engineering
+    ANTIGRAVITY = false
+    private_constant :ANTIGRAVITY
+
     MODEL = 'standard'
 
     attr_accessor :difficulty
 
     def project_orion; end
+
+    private
+
+    attr_reader :alien_technology
+
+    def launch_ufo; end
   end
 end
 

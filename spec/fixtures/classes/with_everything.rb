@@ -24,12 +24,21 @@ module Measurement
   attr_accessor :depth,
     :height,
     :width
+
+  private
+
+  attr_accessor :chirality
+
+  def measure; end
 end
 
 module Dimensions
   include Measurement
 
   module HigherDimensions; end
+
+  FURLONG = '660 feet'
+  private_constant :FURLONG
 
   LENGTH = '1 meter'
 
@@ -46,11 +55,20 @@ end
 
 module Physics
   class RocketScience < Engineering
+    ANTIGRAVITY = false
+    private_constant :ANTIGRAVITY
+
     MODEL = 'standard'
 
     attr_accessor :difficulty
 
     def project_orion; end
+
+    private
+
+    attr_reader :alien_technology
+
+    def launch_ufo; end
   end
 end
 
@@ -84,6 +102,9 @@ class Rocketry < Physics::RocketScience
 
   SQUAMOUS = 'Covered, made of, or resembling scales.'
 
+  UNDETECTABLE = 'Cannot be seen.'
+  private_constant :UNDETECTABLE
+
   class FuelTank; end
 
   class Part; end
@@ -106,6 +127,12 @@ class Rocketry < Physics::RocketScience
     def calculate_isp(engine); end
 
     def plot_trajectory; end
+
+    private
+
+    attr_reader :curvature
+
+    def solve_three_body_problem; end
   end
 
   def initialize
@@ -123,6 +150,12 @@ class Rocketry < Physics::RocketScience
   def convert_mana; end
 
   def summon_dark_lord(name:); end
+
+  private
+
+  attr_reader :thaumaturgy
+
+  def generate_prophesy; end
 end
 
 class LiquidFueledRocketry < Rocketry; end

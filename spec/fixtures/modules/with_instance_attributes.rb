@@ -7,4 +7,8 @@ module Space
   attr_writer :secret_formula
 
   attr_accessor :magic_enabled
+
+  private
+
+  attr_reader :thaumaturgy
 end

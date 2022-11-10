@@ -83,6 +83,7 @@ module SleepingKingStudios::Yard::Data
       @class_attributes ||=
         find_class_attributes(native)
         .map { |name, options| format_attribute(name, options) }
+        .compact
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -100,6 +101,7 @@ module SleepingKingStudios::Yard::Data
         native
         .meths
         .select { |obj| obj.scope == :class && !obj.is_attribute? }
+        .select { |obj| obj.visibility == :public }
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -111,6 +113,7 @@ module SleepingKingStudios::Yard::Data
       @constants ||=
         native
         .constants
+        .select { |obj| obj.visibility == :public }
         .map { |obj| format_constant(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -178,6 +181,7 @@ module SleepingKingStudios::Yard::Data
       @instance_attributes ||=
         find_instance_attributes(native)
         .map { |name, options| format_attribute(name, options) }
+        .compact
         .sort_by { |hsh| hsh['name'] }
     end
 
@@ -195,6 +199,7 @@ module SleepingKingStudios::Yard::Data
         native
         .meths
         .select { |obj| obj.scope == :instance && !obj.is_attribute? }
+        .select { |obj| obj.visibility == :public }
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -271,7 +276,9 @@ module SleepingKingStudios::Yard::Data
         .merge(native_object.instance_attributes)
     end
 
-    def format_attribute(name, options)
+    def format_attribute(name, options) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      return nil unless public_attribute?(options)
+
       method_object =
         SleepingKingStudios::Yard::Data::MethodObject
         .new(native: options.values.find { |method| !method.nil? })
@@ -325,6 +332,14 @@ module SleepingKingStudios::Yard::Data
 
     def inherited_method?(_method_object)
       false
+    end
+
+    def public_attribute?(options)
+      options
+        .values
+        .select { |value| value.is_a?(YARD::CodeObjects::MethodObject) }
+        .map(&:visibility)
+        .include?(:public)
     end
 
     def required_json
