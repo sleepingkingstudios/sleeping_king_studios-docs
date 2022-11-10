@@ -211,7 +211,7 @@ module SleepingKingStudios::Yard::Data
 
     def inherited_method?(method_object)
       !method_object.data_path.match?(
-        %r{\A#{data_path}/(c|i)-#{method_object.slug}\z}
+        %r{\A#{data_path}/(c|i)-#{Regexp.escape(method_object.slug)}\z}
       )
     end
 
