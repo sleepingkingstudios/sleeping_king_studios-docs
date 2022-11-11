@@ -73,10 +73,16 @@ module Space
 
   ELDRITCH = 'Unearthly, supernatural, eerie.'
 
+  # @private
+  INEFFABLE = 'Not to be uttered; taboo.'
+
   SQUAMOUS = 'Covered, made of, or resembling scales.'
 
   UNDETECTABLE = 'Cannot be seen.'
   private_constant :UNDETECTABLE
+
+  # @private
+  class AutoStrut; end
 
   class FuelTank; end
 
@@ -89,6 +95,9 @@ module Space
   module Clockwork; end
 
   module ShadowMagic; end
+
+  # @private
+  module VoidMagic; end
 
   class << self
     attr_reader :gravity
@@ -110,11 +119,17 @@ module Space
 
   attr_reader :base_mana
 
+  # @private
+  attr_reader :chiaroscuro
+
   attr_writer :secret_formula
 
   attr_accessor :magic_enabled
 
   def convert_mana; end
+
+  # @private
+  def invoke_pact; end
 
   def summon_dark_lord(name:); end
 

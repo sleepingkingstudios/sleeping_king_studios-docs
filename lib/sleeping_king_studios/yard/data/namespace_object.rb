@@ -101,7 +101,7 @@ module SleepingKingStudios::Yard::Data
         native
         .meths
         .select { |obj| obj.scope == :class && !obj.is_attribute? }
-        .select { |obj| obj.visibility == :public }
+        .reject { |obj| private_method?(obj) }
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -113,7 +113,7 @@ module SleepingKingStudios::Yard::Data
       @constants ||=
         native
         .constants
-        .select { |obj| obj.visibility == :public }
+        .reject { |obj| private_constant?(obj) }
         .map { |obj| format_constant(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -138,6 +138,7 @@ module SleepingKingStudios::Yard::Data
         native
         .children
         .select { |obj| obj.type == :class }
+        .reject { |obj| private_definition?(obj) }
         .map { |obj| format_definition(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -162,6 +163,7 @@ module SleepingKingStudios::Yard::Data
         native
         .children
         .select { |obj| obj.type == :module }
+        .reject { |obj| private_definition?(obj) }
         .map { |obj| format_definition(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -199,7 +201,7 @@ module SleepingKingStudios::Yard::Data
         native
         .meths
         .select { |obj| obj.scope == :instance && !obj.is_attribute? }
-        .select { |obj| obj.visibility == :public }
+        .reject { |obj| private_method?(obj) }
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -334,12 +336,27 @@ module SleepingKingStudios::Yard::Data
       false
     end
 
+    def private_constant?(constant_object)
+      return true unless constant_object.visibility == :public
+
+      constant_object.tags.any? { |tag| tag.tag_name == 'private' }
+    end
+
+    def private_definition?(definition_object)
+      definition_object.tags.any? { |tag| tag.tag_name == 'private' }
+    end
+
+    def private_method?(method_object)
+      return true unless method_object.visibility == :public
+
+      method_object.tags.any? { |tag| tag.tag_name == 'private' }
+    end
+
     def public_attribute?(options)
       options
         .values
         .select { |value| value.is_a?(YARD::CodeObjects::MethodObject) }
-        .map(&:visibility)
-        .include?(:public)
+        .any? { |obj| !private_method?(obj) }
     end
 
     def required_json
