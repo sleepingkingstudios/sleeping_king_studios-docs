@@ -290,7 +290,7 @@ module SleepingKingStudios::Yard::Data
         return @signature = native.signature.sub(/\Adef /, '')
       end
 
-      @signature = strip_rubocop_directives
+      @signature = generate_signature
     end
 
     # The name of the method in url-safe format.
@@ -361,7 +361,19 @@ module SleepingKingStudios::Yard::Data
       native
         .signature
         .sub(/\A(def )?#{Regexp.escape(native.name)}\(/, '')
-        .sub(/\)\z/, '')
+        .split(')')
+        .first
+    end
+
+    def extract_yield_parameters
+      return '' unless native.signature.match?(/\) *{/)
+
+      native
+        .signature
+        .split(')')
+        .last
+        .sub(/\A ?\{ ?\|/, '')
+        .sub(/\| ?\}\z/, '')
     end
 
     def format_metadata
@@ -432,6 +444,16 @@ module SleepingKingStudios::Yard::Data
       json.merge('default' => yield_defaults[tag.name])
     end
 
+    def generate_signature
+      params = extract_parameters
+      yields = extract_yield_parameters
+      buffer = "#{native.name}(#{strip_rubocop_directives(params)})"
+
+      return buffer if yields.empty?
+
+      "#{buffer} { |#{strip_rubocop_directives(yields)}| }"
+    end
+
     def merge_pure_overload(json)
       return json unless overloaded?
 
@@ -482,13 +504,12 @@ module SleepingKingStudios::Yard::Data
       [match.pre_match.to_s, match.post_match.to_s]
     end
 
-    def strip_rubocop_directives
-      extract_parameters
+    def strip_rubocop_directives(parameters)
+      parameters
         .split(/, +/)
         .map { |segment| strip_rubocop_directives_from_segment(segment) }
         .reject(&:empty?)
         .join(', ')
-        .then { |params| "#{native.name}(#{params})" }
     end
 
     def strip_rubocop_directives_from_segment(segment)

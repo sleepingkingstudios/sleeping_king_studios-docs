@@ -690,6 +690,29 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
 
     include_examples 'should define reader', :signature, -> { expected }
 
+    wrap_context 'using fixture', 'overloads/with overload' do
+      let(:overload) { method_object.overloads.first }
+      let(:expected) { 'launch(rocket, **options)' }
+
+      it { expect(overload['signature']).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'overloads/with overload with block' do
+      let(:overload) { method_object.overloads.first }
+      let(:expected) do
+        'launch(rocket, config = {}) { |data = {}, **options| }'
+      end
+
+      it { expect(overload['signature']).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'overloads/with overload with signature' do
+      let(:overload) { method_object.overloads.first }
+      let(:expected) { 'launch(rocket, recovery:)' }
+
+      it { expect(overload['signature']).to be == expected }
+    end
+
     wrap_context 'using fixture', 'with block parameter' do
       let(:expected) { 'launch(&block)' }
 
