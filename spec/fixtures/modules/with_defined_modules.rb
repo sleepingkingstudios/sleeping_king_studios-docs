@@ -7,4 +7,7 @@ module Space
   module Clockwork; end
 
   module ShadowMagic; end
+
+  # @private
+  module VoidMagic; end
 end

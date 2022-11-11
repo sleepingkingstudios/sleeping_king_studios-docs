@@ -100,12 +100,36 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         end
       end
 
+      it 'should not generate the private class data files', # rubocop:disable RSpec/ExampleLength
+        :aggregate_failures \
+      do
+        command.call
+
+        unexpected_classes.each do |native|
+          expect(data_command)
+            .not_to have_received(:call)
+            .with(data_object: class_object(native: native))
+        end
+      end
+
       it 'should generate the constant data files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call
 
         expected_constants.each do |native|
           expect(data_command)
             .to have_received(:call)
+            .with(data_object: constant_object(native: native))
+        end
+      end
+
+      it 'should not generate the private constant data files', # rubocop:disable RSpec/ExampleLength
+        :aggregate_failures \
+      do
+        command.call
+
+        unexpected_constants.each do |native|
+          expect(data_command)
+            .not_to have_received(:call)
             .with(data_object: constant_object(native: native))
         end
       end
@@ -120,12 +144,36 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         end
       end
 
+      it 'should not generate the private method data files', # rubocop:disable RSpec/ExampleLength
+        :aggregate_failures \
+      do
+        command.call
+
+        unexpected_methods.each do |native|
+          expect(data_command)
+            .not_to have_received(:call)
+            .with(data_object: method_object(native: native))
+        end
+      end
+
       it 'should generate the module data files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call
 
         expected_modules.each do |native|
           expect(data_command)
             .to have_received(:call)
+            .with(data_object: module_object(native: native))
+        end
+      end
+
+      it 'should not generate the private module data files', # rubocop:disable RSpec/ExampleLength
+        :aggregate_failures \
+      do
+        command.call
+
+        unexpected_modules.each do |native|
+          expect(data_command)
+            .not_to have_received(:call)
             .with(data_object: module_object(native: native))
         end
       end
@@ -343,20 +391,52 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
     wrap_context 'when the parsed registry has many items' do
       let(:expected_classes) do
-        registry.select { |obj| obj.type == :class }
+        registry
+          .select { |obj| obj.type == :class }
+          .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
+      end
+      let(:unexpected_classes) do
+        registry
+          .select { |obj| obj.type == :class }
+          .select { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
       end
       let(:expected_constants) do
         registry
           .select { |obj| obj.type == :constant }
           .select { |obj| obj.visibility == :public }
+          .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
+      end
+      let(:unexpected_constants) do
+        registry
+          .select { |obj| obj.type == :constant }
+          .select do |obj|
+            obj.visibility != :public ||
+              obj.tags.any? { |tag| tag.tag_name == 'private' }
+          end
       end
       let(:expected_methods) do
         registry
           .select { |obj| obj.type == :method }
           .select { |obj| obj.visibility == :public }
+          .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
+      end
+      let(:unexpected_methods) do
+        registry
+          .select { |obj| obj.type == :method }
+          .select do |obj|
+            obj.visibility != :public ||
+              obj.tags.any? { |tag| tag.tag_name == 'private' }
+          end
       end
       let(:expected_modules) do
-        registry.select { |obj| obj.type == :module }
+        registry
+          .select { |obj| obj.type == :module }
+          .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
+      end
+      let(:unexpected_modules) do
+        registry
+          .select { |obj| obj.type == :module }
+          .select { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
       end
 
       it 'should return a passing result' do

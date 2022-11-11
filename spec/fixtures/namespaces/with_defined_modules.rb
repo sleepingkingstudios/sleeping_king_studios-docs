@@ -5,3 +5,6 @@ module Alchemy; end
 module Clockwork; end
 
 module ShadowMagic; end
+
+# @private
+module VoidMagic; end
