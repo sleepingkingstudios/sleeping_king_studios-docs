@@ -174,24 +174,28 @@ module SleepingKingStudios::Yard::Commands
     def registry_classes
       registry
         .select { |obj| obj.type == :class }
+        .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
         .sort_by(&:path)
     end
 
     def registry_constants
       registry
         .select { |obj| obj.type == :constant && obj.visibility == :public }
+        .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
         .sort_by(&:path)
     end
 
     def registry_methods
       registry
         .select { |obj| obj.type == :method && obj.visibility == :public }
+        .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
         .sort_by(&:path)
     end
 
     def registry_modules
       registry
         .select { |obj| obj.type == :module }
+        .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
         .sort_by(&:path)
     end
 
