@@ -28,10 +28,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'class method' do
       let(:expected) do
         {
-          'text'         => see_tag.text,
-          'type'         => 'class_method',
-          'path'         => '',
-          'class_method' => 'reboot-cosmos'
+          'label' => '.reboot_cosmos',
+          'path'  => '#class-method-reboot-cosmos',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -41,10 +41,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'class method with text' do
       let(:expected) do
         {
-          'text'         => see_tag.text,
-          'type'         => 'class_method',
-          'path'         => '',
-          'class_method' => 'reboot-cosmos'
+          'label' => '.reboot_cosmos',
+          'path'  => '#class-method-reboot-cosmos',
+          'text'  => 'Have you tried turning it off and on again?',
+          'type'  => 'reference'
         }
       end
 
@@ -54,10 +54,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'constant' do
       let(:expected) do
         {
-          'text'     => see_tag.text,
-          'type'     => 'constant',
-          'path'     => '',
-          'constant' => 'gravity'
+          'label' => 'GRAVITY',
+          'path'  => '#constant-gravity',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -67,9 +67,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'definition' do
       let(:expected) do
         {
-          'text' => see_tag.text,
-          'type' => 'definition',
-          'path' => 'time'
+          'label' => 'Time',
+          'path'  => 'time',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -79,9 +80,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'definition with text' do
       let(:expected) do
         {
-          'text' => see_tag.text,
-          'type' => 'definition',
-          'path' => 'time'
+          'label' => 'Time',
+          'path'  => 'time',
+          'text'  => 'The Time module.',
+          'type'  => 'reference'
         }
       end
 
@@ -91,10 +93,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'instance method' do
       let(:expected) do
         {
-          'text'            => see_tag.text,
-          'type'            => 'instance_method',
-          'path'            => '',
-          'instance_method' => 'launch-rocket'
+          'label' => '#launch_rocket',
+          'path'  => '#instance-method-launch-rocket',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -104,10 +106,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'instance method with text' do
       let(:expected) do
         {
-          'text'            => see_tag.text,
-          'type'            => 'instance_method',
-          'path'            => '',
-          'instance_method' => 'launch-rocket'
+          'label' => '#launch_rocket',
+          'path'  => '#instance-method-launch-rocket',
+          'text'  => 'You are going to space today!',
+          'type'  => 'reference'
         }
       end
 
@@ -117,8 +119,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'link' do
       let(:expected) do
         {
-          'link' => see_tag.reference,
-          'text' => see_tag.text
+          'path'  => 'https://www.example.com',
+          'label' => 'https://www.example.com',
+          'text'  => nil,
+          'type'  => 'link'
         }
       end
 
@@ -128,8 +132,65 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'link with text' do
       let(:expected) do
         {
-          'link' => see_tag.reference,
-          'text' => see_tag.text
+          'path'  => 'https://www.example.com',
+          'label' => 'https://www.example.com',
+          'text'  => 'This is a link to example.com.',
+          'type'  => 'link'
+        }
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested class method' do
+      let(:expected) do
+        {
+          'label' => 'Simulation::Testing::Cosmos.reboot_cosmos',
+          'path'  => 'simulation/testing/cosmos#class-method-reboot-cosmos',
+          'text'  => nil,
+          'type'  => 'reference'
+        }
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested constant' do
+      let(:expected) do
+        {
+          'label' => 'Simulation::Testing::Cosmos::GRAVITY',
+          'path'  => 'simulation/testing/cosmos#constant-gravity',
+          'text'  => nil,
+          'type'  => 'reference'
+        }
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested definition' do
+      let(:expected) do
+        {
+          'label' => 'Simulation::Testing::Cosmos::SpiralGalaxy',
+          'path'  => 'simulation/testing/cosmos/spiral-galaxy',
+          'text'  => nil,
+          'type'  => 'reference'
+        }
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested instance method' do
+      let(:expected_path) do
+        'simulation/testing/space-program#instance-method-launch-rocket'
+      end
+      let(:expected) do
+        {
+          'label' => 'Simulation::Testing::SpaceProgram#launch_rocket',
+          'path'  => expected_path,
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -139,10 +200,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'scoped class method' do
       let(:expected) do
         {
-          'text'         => see_tag.text,
-          'type'         => 'class_method',
-          'path'         => 'cosmos',
-          'class_method' => 'reboot-cosmos'
+          'label' => 'Cosmos.reboot_cosmos',
+          'path'  => 'cosmos#class-method-reboot-cosmos',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -152,10 +213,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'scoped constant' do
       let(:expected) do
         {
-          'text'     => see_tag.text,
-          'type'     => 'constant',
-          'path'     => 'cosmos',
-          'constant' => 'gravity'
+          'label' => 'Cosmos::GRAVITY',
+          'path'  => 'cosmos#constant-gravity',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -165,9 +226,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'scoped definition' do
       let(:expected) do
         {
-          'text' => see_tag.text,
-          'type' => 'definition',
-          'path' => 'cosmos/spiral-galaxy'
+          'label' => 'Cosmos::SpiralGalaxy',
+          'path'  => 'cosmos/spiral-galaxy',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 
@@ -177,9 +239,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'scoped definition with text' do
       let(:expected) do
         {
-          'text' => see_tag.text,
-          'type' => 'definition',
-          'path' => 'cosmos/spiral-galaxy'
+          'label' => 'Cosmos::SpiralGalaxy',
+          'path'  => 'cosmos/spiral-galaxy',
+          'text'  => 'The prettiest galaxy, barred none.',
+          'type'  => 'reference'
         }
       end
 
@@ -189,10 +252,10 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTag do
     wrap_context 'using fixture', 'scoped instance method' do
       let(:expected) do
         {
-          'text'            => see_tag.text,
-          'type'            => 'instance_method',
-          'path'            => 'space-program',
-          'instance_method' => 'launch-rocket'
+          'label' => 'SpaceProgram#launch_rocket',
+          'path'  => 'space-program#instance-method-launch-rocket',
+          'text'  => nil,
+          'type'  => 'reference'
         }
       end
 

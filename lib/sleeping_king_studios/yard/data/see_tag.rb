@@ -41,6 +41,8 @@ module SleepingKingStudios::Yard::Data
       super
 
       @reference_type = UNDEFINED
+
+      split_reference
     end
 
     # Generates a JSON-compatible representation of the namespace.
@@ -121,6 +123,10 @@ module SleepingKingStudios::Yard::Data
 
     private
 
+    attr_reader \
+      :reference_definition,
+      :reference_value
+
     def class_method?
       reference.match?(CLASS_METHOD_PATTERN)
     end
@@ -149,32 +155,62 @@ module SleepingKingStudios::Yard::Data
       definition_type
     end
 
+    def format_class_method
+      {
+        'label' => reference,
+        'path'  => reference_path,
+        'text'  => native.text,
+        'type'  => 'reference'
+      }
+    end
+
+    def format_constant
+      {
+        'label' => reference,
+        'path'  => reference_path,
+        'text'  => native.text,
+        'type'  => 'reference'
+      }
+    end
+
     def format_definition
       {
-        'path' => reference.split('::').map { |str| slugify(str) }.join('/'),
-        'text' => text,
-        'type' => 'definition'
+        'label' => reference,
+        'path'  => slugify(reference),
+        'text'  => native.text,
+        'type'  => 'reference'
+      }
+    end
+
+    def format_instance_method
+      {
+        'label' => reference,
+        'path'  => reference_path,
+        'text'  => native.text,
+        'type'  => 'reference'
       }
     end
 
     def format_link
       {
-        'link' => reference,
-        'text' => text
+        'label' => reference,
+        'path'  => reference,
+        'text'  => native.text,
+        'type'  => 'link'
       }
     end
 
     def format_reference
-      return format_definition if reference_type == :definition
-
-      type = reference_type.to_s
-
-      {
-        type   => slugify(reference_value),
-        'path' => slugify(reference_scope),
-        'text' => text,
-        'type' => type
-      }
+      case reference_type
+      when :class_method
+        format_class_method
+      when :constant
+        format_constant
+      when :definition
+        format_definition
+      when :instance_method
+        format_instance_method
+      end
     end
 
     def instance_method?
@@ -195,16 +231,9 @@ module SleepingKingStudios::Yard::Data
       @reference_type = find_reference_type
     end
 
-    def reference_scope
-      return @reference_scope if @reference_scope
-
-      offset = reference_value.size + separator.size
-
-      reference[0...-offset]
-    end
-
-    def reference_value
-      @reference_value ||= reference.split(separator).last
+    def reference_path
+      "#{slugify(reference_definition)}#" \
+        "#{slugify(reference_type)}-#{slugify(reference_value)}"
     end
 
     def registry_query
@@ -214,6 +243,19 @@ module SleepingKingStudios::Yard::Data
 
     def separator
       SEPARATORS[reference_type]
+    end
+
+    def slugify(str)
+      return super unless str.to_s.include?(':')
+
+      str.split('::').map { |segment| super(segment) }.join('/')
+    end
+
+    def split_reference
+      segments = reference.split(separator)
+
+      @reference_value      = segments.pop
+      @reference_definition = segments.join('::')
     end
 
     def strip_trailing_period(str)
