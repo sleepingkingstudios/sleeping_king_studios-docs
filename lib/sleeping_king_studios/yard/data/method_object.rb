@@ -505,6 +505,8 @@ module SleepingKingStudios::Yard::Data
     end
 
     def strip_rubocop_directives(parameters)
+      return '' if parameters.nil?
+
       parameters
         .split(/, +/)
         .map { |segment| strip_rubocop_directives_from_segment(segment) }
