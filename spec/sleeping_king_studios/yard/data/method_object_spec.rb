@@ -706,6 +706,13 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       it { expect(overload['signature']).to be == expected }
     end
 
+    wrap_context 'using fixture', 'overloads/with overload with empty params' do
+      let(:overload) { method_object.overloads.first }
+      let(:expected) { 'launch()' }
+
+      it { expect(overload['signature']).to be == expected }
+    end
+
     wrap_context 'using fixture', 'overloads/with overload with signature' do
       let(:overload) { method_object.overloads.first }
       let(:expected) { 'launch(rocket, recovery:)' }
