@@ -297,7 +297,7 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [String] the method name.
     def slug
-      @slug ||= slugify(name.split(/#|\./).last)
+      @slug ||= slugify(name.sub(/\A::/, '').split(/#|\./).last)
     end
 
     # The parameters of the yielded to the block.

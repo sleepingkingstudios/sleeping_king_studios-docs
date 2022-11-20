@@ -826,6 +826,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     end
   end
 
+  describe '#slug' do
+    wrap_context 'using fixture', 'with class method' do
+      let(:fixture_name) { '::launch' }
+      let(:expected)     { 'launch' }
+
+      it { expect(method_object.slug).to be == expected }
+    end
+  end
+
   describe '#yield_params' do
     include_examples 'should define reader', :yield_params, []
 

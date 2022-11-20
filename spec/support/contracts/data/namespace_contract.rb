@@ -104,6 +104,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => false,
                 'path'      => relative_path('c-gravity'),
+                'slug'      => 'gravity',
                 'inherited' => false
               },
               {
@@ -111,6 +112,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => true,
                 'path'      => relative_path('c-sandbox-mode'),
+                'slug'      => 'sandbox-mode',
                 'inherited' => false
               },
               {
@@ -118,6 +120,7 @@ module Spec::Support::Contracts::Data
                 'read'      => false,
                 'write'     => true,
                 'path'      => relative_path('c-secret-key='),
+                'slug'      => 'secret-key=',
                 'inherited' => false
               }
             ]
@@ -135,6 +138,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'phenomena/weather-effects/i-pressure',
+                  'slug'      => 'pressure',
                   'inherited' => true
                 }
               ]
@@ -153,6 +157,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'engineering/c-blueprints',
+                  'slug'      => 'blueprints',
                   'inherited' => true
                 }
               ]
@@ -170,6 +175,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => false,
                 'path'      => relative_path('c-gravity'),
+                'slug'      => 'gravity',
                 'inherited' => false
               },
               {
@@ -177,6 +183,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => true,
                 'path'      => relative_path('c-sandbox-mode'),
+                'slug'      => 'sandbox-mode',
                 'inherited' => false
               },
               {
@@ -184,6 +191,7 @@ module Spec::Support::Contracts::Data
                 'read'      => false,
                 'write'     => true,
                 'path'      => relative_path('c-secret-key='),
+                'slug'      => 'secret-key=',
                 'inherited' => false
               }
             ]
@@ -195,6 +203,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'phenomena/weather-effects/i-pressure',
+                  'slug'      => 'pressure',
                   'inherited' => true
                 }
               ]
@@ -207,6 +216,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'engineering/c-blueprints',
+                  'slug'      => 'blueprints',
                   'inherited' => true
                 }
               ]
@@ -234,11 +244,13 @@ module Spec::Support::Contracts::Data
               {
                 'name'      => 'calculate_isp',
                 'path'      => relative_path('c-calculate-isp'),
+                'slug'      => 'calculate-isp',
                 'inherited' => false
               },
               {
                 'name'      => 'plot_trajectory',
                 'path'      => relative_path('c-plot-trajectory'),
+                'slug'      => 'plot-trajectory',
                 'inherited' => false
               }
             ]
@@ -254,11 +266,13 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'dew_point',
                   'path'      => 'atmosphere/i-dew-point',
+                  'slug'      => 'dew-point',
                   'inherited' => true
                 },
                 {
                   'name'      => 'temperature',
                   'path'      => 'phenomena/weather-effects/i-temperature',
+                  'slug'      => 'temperature',
                   'inherited' => true
                 }
               ]
@@ -275,6 +289,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'design',
                   'path'      => 'engineering/c-design',
+                  'slug'      => 'design',
                   'inherited' => true
                 }
               ]
@@ -290,11 +305,13 @@ module Spec::Support::Contracts::Data
               {
                 'name'      => 'calculate_isp',
                 'path'      => relative_path('c-calculate-isp'),
+                'slug'      => 'calculate-isp',
                 'inherited' => false
               },
               {
                 'name'      => 'plot_trajectory',
                 'path'      => relative_path('c-plot-trajectory'),
+                'slug'      => 'plot-trajectory',
                 'inherited' => false
               }
             ]
@@ -304,11 +321,13 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'dew_point',
                   'path'      => 'atmosphere/i-dew-point',
+                  'slug'      => 'dew-point',
                   'inherited' => true
                 },
                 {
                   'name'      => 'temperature',
                   'path'      => 'phenomena/weather-effects/i-temperature',
+                  'slug'      => 'temperature',
                   'inherited' => true
                 }
               ]
@@ -319,6 +338,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'design',
                   'path'      => 'engineering/c-design',
+                  'slug'      => 'design',
                   'inherited' => true
                 }
               ]
@@ -347,11 +367,13 @@ module Spec::Support::Contracts::Data
               {
                 'name'      => 'ELDRITCH',
                 'path'      => "#{base_path}eldritch",
+                'slug'      => 'eldritch',
                 'inherited' => false
               },
               {
                 'name'      => 'SQUAMOUS',
                 'path'      => "#{base_path}squamous",
+                'slug'      => 'squamous',
                 'inherited' => false
               }
             ]
@@ -367,6 +389,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'LENGTH',
                   'path'      => 'dimensions/length',
+                  'slug'      => 'length',
                   'inherited' => true
                 }
               ]
@@ -383,6 +406,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'MODEL',
                   'path'      => 'physics/rocket-science/model',
+                  'slug'      => 'model',
                   'inherited' => true
                 }
               ]
@@ -405,11 +429,13 @@ module Spec::Support::Contracts::Data
               {
                 'name'      => 'ELDRITCH',
                 'path'      => "#{base_path}eldritch",
+                'slug'      => 'eldritch',
                 'inherited' => false
               },
               {
                 'name'      => 'SQUAMOUS',
                 'path'      => "#{base_path}squamous",
+                'slug'      => 'squamous',
                 'inherited' => false
               }
             ]
@@ -419,6 +445,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'LENGTH',
                   'path'      => 'dimensions/length',
+                  'slug'      => 'length',
                   'inherited' => true
                 }
               ]
@@ -429,6 +456,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'MODEL',
                   'path'      => 'physics/rocket-science/model',
+                  'slug'      => 'model',
                   'inherited' => true
                 }
               ]
@@ -551,6 +579,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'measurement/i-depth',
+                  'slug'      => 'depth',
                   'inherited' => true
                 },
                 {
@@ -558,6 +587,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'measurement/i-height',
+                  'slug'      => 'height',
                   'inherited' => true
                 },
                 {
@@ -565,6 +595,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'measurement/i-width',
+                  'slug'      => 'width',
                   'inherited' => true
                 }
               ]
@@ -583,6 +614,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'physics/rocket-science/i-difficulty',
+                  'slug'      => 'difficulty',
                   'inherited' => true
                 }
               ]
@@ -600,6 +632,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => false,
                 'path'      => relative_path('i-base-mana'),
+                'slug'      => 'base-mana',
                 'inherited' => false
               },
               {
@@ -607,6 +640,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => true,
                 'path'      => relative_path('i-magic-enabled'),
+                'slug'      => 'magic-enabled',
                 'inherited' => false
               },
               {
@@ -614,6 +648,7 @@ module Spec::Support::Contracts::Data
                 'read'      => false,
                 'write'     => true,
                 'path'      => relative_path('i-secret-formula='),
+                'slug'      => 'secret-formula=',
                 'inherited' => false
               }
             ]
@@ -630,6 +665,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => false,
                 'path'      => relative_path('i-base-mana'),
+                'slug'      => 'base-mana',
                 'inherited' => false
               },
               {
@@ -637,6 +673,7 @@ module Spec::Support::Contracts::Data
                 'read'      => true,
                 'write'     => true,
                 'path'      => relative_path('i-magic-enabled'),
+                'slug'      => 'magic-enabled',
                 'inherited' => false
               },
               {
@@ -644,6 +681,7 @@ module Spec::Support::Contracts::Data
                 'read'      => false,
                 'write'     => true,
                 'path'      => relative_path('i-secret-formula='),
+                'slug'      => 'secret-formula=',
                 'inherited' => false
               }
             ]
@@ -655,6 +693,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'measurement/i-depth',
+                  'slug'      => 'depth',
                   'inherited' => true
                 },
                 {
@@ -662,6 +701,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'measurement/i-height',
+                  'slug'      => 'height',
                   'inherited' => true
                 },
                 {
@@ -669,6 +709,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'measurement/i-width',
+                  'slug'      => 'width',
                   'inherited' => true
                 }
               ]
@@ -681,6 +722,7 @@ module Spec::Support::Contracts::Data
                   'read'      => true,
                   'write'     => true,
                   'path'      => 'physics/rocket-science/i-difficulty',
+                  'slug'      => 'difficulty',
                   'inherited' => true
                 }
               ]
@@ -709,6 +751,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'cardinality',
                   'path'      => 'dimensions/i-cardinality',
+                  'slug'      => 'cardinality',
                   'inherited' => true
                 }
               ]
@@ -725,6 +768,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'        => 'initialize',
                   'path'        => relative_path('i-initialize'),
+                  'slug'        => 'initialize',
                   'constructor' => true,
                   'inherited'   => false
                 }
@@ -740,6 +784,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'        => 'initialize',
                   'path'        => 'rocket-science/i-initialize',
+                  'slug'        => 'initialize',
                   'constructor' => true,
                   'inherited'   => true
                 }
@@ -755,6 +800,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'project_orion',
                   'path'      => 'physics/rocket-science/i-project-orion',
+                  'slug'      => 'project-orion',
                   'inherited' => true
                 }
               ]
@@ -770,11 +816,13 @@ module Spec::Support::Contracts::Data
               {
                 'name'      => 'convert_mana',
                 'path'      => relative_path('i-convert-mana'),
+                'slug'      => 'convert-mana',
                 'inherited' => false
               },
               {
                 'name'      => 'summon_dark_lord',
                 'path'      => relative_path('i-summon-dark-lord'),
+                'slug'      => 'summon-dark-lord',
                 'inherited' => false
               }
             ]
@@ -789,11 +837,13 @@ module Spec::Support::Contracts::Data
               {
                 'name'      => 'convert_mana',
                 'path'      => relative_path('i-convert-mana'),
+                'slug'      => 'convert-mana',
                 'inherited' => false
               },
               {
                 'name'      => 'summon_dark_lord',
                 'path'      => relative_path('i-summon-dark-lord'),
+                'slug'      => 'summon-dark-lord',
                 'inherited' => false
               }
             ]
@@ -803,6 +853,7 @@ module Spec::Support::Contracts::Data
                 {
                   'name'      => 'cardinality',
                   'path'      => 'dimensions/i-cardinality',
+                  'slug'      => 'cardinality',
                   'inherited' => true
                 }
               ]
@@ -813,12 +864,14 @@ module Spec::Support::Contracts::Data
                 {
                   'name'        => 'initialize',
                   'path'        => 'rocketry/i-initialize',
+                  'slug'        => 'initialize',
                   'constructor' => true,
                   'inherited'   => false
                 },
                 {
                   'name'      => 'project_orion',
                   'path'      => 'physics/rocket-science/i-project-orion',
+                  'slug'      => 'project-orion',
                   'inherited' => true
                 }
               ]
