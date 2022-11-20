@@ -290,6 +290,7 @@ module SleepingKingStudios::Yard::Data
         'read'      => !options[:read].nil?,
         'write'     => !options[:write].nil?,
         'path'      => method_object.data_path,
+        'slug'      => method_object.slug,
         'inherited' => !!options[:inherited] # rubocop:disable Style/DoubleNegation
       }
     end
@@ -302,6 +303,7 @@ module SleepingKingStudios::Yard::Data
       {
         'name'      => native_constant.name.to_s,
         'path'      => constant_object.data_path,
+        'slug'      => constant_object.slug,
         'inherited' => inherited_constant?(constant_object)
       }
     end
@@ -313,13 +315,14 @@ module SleepingKingStudios::Yard::Data
       }
     end
 
-    def format_method(native_method)
+    def format_method(native_method) # rubocop:disable Metrics/MethodLength
       method_object =
         SleepingKingStudios::Yard::Data::MethodObject
         .new(native: native_method)
       hsh           = {
         'name'      => native_method.name.to_s,
         'path'      => method_object.data_path,
+        'slug'      => method_object.slug,
         'inherited' => inherited_method?(method_object)
       }
 
