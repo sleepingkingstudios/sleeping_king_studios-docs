@@ -17,7 +17,7 @@ module SleepingKingStudios::Yard
     #
     # @return [Boolean] true if the class method exists, otherwise false.
     def class_method_exists?(method_name)
-      # Handle top-level classify { |e|  }ass methods.
+      # Handle top-level class methods.
       if method_name.start_with?('.')
         return top_level_class_method_exists?(method_name)
       end

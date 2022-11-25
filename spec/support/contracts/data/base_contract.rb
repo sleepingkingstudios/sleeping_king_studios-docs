@@ -13,7 +13,9 @@ module Spec::Support::Contracts::Data
     #
     #   @param expected_json [Hash{String => Object}] the expected base response
     #     for #as_json.
-    contract do |expected_json: nil|
+    #   @param skip_constructor [true, false] if true, does not apply specs for
+    #     the constructor.
+    contract do |expected_json: nil, skip_constructor: false|
       let(:data_object) { subject }
 
       before(:context) do
@@ -28,12 +30,14 @@ module Spec::Support::Contracts::Data
         SleepingKingStudios::Yard::Registry.clear
       end
 
-      describe '.new' do
-        it 'should define the constructor' do
-          expect(described_class)
-            .to be_constructible
-            .with(0).arguments
-            .and_keywords(:native)
+      unless skip_constructor
+        describe '.new' do
+          it 'should define the constructor' do
+            expect(described_class)
+              .to be_constructible
+              .with(0).arguments
+              .and_keywords(:native)
+          end
         end
       end
 
