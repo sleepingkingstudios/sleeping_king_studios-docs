@@ -7,8 +7,12 @@ module SleepingKingStudios::Yard::Data
   module SeeTags
     autoload :Base,
       'sleeping_king_studios/yard/data/see_tags/base'
+    autoload :DefinitionTag,
+      'sleeping_king_studios/yard/data/see_tags/definition_tag'
     autoload :LinkTag,
       'sleeping_king_studios/yard/data/see_tags/link_tag'
+    autoload :ReferenceTag,
+      'sleeping_king_studios/yard/data/see_tags/reference_tag'
     autoload :TextTag,
       'sleeping_king_studios/yard/data/see_tags/text_tag'
   end
