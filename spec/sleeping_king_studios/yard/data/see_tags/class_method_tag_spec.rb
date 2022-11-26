@@ -2,7 +2,7 @@
 
 require 'sleeping_king_studios/yard/data/see_tags/class_method_tag'
 
-require 'support/contracts/data/base_contract'
+require 'support/contracts/data/see_tag_contract'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ClassMethodTag do
@@ -17,16 +17,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ClassMethodTag do
   let(:parent)  { YARD::Registry.find { |obj| obj.title == 'Space' } }
   let(:native)  { parent.tags.find { |tag| tag.tag_name == 'see' } }
 
-  include_contract 'should be a data object',
-    expected_json:    lambda {
+  include_contract 'should be a see tag object',
+    expected_json: lambda {
       {
         'label' => '.reboot_cosmos',
         'path'  => '#class-method-reboot-cosmos',
         'text'  => nil,
         'type'  => 'reference'
       }
-    },
-    skip_constructor: true
+    }
 
   describe '.match?' do
     it { expect(described_class).to respond_to(:match?).with(1).argument }
@@ -97,15 +96,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ClassMethodTag do
 
     wrap_context 'using fixture', 'unmatched class method' do
       it { expect(described_class.match?(native)).to be true }
-    end
-  end
-
-  describe '.new' do
-    it 'should define the constructor' do
-      expect(described_class)
-        .to be_constructible
-        .with(0).arguments
-        .and_keywords(:native, :parent)
     end
   end
 
@@ -353,10 +343,6 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ClassMethodTag do
     end
   end
 
-  describe '#parent' do
-    include_examples 'should define reader', :parent, -> { parent }
-  end
-
   describe '#path' do
     let(:expected) { '#class-method-reboot-cosmos' }
 
@@ -502,6 +488,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ClassMethodTag do
 
     wrap_context 'using fixture', 'class method with text' do
       it { expect(see_tag.text?).to be true }
+    end
+  end
+
+  describe '#type' do
+    include_examples 'should define reader', :type, 'class-method'
+
+    wrap_context 'using fixture', 'class attribute reader' do
+      it { expect(see_tag.type).to be == 'class-attribute' }
     end
   end
 end

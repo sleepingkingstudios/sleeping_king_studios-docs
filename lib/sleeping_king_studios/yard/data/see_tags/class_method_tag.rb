@@ -70,12 +70,6 @@ module SleepingKingStudios::Yard::Data::SeeTags
       @absolute_path = registry_query.class_method_exists?(reference)
     end
 
-    def namespace_path
-      return '/' if namespace.empty?
-
-      slugify_path(namespace)
-    end
-
     def relative_path
       if reference.start_with?('.') || reference.start_with?('::')
         return "#{parent.name}#{reference}"
