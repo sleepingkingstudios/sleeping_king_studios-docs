@@ -134,8 +134,8 @@ module Spec::Support::Contracts::Data
         include_examples 'should define reader', :metadata, {}
 
         def format_see_tag(tag)
-          SleepingKingStudios::Yard::Data::SeeTag
-            .new(native: tag)
+          SleepingKingStudios::Yard::Data::SeeTags
+            .build(native: tag, parent: native)
             .as_json
         end
 

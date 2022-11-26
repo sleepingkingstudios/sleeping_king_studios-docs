@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-def launch_rocket; end
-
 # This module is out of this world.
 #
 # @see #launch_rocket You are going to space today!
-module Space; end
+module Space
+  def launch_rocket; end
+end

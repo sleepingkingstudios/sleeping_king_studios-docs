@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+module Time; end
+
 # This module is out of this world.
 #
-# @see String The native String class.
-module Space; end
+# @see ::Time.
+module Space
+  module Time; end
+end
