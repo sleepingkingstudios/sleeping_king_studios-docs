@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+# This module is out of this world.
+#
+# @see ::reboot_cosmos
+module Space
+  class << self
+    def reboot_cosmos; end
+  end
+end

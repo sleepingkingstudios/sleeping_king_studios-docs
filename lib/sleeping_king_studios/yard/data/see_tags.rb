@@ -7,6 +7,8 @@ module SleepingKingStudios::Yard::Data
   module SeeTags
     autoload :Base,
       'sleeping_king_studios/yard/data/see_tags/base'
+    autoload :ClassMethodTag,
+      'sleeping_king_studios/yard/data/see_tags/class_method_tag'
     autoload :ConstantTag,
       'sleeping_king_studios/yard/data/see_tags/constant_tag'
     autoload :DefinitionTag,
