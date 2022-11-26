@@ -42,12 +42,12 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     # @return [String] the label used to generate the link.
     def label
-      @label ||= native.name
+      path
     end
 
     # @return [String] the path used to generate the link.
     def path
-      @path ||= native.name
+      @path ||= native.name.sub(/\.\z/, '')
     end
   end
 end

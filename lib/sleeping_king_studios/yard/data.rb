@@ -21,8 +21,6 @@ module SleepingKingStudios::Yard
       'sleeping_king_studios/yard/data/namespace_object'
     autoload :RootObject,
       'sleeping_king_studios/yard/data/root_object'
-    autoload :SeeTag,
-      'sleeping_king_studios/yard/data/see_tag'
     autoload :SeeTags,
       'sleeping_king_studios/yard/data/see_tags'
     autoload :Types,

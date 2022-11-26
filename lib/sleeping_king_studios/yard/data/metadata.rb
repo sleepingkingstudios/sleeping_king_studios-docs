@@ -17,7 +17,7 @@ module SleepingKingStudios::Yard::Data
   # Other tags are not currently supported.
   #
   # @see SleepingKingStudios::Yard::Data::ModuleObject.
-  # @see SleepingKingStudios::Yard::Data::SeeTag.
+  # @see SleepingKingStudios::Yard::Data::SeeTags.
   class Metadata < SleepingKingStudios::Yard::Data::Base
     EMPTYABLE_PROPERTIES = Set.new(
       %i[
@@ -73,13 +73,10 @@ module SleepingKingStudios::Yard::Data
     # - 'examples': An Array of Hashes with keys 'name' and 'text' and String
     #   values.
     # - 'notes': An Array of Strings.
-    # - 'see': An Array of Hashes with String values. See the SeeTag#as_json
-    #   method for details.
+    # - 'see': An Array of Hashes with String values.
     # - 'todo': An Array of Strings.
     #
     # @return [Hash{String => Object}] the representation of the metadata.
-    #
-    # @see SleepingKingStudios::Yard::Data::SeeTag#as_json.
     def as_json
       METADATA_PROPERTIES
         .reduce({}) do |memo, property_name|
@@ -141,8 +138,6 @@ module SleepingKingStudios::Yard::Data
     # details.
     #
     # @return [Array<Hash{String => String}>]
-    #
-    # @see SleepingKingStudios::Yard::Data::SeeTag#as_json.
     def see
       @see ||= select_tags('see').map { |tag| format_see_tag(tag) }
     end
@@ -179,8 +174,8 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_see_tag(tag)
-      SleepingKingStudios::Yard::Data::SeeTag
-        .new(native: tag)
+      SleepingKingStudios::Yard::Data::SeeTags
+        .build(native: tag, parent: native)
         .as_json
     end
 
