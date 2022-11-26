@@ -66,6 +66,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::DefinitionTag do
       it { expect(described_class.match?(native)).to be true }
     end
 
+    wrap_context 'using fixture', 'nested relative definition' do
+      let(:parent) do
+        YARD::Registry.find { |obj| obj.title == 'Dimensions::Space' }
+      end
+
+      it { expect(described_class.match?(native)).to be true }
+    end
+
     wrap_context 'using fixture', 'plain text' do
       it { expect(described_class.match?(native)).to be false }
     end
@@ -108,6 +116,20 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::DefinitionTag do
         super().merge(
           'label' => 'Simulation::Testing::Cosmos::SpiralGalaxy',
           'path'  => 'simulation/testing/cosmos/spiral-galaxy'
+        )
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested relative definition' do
+      let(:parent) do
+        YARD::Registry.find { |obj| obj.title == 'Dimensions::Space' }
+      end
+      let(:expected) do
+        super().merge(
+          'label' => 'Time',
+          'path'  => 'dimensions/space/time'
         )
       end
 
@@ -158,6 +180,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::DefinitionTag do
       it { expect(see_tag.exists?).to be true }
     end
 
+    wrap_context 'using fixture', 'nested relative definition' do
+      let(:parent) do
+        YARD::Registry.find { |obj| obj.title == 'Dimensions::Space' }
+      end
+
+      it { expect(see_tag.exists?).to be true }
+    end
+
     wrap_context 'using fixture', 'relative definition' do
       it { expect(see_tag.exists?).to be true }
     end
@@ -184,6 +214,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::DefinitionTag do
 
     wrap_context 'using fixture', 'nested definition' do
       let(:expected) { 'simulation/testing/cosmos/spiral-galaxy' }
+
+      it { expect(see_tag.path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested relative definition' do
+      let(:parent) do
+        YARD::Registry.find { |obj| obj.title == 'Dimensions::Space' }
+      end
+      let(:expected) { 'dimensions/space/time' }
 
       it { expect(see_tag.path).to be == expected }
     end
@@ -220,6 +259,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::DefinitionTag do
 
     wrap_context 'using fixture', 'nested definition' do
       let(:expected) { 'Simulation::Testing::Cosmos::SpiralGalaxy' }
+
+      it { expect(see_tag.reference).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'nested relative definition' do
+      let(:parent) do
+        YARD::Registry.find { |obj| obj.title == 'Dimensions::Space' }
+      end
+      let(:expected) { 'Time' }
 
       it { expect(see_tag.reference).to be == expected }
     end

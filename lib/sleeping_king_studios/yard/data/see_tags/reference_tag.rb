@@ -67,10 +67,10 @@ module SleepingKingStudios::Yard::Data::SeeTags
       return @qualified_path if @qualified_path
 
       if SEPARATORS.any? { |sep| reference.start_with?(sep) }
-        return @qualified_path = "#{parent.name}#{reference}"
+        return @qualified_path = "#{parent.path}#{reference}"
       end
 
-      @qualified_path = "#{parent.name}::#{reference}"
+      @qualified_path = "#{parent.path}::#{reference}"
     end
 
     def relative_path?

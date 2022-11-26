@@ -169,13 +169,20 @@ module SleepingKingStudios::Yard::Data
 
     private
 
+    def definition_tag?(tag)
+      tag.type == :class || tag.type == :module
+    end
+
     def emptyable?(property_name)
       EMPTYABLE_PROPERTIES.include?(property_name)
     end
 
     def format_see_tag(tag)
       SleepingKingStudios::Yard::Data::SeeTags
-        .build(native: tag, parent: native)
+        .build(
+          native: tag,
+          parent: definition_tag?(native) ? native : native.parent
+        )
         .as_json
     end
 

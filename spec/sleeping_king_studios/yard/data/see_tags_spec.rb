@@ -145,6 +145,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags do
       include_examples 'should wrap the tag with', 'InstanceMethodTag'
     end
 
+    wrap_context 'using fixture', 'nested relative definition' do
+      let(:parent) do
+        YARD::Registry.find { |obj| obj.title == 'Dimensions::Space' }
+      end
+
+      include_examples 'should wrap the tag with', 'DefinitionTag'
+    end
+
     wrap_context 'using fixture', 'relative class method' do
       include_examples 'should wrap the tag with', 'ClassMethodTag'
     end
