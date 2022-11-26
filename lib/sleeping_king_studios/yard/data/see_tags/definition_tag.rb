@@ -24,7 +24,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     # @return [String, nil] the path used to generate the reference link.
     def path
-      return slugify_path(relative_path) if relative_path?
+      return slugify_path(qualified_path) if relative_path?
 
       return slugify_path(reference) if absolute_path?
 
@@ -39,24 +39,14 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     private
 
-    def absolute_path?
-      return @absolute_path unless @absolute_path.nil?
-
-      @absolute_path = registry_query.definition_exists?(reference)
-    end
-
-    def relative_path
-      "#{parent.name}::#{reference}"
+    def query_registry(name)
+      registry_query.definition_exists?(name)
     end
 
     def relative_path?
-      return @relative_path unless @relative_path.nil?
+      return false if native.name.start_with?('::')
 
-      return @relative_path = false if parent.root?
-
-      return @relative_path = false if native.name.start_with?('::')
-
-      @relative_path = registry_query.definition_exists?(relative_path)
+      super
     end
   end
 end

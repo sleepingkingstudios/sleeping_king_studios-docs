@@ -34,7 +34,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
       return @attribute = false unless exists?
 
-      method_path = absolute_path? ? reference : relative_path
+      method_path = absolute_path? ? reference : qualified_path
 
       native_method = registry.find do |obj|
         obj.type == :method &&
@@ -52,30 +52,12 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     private
 
-    def absolute_path?
-      return @absolute_path unless @absolute_path.nil?
-
-      @absolute_path = registry_query.instance_method_exists?(reference)
-    end
-
-    def relative_path
-      if reference.start_with?('#') || reference.start_with?('::')
-        return "#{parent.name}#{reference}"
-      end
-
-      "#{parent.name}::#{reference}"
-    end
-
-    def relative_path?
-      return @relative_path unless @relative_path.nil?
-
-      return @relative_path = false if parent.root?
-
-      @relative_path = registry_query.instance_method_exists?(relative_path)
+    def query_registry(name)
+      registry_query.instance_method_exists?(name)
     end
 
     def split_reference
-      scoped          = relative_path? ? relative_path : reference
+      scoped          = relative_path? ? qualified_path : reference
       segments        = scoped.split('#')
       @reference_name = segments.pop
       @namespace      = segments.last

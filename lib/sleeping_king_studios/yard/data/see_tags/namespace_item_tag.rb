@@ -4,6 +4,8 @@ require 'sleeping_king_studios/yard/data/see_tags'
 
 module SleepingKingStudios::Yard::Data::SeeTags
   # Data object representing a @see tag with a constant or method link.
+  #
+  # @abstract
   class NamespaceItemTag < SleepingKingStudios::Yard::Data::SeeTags::ReferenceTag # rubocop:disable Layout/LineLength
     # (see SleepingKingStudios::Yard::Data::SeeTags::Base#initialize)
     def initialize(native:, parent:)

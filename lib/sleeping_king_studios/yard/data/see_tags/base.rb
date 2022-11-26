@@ -4,6 +4,8 @@ require 'sleeping_king_studios/yard/data/see_tags'
 
 module SleepingKingStudios::Yard::Data::SeeTags
   # Data object representing a plain text @see tag.
+  #
+  # @abstract
   class Base < SleepingKingStudios::Yard::Data::Base
     # @param native [YARD::Tags::Tag] the YARD object representing the @see tag.
     # @param parent [YARD::Tags::Tag] the YARD object representing the parent

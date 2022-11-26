@@ -37,21 +37,15 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     # @return [true, false] true if the referenced class method is an attribute;
     #   otherwise false.
-    def attribute? # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+    def attribute?
       return @attribute unless @attribute.nil?
 
       return @attribute = false unless exists?
 
-      method_path = absolute_path? ? reference : relative_path
-
-      unless method_path.include?('.')
-        method_path = method_path.reverse.sub('::', '.').reverse
-      end
-
       native_method = registry.find do |obj|
         obj.type == :method &&
           obj.scope == :class &&
-          obj.path == method_path
+          obj.path == normalized_path
       end
 
       @attribute = native_method.is_attribute?
@@ -64,37 +58,29 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     private
 
-    def absolute_path?
-      return @absolute_path unless @absolute_path.nil?
+    def normalized_path
+      return @normalized_path if @normalized_path
 
-      @absolute_path = registry_query.class_method_exists?(reference)
+      @normalized_path = absolute_path? ? reference : qualified_path
+
+      return @normalized_path if @normalized_path.include?('.')
+
+      @normalized_path = @normalized_path.reverse.sub('::', '.').reverse
     end
 
-    def relative_path
-      if reference.start_with?('.') || reference.start_with?('::')
-        return "#{parent.name}#{reference}"
-      end
-
-      "#{parent.name}::#{reference}"
-    end
-
-    def relative_path?
-      return @relative_path unless @relative_path.nil?
-
-      return @relative_path = false if parent.root?
-
-      @relative_path = registry_query.class_method_exists?(relative_path)
+    def query_registry(name)
+      registry_query.class_method_exists?(name)
     end
 
     def split_legacy_reference
-      scoped          = relative_path? ? relative_path : reference
+      scoped          = relative_path? ? qualified_path : reference
       segments        = scoped.split('::')
       @reference_name = segments.pop
       @namespace      = segments.join('::')
     end
 
     def split_method_reference
-      scoped          = relative_path? ? relative_path : reference
+      scoped          = relative_path? ? qualified_path : reference
       segments        = scoped.split('.')
       @reference_name = segments.pop
       @namespace      = segments.last

@@ -40,28 +40,18 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     private
 
-    def absolute_path?
-      return @absolute_path unless @absolute_path.nil?
-
-      @absolute_path = registry_query.constant_exists?(reference)
-    end
-
-    def relative_path
-      "#{parent.name}::#{reference}"
+    def query_registry(name)
+      registry_query.constant_exists?(name)
     end
 
     def relative_path?
-      return @relative_path unless @relative_path.nil?
-
-      return @relative_path = false if parent.root?
-
       return @relative_path = false if native.name.start_with?('::')
 
-      @relative_path = registry_query.constant_exists?(relative_path)
+      super
     end
 
     def split_reference
-      scoped          = relative_path? ? relative_path : reference
+      scoped          = relative_path? ? qualified_path : reference
       segments        = scoped.split('::')
       @reference_name = segments.pop
       @namespace      = segments.join('::')
