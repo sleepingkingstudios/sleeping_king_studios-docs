@@ -6,6 +6,7 @@ class Rocketry
     attr_reader :gravity
 
     attr_writer :secret_key
+    alias signing_key secret_key
 
     attr_accessor :sandbox_mode
 

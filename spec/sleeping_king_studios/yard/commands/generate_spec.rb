@@ -144,6 +144,18 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         end
       end
 
+      it 'should not generate the method alias data files', # rubocop:disable RSpec/ExampleLength
+        :aggregate_failures \
+      do
+        command.call
+
+        method_aliases.each do |native|
+          expect(data_command)
+            .not_to have_received(:call)
+            .with(data_object: method_object(native: native))
+        end
+      end
+
       it 'should not generate the private method data files', # rubocop:disable RSpec/ExampleLength
         :aggregate_failures \
       do
@@ -419,6 +431,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           .select { |obj| obj.type == :method }
           .select { |obj| obj.visibility == :public }
           .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
+          .reject(&:is_alias?)
       end
       let(:unexpected_methods) do
         registry
@@ -427,6 +440,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
             obj.visibility != :public ||
               obj.tags.any? { |tag| tag.tag_name == 'private' }
           end
+      end
+      let(:method_aliases) do
+        registry
+          .select { |obj| obj.type == :method }
+          .select(&:is_alias?)
       end
       let(:expected_modules) do
         registry
