@@ -17,6 +17,7 @@ module SleepingKingStudios::Yard::Data
   # metadata.
   class MethodObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
+      aliases
       constructor
       data_path
       description
@@ -38,6 +39,17 @@ module SleepingKingStudios::Yard::Data
 
     PARAGRAPH_BREAK = /\n{2,}/.freeze
     private_constant :PARAGRAPH_BREAK
+
+    # @return [true, false] true if the method object is an alias of another
+    #   method; otherwise false.
+    def alias?
+      native.is_alias?
+    end
+
+    # @return [Array<String>] the names of the method aliases, if any.
+    def aliases
+      native.aliases.map { |obj| obj.name.to_s }.sort
+    end
 
     # Generates a JSON-compatible representation of the method.
     #

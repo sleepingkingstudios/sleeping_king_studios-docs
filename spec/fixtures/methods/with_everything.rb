@@ -64,3 +64,5 @@ def launch( # rubocop:disable Lint/RedundantCopDisableDirective, Metrics/Paramet
   recovery: false,
   **options # rubocop:disable Lint/RedundantCopDisableDirective
 ); end
+alias blast_off launch
+alias_method :start_countdown, :launch # rubocop:disable Style/Alias
