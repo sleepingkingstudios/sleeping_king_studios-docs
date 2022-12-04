@@ -6,6 +6,7 @@ class Rocketry
 
   # @private
   attr_reader :chiaroscuro
+  alias_method :black_and_white, :chiaroscuro # rubocop:disable Style/Alias
 
   attr_writer :secret_formula
 

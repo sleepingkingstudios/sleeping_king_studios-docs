@@ -32,12 +32,14 @@ class << self
   attr_reader :gravity
 
   attr_writer :secret_key
+  alias signing_key secret_key
 
   attr_accessor :sandbox_mode
 
   def calculate_isp(engine); end
 
   def plot_trajectory; end
+  alias calculate_trajectory plot_trajectory
 
   private
 
@@ -50,12 +52,14 @@ attr_reader :base_mana
 
 # @private
 attr_reader :chiaroscuro
+alias_method :black_and_white, :chiaroscuro # rubocop:disable Style/Alias
 
 attr_writer :secret_formula
 
 attr_accessor :magic_enabled
 
 def convert_mana; end
+alias_method :transform_mana, :convert_mana # rubocop:disable Style/Alias
 
 # @private
 def invoke_pact; end

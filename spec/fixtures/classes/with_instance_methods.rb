@@ -3,6 +3,7 @@
 # This class is out of this world.
 class Rocketry
   def convert_mana; end
+  alias_method :transform_mana, :convert_mana # rubocop:disable Style/Alias
 
   # @private
   def invoke_pact; end

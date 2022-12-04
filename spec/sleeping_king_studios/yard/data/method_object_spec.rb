@@ -56,8 +56,46 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     data_path:     false,
     separator:     /#|\./
 
+  describe '#alias?' do
+    include_examples 'should define predicate', :alias?, false
+
+    wrap_context 'using fixture', 'with aliases' do
+      it { expect(method_object.alias?).to be false }
+
+      describe 'with an aliased method' do
+        let(:fixture_name) { '#blast_off' }
+
+        it { expect(method_object.alias?).to be true }
+      end
+
+      describe 'with a method defined with :alias_method' do
+        let(:fixture_name) { '#start_countdown' }
+
+        it { expect(method_object.alias?).to be true }
+      end
+    end
+  end
+
+  describe '#aliases' do
+    include_examples 'should define reader', :aliases, []
+
+    wrap_context 'using fixture', 'with aliases' do
+      let(:expected) { %w[blast_off start_countdown] }
+
+      it { expect(method_object.aliases).to be == expected }
+    end
+  end
+
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }
+
+    wrap_context 'using fixture', 'with aliases' do
+      let(:expected) do
+        super().merge('aliases' => method_object.aliases)
+      end
+
+      it { expect(method_object.as_json).to be == expected }
+    end
 
     wrap_context 'using fixture', 'with options' do
       let(:expected) do
@@ -187,6 +225,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
     wrap_context 'using fixture', 'with everything' do
       let(:expected) do
         super().merge(
+          'aliases'       => method_object.aliases,
           'description'   => method_object.description,
           'metadata'      => method_object.metadata,
           'options'       => method_object.options,

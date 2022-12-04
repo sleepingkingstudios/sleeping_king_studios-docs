@@ -96,12 +96,13 @@ module SleepingKingStudios::Yard::Data
     # - 'path': The path to the method data file.
     #
     # @return [Array<Hash{String => String}>] the documented class methods.
-    def class_methods
+    def class_methods # rubocop:disable Metrics/CyclomaticComplexity
       @class_methods ||=
         native
         .meths
         .select { |obj| obj.scope == :class && !obj.is_attribute? }
         .reject { |obj| private_method?(obj) }
+        .reject(&:is_alias?)
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end
@@ -196,12 +197,13 @@ module SleepingKingStudios::Yard::Data
     # - 'path': The path to the method data file.
     #
     # @return [Array<Hash{String => String}>] the documented instance methods.
-    def instance_methods
+    def instance_methods # rubocop:disable Metrics/CyclomaticComplexity
       @instance_methods ||=
         native
         .meths
         .select { |obj| obj.scope == :instance && !obj.is_attribute? }
         .reject { |obj| private_method?(obj) }
+        .reject(&:is_alias?)
         .map { |obj| format_method(obj) }
         .sort_by { |hsh| hsh['name'] }
     end

@@ -57,6 +57,7 @@ module TopLevelModule
 
   # This is a scoped instance method.
   def scoped_instance_method; end
+  alias aliased_instance_method scoped_instance_method
 
   private
 

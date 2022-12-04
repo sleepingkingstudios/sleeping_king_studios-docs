@@ -189,6 +189,7 @@ module SleepingKingStudios::Yard::Commands
       registry
         .select { |obj| obj.type == :method && obj.visibility == :public }
         .reject { |obj| obj.tags.any? { |tag| tag.tag_name == 'private' } }
+        .reject(&:is_alias?)
         .sort_by(&:path)
     end
 
