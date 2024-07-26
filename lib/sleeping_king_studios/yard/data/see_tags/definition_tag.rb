@@ -6,7 +6,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
   # Data object representing a @see tag with a definition link.
   class DefinitionTag < SleepingKingStudios::Yard::Data::SeeTags::ReferenceTag
     DEFINITION_PATTERN =
-      /\A(::)?[[:upper:]][[:alnum:]]*(::[[:upper:]][[:alnum:]]*)*\z/.freeze
+      /\A(::)?[[:upper:]][[:alnum:]]*(::[[:upper:]][[:alnum:]]*)*\z/
     private_constant :DEFINITION_PATTERN
 
     class << self

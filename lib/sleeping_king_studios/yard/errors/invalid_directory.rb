@@ -10,7 +10,7 @@ module SleepingKingStudios::Yard::Errors
 
     # @param path [String] the invalid directory path.
     def initialize(path:)
-      super(message: default_message(path), path: path)
+      super(message: default_message(path), path:)
     end
 
     private

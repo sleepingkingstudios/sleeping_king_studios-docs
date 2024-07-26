@@ -28,14 +28,14 @@ module SleepingKingStudios::Yard::Commands::Generators
     end
 
     def process(data_object:, data_type: nil)
-      data_type ||= data_object_type(data_object: data_object)
-      contents    = template(data_object: data_object, data_type: data_type)
+      data_type ||= data_object_type(data_object:)
+      contents    = template(data_object:, data_type:)
 
       return success(nil) if dry_run?
 
       write_command.call(
-        contents:  contents,
-        file_path: file_path(data_object: data_object)
+        contents:,
+        file_path: file_path(data_object:)
       )
     end
 

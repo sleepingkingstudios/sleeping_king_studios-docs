@@ -9,7 +9,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::DefinitionTag do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:see_tag) { described_class.new(native: native, parent: parent) }
+  subject(:see_tag) { described_class.new(native:, parent:) }
 
   include_context 'with fixture files', 'see_tags'
 

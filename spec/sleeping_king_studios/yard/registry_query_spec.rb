@@ -3,7 +3,7 @@
 require 'sleeping_king_studios/yard/registry_query'
 
 RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
-  subject(:query) { described_class.new(registry: registry) }
+  subject(:query) { described_class.new(registry:) }
 
   let(:registry) { YARD::Registry }
 

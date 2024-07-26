@@ -11,7 +11,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:module_object) { described_class.new(native: native) }
+  subject(:module_object) { described_class.new(native:) }
 
   include_context 'with fixture files', 'modules'
 
@@ -35,18 +35,18 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
     end
   end
 
-  include_contract 'should be a data object',
-    expected_json: expected_json
+  include_contract('should be a data object',
+    expected_json:)
 
-  include_contract 'should be a describable object',
+  include_contract('should be a describable object',
     basic_name:    'Space',
     complex_name:  'SpaceAndTime',
     scoped_name:   'Cosmos::LocalDimension::SpaceAndTime',
     description:   'This module is out of this world.',
-    expected_json: expected_json
+    expected_json:)
 
-  include_contract 'should implement the namespace methods',
-    expected_json: expected_json
+  include_contract('should implement the namespace methods',
+    expected_json:)
 
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }

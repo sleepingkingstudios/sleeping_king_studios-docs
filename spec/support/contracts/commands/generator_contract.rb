@@ -105,9 +105,9 @@ module Spec::Support::Contracts::Commands
 
         context 'when initialized with template_path: value' do
           let(:template_path) { 'templates/reference' }
-          let(:options)       { super().merge(template_path: template_path) }
+          let(:options)       { super().merge(template_path:) }
           let(:expected) do
-            default_options.merge(template_path: template_path)
+            default_options.merge(template_path:)
           end
 
           it { expect(subject.options).to be == expected }
@@ -146,7 +146,7 @@ module Spec::Support::Contracts::Commands
 
         context 'when initialized with template_path: value' do
           let(:template_path) { 'templates/reference' }
-          let(:options)       { super().merge(template_path: template_path) }
+          let(:options)       { super().merge(template_path:) }
 
           it { expect(subject.template_path).to be == template_path }
         end

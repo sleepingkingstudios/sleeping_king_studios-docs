@@ -9,7 +9,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:metadata) { described_class.new(native: native) }
+  subject(:metadata) { described_class.new(native:) }
 
   include_context 'with fixture files', 'metadata'
 

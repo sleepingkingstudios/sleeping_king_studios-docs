@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::Types
     # @param values [Array<SleepingKingStudios::Yard::Data::Types::Type>] the
     #   value types.
     def initialize(keys:, name:, values:)
-      super(name: name)
+      super(name:)
 
       @keys   = keys
       @values = values

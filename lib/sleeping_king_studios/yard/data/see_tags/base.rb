@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
     # @param parent [YARD::Tags::Tag] the YARD object representing the parent
     #   object, which contains the @see tag.
     def initialize(native:, parent:)
-      super(native: native)
+      super(native:)
 
       @parent = parent
     end

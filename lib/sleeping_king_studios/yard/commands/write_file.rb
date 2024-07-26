@@ -79,11 +79,11 @@ module SleepingKingStudios::Yard::Commands
     def process(contents:, file_path:)
       file_path = File.expand_path(file_path)
 
-      step { check_if_file_exists(file_path: file_path) }
+      step { check_if_file_exists(file_path:) }
 
-      step { create_directory(file_path: file_path) }
+      step { create_directory(file_path:) }
 
-      step { create_file(contents: contents, file_path: file_path) }
+      step { create_file(contents:, file_path:) }
     end
   end
 end

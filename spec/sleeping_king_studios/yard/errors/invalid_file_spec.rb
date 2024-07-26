@@ -3,7 +3,7 @@
 require 'sleeping_king_studios/yard/errors/invalid_file'
 
 RSpec.describe SleepingKingStudios::Yard::Errors::InvalidFile do
-  subject(:error) { described_class.new(path: path) }
+  subject(:error) { described_class.new(path:) }
 
   let(:path) { 'path/to/file' }
 

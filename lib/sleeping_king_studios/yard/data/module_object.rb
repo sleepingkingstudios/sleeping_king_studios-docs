@@ -32,7 +32,7 @@ module SleepingKingStudios::Yard::Data
     ].freeze
     private_constant :JSON_PROPERTIES
 
-    PARAGRAPH_BREAK = /\n{2,}/.freeze
+    PARAGRAPH_BREAK = /\n{2,}/
     private_constant :PARAGRAPH_BREAK
 
     # Generates a JSON-compatible representation of the module.
@@ -201,7 +201,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_metadata
       SleepingKingStudios::Yard::Data::Metadata
-        .new(native: native)
+        .new(native:)
         .as_json
     end
 

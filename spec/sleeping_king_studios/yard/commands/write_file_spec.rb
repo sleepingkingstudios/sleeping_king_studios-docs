@@ -33,7 +33,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
     end
 
     def call_command
-      command.call(contents: contents, file_path: file_path)
+      command.call(contents:, file_path:)
     end
 
     it 'should define the method' do
@@ -191,7 +191,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
         exception = StandardError.new('something went wrong')
 
         Cuprum::Errors::UncaughtException.new(
-          exception: exception,
+          exception:,
           message:   "uncaught exception in #{described_class.name} - "
         )
       end
@@ -228,7 +228,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
         exception = StandardError.new('something went wrong')
 
         Cuprum::Errors::UncaughtException.new(
-          exception: exception,
+          exception:,
           message:   "uncaught exception in #{described_class.name} - "
         )
       end

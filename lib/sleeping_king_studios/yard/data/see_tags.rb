@@ -35,12 +35,12 @@ module SleepingKingStudios::Yard::Data
       # @return [SleepingKingStudios::Yard::Data::SeeTags::Base] the wrapped
       #   object representing the @see tag.
       def build(native:, parent:)
-        build_text_tag(native: native, parent: parent) ||
-          build_link_tag(native: native, parent: parent) ||
-          build_constant_tag(native: native, parent: parent) ||
-          build_class_method_tag(native: native, parent: parent) ||
-          build_definition_tag(native: native, parent: parent) ||
-          build_instance_method_tag(native: native, parent: parent)
+        build_text_tag(native:, parent:) ||
+          build_link_tag(native:, parent:) ||
+          build_constant_tag(native:, parent:) ||
+          build_class_method_tag(native:, parent:) ||
+          build_definition_tag(native:, parent:) ||
+          build_instance_method_tag(native:, parent:)
       end
 
       private
@@ -48,18 +48,18 @@ module SleepingKingStudios::Yard::Data
       def build_class_method_tag(native:, parent:)
         return unless ClassMethodTag.match?(native)
 
-        ClassMethodTag.new(native: native, parent: parent)
+        ClassMethodTag.new(native:, parent:)
       end
 
       def build_constant_tag(native:, parent:)
         return unless ConstantTag.match?(native)
 
         # Special check for ambiguous definitions, e.g. HTTP, NASA.
-        constant_tag = ConstantTag.new(native: native, parent: parent)
+        constant_tag = ConstantTag.new(native:, parent:)
 
         return constant_tag if constant_tag.exists?
 
-        definition_tag = DefinitionTag.new(native: native, parent: parent)
+        definition_tag = DefinitionTag.new(native:, parent:)
 
         # If neither the constant nor the definition exists, and the format
         # matches a constant, assume it is a constant.
@@ -69,25 +69,25 @@ module SleepingKingStudios::Yard::Data
       def build_definition_tag(native:, parent:)
         return unless DefinitionTag.match?(native)
 
-        DefinitionTag.new(native: native, parent: parent)
+        DefinitionTag.new(native:, parent:)
       end
 
       def build_link_tag(native:, parent:)
         return unless LinkTag.match?(native)
 
-        LinkTag.new(native: native, parent: parent)
+        LinkTag.new(native:, parent:)
       end
 
       def build_instance_method_tag(native:, parent:)
         return unless InstanceMethodTag.match?(native)
 
-        InstanceMethodTag.new(native: native, parent: parent)
+        InstanceMethodTag.new(native:, parent:)
       end
 
       def build_text_tag(native:, parent:)
         return unless TextTag.match?(native)
 
-        TextTag.new(native: native, parent: parent)
+        TextTag.new(native:, parent:)
       end
     end
   end

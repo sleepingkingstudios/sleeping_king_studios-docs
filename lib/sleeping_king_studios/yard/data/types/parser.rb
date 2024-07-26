@@ -50,20 +50,20 @@ module SleepingKingStudios::Yard::Data::Types
     def build_array(name:, values:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
         items:   values,
-        name:    name,
-        ordered: ordered
+        name:,
+        ordered:
       )
     end
 
     def build_basic(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(name: name)
+      SleepingKingStudios::Yard::Data::Types::Type.new(name:)
     end
 
     def build_hash(name:, keys:, values:)
       SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
-        keys:   keys,
-        name:   name,
-        values: values
+        keys:,
+        name:,
+        values:
       )
     end
 
@@ -87,13 +87,13 @@ module SleepingKingStudios::Yard::Data::Types
       keys   = Array(handle_node(node.elements[2]))
       values = Array(handle_node(node.elements[4]))
 
-      build_hash(name: name, keys: keys, values: values)
+      build_hash(name:, keys:, values:)
     end
 
     def handle_identifier_with_whitespace(node)
       name = node.text_value.strip
 
-      build_basic(name: name)
+      build_basic(name:)
     end
 
     def handle_node(node)
@@ -107,14 +107,14 @@ module SleepingKingStudios::Yard::Data::Types
       name   = node.elements.first.text_value
       values = Array(handle_node(node.elements[2]))
 
-      build_array(name: name, ordered: true, values: values)
+      build_array(name:, ordered: true, values:)
     end
 
     def handle_parameterized_type(node)
       name   = node.elements.first.text_value
       values = Array(handle_node(node.elements[2]))
 
-      build_array(name: name, values: values)
+      build_array(name:, values:)
     end
 
     def handle_type_list(node)

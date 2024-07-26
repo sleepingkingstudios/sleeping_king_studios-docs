@@ -11,7 +11,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:class_object) { described_class.new(native: native) }
+  subject(:class_object) { described_class.new(native:) }
 
   include_context 'with fixture files', 'classes'
 
@@ -36,18 +36,18 @@ RSpec.describe SleepingKingStudios::Yard::Data::ClassObject do
     end
   end
 
-  include_contract 'should be a data object',
-    expected_json: expected_json
+  include_contract('should be a data object',
+    expected_json:)
 
-  include_contract 'should be a describable object',
+  include_contract('should be a describable object',
     basic_name:    'Rocketry',
     complex_name:  'AdvancedRocketry',
     scoped_name:   'RocketScience::Engineering::Rocketry',
     description:   'This class is out of this world.',
-    expected_json: expected_json
+    expected_json:)
 
   include_contract 'should implement the namespace methods',
-    expected_json:  expected_json,
+    expected_json:,
     include_mixins: true,
     inherit_mixins: true
 

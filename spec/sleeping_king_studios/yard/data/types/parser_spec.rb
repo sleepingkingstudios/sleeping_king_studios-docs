@@ -24,21 +24,21 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     def array_type(items:, name:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
-        name:    name,
-        items:   items,
-        ordered: ordered
+        name:,
+        items:,
+        ordered:
       )
     end
 
     def basic_type(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(name: name)
+      SleepingKingStudios::Yard::Data::Types::Type.new(name:)
     end
 
     def hash_type(keys:, name:, values:)
       SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
-        keys:   keys,
-        name:   name,
-        values: values
+        keys:,
+        name:,
+        values:
       )
     end
 

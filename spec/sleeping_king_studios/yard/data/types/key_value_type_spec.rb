@@ -9,9 +9,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
 
   subject(:type) do
     described_class.new(
-      keys:   keys,
-      name:   name,
-      values: values
+      keys:,
+      name:,
+      values:
     )
   end
 

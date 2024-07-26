@@ -10,7 +10,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:method_object) { described_class.new(native: native) }
+  subject(:method_object) { described_class.new(native:) }
 
   include_context 'with fixture files', 'methods'
 
@@ -44,15 +44,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
       .map(&:as_json)
   end
 
-  include_contract 'should be a data object',
-    expected_json: expected_json
+  include_contract('should be a data object',
+    expected_json:)
 
   include_contract 'should be a describable object',
     basic_name:    '#launch',
     complex_name:  '#retrograde_launch',
     scoped_name:   'Wonders::FutureEra#use_space_elevator',
     description:   'You are going to space today.',
-    expected_json: expected_json,
+    expected_json:,
     data_path:     false,
     separator:     /#|\./
 
