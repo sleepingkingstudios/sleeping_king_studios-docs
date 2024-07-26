@@ -7,7 +7,7 @@ require 'support/contracts/commands/generator_contract'
 RSpec.describe SleepingKingStudios::Yard::Commands::Generators::Base do
   include Spec::Support::Contracts::Commands
 
-  subject(:command) { described_class.new(docs_path: docs_path, **options) }
+  subject(:command) { described_class.new(docs_path:, **options) }
 
   let(:docs_path) { 'path/to/docs' }
   let(:options)   { {} }
@@ -16,7 +16,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::Base do
 
   describe '#call' do
     let(:expected_error) do
-      Cuprum::Errors::CommandNotImplemented.new(command: command)
+      Cuprum::Errors::CommandNotImplemented.new(command:)
     end
 
     it { expect(command).to be_callable.with(0).arguments }
@@ -31,7 +31,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::Base do
       let(:exception) { StandardError.new('something went wrong') }
       let(:expected_error) do
         Cuprum::Errors::UncaughtException.new(
-          exception: exception,
+          exception:,
           message:   "uncaught exception in #{described_class} - "
         )
       end

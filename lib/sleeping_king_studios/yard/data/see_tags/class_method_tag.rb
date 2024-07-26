@@ -11,12 +11,12 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     CLASS_METHOD_PATTERN =
       /\A(#{DEFINITION_PREFIX})?\.([[[:lower:]][[:digit:]]_])+[=?]?\z/
-      .freeze
+
     private_constant :CLASS_METHOD_PATTERN
 
     LEGACY_CLASS_METHOD_PATTERN =
       /\A(#{DEFINITION_PREFIX})?::([[[:lower:]][[:digit:]]_])+\z/
-      .freeze
+
     private_constant :LEGACY_CLASS_METHOD_PATTERN
 
     class << self

@@ -13,7 +13,7 @@ module SleepingKingStudios::Yard::Errors
     # @param message [String] message describing the nature of the error.
     # @param path [String] the invalid file or directory path.
     def initialize(message:, path:)
-      super(message: message)
+      super(message:)
 
       @path = path
     end

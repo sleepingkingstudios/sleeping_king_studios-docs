@@ -2,7 +2,7 @@ require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.1
   NewCops: enable
   Include:
     - 'lib/**/*.rb'
@@ -60,6 +60,9 @@ Naming/RescuedExceptionsVariableName:
   PreferredName: exception
 
 RSpec/BeNil:
+  Enabled: false
+
+RSpec/Eq:
   Enabled: false
 
 RSpec/ExampleWording:

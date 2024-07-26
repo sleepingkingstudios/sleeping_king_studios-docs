@@ -10,14 +10,14 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:constant_object) { described_class.new(native: native) }
+  subject(:constant_object) { described_class.new(native:) }
 
   include_context 'with fixture files', 'constants'
 
   let(:fixture)      { 'basic.rb' }
   let(:fixture_name) { 'GRAVITY' }
   let(:native) do
-    ::YARD::Registry.find { |obj| obj.title == fixture_name }
+    YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
   def self.expected_json
@@ -33,15 +33,15 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
     end
   end
 
-  include_contract 'should be a data object',
-    expected_json: expected_json
+  include_contract('should be a data object',
+    expected_json:)
 
-  include_contract 'should be a describable object',
+  include_contract('should be a describable object',
     basic_name:    'GRAVITY',
     complex_name:  'SPEED_OF_LIGHT',
     scoped_name:   'Cosmos::PhysicalConstants::SPEED_OF_LIGHT',
     description:   'A very attractive force.',
-    expected_json: expected_json
+    expected_json:)
 
   describe '#as_json' do
     let(:expected) { instance_exec(&self.class.expected_json) }

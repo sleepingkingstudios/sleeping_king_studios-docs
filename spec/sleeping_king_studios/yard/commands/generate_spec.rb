@@ -9,7 +9,7 @@ require 'support/contracts/commands/generator_contract'
 RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
   include Spec::Support::Contracts::Commands
 
-  subject(:command) { described_class.new(docs_path: docs_path, **options) }
+  subject(:command) { described_class.new(docs_path:, **options) }
 
   let(:docs_path) { 'path/to/docs' }
   let(:options)   { {} }
@@ -21,11 +21,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       let(:registry) { parse_registry }
 
       def parse_registry
-        ::YARD::Registry.clear
+        YARD::Registry.clear
 
-        ::YARD.parse('spec/fixtures/generators/basic.rb')
+        YARD.parse('spec/fixtures/generators/basic.rb')
 
-        [::YARD::Registry.root, *::YARD::Registry.to_a]
+        [YARD::Registry.root, *YARD::Registry.to_a]
       end
     end
 
@@ -90,13 +90,14 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
 
     shared_examples 'should generate the data files' do
+      # rubocop:disable Style/RedundantLineContinuation
       it 'should generate the class data files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call
 
         expected_classes.each do |native|
           expect(data_command)
             .to have_received(:call)
-            .with(data_object: class_object(native: native))
+            .with(data_object: class_object(native:))
         end
       end
 
@@ -108,7 +109,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         unexpected_classes.each do |native|
           expect(data_command)
             .not_to have_received(:call)
-            .with(data_object: class_object(native: native))
+            .with(data_object: class_object(native:))
         end
       end
 
@@ -118,7 +119,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expected_constants.each do |native|
           expect(data_command)
             .to have_received(:call)
-            .with(data_object: constant_object(native: native))
+            .with(data_object: constant_object(native:))
         end
       end
 
@@ -130,7 +131,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         unexpected_constants.each do |native|
           expect(data_command)
             .not_to have_received(:call)
-            .with(data_object: constant_object(native: native))
+            .with(data_object: constant_object(native:))
         end
       end
 
@@ -140,7 +141,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expected_methods.each do |native|
           expect(data_command)
             .to have_received(:call)
-            .with(data_object: method_object(native: native))
+            .with(data_object: method_object(native:))
         end
       end
 
@@ -152,7 +153,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         method_aliases.each do |native|
           expect(data_command)
             .not_to have_received(:call)
-            .with(data_object: method_object(native: native))
+            .with(data_object: method_object(native:))
         end
       end
 
@@ -164,7 +165,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         unexpected_methods.each do |native|
           expect(data_command)
             .not_to have_received(:call)
-            .with(data_object: method_object(native: native))
+            .with(data_object: method_object(native:))
         end
       end
 
@@ -174,7 +175,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expected_modules.each do |native|
           expect(data_command)
             .to have_received(:call)
-            .with(data_object: module_object(native: native))
+            .with(data_object: module_object(native:))
         end
       end
 
@@ -186,7 +187,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         unexpected_modules.each do |native|
           expect(data_command)
             .not_to have_received(:call)
-            .with(data_object: module_object(native: native))
+            .with(data_object: module_object(native:))
         end
       end
 
@@ -199,6 +200,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           .to have_received(:call)
           .with(data_object: an_instance_of(data_class), data_type: :namespace)
       end
+      # rubocop:enable Style/RedundantLineContinuation
     end
 
     shared_examples 'should generate the reference files' do
@@ -208,7 +210,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expected_classes.each do |native|
           expect(reference_command)
             .to have_received(:call)
-            .with(data_object: class_object(native: native))
+            .with(data_object: class_object(native:))
         end
       end
 
@@ -218,7 +220,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         expected_modules.each do |native|
           expect(reference_command)
             .to have_received(:call)
-            .with(data_object: module_object(native: native))
+            .with(data_object: module_object(native:))
         end
       end
     end
@@ -268,11 +270,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
 
     def parse_registry
-      ::YARD::Registry.clear
+      YARD::Registry.clear
 
-      ::YARD.parse_string('')
+      YARD.parse_string('')
 
-      [::YARD::Registry.root]
+      [YARD::Registry.root]
     end
 
     def tools
@@ -327,7 +329,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
       expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
         .to have_received(:new)
-        .with(docs_path: docs_path, **command.options)
+        .with(docs_path:, **command.options)
     end
 
     include_examples 'should only generate root data file'
@@ -380,7 +382,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
       let(:error_stream) { StringIO.new }
       let(:options) do
-        super().merge(error_stream: error_stream)
+        super().merge(error_stream:)
       end
       let(:expected) do
         <<~OUTPUT
@@ -466,7 +468,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
         expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
 
       it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
@@ -476,7 +478,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
 
       include_examples 'should generate the data files'
@@ -492,7 +494,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         end
         let(:error_stream) { StringIO.new }
         let(:options) do
-          super().merge(error_stream: error_stream)
+          super().merge(error_stream:)
         end
         let(:expected) do
           <<~OUTPUT
@@ -532,7 +534,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         end
         let(:error_stream) { StringIO.new }
         let(:options) do
-          super().merge(error_stream: error_stream)
+          super().merge(error_stream:)
         end
         let(:expected) do
           <<~OUTPUT
@@ -561,11 +563,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       let(:file_path) { 'path/to/files' }
 
       it 'should return a passing result' do
-        expect(command.call(file_path: file_path)).to be_a_passing_result
+        expect(command.call(file_path:)).to be_a_passing_result
       end
 
       it 'should run the YARD parser' do
-        command.call(file_path: file_path)
+        command.call(file_path:)
 
         expect(parse_command).to have_received(:call).with(file_path)
       end
@@ -585,7 +587,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
         expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
 
       it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
@@ -595,7 +597,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
     end
 
@@ -613,7 +615,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
         expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
 
       it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
@@ -623,14 +625,14 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
     end
 
     context 'when initialized with verbose: true' do
       let(:options) do
         super().merge(
-          output_stream: output_stream,
+          output_stream:,
           verbose:       true
         )
       end
@@ -669,7 +671,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         let(:error_stream)  { StringIO.new }
         let(:merged_stream) { StringIO.new }
         let(:options) do
-          super().merge(error_stream: error_stream)
+          super().merge(error_stream:)
         end
         let(:expected_status) do
           <<~OUTPUT
@@ -786,7 +788,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           let(:error_stream)  { StringIO.new }
           let(:merged_stream) { StringIO.new }
           let(:options) do
-            super().merge(error_stream: error_stream)
+            super().merge(error_stream:)
           end
           let(:expected_status) do
             <<~OUTPUT
@@ -920,7 +922,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           let(:error_stream)  { StringIO.new }
           let(:merged_stream) { StringIO.new }
           let(:options) do
-            super().merge(error_stream: error_stream)
+            super().merge(error_stream:)
           end
           let(:expected_status) do
             <<~OUTPUT
@@ -1060,7 +1062,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
         expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
 
       it 'should initialize the reference command' do # rubocop:disable RSpec/ExampleLength
@@ -1070,7 +1072,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
-          .with(docs_path: docs_path, **command.options)
+          .with(docs_path:, **command.options)
       end
     end
   end

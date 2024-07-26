@@ -3,7 +3,7 @@
 require 'sleeping_king_studios/yard/errors/file_error'
 
 RSpec.describe SleepingKingStudios::Yard::Errors::FileError do
-  subject(:error) { described_class.new(message: message, path: path) }
+  subject(:error) { described_class.new(message:, path:) }
 
   let(:message) { 'something went wrong' }
   let(:path)    { 'path/to/files' }

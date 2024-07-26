@@ -10,7 +10,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Parse do
   end
 
   describe '#call' do
-    before(:example) { allow(::YARD).to receive(:parse) }
+    before(:example) { allow(YARD).to receive(:parse) }
 
     it { expect(command).to be_callable.with(0..1).arguments }
 
@@ -20,14 +20,14 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Parse do
       it 'should call YARD.parse' do
         command.call
 
-        expect(::YARD).to have_received(:parse).with(no_args)
+        expect(YARD).to have_received(:parse).with(no_args)
       end
     end
 
     describe 'with an invalid file or directory path' do
       let(:path) { 'lib/path/to/files' }
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::FileNotFound.new(path: path)
+        SleepingKingStudios::Yard::Errors::FileNotFound.new(path:)
       end
 
       it 'should return a failing result' do
@@ -39,7 +39,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Parse do
       it 'should not call YARD.parse' do
         command.call(path)
 
-        expect(::YARD).not_to have_received(:parse)
+        expect(YARD).not_to have_received(:parse)
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Parse do
       it 'should call YARD.parse' do
         command.call(path)
 
-        expect(::YARD).to have_received(:parse).with(path)
+        expect(YARD).to have_received(:parse).with(path)
       end
     end
   end

@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     INSTANCE_METHOD_PATTERN =
       /\A(#{DEFINITION_PREFIX})?#([[[:lower:]][[:digit:]]_])+[=?]?\z/
-      .freeze
+
     private_constant :INSTANCE_METHOD_PATTERN
 
     class << self

@@ -9,8 +9,8 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
 
   subject(:type) do
     described_class.new(
-      items: items,
-      name:  name,
+      items:,
+      name:,
       **constructor_options
     )
   end

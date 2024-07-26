@@ -8,7 +8,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
     # Pattern used to match external links. YARD seems to use the presence of a
     # protocol to identify a link, so "http://foo" is a valid link, but
     # "www.example.com" is not.
-    LINK_PATTERN = %r{\A\w+://\w+}.freeze
+    LINK_PATTERN = %r{\A\w+://\w+}
     private_constant :LINK_PATTERN
 
     class << self

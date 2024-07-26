@@ -7,7 +7,7 @@ require 'sleeping_king_studios/yard/data/types'
 module SleepingKingStudios::Yard::Data::Types
   # Base class for a YARD type.
   class Type
-    LOWERCASE_LETTER = /\A[[:lower:]]/.freeze
+    LOWERCASE_LETTER = /\A[[:lower:]]/
     private_constant :LOWERCASE_LETTER
 
     # @param name [String] the name of the type.
@@ -53,7 +53,7 @@ module SleepingKingStudios::Yard::Data::Types
 
       @exists =
         SleepingKingStudios::Yard::RegistryQuery
-        .new(registry: registry)
+        .new(registry:)
         .definition_exists?(name)
     end
 

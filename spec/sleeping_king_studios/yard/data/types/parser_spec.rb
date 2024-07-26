@@ -5,9 +5,9 @@ require 'sleeping_king_studios/yard/data/types/parser'
 RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
   subject(:parser) { described_class.new }
 
-  before(:context) { ::YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
+  before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
 
-  after(:example) { ::YARD::Registry.clear }
+  after(:example) { YARD::Registry.clear }
 
   describe '::ParseError' do
     include_examples 'should define constant',
@@ -24,21 +24,21 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
 
     def array_type(items:, name:, ordered: false)
       SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
-        name:    name,
-        items:   items,
-        ordered: ordered
+        name:,
+        items:,
+        ordered:
       )
     end
 
     def basic_type(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(name: name)
+      SleepingKingStudios::Yard::Data::Types::Type.new(name:)
     end
 
     def hash_type(keys:, name:, values:)
       SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
-        keys:   keys,
-        name:   name,
-        values: values
+        keys:,
+        name:,
+        values:
       )
     end
 

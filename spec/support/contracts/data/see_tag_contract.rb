@@ -18,7 +18,7 @@ module Spec::Support::Contracts::Data
       include Spec::Support::Contracts::Data
 
       include_contract 'should be a data object',
-        expected_json:    expected_json,
+        expected_json:,
         skip_constructor: true
 
       describe '.new' do

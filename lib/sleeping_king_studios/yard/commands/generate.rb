@@ -26,7 +26,7 @@ module SleepingKingStudios::Yard::Commands
       output_stream: $stdout,
       **options
     )
-      super(docs_path: docs_path, **options)
+      super(docs_path:, **options)
 
       @error_stream  = error_stream
       @output_stream = output_stream
@@ -35,41 +35,41 @@ module SleepingKingStudios::Yard::Commands
     private
 
     def build_constant(native:)
-      SleepingKingStudios::Yard::Data::ConstantObject.new(native: native)
+      SleepingKingStudios::Yard::Data::ConstantObject.new(native:)
     end
 
     def build_class(native:)
-      SleepingKingStudios::Yard::Data::ClassObject.new(native: native)
+      SleepingKingStudios::Yard::Data::ClassObject.new(native:)
     end
 
     def build_method(native:)
-      SleepingKingStudios::Yard::Data::MethodObject.new(native: native)
+      SleepingKingStudios::Yard::Data::MethodObject.new(native:)
     end
 
     def build_module(native:)
-      SleepingKingStudios::Yard::Data::ModuleObject.new(native: native)
+      SleepingKingStudios::Yard::Data::ModuleObject.new(native:)
     end
 
     def build_root_namespace(native:)
-      SleepingKingStudios::Yard::Data::RootObject.new(native: native)
+      SleepingKingStudios::Yard::Data::RootObject.new(native:)
     end
 
     def data_command
       @data_command ||=
         SleepingKingStudios::Yard::Commands::Generators::DataGenerator
-        .new(docs_path: docs_path, **options)
+        .new(docs_path:, **options)
     end
 
     def generate_classes
       puts "\nGenerating Classes:" if verbose? && !registry_classes.empty?
 
       registry_classes.each do |native|
-        data_object = build_class(native: native)
+        data_object = build_class(native:)
 
         puts "- #{data_object.name}" if verbose?
 
-        generate_data_file(data_object: data_object)
-        generate_reference_file(data_object: data_object)
+        generate_data_file(data_object:)
+        generate_reference_file(data_object:)
       end
     end
 
@@ -77,19 +77,19 @@ module SleepingKingStudios::Yard::Commands
       puts "\nGenerating Constants:" if verbose? && !registry_constants.empty?
 
       registry_constants.each do |native|
-        data_object = build_constant(native: native)
+        data_object = build_constant(native:)
 
         puts "- #{data_object.name}" if verbose?
 
-        generate_data_file(data_object: data_object)
+        generate_data_file(data_object:)
       end
     end
 
     def generate_data_file(data_object:, **options)
       report_result(
         command:     data_command,
-        data_object: data_object,
-        result:      data_command.call(data_object: data_object, **options),
+        data_object:,
+        result:      data_command.call(data_object:, **options),
         **options
       )
     end
@@ -98,11 +98,11 @@ module SleepingKingStudios::Yard::Commands
       puts "\nGenerating Methods:" if verbose? && !registry_methods.empty?
 
       registry_methods.each do |native|
-        data_object = build_method(native: native)
+        data_object = build_method(native:)
 
         puts "- #{data_object.name}" if verbose?
 
-        generate_data_file(data_object: data_object)
+        generate_data_file(data_object:)
       end
     end
 
@@ -110,21 +110,21 @@ module SleepingKingStudios::Yard::Commands
       puts "\nGenerating Modules:" if verbose? && !registry_modules.empty?
 
       registry_modules.each do |native|
-        data_object = build_module(native: native)
+        data_object = build_module(native:)
 
         puts "- #{data_object.name}" if verbose?
 
-        generate_data_file(data_object: data_object)
-        generate_reference_file(data_object: data_object)
+        generate_data_file(data_object:)
+        generate_reference_file(data_object:)
       end
     end
 
     def generate_reference_file(data_object:, **options)
       report_result(
         command:     reference_command,
-        data_object: data_object,
+        data_object:,
         result:      reference_command.call(
-          data_object: data_object,
+          data_object:,
           **options
         ),
         **options
@@ -138,7 +138,7 @@ module SleepingKingStudios::Yard::Commands
 
       puts '- root namespace' if verbose?
 
-      generate_data_file(data_object: data_object, data_type: :namespace)
+      generate_data_file(data_object:, data_type: :namespace)
     end
 
     def parse_registry(file_path:)
@@ -146,7 +146,7 @@ module SleepingKingStudios::Yard::Commands
     end
 
     def process(file_path: nil)
-      step { parse_registry(file_path: file_path) }
+      step { parse_registry(file_path:) }
 
       generate_root_namespace
       generate_classes
@@ -164,7 +164,7 @@ module SleepingKingStudios::Yard::Commands
     def reference_command
       @reference_command ||=
         SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
-        .new(docs_path: docs_path, **options)
+        .new(docs_path:, **options)
     end
 
     def registry
@@ -215,16 +215,16 @@ module SleepingKingStudios::Yard::Commands
     end
 
     def report_result(command:, data_object:, result:, data_type: nil) # rubocop:disable Metrics/MethodLength
-      data_type ||= data_object_type(data_object: data_object)
+      data_type ||= data_object_type(data_object:)
       file_path   = command.file_path(
-        data_object: data_object,
-        data_type:   data_type
+        data_object:,
+        data_type:
       )
 
       if result.success?
-        report_success(file_path: file_path)
+        report_success(file_path:)
       else
-        report_failure(file_path: file_path, result: result)
+        report_failure(file_path:, result:)
       end
 
       result

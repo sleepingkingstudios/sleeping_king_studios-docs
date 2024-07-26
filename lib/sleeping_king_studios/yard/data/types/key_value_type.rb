@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::Types
     # @param values [Array<SleepingKingStudios::Yard::Data::Types::Type>] the
     #   value types.
     def initialize(keys:, name:, values:)
-      super(name: name)
+      super(name:)
 
       @keys   = keys
       @values = values
@@ -46,7 +46,7 @@ module SleepingKingStudios::Yard::Data::Types
     private
 
     def inspect_attributes
-      "#{super()} " \
+      "#{super} " \
         "@keys=[#{keys.map(&:inspect).join(', ')}] " \
         "@values=[#{values.map(&:inspect).join(', ')}]"
     end

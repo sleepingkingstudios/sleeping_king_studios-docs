@@ -10,12 +10,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
-  subject(:namespace) { described_class.new(native: native) }
+  subject(:namespace) { described_class.new(native:) }
 
   include_context 'with fixture files', 'namespaces'
 
   let(:fixture) { 'empty.rb' }
-  let(:native)  { ::YARD::Registry.root }
+  let(:native)  { YARD::Registry.root }
 
   def self.expected_json
     lambda do
@@ -27,12 +27,12 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
     end
   end
 
-  include_contract 'should be a data object',
-    expected_json: expected_json
+  include_contract('should be a data object',
+    expected_json:)
 
-  include_contract 'should implement the namespace methods',
+  include_contract('should implement the namespace methods',
     include_mixins: false,
-    expected_json:  expected_json
+    expected_json:)
 
   describe '#as_json' do
     wrap_context 'using fixture', 'with everything' do

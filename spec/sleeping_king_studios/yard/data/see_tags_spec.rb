@@ -12,7 +12,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::SeeTags do
 
     shared_examples 'should wrap the tag with' do |expected_class_name|
       subject(:see_tag) do
-        described_class.build(native: native, parent: parent)
+        described_class.build(native:, parent:)
       end
 
       let(:expected_class) { described_class.const_get(expected_class_name) }

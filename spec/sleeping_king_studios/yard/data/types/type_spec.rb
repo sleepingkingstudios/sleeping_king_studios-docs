@@ -7,7 +7,7 @@ require 'support/contracts/data/type_contract'
 RSpec.describe SleepingKingStudios::Yard::Data::Types::Type do
   include Spec::Support::Contracts::Data
 
-  subject(:type) { described_class.new(name: name) }
+  subject(:type) { described_class.new(name:) }
 
   let(:name) { 'Rocket' }
 

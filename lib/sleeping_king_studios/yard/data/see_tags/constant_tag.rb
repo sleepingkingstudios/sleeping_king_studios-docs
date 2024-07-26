@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::SeeTags
 
     CONSTANT_PATTERN =
       /\A((#{DEFINITION_PREFIX})?::)?[[:upper:]]([[[:upper:]][[:digit:]]_])*\z/
-      .freeze
+
     private_constant :CONSTANT_PATTERN
 
     class << self

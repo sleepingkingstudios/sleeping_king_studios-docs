@@ -9,7 +9,7 @@ require 'support/contracts/commands/generator_contract'
 RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator do # rubocop:disable Layout/LineLength
   include Spec::Support::Contracts::Commands
 
-  subject(:command) { described_class.new(docs_path: docs_path, **options) }
+  subject(:command) { described_class.new(docs_path:, **options) }
 
   let(:docs_path) { 'path/to/docs' }
   let(:options)   { {} }
@@ -26,9 +26,9 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
     let(:registry) { parse_registry }
     let(:native)   { registry.find { |obj| obj.name == :Rocketry } }
     let(:data_object) do
-      SleepingKingStudios::Yard::Data::ClassObject.new(native: native)
+      SleepingKingStudios::Yard::Data::ClassObject.new(native:)
     end
-    let(:file_path) { command.file_path(data_object: data_object) }
+    let(:file_path) { command.file_path(data_object:) }
     let(:file_data) do
       <<~MARKDOWN
         ---
@@ -41,15 +41,15 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
     end
 
     def call_command
-      command.call(data_object: data_object)
+      command.call(data_object:)
     end
 
     def parse_registry
-      ::YARD::Registry.clear
+      YARD::Registry.clear
 
-      ::YARD.parse('spec/fixtures/classes/basic.rb')
+      YARD.parse('spec/fixtures/classes/basic.rb')
 
-      [::YARD::Registry.root, *::YARD::Registry.to_a]
+      [YARD::Registry.root, *YARD::Registry.to_a]
     end
 
     before(:example) do
@@ -63,7 +63,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
     end
 
     after(:example) do
-      ::YARD::Registry.clear
+      YARD::Registry.clear
     end
 
     it 'should define the method' do
@@ -88,7 +88,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
 
       expect(write_command)
         .to have_received(:call)
-        .with(contents: file_data, file_path: file_path)
+        .with(contents: file_data, file_path:)
     end
 
     context 'when initialized with dry_run: true' do
@@ -127,13 +127,13 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
 
         expect(write_command)
           .to have_received(:call)
-          .with(contents: file_data, file_path: file_path)
+          .with(contents: file_data, file_path:)
       end
     end
 
     context 'when initialized with version: value' do
       let(:version) { '1.10.101' }
-      let(:options) { super().merge(version: version) }
+      let(:options) { super().merge(version:) }
       let(:file_data) do
         <<~MARKDOWN
           ---
@@ -152,7 +152,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
 
         expect(write_command)
           .to have_received(:call)
-          .with(contents: file_data, file_path: file_path)
+          .with(contents: file_data, file_path:)
       end
     end
 
@@ -181,11 +181,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
       instance_double(
         SleepingKingStudios::Yard::Data::ClassObject,
         class:     SleepingKingStudios::Yard::Data::ClassObject,
-        data_path: data_path
+        data_path:
       )
     end
     let(:data_path) { 'local/file' }
-    let(:file_path) { command.file_path(data_object: data_object) }
+    let(:file_path) { command.file_path(data_object:) }
     let(:expected)  { File.join(docs_path, 'reference', "#{data_path}.md") }
 
     it 'should define the method' do
@@ -200,7 +200,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
     describe 'with data_type: value' do
       let(:data_type) { :definition }
       let(:file_path) do
-        command.file_path(data_object: data_object, data_type: data_type)
+        command.file_path(data_object:, data_type:)
       end
 
       it { expect(file_path).to be == expected }
@@ -223,7 +223,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
       describe 'with data_type: value' do
         let(:data_type) { :definition }
         let(:file_path) do
-          command.file_path(data_object: data_object, data_type: data_type)
+          command.file_path(data_object:, data_type:)
         end
 
         it { expect(file_path).to be == expected }

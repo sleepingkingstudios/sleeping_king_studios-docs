@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Data::Types
     # @param ordered [Boolean] if true, indicates the type represents an order-
     #   dependent list.
     def initialize(items:, name:, ordered: false)
-      super(name: name)
+      super(name:)
 
       @items   = items
       @ordered = ordered
@@ -50,7 +50,7 @@ module SleepingKingStudios::Yard::Data::Types
     private
 
     def inspect_attributes
-      "#{super()} @ordered=#{ordered?} " \
+      "#{super} @ordered=#{ordered?} " \
         "@items=[#{items.map(&:inspect).join(', ')}]"
     end
   end

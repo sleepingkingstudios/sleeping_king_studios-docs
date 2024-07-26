@@ -3,7 +3,7 @@
 require 'sleeping_king_studios/yard/errors/file_already_exists'
 
 RSpec.describe SleepingKingStudios::Yard::Errors::FileAlreadyExists do
-  subject(:error) { described_class.new(path: path) }
+  subject(:error) { described_class.new(path:) }
 
   let(:path) { 'path/to/file.txt' }
 

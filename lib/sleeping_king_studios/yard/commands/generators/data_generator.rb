@@ -17,7 +17,7 @@ module SleepingKingStudios::Yard::Commands::Generators
     #
     # @return [String] the qualified path to the generated file.
     def file_path(data_object:, data_type: nil)
-      data_type ||= data_object_type(data_object: data_object)
+      data_type ||= data_object_type(data_object:)
 
       File.join(dir_path(data_type), "#{data_object.data_path}.yml")
     end
@@ -41,16 +41,16 @@ module SleepingKingStudios::Yard::Commands::Generators
     end
 
     def process(data_object:, data_type: nil)
-      data        = file_data(data_object: data_object)
-      data_type ||= data_object_type(data_object: data_object)
+      data        = file_data(data_object:)
+      data_type ||= data_object_type(data_object:)
 
       return success(nil) if dry_run?
 
       write_command.call(
         contents:  YAML.dump(data),
         file_path: file_path(
-          data_object: data_object,
-          data_type:   data_type
+          data_object:,
+          data_type:
         )
       )
     end
