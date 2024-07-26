@@ -22,10 +22,13 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
     let(:dir_path)  { File.dirname(File.expand_path(file_path)) }
 
     before(:example) do
-      allow(File).to receive(:directory?).and_return(false)
-      allow(File).to receive(:exist?).and_return(false)
-      allow(File).to receive(:file?).and_return(false)
-      allow(File).to receive(:write)
+      allow(File).to receive_messages(
+        directory?: false,
+        exist?:     false,
+        file?:      false,
+        write:      nil
+      )
+
       allow(FileUtils).to receive(:mkdir_p)
     end
 

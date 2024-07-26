@@ -5,9 +5,9 @@ require 'sleeping_king_studios/yard/data/types/parser'
 RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
   subject(:parser) { described_class.new }
 
-  before(:context) { ::YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
+  before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
 
-  after(:example) { ::YARD::Registry.clear }
+  after(:example) { YARD::Registry.clear }
 
   describe '::ParseError' do
     include_examples 'should define constant',

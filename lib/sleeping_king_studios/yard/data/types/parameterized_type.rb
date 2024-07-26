@@ -50,7 +50,7 @@ module SleepingKingStudios::Yard::Data::Types
     private
 
     def inspect_attributes
-      "#{super()} @ordered=#{ordered?} " \
+      "#{super} @ordered=#{ordered?} " \
         "@items=[#{items.map(&:inspect).join(', ')}]"
     end
   end

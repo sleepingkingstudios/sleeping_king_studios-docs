@@ -21,11 +21,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       let(:registry) { parse_registry }
 
       def parse_registry
-        ::YARD::Registry.clear
+        YARD::Registry.clear
 
-        ::YARD.parse('spec/fixtures/generators/basic.rb')
+        YARD.parse('spec/fixtures/generators/basic.rb')
 
-        [::YARD::Registry.root, *::YARD::Registry.to_a]
+        [YARD::Registry.root, *YARD::Registry.to_a]
       end
     end
 
@@ -90,6 +90,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
 
     shared_examples 'should generate the data files' do
+      # rubocop:disable Style/RedundantLineContinuation
       it 'should generate the class data files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call
 
@@ -199,6 +200,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           .to have_received(:call)
           .with(data_object: an_instance_of(data_class), data_type: :namespace)
       end
+      # rubocop:enable Style/RedundantLineContinuation
     end
 
     shared_examples 'should generate the reference files' do
@@ -268,11 +270,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
 
     def parse_registry
-      ::YARD::Registry.clear
+      YARD::Registry.clear
 
-      ::YARD.parse_string('')
+      YARD.parse_string('')
 
-      [::YARD::Registry.root]
+      [YARD::Registry.root]
     end
 
     def tools

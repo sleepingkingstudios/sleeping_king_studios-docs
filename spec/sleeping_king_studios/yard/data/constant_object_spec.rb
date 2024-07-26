@@ -17,7 +17,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
   let(:fixture)      { 'basic.rb' }
   let(:fixture_name) { 'GRAVITY' }
   let(:native) do
-    ::YARD::Registry.find { |obj| obj.title == fixture_name }
+    YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
   def self.expected_json

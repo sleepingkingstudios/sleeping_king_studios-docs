@@ -18,7 +18,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::ModuleObject do
   let(:fixture)      { 'basic.rb' }
   let(:fixture_name) { 'Space' }
   let(:native) do
-    ::YARD::Registry.find { |obj| obj.title == fixture_name }
+    YARD::Registry.find { |obj| obj.title == fixture_name }
   end
 
   def self.expected_json # rubocop:disable Metrics/MethodLength

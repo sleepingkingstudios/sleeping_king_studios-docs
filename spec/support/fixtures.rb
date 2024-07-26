@@ -13,7 +13,7 @@ module Spec::Support
       def wrap_context(context_name, *args, **kwargs, &block)
         return super unless context_name == 'using fixture'
 
-        context %(using fixture "#{args.first}") do
+        context %(using fixture "#{args.first}") do # rubocop:disable RSpec/ContextWording
           include_context 'using fixture', *args, **kwargs
 
           instance_exec(&block)

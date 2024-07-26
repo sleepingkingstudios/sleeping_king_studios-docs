@@ -15,7 +15,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
   include_context 'with fixture files', 'namespaces'
 
   let(:fixture) { 'empty.rb' }
-  let(:native)  { ::YARD::Registry.root }
+  let(:native)  { YARD::Registry.root }
 
   def self.expected_json
     lambda do

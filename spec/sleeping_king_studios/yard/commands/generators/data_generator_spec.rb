@@ -35,11 +35,11 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
     end
 
     def parse_registry
-      ::YARD::Registry.clear
+      YARD::Registry.clear
 
-      ::YARD.parse('spec/fixtures/constants/basic.rb')
+      YARD.parse('spec/fixtures/constants/basic.rb')
 
-      [::YARD::Registry.root, *::YARD::Registry.to_a]
+      [YARD::Registry.root, *YARD::Registry.to_a]
     end
 
     before(:example) do
@@ -53,7 +53,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
     end
 
     after(:example) do
-      ::YARD::Registry.clear
+      YARD::Registry.clear
     end
 
     it 'should define the method' do

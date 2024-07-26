@@ -5,11 +5,11 @@ require 'sleeping_king_studios/yard/registry_query'
 RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
   subject(:query) { described_class.new(registry: registry) }
 
-  let(:registry) { ::YARD::Registry }
+  let(:registry) { YARD::Registry }
 
-  before(:context) { ::YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
+  before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
 
-  after(:example) { ::YARD::Registry.clear }
+  after(:example) { YARD::Registry.clear }
 
   describe '.new' do
     it 'should define the constructor' do
@@ -36,7 +36,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
         RUBY
       end
 
-      before(:example) { ::YARD.parse_string(ruby) }
+      before(:example) { YARD.parse_string(ruby) }
 
       it { expect(query.class_method_exists?(method_name)).to be true }
     end
@@ -55,7 +55,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
           RUBY
         end
 
-        before(:example) { ::YARD.parse_string(ruby) }
+        before(:example) { YARD.parse_string(ruby) }
 
         it { expect(query.class_method_exists?(method_name)).to be true }
       end
@@ -73,7 +73,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
           RUBY
         end
 
-        before(:example) { ::YARD.parse_string(ruby) }
+        before(:example) { YARD.parse_string(ruby) }
 
         it { expect(query.class_method_exists?(method_name)).to be true }
       end
@@ -96,7 +96,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
         RUBY
       end
 
-      before(:example) { ::YARD.parse_string(ruby) }
+      before(:example) { YARD.parse_string(ruby) }
 
       it { expect(query.constant_exists?(constant_name)).to be true }
     end
@@ -113,7 +113,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
           RUBY
         end
 
-        before(:example) { ::YARD.parse_string(ruby) }
+        before(:example) { YARD.parse_string(ruby) }
 
         it { expect(query.constant_exists?(constant_name)).to be true }
       end
@@ -136,7 +136,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
         RUBY
       end
 
-      before(:example) { ::YARD.parse_string(ruby) }
+      before(:example) { YARD.parse_string(ruby) }
 
       it { expect(query.definition_exists?(module_name)).to be true }
     end
@@ -150,7 +150,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
         RUBY
       end
 
-      before(:example) { ::YARD.parse_string(ruby) }
+      before(:example) { YARD.parse_string(ruby) }
 
       it { expect(query.definition_exists?(module_name)).to be true }
     end
@@ -167,7 +167,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
           RUBY
         end
 
-        before(:example) { ::YARD.parse_string(ruby) }
+        before(:example) { YARD.parse_string(ruby) }
 
         it { expect(query.definition_exists?(module_name)).to be true }
       end
@@ -179,7 +179,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
           RUBY
         end
 
-        before(:example) { ::YARD.parse_string(ruby) }
+        before(:example) { YARD.parse_string(ruby) }
 
         it { expect(query.definition_exists?(module_name)).to be true }
       end
@@ -204,7 +204,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
         RUBY
       end
 
-      before(:example) { ::YARD.parse_string(ruby) }
+      before(:example) { YARD.parse_string(ruby) }
 
       it { expect(query.instance_method_exists?(method_name)).to be true }
     end
@@ -221,7 +221,7 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
           RUBY
         end
 
-        before(:example) { ::YARD.parse_string(ruby) }
+        before(:example) { YARD.parse_string(ruby) }
 
         it { expect(query.instance_method_exists?(method_name)).to be true }
       end
@@ -231,6 +231,6 @@ RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
   describe '#registry' do
     include_examples 'should define private reader',
       :registry,
-      -> { ::YARD::Registry }
+      -> { YARD::Registry }
   end
 end

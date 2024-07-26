@@ -46,7 +46,7 @@ module SleepingKingStudios::Yard::Data::Types
     private
 
     def inspect_attributes
-      "#{super()} " \
+      "#{super} " \
         "@keys=[#{keys.map(&:inspect).join(', ')}] " \
         "@values=[#{values.map(&:inspect).join(', ')}]"
     end
