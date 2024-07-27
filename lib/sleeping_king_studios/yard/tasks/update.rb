@@ -25,6 +25,7 @@ module SleepingKingStudios::Yard::Tasks
       type:    :boolean,
       default: true,
       desc:    'if true, prints status messages to STDOUT'
+    # Updates the documentation files for the project.
     def update
       SleepingKingStudios::Yard::Commands::Generate
         .new(force: true, **tools.hash_tools.symbolize_keys(options))

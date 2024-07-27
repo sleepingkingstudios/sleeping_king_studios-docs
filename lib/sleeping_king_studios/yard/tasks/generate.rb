@@ -29,6 +29,7 @@ module SleepingKingStudios::Yard::Tasks
       type:    :boolean,
       default: true,
       desc:    'if true, prints status messages to STDOUT'
+    # Generates documentation files for the project.
     def generate
       SleepingKingStudios::Yard::Commands::Generate
         .new(**tools.hash_tools.symbolize_keys(options))
