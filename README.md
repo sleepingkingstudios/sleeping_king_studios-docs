@@ -2,30 +2,77 @@
 
 Tooling for working with YARD documentation.
 
+## Installation
+
+Add the docs dependencies to your Gemfile:
+
+```ruby
+group :doc do
+  gem 'sleeping_king_studios-yard'
+  gem 'thor'
+  gem 'yard'
+end
+```
+
+Generate or update your `tasks.thor` file:
+
+```ruby
+# frozen_string_literal: true
+
+load 'sleeping_king_studios/yard/tasks.rb'
+```
+
 ## Generating Documentation
 
-To generate documentation, use the `Generate` command:
+Use the `Thor` CLI to generate documentation. The `docs:generate` task will create documentation for new files, while `docs:update` will also update existing file documentation.
 
-```ruby
-require 'sleeping_king_studios/yard'
+## CLI Tasks
 
-docs_path = './docs'
-command   =
-  SleepingKingStudios::Yard::Commands::Generate.new(docs_path: docs_path)
+The gem defines a `Thor` CLI for generating documentation. To view the defined commands, run `bundle exec thor list`; all of the tasks for this gem are defined under the `docs:` namespace.
 
-command.call
+### docs:generate
+
+The `docs:generate` task generates the documentation files for each Ruby file in your project. It does not update any existing files by default, so if you have made changes to existing code use the `docs:update` command (below) or use the `--force` command line option.
+
+```bash
+bundle exec thor docs:generate
 ```
 
-You can also pass an optional `:file_path` keyword to `#call`, which specifies the location from which `YARD` will parse the source files.
+The `docs:generate` command defines the following options:
 
-```ruby
-command.call(file_path: './app')
+docs_path
+: The `--docs-path=value` option allows customizing the root directory for the generated documentation files. The default value is `./docs`.
+
+dry_run
+: If the `--dry-run` flag is set, the task will not make any changes to the filesystem.
+
+force
+: If the `--force` flag is set, the task will overwrite previously generated files.
+
+verbose
+: If the `--skip-verbose` flag is set, the task will not output its status to STDOUT.
+
+version
+: The `--version=value` option allows setting a version for the generated documentation. If set, the files will be generated in namespaced directories and set the `version` flag in the YAML files.
+
+### docs:update
+
+The `docs:update` task generates and updates the documentation files for each Ruby file in your project. It will update any existing documentation files.
+
+```bash
+bundle exec thor docs:update
 ```
 
-The `Generate` command defines the following constructor options:
+The `docs:update` command defines the following options:
 
-- **dry_run:** *Boolean*. If `true`, the command does not write any files to disk. Defaults to `false`.
-- **force:** *Boolean*. If `true`, the command will overwrite any existing files. Defaults to `false`.
-- **template_path:** *String*. The relative path to the Jekyll templates for each data type; used when generating the reference Markdown files. Defaults to `reference`.
-- **verbose:** *Boolean*. If `true`, the command will write a status update to `STDOUT` for each file written to disk. Defaults to `false`.
-- **version:** *String*. If provided, the command will scope the generated data and reference files to a versioned directory, and writes the version directly to data files (in the file data) and reference files (in the template data). Defaults to `nil`.
+docs_path
+: The `--docs-path=value` option allows customizing the root directory for the generated documentation files. The default value is `./docs`.
+
+dry_run
+: If the `--dry-run` flag is set, the task will not make any changes to the filesystem.
+
+verbose
+: If the `--skip-verbose` flag is set, the task will not output its status to STDOUT.
+
+version
+: The `--version=value` option allows setting a version for the generated documentation. If set, the files will be generated in namespaced directories and set the `version` flag in the YAML files.
