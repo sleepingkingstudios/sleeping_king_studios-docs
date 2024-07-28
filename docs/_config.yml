@@ -1,0 +1,28 @@
+---
+collections:
+  classes:
+    output: false
+  constants:
+    output: false
+  methods:
+    output: false
+  modules:
+    output: false
+  namespaces:
+    output: false
+defaults:
+- scope:
+    path: ''
+    type: 'pages'
+  values:
+    encoding: 'utf-8'
+    layout: 'default'
+    title: 'SleepingKingStudios::Yard'
+exclude:
+  - /vendor
+description: |
+    Tooling for working with YARD documentation.
+markdown: kramdown
+repository: sleepingkingstudios/sleeping_king_studios-yard
+theme: jekyll-theme-dinky
+title: 'Docs'

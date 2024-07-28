@@ -1,0 +1,22 @@
+---
+name: SleepingKingStudios::Yard::Tasks::Update
+slug: update
+type: class
+files:
+- lib/sleeping_king_studios/yard/tasks/update.rb
+parent_path: sleeping-king-studios/yard/tasks
+short_description: CLI task for updating documentation files.
+instance_methods:
+- name: update
+  path: sleeping-king-studios/yard/tasks/update/i-update
+  slug: update
+  inherited: false
+data_path: sleeping-king-studios/yard/tasks/update
+constructor: false
+inherited_classes:
+- name: SleepingKingStudios::Yard::Tasks::Base
+  slug: base
+  path: sleeping-king-studios/yard/tasks/base
+- name: Thor
+  slug: thor
+version: "*"

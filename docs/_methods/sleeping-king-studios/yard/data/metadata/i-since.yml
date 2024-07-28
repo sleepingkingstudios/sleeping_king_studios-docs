@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Yard::Data::Metadata#since
+parent_path: sleeping-king-studios/yard/data/metadata
+signature: since
+slug: since
+constructor: false
+data_path: sleeping-king-studios/yard/data/metadata/i-since
+returns:
+- description: the collected @since tags.
+  type:
+  - name: Array
+    items:
+    - name: String
+short_description: Collects the @since tags defined for the module.
+version: "*"

@@ -1,0 +1,19 @@
+---
+name: SleepingKingStudios::Yard::Registry
+slug: registry
+type: module
+files:
+- lib/sleeping_king_studios/yard/registry.rb
+parent_path: sleeping-king-studios/yard
+short_description: Dependency injection provider wrapping the YARD registry.
+class_methods:
+- name: clear
+  path: sleeping-king-studios/yard/registry/c-clear
+  slug: clear
+  inherited: false
+- name: instance
+  path: sleeping-king-studios/yard/registry/c-instance
+  slug: instance
+  inherited: false
+data_path: sleeping-king-studios/yard/registry
+version: "*"

@@ -1,0 +1,23 @@
+---
+name: SleepingKingStudios::Yard::Data::Metadata#see
+parent_path: sleeping-king-studios/yard/data/metadata
+signature: see
+slug: see
+constructor: false
+data_path: sleeping-king-studios/yard/data/metadata/i-see
+description: |-
+  Each @see tag is represented as a Hash with String keys and values, and
+  has at a minimum the 'text' key. See the SeeTag#as_json method for
+  details.
+returns:
+- description: ''
+  type:
+  - name: Array
+    items:
+    - name: Hash
+      keys:
+      - name: String
+      values:
+      - name: String
+short_description: Collects the @see tags defined the for the module.
+version: "*"

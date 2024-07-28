@@ -1,0 +1,8 @@
+---
+name: SleepingKingStudios::Yard::Errors::FileAlreadyExists::TYPE
+parent_path: sleeping-king-studios/yard/errors/file-already-exists
+slug: type
+short_description: Short string used to identify the type of error.
+value: "'sleeping_king_studios.yard.errors.file_already_exists'"
+data_path: sleeping-king-studios/yard/errors/file-already-exists/type
+version: "*"

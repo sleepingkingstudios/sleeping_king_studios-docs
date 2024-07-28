@@ -1,0 +1,16 @@
+---
+name: SleepingKingStudios::Yard::Data::Metadata#api
+parent_path: sleeping-king-studios/yard/data/metadata
+signature: api
+slug: api
+constructor: false
+data_path: sleeping-king-studios/yard/data/metadata/i-api
+returns:
+- description: the contents of the @api tag.
+  type:
+  - name: String
+- description: if there is no @api tag defined.
+  type:
+  - name: nil
+short_description: Returns the @api tag, if any, defined for the module.
+version: "*"

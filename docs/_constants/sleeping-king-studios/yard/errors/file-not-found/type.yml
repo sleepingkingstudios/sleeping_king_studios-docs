@@ -1,0 +1,8 @@
+---
+name: SleepingKingStudios::Yard::Errors::FileNotFound::TYPE
+parent_path: sleeping-king-studios/yard/errors/file-not-found
+slug: type
+short_description: Short string used to identify the type of error.
+value: "'sleeping_king_studios.yard.errors.file_not_found'"
+data_path: sleeping-king-studios/yard/errors/file-not-found/type
+version: "*"

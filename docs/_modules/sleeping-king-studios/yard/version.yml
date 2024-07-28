@@ -1,0 +1,43 @@
+---
+name: SleepingKingStudios::Yard::Version
+slug: version
+type: module
+files:
+- lib/sleeping_king_studios/yard/version.rb
+parent_path: sleeping-king-studios/yard
+short_description: The current version of the gem.
+class_methods:
+- name: to_gem_version
+  path: sleeping-king-studios/yard/version/c-to-gem-version
+  slug: to-gem-version
+  inherited: false
+constants:
+- name: BUILD
+  path: sleeping-king-studios/yard/version/build
+  slug: build
+  inherited: false
+- name: MAJOR
+  path: sleeping-king-studios/yard/version/major
+  slug: major
+  inherited: false
+- name: MINOR
+  path: sleeping-king-studios/yard/version/minor
+  slug: minor
+  inherited: false
+- name: PATCH
+  path: sleeping-king-studios/yard/version/patch
+  slug: patch
+  inherited: false
+- name: PRERELEASE
+  path: sleeping-king-studios/yard/version/prerelease
+  slug: prerelease
+  inherited: false
+data_path: sleeping-king-studios/yard/version
+metadata:
+  api: private
+  see:
+  - label: http://semver.org/
+    path: http://semver.org/
+    text:
+    type: link
+version: "*"

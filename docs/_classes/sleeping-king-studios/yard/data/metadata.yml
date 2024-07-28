@@ -1,0 +1,84 @@
+---
+name: SleepingKingStudios::Yard::Data::Metadata
+slug: metadata
+type: class
+files:
+- lib/sleeping_king_studios/yard/data/metadata.rb
+parent_path: sleeping-king-studios/yard/data
+short_description: Object representing the metadata tags for a Ruby module.
+instance_methods:
+- name: abstract
+  path: sleeping-king-studios/yard/data/metadata/i-abstract
+  slug: abstract
+  inherited: false
+- name: api
+  path: sleeping-king-studios/yard/data/metadata/i-api
+  slug: api
+  inherited: false
+- name: as_json
+  path: sleeping-king-studios/yard/data/metadata/i-as-json
+  slug: as-json
+  inherited: false
+- name: authors
+  path: sleeping-king-studios/yard/data/metadata/i-authors
+  slug: authors
+  inherited: false
+- name: deprecated
+  path: sleeping-king-studios/yard/data/metadata/i-deprecated
+  slug: deprecated
+  inherited: false
+- name: examples
+  path: sleeping-king-studios/yard/data/metadata/i-examples
+  slug: examples
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/yard/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: notes
+  path: sleeping-king-studios/yard/data/metadata/i-notes
+  slug: notes
+  inherited: false
+- name: see
+  path: sleeping-king-studios/yard/data/metadata/i-see
+  slug: see
+  inherited: false
+- name: since
+  path: sleeping-king-studios/yard/data/metadata/i-since
+  slug: since
+  inherited: false
+- name: todos
+  path: sleeping-king-studios/yard/data/metadata/i-todos
+  slug: todos
+  inherited: false
+- name: versions
+  path: sleeping-king-studios/yard/data/metadata/i-versions
+  slug: versions
+  inherited: false
+data_path: sleeping-king-studios/yard/data/metadata
+description: |-
+  Each module can have the following metadata tags:
+
+  - @example
+  - @note
+  - @see
+  - @todo
+
+  Other tags are not currently supported.
+metadata:
+  see:
+  - label: SleepingKingStudios::Yard::Data::ModuleObject
+    path: sleeping-king-studios/yard/data/module-object
+    text:
+    type: reference
+  - label: SleepingKingStudios::Yard::Data::SeeTags
+    path: sleeping-king-studios/yard/data/see-tags
+    text:
+    type: reference
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Yard::Data::Base
+  slug: base
+  path: sleeping-king-studios/yard/data/base
+version: "*"

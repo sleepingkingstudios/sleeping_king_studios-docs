@@ -1,0 +1,25 @@
+---
+name: SleepingKingStudios::Yard::Commands
+slug: commands
+type: module
+files:
+- lib/sleeping_king_studios/yard/commands.rb
+- lib/sleeping_king_studios/yard/commands/parse.rb
+- lib/sleeping_king_studios/yard/commands/generate.rb
+- lib/sleeping_king_studios/yard/commands/generators.rb
+- lib/sleeping_king_studios/yard/commands/write_file.rb
+parent_path: sleeping-king-studios/yard
+short_description: Namespace for commands, which parse and generate documentation
+  files.
+defined_classes:
+- name: Generate
+  slug: generate
+- name: Parse
+  slug: parse
+- name: WriteFile
+  slug: write-file
+defined_modules:
+- name: Generators
+  slug: generators
+data_path: sleeping-king-studios/yard/commands
+version: "*"

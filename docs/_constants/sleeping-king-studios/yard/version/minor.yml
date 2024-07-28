@@ -1,0 +1,10 @@
+---
+name: SleepingKingStudios::Yard::Version::MINOR
+parent_path: sleeping-king-studios/yard/version
+slug: minor
+short_description: Minor version.
+value: '1'
+data_path: sleeping-king-studios/yard/version/minor
+metadata:
+  api: private
+version: "*"

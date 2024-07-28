@@ -1,0 +1,33 @@
+---
+name: SleepingKingStudios::Yard::Data::Types::ParameterizedType#initialize
+parent_path: sleeping-king-studios/yard/data/types/parameterized-type
+signature: 'initialize(items:, name:, ordered: false)'
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/yard/data/types/parameterized-type/i-initialize
+params:
+- description: |-
+    the
+    child types.
+  name: items
+  type:
+  - name: Array
+    items:
+    - name: SleepingKingStudios::Yard::Data::Types::Type
+      path: sleeping-king-studios/yard/data/types/type
+- description: the name of the type.
+  name: name
+  type:
+  - name: String
+- description: |-
+    if true, indicates the type represents an order-
+    dependent list.
+  name: ordered
+  type:
+  - name: Boolean
+  default: 'false'
+returns:
+- description: a new instance of ParameterizedType
+  type:
+  - name: ParameterizedType
+version: "*"

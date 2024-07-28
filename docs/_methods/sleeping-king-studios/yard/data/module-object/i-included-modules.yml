@@ -1,0 +1,25 @@
+---
+name: SleepingKingStudios::Yard::Data::ModuleObject#included_modules
+parent_path: sleeping-king-studios/yard/data/module-object
+signature: included_modules
+slug: included-modules
+constructor: false
+data_path: sleeping-king-studios/yard/data/module-object/i-included-modules
+description: |-
+  For each included Module, it returns a Hash with the following keys:
+
+  - 'name': The name of the included module.
+  - 'slug': A url-safe, hyphen-separated representation of the name.
+  - 'path': The path to the data file for the module.
+returns:
+- description: the included modules.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+      keys:
+      - name: String
+      values:
+      - name: String
+short_description: A list of the modules that are included in the original module.
+version: "*"
