@@ -1,0 +1,8 @@
+---
+name: SleepingKingStudios::Yard::Errors::InvalidDirectory::TYPE
+parent_path: sleeping-king-studios/yard/errors/invalid-directory
+slug: type
+short_description: Short string used to identify the type of error.
+value: "'sleeping_king_studios.yard.errors.invalid_directory'"
+data_path: sleeping-king-studios/yard/errors/invalid-directory/type
+version: "*"

@@ -1,0 +1,20 @@
+---
+name: SleepingKingStudios::Yard::RegistryQuery#definition_exists?
+parent_path: sleeping-king-studios/yard/registry-query
+signature: definition_exists?(module_name)
+slug: definition-exists?
+constructor: false
+data_path: sleeping-king-studios/yard/registry-query/i-definition-exists?
+params:
+- description: |-
+    the name of the class or module and defining
+    namespace, if any.
+  name: module_name
+  type:
+  - name: String
+returns:
+- description: true if the class or module exists, otherwise false.
+  type:
+  - name: Boolean
+short_description: Checks if the given class or module is defined in the registry.
+version: "*"

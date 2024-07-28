@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Yard::Tasks::Base
+slug: base
+type: class
+files:
+- lib/sleeping_king_studios/yard/tasks/base.rb
+parent_path: sleeping-king-studios/yard/tasks
+short_description: Generic base CLI task.
+data_path: sleeping-king-studios/yard/tasks/base
+constructor: false
+direct_subclasses:
+- name: SleepingKingStudios::Yard::Tasks::Generate
+  slug: generate
+  path: sleeping-king-studios/yard/tasks/generate
+- name: SleepingKingStudios::Yard::Tasks::Update
+  slug: update
+  path: sleeping-king-studios/yard/tasks/update
+inherited_classes:
+- name: Thor
+  slug: thor
+version: "*"

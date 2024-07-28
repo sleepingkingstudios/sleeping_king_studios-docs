@@ -1,0 +1,124 @@
+---
+name: SleepingKingStudios::Yard::Data::MethodObject
+slug: method-object
+type: class
+files:
+- lib/sleeping_king_studios/yard/data/method_object.rb
+parent_path: sleeping-king-studios/yard/data
+short_description: Object representing a Ruby method.
+instance_methods:
+- name: alias?
+  path: sleeping-king-studios/yard/data/method-object/i-alias?
+  slug: alias?
+  inherited: false
+- name: aliases
+  path: sleeping-king-studios/yard/data/method-object/i-aliases
+  slug: aliases
+  inherited: false
+- name: as_json
+  path: sleeping-king-studios/yard/data/method-object/i-as-json
+  slug: as-json
+  inherited: false
+- name: class_method?
+  path: sleeping-king-studios/yard/data/method-object/i-class-method?
+  slug: class-method?
+  inherited: false
+- name: constructor?
+  path: sleeping-king-studios/yard/data/method-object/i-constructor?
+  slug: constructor?
+  inherited: false
+- name: data_path
+  path: sleeping-king-studios/yard/data/method-object/i-data-path
+  slug: data-path
+  inherited: false
+- name: description
+  path: sleeping-king-studios/yard/data/method-object/i-description
+  slug: description
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/yard/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: instance_method?
+  path: sleeping-king-studios/yard/data/method-object/i-instance-method?
+  slug: instance-method?
+  inherited: false
+- name: metadata
+  path: sleeping-king-studios/yard/data/method-object/i-metadata
+  slug: metadata
+  inherited: false
+- name: name
+  path: sleeping-king-studios/yard/data/method-object/i-name
+  slug: name
+  inherited: false
+- name: options
+  path: sleeping-king-studios/yard/data/method-object/i-options
+  slug: options
+  inherited: false
+- name: overloaded?
+  path: sleeping-king-studios/yard/data/method-object/i-overloaded?
+  slug: overloaded?
+  inherited: false
+- name: overloads
+  path: sleeping-king-studios/yard/data/method-object/i-overloads
+  slug: overloads
+  inherited: false
+- name: params
+  path: sleeping-king-studios/yard/data/method-object/i-params
+  slug: params
+  inherited: false
+- name: parent_path
+  path: sleeping-king-studios/yard/data/method-object/i-parent-path
+  slug: parent-path
+  inherited: false
+- name: raises
+  path: sleeping-king-studios/yard/data/method-object/i-raises
+  slug: raises
+  inherited: false
+- name: returns
+  path: sleeping-king-studios/yard/data/method-object/i-returns
+  slug: returns
+  inherited: false
+- name: short_description
+  path: sleeping-king-studios/yard/data/method-object/i-short-description
+  slug: short-description
+  inherited: false
+- name: signature
+  path: sleeping-king-studios/yard/data/method-object/i-signature
+  slug: signature
+  inherited: false
+- name: slug
+  path: sleeping-king-studios/yard/data/method-object/i-slug
+  slug: slug
+  inherited: false
+- name: yield_params
+  path: sleeping-king-studios/yard/data/method-object/i-yield-params
+  slug: yield-params
+  inherited: false
+- name: yield_returns
+  path: sleeping-king-studios/yard/data/method-object/i-yield-returns
+  slug: yield-returns
+  inherited: false
+- name: yields
+  path: sleeping-king-studios/yard/data/method-object/i-yields
+  slug: yields
+  inherited: false
+data_path: sleeping-king-studios/yard/data/method-object
+description: |-
+  Each method has a name and a signature, and can define the following
+  elements:
+
+  - Parameters.
+  - A return type.
+  - Raised exceptions.
+  - A yielded block.
+
+  In addition, a method may have a short description, a full description, and
+  metadata.
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Yard::Data::Base
+  slug: base
+  path: sleeping-king-studios/yard/data/base
+version: "*"

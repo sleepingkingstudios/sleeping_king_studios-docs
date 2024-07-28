@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Yard::Commands::Generators::Base#docs_path
+parent_path: sleeping-king-studios/yard/commands/generators/base
+signature: docs_path
+slug: docs-path
+constructor: false
+data_path: sleeping-king-studios/yard/commands/generators/base/i-docs-path
+returns:
+- description: |-
+    the directory path for generating the documentation
+    files.
+  type:
+  - name: String
+version: "*"

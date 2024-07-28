@@ -1,0 +1,45 @@
+---
+name: SleepingKingStudios::Yard::Data::MethodObject#as_json
+parent_path: sleeping-king-studios/yard/data/method-object
+signature: as_json
+slug: as-json
+constructor: false
+data_path: sleeping-king-studios/yard/data/method-object/i-as-json
+description: |-
+  Returns a Hash with the following keys:
+
+  - 'name': The full, qualified name of the method.
+  - 'slug': The name of the method in url-safe format.
+  - 'signature': A String representation of the method and its parameters.
+  - 'short_description': A short description of the method.
+
+  Additionally, the returned Hash will conditionally include the following
+  keys, if the method defines at least one of the corresponding code
+  objects.
+
+  - 'description': The full description of the method, minus the first
+    clause.
+  - 'metadata': Additional metadata tags from the documentation.
+  - 'params': The method's parameters, as documented.
+  - 'options': The method's option parameters, if any.
+  - 'raises': The exceptions raised by the method.
+  - 'returns': The method's return types and description.
+  - 'yields': The block yielded by the method.
+  - 'yieldparams': The yielded blocks' parameters.
+  - 'yieldreturn': The value returned by the block.
+
+  Finally, the method may have one or more overloads, which replace or
+  supplement the method with alternative signatures or documentation.
+
+  - 'overloads': The method overloads, if any. Each overload has the same
+    keys as a full method object.
+returns:
+- description: the representation of the method.
+  type:
+  - name: Hash
+    keys:
+    - name: String
+    values:
+    - name: Object
+short_description: Generates a JSON-compatible representation of the method.
+version: "*"

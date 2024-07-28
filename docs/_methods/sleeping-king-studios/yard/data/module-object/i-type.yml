@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Yard::Data::ModuleObject#type
+parent_path: sleeping-king-studios/yard/data/module-object
+signature: type
+slug: type
+constructor: false
+data_path: sleeping-king-studios/yard/data/module-object/i-type
+returns:
+- description: the type of the namespace.
+  type:
+  - name: String
+version: "*"

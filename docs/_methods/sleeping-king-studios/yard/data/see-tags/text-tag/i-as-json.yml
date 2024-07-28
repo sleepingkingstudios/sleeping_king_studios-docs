@@ -1,0 +1,13 @@
+---
+name: SleepingKingStudios::Yard::Data::SeeTags::TextTag#as_json
+parent_path: sleeping-king-studios/yard/data/see-tags/text-tag
+signature: as_json
+slug: as-json
+constructor: false
+data_path: sleeping-king-studios/yard/data/see-tags/text-tag/i-as-json
+description: |-
+  Returns a Hash with the following keys:
+
+  - 'text': The text to display for the tag.
+short_description: Generates a JSON-compatible representation of the tag.
+version: "*"

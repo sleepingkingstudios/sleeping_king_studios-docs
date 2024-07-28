@@ -1,0 +1,23 @@
+---
+name: SleepingKingStudios::Yard::Data::Types::ParameterizedType#as_json
+parent_path: sleeping-king-studios/yard/data/types/parameterized-type
+signature: as_json
+slug: as-json
+constructor: false
+data_path: sleeping-king-studios/yard/data/types/parameterized-type/i-as-json
+description: |-
+  Returns a Hash with the following keys:
+
+  - 'name': The name of the type.
+  - 'items': A JSON representation of the parameterized items.
+  - (Optional) 'ordered': If true, indicates the type represents an order-
+    dependent list.
+  - (Optional) 'path': The relative path to the referenced class or module,
+    if the class or module is documented by YARD.
+returns:
+- description: the JSON representation.
+  type:
+  - name: Hash
+short_description: Generates a JSON-compatible representation of the parameterized
+  type.
+version: "*"

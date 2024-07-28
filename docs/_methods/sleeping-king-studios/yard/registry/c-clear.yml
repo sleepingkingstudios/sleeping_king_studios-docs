@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Yard::Registry.clear
+parent_path: sleeping-king-studios/yard/registry
+signature: clear
+slug: clear
+constructor: false
+data_path: sleeping-king-studios/yard/registry/c-clear
+short_description: Clears the cached registry, if any.
+version: "*"
