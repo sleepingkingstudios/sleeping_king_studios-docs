@@ -7,6 +7,8 @@ Gemfile.lock
 # Ignore local and generated documentation.
 /coverage
 /doc
+/docs/.jekyll-cache
+/docs/_site
 .yardoc
 
 # Ignore temporary files.
