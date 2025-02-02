@@ -170,7 +170,7 @@ module SleepingKingStudios::Yard::Data
     private
 
     def definition_tag?(tag)
-      tag.type == :class || tag.type == :module
+      tag.type == :class || tag.type == :module # rubocop:disable Style/MultipleComparison
     end
 
     def emptyable?(property_name)
