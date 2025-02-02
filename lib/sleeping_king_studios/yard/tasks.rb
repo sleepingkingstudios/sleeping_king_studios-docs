@@ -8,4 +8,5 @@ module SleepingKingStudios::Yard
 end
 
 require 'sleeping_king_studios/yard/tasks/generate'
+require 'sleeping_king_studios/yard/tasks/installation/templates'
 require 'sleeping_king_studios/yard/tasks/update'
