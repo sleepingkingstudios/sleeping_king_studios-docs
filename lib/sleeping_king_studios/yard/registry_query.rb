@@ -52,7 +52,7 @@ module SleepingKingStudios::Yard
     # @return [Boolean] true if the class or module exists, otherwise false.
     def definition_exists?(module_name)
       registry.any? do |obj|
-        (obj.type == :module || obj.type == :class) && obj.title == module_name
+        (obj.type == :module || obj.type == :class) && obj.title == module_name # rubocop:disable Style/MultipleComparison
       end
     end
 

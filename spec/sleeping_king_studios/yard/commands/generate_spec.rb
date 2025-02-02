@@ -90,7 +90,6 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
 
     shared_examples 'should generate the data files' do
-      # rubocop:disable Style/RedundantLineContinuation
       it 'should generate the class data files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call
 
@@ -200,7 +199,6 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
           .to have_received(:call)
           .with(data_object: an_instance_of(data_class), data_type: :namespace)
       end
-      # rubocop:enable Style/RedundantLineContinuation
     end
 
     shared_examples 'should generate the reference files' do
