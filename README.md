@@ -15,7 +15,17 @@ group :doc do
 end
 ```
 
-You may also want to consider adding a [Jekyll theme](https://jekyllrb.com/docs/themes/#pick-up-a-theme) and/or a Markdown parser.
+You may also want to consider adding a [Jekyll theme](https://jekyllrb.com/docs/themes/#pick-up-a-theme) and/or a Markdown parser (Kramdown is recommended). If you add a Markdown parser, make sure to add it to your `.yardopts` file:
+
+```
+--embed-mixins
+--markup markdown
+--markup-provider kramdown
+--no-private
+-
+CHANGELOG.md
+LICENSE
+```
 
 Generate or update your `tasks.thor` file:
 
