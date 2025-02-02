@@ -58,7 +58,7 @@ module SleepingKingStudios::Yard::Commands::Installation
     end
 
     def copy_template(template_path)
-      install_path  = File.join(docs_path, '_includes')
+      install_path  = File.join(docs_path, '_includes', 'reference')
       relative_path = template_path.sub("#{templates_path}/", '')
       absolute_path = File.join(install_path, relative_path)
 
@@ -99,7 +99,9 @@ module SleepingKingStudios::Yard::Commands::Installation
           'lib',
           'sleeping_king_studios',
           'yard',
-          'templates'
+          'templates',
+          'includes',
+          'reference'
         )
     end
 

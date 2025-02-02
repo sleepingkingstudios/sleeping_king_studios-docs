@@ -28,7 +28,9 @@ do
         'lib',
         'sleeping_king_studios',
         'yard',
-        'templates'
+        'templates',
+        'includes',
+        'reference'
       )
     end
     let(:templates_pattern) { File.join(templates_path, '**', '*.md') }
@@ -41,7 +43,7 @@ do
     end
     let(:expected_files) do
       templates.map do |template_file|
-        template_file.sub(templates_path, "#{docs_path}/_includes")
+        template_file.sub(templates_path, "#{docs_path}/_includes/reference")
       end
     end
     let(:expected_directories) do

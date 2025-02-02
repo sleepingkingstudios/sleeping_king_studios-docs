@@ -30,9 +30,10 @@ Gem::Specification.new do |gem|
     Dir[
       'lib/**/*.rb',
       'lib/**/*.treetop',
+      'lib/sleeping_king_studios/yard/templates/**/*.md',
       'LICENSE',
       '*.md'
-  ]
+    ]
 
   gem.add_runtime_dependency 'cuprum',                      '~> 1.0'
   gem.add_runtime_dependency 'sleeping_king_studios-tools', '~> 1.0'
