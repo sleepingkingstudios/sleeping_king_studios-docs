@@ -31,6 +31,9 @@ Gem::Specification.new do |gem|
       'lib/**/*.rb',
       'lib/**/*.treetop',
       'lib/sleeping_king_studios/yard/templates/**/*.md',
+      'lib/sleeping_king_studios/yard/templates/**/*.md.erb',
+      'lib/sleeping_king_studios/yard/templates/**/*.yml',
+      'lib/sleeping_king_studios/yard/templates/**/*.yml.erb',
       'LICENSE',
       '*.md'
     ]

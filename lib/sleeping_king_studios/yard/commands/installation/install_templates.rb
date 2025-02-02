@@ -7,12 +7,12 @@ module SleepingKingStudios::Yard::Commands::Installation
   # Installs the Liquid template files.
   class InstallTemplates < Cuprum::Command
     # @overload initialize(**options)
+    #   @param options [Hash] additional options for the command.
+    #
     #   @option options dry_run [Boolean] if true, does not apply filesystem
     #     changes. Defaults to false.
-    #   @option options force [Boolean] if true, overwrites existing template
-    #     files. Defaults to false.
-    #   @param option options verbose [Boolean] if true, prints updates to
-    #     STDOUT. Defaults to true.
+    #   @option options verbose [Boolean] if true, prints updates to STDOUT.
+    #     Defaults to true.
     def initialize(error_stream: $stderr, output_stream: $stdout, **options)
       super()
 
