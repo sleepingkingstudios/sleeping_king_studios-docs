@@ -40,14 +40,23 @@ module SleepingKingStudios::Yard::Tasks::Installation
     # Install the Jekyll application
     def install
       SleepingKingStudios::Yard::Commands::Installation::InstallJekyll
-        .new(**command_options)
-        .call(docs_path: options['docs_path'])
+        .new(**constructor_options)
+        .call(**command_options)
     end
 
     private
 
     def command_options
-      %w[description dry_run name repository root_path verbose]
+      %w[docs_path root_path]
+        .reduce({}) do |hsh, key|
+          next hsh unless options.key?(key)
+
+          hsh.merge(key.intern => options[key])
+        end
+    end
+
+    def constructor_options
+      %w[description dry_run name repository verbose]
         .reduce({}) do |hsh, key|
           next hsh unless options.key?(key)
 
