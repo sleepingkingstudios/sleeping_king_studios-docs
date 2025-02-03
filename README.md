@@ -15,17 +15,7 @@ group :doc do
 end
 ```
 
-You may also want to consider adding a [Jekyll theme](https://jekyllrb.com/docs/themes/#pick-up-a-theme) and/or a Markdown parser (Kramdown is recommended). If you add a Markdown parser, make sure to add it to your `.yardopts` file:
-
-```
---embed-mixins
---markup markdown
---markup-provider kramdown
---no-private
--
-CHANGELOG.md
-LICENSE
-```
+You may also want to consider adding a [Jekyll theme](https://jekyllrb.com/docs/themes/#pick-up-a-theme) and/or a Markdown parser (Kramdown is recommended).
 
 Generate or update your `tasks.thor` file:
 
@@ -35,9 +25,25 @@ Generate or update your `tasks.thor` file:
 load 'sleeping_king_studios/yard/tasks.rb'
 ```
 
+### Installation Script
+
+Use the installation script to quickly install the Jekyll application:
+
+```bash
+bundle exec thor docs:install --name="Orichalcum" --description="A real gem." --repository="www.example.com"
+```
+
+You can also install a GitHub pages workflow to automatically deploy to GitHub Pages. Make sure that Pages is configured for your repository to deploy from a GitHub action.
+
+```bash
+bundle exec thor docs:install:workflow
+```
+
+### Manual Installation
+
 Update your `.gitignore` file to ensure that the path to your documentation directory (default is `./docs`) is *not* ignored, but the `./docs/_site` and `./docs/.jekyll-cache` subdirectories are ignored.
 
-### Set Up Jekyll
+#### Set Up Jekyll
 
 Generate the documentation directory (default is `./docs`).
 
@@ -92,15 +98,13 @@ Generate the `./docs/reference` directory and the `./docs/reference/index.md` do
 
 #### Set Up Jekyll Templates
 
-Generate the `./docs/_includes` and `./docs/includes/reference` directories.
+Generate the `./docs/_includes` and `./docs/includes/reference` directories. The contents can be copied from an existing project.
 
 > @todo: Generate templates. For now, the templates should be copied from an existing project.
 
-### Set Up Deployment
+#### Set Up Deployment
 
-To deploy the generated documentation to GitHub Pages, navigate to the Settings page for your repository and select the Pages option (under `Code and automation`). Under the "Build and deployment" heading, update the "Source" dropdown to select "GitHub Actions".
-
-> @todo: Generate GitHub action. For now, the action should be copied from an existing project.
+To deploy the generated documentation to GitHub Pages, navigate to the Settings page for your repository and select the Pages option (under `Code and automation`). Under the "Build and deployment" heading, update the "Source" dropdown to select "GitHub Actions". The workflow file can be copied from an existing project.
 
 ## Generating Documentation
 
@@ -134,6 +138,81 @@ verbose
 
 version
 : The `--version=value` option allows setting a version for the generated documentation. If set, the files will be generated in namespaced directories and set the `version` flag in the YAML files.
+
+### docs:install
+
+The `docs:install` task installs the Jekyll application.
+
+```bash
+bundle exec thor docs:install --name="Orichalcum" --description="A real gem." --repository="www.example.com"
+```
+
+The `docs:install` command defines the following options:
+
+description
+: The `--description=value` option allows for setting a description for the library. This is used when generating the template files.
+
+docs_path
+: The `--docs-path=value` option allows customizing the root directory for the generated documentation files. The default value is `./docs`.
+
+dry_run
+: If the `--dry-run` flag is set, the task will not make any changes to the filesystem.
+
+name
+: The `--name=value` option allows for setting a name for the library. This is used when generating the template files.
+
+repository
+: The `--repository=value` option allows for setting a repository URL for the library. This is used when generating the template files.
+
+root_path
+: The `--root-path=value` option allows setting the root directory for the library. It is used when updating the `.gitignore` file. The default value is the working directory.
+
+verbose
+: If the `--skip-verbose` flag is set, the task will not output its status to STDOUT.
+
+### docs:install:templates
+
+The `docs:install:templates` command installs or updates the Jekyll templates for YARD objects.
+
+```bash
+bundle exec thor docs:install:templates
+```
+
+The `docs:install` command defines the following options:
+
+docs_path
+: The `--docs-path=value` option allows customizing the root directory for the generated documentation files. The default value is `./docs`.
+
+dry_run
+: If the `--dry-run` flag is set, the task will not make any changes to the filesystem.
+
+force
+: If the `--force` flag is set, the task will overwrite any existing templates.
+
+verbose
+: If the `--skip-verbose` flag is set, the task will not output its status to STDOUT.
+
+### docs:install:workflow
+
+The `docs:install:workflow` command installs or updates the GitHub actions workflow for deploying to Pages.
+
+```bash
+bundle exec thor docs:install:workflow
+```
+
+The `docs:install:workflow` command defines the following options:
+
+dry_run
+: If the `--dry-run` flag is set, the task will not make any changes to the filesystem.
+
+force
+: If the `--force` flag is set, the task will overwrite an existing workflow.
+
+root_path
+: The `--root-path=value` option allows setting the root directory for the library. The default value is the working directory.
+
+verbose
+: If the `--skip-verbose` flag is set, the task will not output its status to STDOUT.
 
 ### docs:update
 
