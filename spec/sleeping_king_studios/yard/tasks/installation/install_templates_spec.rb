@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/tasks/installation/jekyll'
+require 'sleeping_king_studios/yard/tasks/installation/install_templates'
 
-RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
+RSpec.describe \
+  SleepingKingStudios::Yard::Tasks::Installation::InstallTemplates \
+do
   subject(:task) { described_class.new }
 
   describe '#templates' do
@@ -10,7 +12,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
     let(:arguments) { [] }
     let(:options)   { {} }
     let(:command_class) do
-      SleepingKingStudios::Yard::Commands::Installation::InstallJekyll
+      SleepingKingStudios::Yard::Commands::Installation::InstallTemplates
     end
     let(:mock_command) do
       instance_double(command_class, call: nil)
@@ -18,6 +20,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
     let(:expected_options) do
       {
         dry_run: false,
+        force:   false,
         verbose: true
       }.merge(options)
     end
@@ -29,10 +32,10 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
     end
 
     define_method :invoke_task do
-      task.invoke(:install, arguments, options.merge(docs_path:))
+      task.invoke(:templates, arguments, options.merge(docs_path:))
     end
 
-    it { expect(task).to respond_to(:install).with(0).arguments }
+    it { expect(task).to respond_to(:templates).with(0).arguments }
 
     it 'should initialize the command' do
       invoke_task
@@ -45,21 +48,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
     it 'should call the command' do
       invoke_task
 
-      expect(mock_command)
-        .to have_received(:call)
-        .with(docs_path:)
-    end
-
-    describe 'with description: value' do
-      let(:options) { super().merge(description: 'A real gem.') }
-
-      it 'should initialize the command' do
-        invoke_task
-
-        expect(command_class)
-          .to have_received(:new)
-          .with(**expected_options)
-      end
+      expect(mock_command).to have_received(:call).with(docs_path:)
     end
 
     describe 'with dry_run: false' do
@@ -86,8 +75,8 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
       end
     end
 
-    describe 'with name: value' do
-      let(:options) { super().merge(name: 'Orichalcum') }
+    describe 'with force: false' do
+      let(:options) { super().merge(force: false) }
 
       it 'should initialize the command' do
         invoke_task
@@ -98,8 +87,8 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::Jekyll do
       end
     end
 
-    describe 'with repository: value' do
-      let(:options) { super().merge(repository: 'Awww.example.com/orichalcum') }
+    describe 'with force: true' do
+      let(:options) { super().merge(force: true) }
 
       it 'should initialize the command' do
         invoke_task

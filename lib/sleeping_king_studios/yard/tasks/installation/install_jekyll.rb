@@ -6,7 +6,7 @@ require 'sleeping_king_studios/yard/tasks/installation'
 
 module SleepingKingStudios::Yard::Tasks::Installation
   # CLI task for installing the Jekyll application.
-  class Jekyll < SleepingKingStudios::Yard::Tasks::Base
+  class InstallJekyll < SleepingKingStudios::Yard::Tasks::Base
     namespace 'docs'
 
     desc 'install', 'Install the Jekyll application'

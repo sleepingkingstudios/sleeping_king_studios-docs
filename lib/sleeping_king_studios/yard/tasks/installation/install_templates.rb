@@ -6,7 +6,7 @@ require 'sleeping_king_studios/yard/tasks/installation'
 
 module SleepingKingStudios::Yard::Tasks::Installation
   # CLI task for installing Jekyll templates for a library.
-  class Templates < SleepingKingStudios::Yard::Tasks::Base
+  class InstallTemplates < SleepingKingStudios::Yard::Tasks::Base
     namespace 'docs:install'
 
     desc 'templates', 'Installs or updates the Jekyll templates'
