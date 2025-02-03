@@ -2,12 +2,14 @@
 
 require 'fileutils'
 
+require 'erubi'
+
 require 'sleeping_king_studios/yard/commands/installation'
 require 'sleeping_king_studios/yard/errors/file_already_exists'
 
 module SleepingKingStudios::Yard::Commands::Installation
-  # Installs the Liquid template files.
-  class InstallTemplates < Cuprum::Command
+  # Installs the GitHub pages CI workflow.
+  class InstallWorkflow < Cuprum::Command
     # @overload initialize(**options)
     #   @param options [Hash] additional options for the command.
     #
@@ -15,8 +17,6 @@ module SleepingKingStudios::Yard::Commands::Installation
     #     changes. Defaults to false.
     #   @option options force [Boolean] if true, replaces existing template
     #     files.
-    #   @option options ignore_existing [Boolean] if true, does not attempt to
-    #     copy over existing files.
     #   @option options verbose [Boolean] if true, prints updates to STDOUT.
     #     Defaults to true.
     def initialize(error_stream: $stderr, output_stream: $stdout, **options)
@@ -37,19 +37,12 @@ module SleepingKingStudios::Yard::Commands::Installation
       @options.fetch(:force, false)
     end
 
-    # @return [Boolean] if true, does not attempt to copy over existing files.
-    def ignore_existing?
-      @options.fetch(:ignore_existing, false)
-    end
-
     # @return [Boolean] if true, prints updates to STDOUT.
     def verbose?
       @options.fetch(:verbose, true)
     end
 
     private
-
-    attr_reader :docs_path
 
     attr_reader :error_stream
 
@@ -68,25 +61,32 @@ module SleepingKingStudios::Yard::Commands::Installation
       failure(error)
     end
 
-    def copy_template(template_path)
-      install_path  = File.join(docs_path, '_includes', 'reference')
-      relative_path = template_path.sub("#{templates_path}/", '')
-      absolute_path = File.join(install_path, relative_path)
+    def create_workflow(workflow_path)
+      file_path = File.join(workflow_path, 'deploy-pages.yml')
 
-      return if ignore_existing? && File.exist?(absolute_path)
+      step { check_for_existing_file(file_path) }
 
-      output "  - Copying template #{relative_path}"
+      return if dry_run?
 
-      step { check_for_existing_file(absolute_path) }
-
-      FileUtils.mkdir_p(File.dirname(absolute_path)) unless dry_run?
-      FileUtils.copy(template_path, absolute_path) unless dry_run?
+      File.write(
+        file_path,
+        evaluate_template(File.join(templates_path, 'deploy-pages.yml.erb'))
+      )
     end
 
-    def each_template(&)
-      return enum_for(:each_template) unless block_given?
+    def evaluate_template(template_path)
+      template = File.read(template_path)
+      engine   = Erubi::Engine.new(template).src
 
-      Dir[templates_pattern].each(&)
+      eval(engine, local_binding) # rubocop:disable Security/Eval
+    end
+
+    def local_binding
+      return @local_binding if @local_binding
+
+      ruby_version = RUBY_VERSION.split('.')[0..1].join('.')
+
+      @local_binding = binding
     end
 
     def output(string)
@@ -95,12 +95,14 @@ module SleepingKingStudios::Yard::Commands::Installation
       output_stream.puts(string)
     end
 
-    def process(docs_path:)
-      @docs_path = docs_path
+    def process(root_path: Dir.pwd)
+      workflow_path = File.join(root_path, '.github', 'workflows')
 
-      output "Copying template files (force=#{force?})..."
+      output 'Adding GitHub pages workflow...'
 
-      each_template { |template_path| step { copy_template(template_path) } }
+      FileUtils.mkdir_p(workflow_path) unless dry_run?
+
+      step { create_workflow(workflow_path) }
 
       output 'Done!'
     end
@@ -112,14 +114,8 @@ module SleepingKingStudios::Yard::Commands::Installation
           'lib',
           'sleeping_king_studios',
           'yard',
-          'templates',
-          'includes',
-          'reference'
+          'templates'
         )
-    end
-
-    def templates_pattern
-      @templates_pattern ||= File.join(templates_path, '**', '*.md')
     end
   end
 end
