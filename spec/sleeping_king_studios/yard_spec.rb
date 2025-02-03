@@ -11,6 +11,19 @@ RSpec.describe SleepingKingStudios::Yard do
     end
   end
 
+  describe '::gem_path' do
+    let(:expected) do
+      __dir__.sub(
+        /#{File.join('', 'spec', 'sleeping_king_studios', '')}?\z/,
+        ''
+      )
+    end
+
+    include_examples 'should define class reader',
+      :gem_path,
+      -> { be == expected }
+  end
+
   describe '::version' do
     it 'should define the reader' do
       expect(described_class)

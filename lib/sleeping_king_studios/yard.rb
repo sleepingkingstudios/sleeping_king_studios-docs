@@ -5,6 +5,13 @@ module SleepingKingStudios
   # Tooling for working with YARD documentation.
   module Yard
     class << self
+      # @return [String] the absolute path to the gem directory.
+      def gem_path
+        pattern = /#{File.join('', 'lib', 'sleeping_king_studios', '')}?\z/
+
+        __dir__.sub(pattern, '')
+      end
+
       # @return [String] The current version of the gem.
       def version
         VERSION

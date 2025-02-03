@@ -30,11 +30,16 @@ Gem::Specification.new do |gem|
     Dir[
       'lib/**/*.rb',
       'lib/**/*.treetop',
+      'lib/sleeping_king_studios/yard/templates/**/*.md',
+      'lib/sleeping_king_studios/yard/templates/**/*.md.erb',
+      'lib/sleeping_king_studios/yard/templates/**/*.yml',
+      'lib/sleeping_king_studios/yard/templates/**/*.yml.erb',
       'LICENSE',
       '*.md'
-  ]
+    ]
 
   gem.add_runtime_dependency 'cuprum',                      '~> 1.0'
+  gem.add_runtime_dependency 'erubi',                       '~> 1.13'
   gem.add_runtime_dependency 'sleeping_king_studios-tools', '~> 1.0'
   gem.add_runtime_dependency 'thor',                        '~> 1.3'
   gem.add_runtime_dependency 'treetop',                     '~> 1.6'
