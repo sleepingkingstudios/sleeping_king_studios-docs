@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+
 require 'erubi'
 
 require 'sleeping_king_studios/yard/commands/installation'
@@ -177,7 +179,12 @@ module SleepingKingStudios::Yard::Commands::Installation
 
     def install_reference_templates
       SleepingKingStudios::Yard::Commands::Installation::InstallTemplates
-        .new(dry_run: dry_run?, force: false, verbose: false)
+        .new(
+          dry_run:         dry_run?,
+          force:           false,
+          ignore_existing: true,
+          verbose:         false
+        )
         .call(docs_path:)
     end
 

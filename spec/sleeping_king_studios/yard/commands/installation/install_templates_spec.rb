@@ -205,6 +205,59 @@ do
           expect(error_stream.string).to be == ''
         end
       end
+
+      context 'when initialized with ignore_existing: true' do
+        let(:options) { super().merge(ignore_existing: true) }
+        let(:expected_output) do
+          <<~OUTPUT
+            Copying template files (force=false)...
+              - Copying template outer/inner/template.md
+              - Copying template template.md
+            Done!
+          OUTPUT
+        end
+
+        it 'should return a passing result' do
+          expect(command.call(docs_path:))
+            .to be_a_passing_result
+            .with_value(nil)
+        end
+
+        it 'should generate the template directories', :aggregate_failures do
+          command.call(docs_path:)
+
+          expected_directories.each.with_index do |dirname, index|
+            next if index == 1
+
+            expect(FileUtils).to have_received(:mkdir_p).with(dirname)
+          end
+        end
+
+        it 'should copy the template files', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+          command.call(docs_path:)
+
+          templates.zip(expected_files).each.with_index \
+          do |(template_file, expected_file), index|
+            next if index == 1
+
+            expect(FileUtils)
+              .to have_received(:copy)
+              .with(template_file, expected_file)
+          end
+        end
+
+        it 'should print the report to STDOUT' do
+          command.call(docs_path:)
+
+          expect(output_stream.string).to be == expected_output
+        end
+
+        it 'should not print to STDERR' do
+          command.call(docs_path:)
+
+          expect(error_stream.string).to be == ''
+        end
+      end
     end
 
     context 'when initialized with dry_run: true' do
@@ -275,6 +328,22 @@ do
       let(:options) { super().merge(force: true) }
 
       it { expect(command.force?).to be true }
+    end
+  end
+
+  describe '#ignore_existing?' do
+    include_examples 'should define predicate', :ignore_existing?, false
+
+    context 'when initialized with ignore_existing: false' do
+      let(:options) { super().merge(ignore_existing: false) }
+
+      it { expect(command.ignore_existing?).to be false }
+    end
+
+    context 'when initialized with ignore_existing: true' do
+      let(:options) { super().merge(ignore_existing: true) }
+
+      it { expect(command.ignore_existing?).to be true }
     end
   end
 

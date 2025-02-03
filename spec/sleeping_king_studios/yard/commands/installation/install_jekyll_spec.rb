@@ -305,12 +305,17 @@ do
         .with(breadcrumbs_page_path, expected_breadcrumbs)
     end
 
-    it 'should generate the reference templates', :aggregate_failures do
+    it 'should generate the reference templates', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       command.call(docs_path:)
 
       expect(templates_command_class)
         .to have_received(:new)
-        .with(dry_run: false, force: false, verbose: false)
+        .with(
+          dry_run:         false,
+          force:           false,
+          ignore_existing: true,
+          verbose:         false
+        )
       expect(mock_templates_command).to have_received(:call).with(docs_path:)
     end
 
@@ -501,12 +506,17 @@ do
         expect(File).not_to have_received(:write)
       end
 
-      it 'should not generate the reference templates', :aggregate_failures do
+      it 'should not generate the reference templates', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         command.call(docs_path:)
 
         expect(templates_command_class)
           .to have_received(:new)
-          .with(dry_run: true, force: false, verbose: false)
+          .with(
+            dry_run:         true,
+            force:           false,
+            ignore_existing: true,
+            verbose:         false
+          )
         expect(mock_templates_command).to have_received(:call).with(docs_path:)
       end
 

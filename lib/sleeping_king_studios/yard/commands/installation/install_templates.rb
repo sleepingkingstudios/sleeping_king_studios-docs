@@ -11,6 +11,10 @@ module SleepingKingStudios::Yard::Commands::Installation
     #
     #   @option options dry_run [Boolean] if true, does not apply filesystem
     #     changes. Defaults to false.
+    #   @option options force [Boolean] if true, replaces existing template
+    #     files.
+    #   @option options ignore_existing [Boolean] if true, does not attempt to
+    #     copy over existing files.
     #   @option options verbose [Boolean] if true, prints updates to STDOUT.
     #     Defaults to true.
     def initialize(error_stream: $stderr, output_stream: $stdout, **options)
@@ -29,6 +33,11 @@ module SleepingKingStudios::Yard::Commands::Installation
     # @return [Boolean] if true, overwrites existing template files.
     def force?
       @options.fetch(:force, false)
+    end
+
+    # @return [Boolean] if true, does not attempt to copy over existing files.
+    def ignore_existing?
+      @options.fetch(:ignore_existing, false)
     end
 
     # @return [Boolean] if true, prints updates to STDOUT.
@@ -61,6 +70,8 @@ module SleepingKingStudios::Yard::Commands::Installation
       install_path  = File.join(docs_path, '_includes', 'reference')
       relative_path = template_path.sub("#{templates_path}/", '')
       absolute_path = File.join(install_path, relative_path)
+
+      return if ignore_existing? && File.exist?(absolute_path)
 
       output "  - Copying template #{relative_path}"
 
