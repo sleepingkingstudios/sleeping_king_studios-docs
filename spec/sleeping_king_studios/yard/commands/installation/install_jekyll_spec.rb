@@ -331,6 +331,72 @@ do
       expect(error_stream.string).to be == ''
     end
 
+    describe 'with docs_path: a path starting with "."' do
+      let(:docs_path) { './docs' }
+      let(:gitignore_contents) do
+        <<~RAW
+          #{docs_path.sub(/\A\./, '')}/.jekyll-cache
+          #{docs_path.sub(/\A\./, '')}/_site
+        RAW
+      end
+
+      it 'should update the gitignore file' do
+        command.call(docs_path:)
+
+        expect(File)
+          .to have_received(:write)
+          .with(gitignore_path, gitignore_contents)
+      end
+
+      context 'when the gitignore file includes the jekyll cache' do
+        let(:existing_gitignore) do
+          "#{docs_path.sub(/\A\./, '')}/.jekyll-cache\n"
+        end
+
+        before(:example) do
+          allow(File)
+            .to receive(:read)
+            .with(gitignore_path)
+            .and_return(existing_gitignore)
+        end
+
+        it 'should update the gitignore file' do
+          command.call(docs_path:)
+
+          expect(File)
+            .to have_received(:write)
+            .with(gitignore_path, gitignore_contents)
+        end
+      end
+
+      context 'when the gitignore file includes the jekyll site' do
+        let(:existing_gitignore) do
+          "#{docs_path.sub(/\A\./, '')}/_site\n"
+        end
+        let(:gitignore_contents) do
+          <<~RAW
+            #{docs_path.sub(/\A\./, '')}/_site
+            #{docs_path.sub(/\A\./, '')}/.jekyll-cache
+          RAW
+        end
+
+        before(:example) do
+          allow(File)
+            .to receive(:read)
+            .with(gitignore_path)
+            .and_return(existing_gitignore)
+        end
+
+        it 'should update the gitignore file' do
+          command.call(docs_path:)
+
+          expect(File)
+            .to have_received(:write)
+            .with(gitignore_path, gitignore_contents)
+        end
+      end
+    end
+
     describe 'with project_path: value' do
       let(:project_path) { '/path/to/root' }
       let(:gitignore_path) do
