@@ -189,7 +189,11 @@ module SleepingKingStudios::Yard::Commands::Installation
     end
 
     def jekyll_cache_path
-      File.join(docs_path, '.jekyll-cache')
+      File.join(docs_path, '.jekyll-cache').sub(/\A\./, '')
+    end
+
+    def jekyll_site_path
+      File.join(docs_path, '_site').sub(/\A\./, '')
     end
 
     def local_binding
@@ -221,10 +225,6 @@ module SleepingKingStudios::Yard::Commands::Installation
       step { install_templates }
 
       output 'Done!'
-    end
-
-    def site_path
-      File.join(docs_path, '_site')
     end
 
     def templates_path
@@ -262,9 +262,9 @@ module SleepingKingStudios::Yard::Commands::Installation
         updated += "#{jekyll_cache_path}\n"
       end
 
-      unless ignored.include?(site_path)
+      unless ignored.include?(jekyll_site_path)
         updated += "\n" unless updated.end_with?("\n")
-        updated += "#{site_path}\n"
+        updated += "#{jekyll_site_path}\n"
       end
 
       updated

@@ -22,22 +22,8 @@ do
 
   describe '#call' do
     let(:root_path) { Dir.pwd }
-    let(:templates_path) do
-      File.join(
-        SleepingKingStudios::Yard.gem_path,
-        'lib',
-        'sleeping_king_studios',
-        'yard',
-        'templates',
-        'includes',
-        'reference'
-      )
-    end
     let(:workflow_directory) do
       File.join(root_path, '.github', 'workflows')
-    end
-    let(:workflow_template_path) do
-      File.join(templates_path, 'deploy-pages.yml.erb')
     end
     let(:workflow_file_path) do
       File.join(workflow_directory, 'deploy-pages.yml')
