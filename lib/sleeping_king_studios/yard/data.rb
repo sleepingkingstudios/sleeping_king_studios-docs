@@ -24,6 +24,6 @@ module SleepingKingStudios::Yard
     autoload :SeeTags,
       'sleeping_king_studios/docs/data/see_tags'
     autoload :Types,
-      'sleeping_king_studios/yard/data/types'
+      'sleeping_king_studios/docs/data/types'
   end
 end

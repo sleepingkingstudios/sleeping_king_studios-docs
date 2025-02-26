@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/types/key_value_type'
+require 'sleeping_king_studios/docs/data/types/key_value_type'
 
 require 'support/contracts/data/type_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
+RSpec.describe SleepingKingStudios::Docs::Data::Types::KeyValueType do
   include Spec::Support::Contracts::Data
 
   subject(:type) do
@@ -18,9 +18,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
   shared_context 'when initialized with keys' do
     let(:keys) do
       [
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: 'String'),
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: 'Symbol')
       ]
     end
@@ -29,9 +29,9 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::KeyValueType do
   shared_context 'when initialized with values' do
     let(:values) do
       [
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: 'Part'),
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: 'Payload')
       ]
     end

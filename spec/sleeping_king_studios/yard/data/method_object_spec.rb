@@ -38,7 +38,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::MethodObject do
   end
 
   def parse_type(type)
-    SleepingKingStudios::Yard::Data::Types::Parser
+    SleepingKingStudios::Docs::Data::Types::Parser
       .new
       .parse(type)
       .map(&:as_json)

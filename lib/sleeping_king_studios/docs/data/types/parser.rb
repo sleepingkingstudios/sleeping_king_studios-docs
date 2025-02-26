@@ -3,10 +3,10 @@
 require 'sleeping_king_studios/tools/toolbelt'
 require 'treetop'
 
-require 'sleeping_king_studios/yard/data/types'
-require 'sleeping_king_studios/yard/data/types/grammar'
+require 'sleeping_king_studios/docs/data/types'
+require 'sleeping_king_studios/docs/data/types/grammar'
 
-module SleepingKingStudios::Yard::Data::Types
+module SleepingKingStudios::Docs::Data::Types
   # Parses a YARD type list into a nested data object.
   #
   # @note Certain combinations of comparable methods and parameterized types are
@@ -27,7 +27,7 @@ module SleepingKingStudios::Yard::Data::Types
 
     # Parses a YARD type list.
     #
-    # @return [Array<[SleepingKingStudios::Yard::Data::Types::Type]>] the parsed
+    # @return [Array<[SleepingKingStudios::Docs::Data::Types::Type]>] the parsed
     #   types.
     #
     # @raise [ParserError] if unable to parse the type.
@@ -48,7 +48,7 @@ module SleepingKingStudios::Yard::Data::Types
     attr_reader :parser
 
     def build_array(name:, values:, ordered: false)
-      SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
+      SleepingKingStudios::Docs::Data::Types::ParameterizedType.new(
         items:   values,
         name:,
         ordered:
@@ -56,11 +56,11 @@ module SleepingKingStudios::Yard::Data::Types
     end
 
     def build_basic(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(name:)
+      SleepingKingStudios::Docs::Data::Types::Type.new(name:)
     end
 
     def build_hash(name:, keys:, values:)
-      SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
+      SleepingKingStudios::Docs::Data::Types::KeyValueType.new(
         keys:,
         name:,
         values:

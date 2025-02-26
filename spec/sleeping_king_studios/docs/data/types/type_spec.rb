@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/types/type'
+require 'sleeping_king_studios/docs/data/types/type'
 
 require 'support/contracts/data/type_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Data::Types::Type do
+RSpec.describe SleepingKingStudios::Docs::Data::Types::Type do
   include Spec::Support::Contracts::Data
 
   subject(:type) { described_class.new(name:) }

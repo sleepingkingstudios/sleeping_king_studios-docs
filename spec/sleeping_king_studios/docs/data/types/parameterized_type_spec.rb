@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/types/parameterized_type'
+require 'sleeping_king_studios/docs/data/types/parameterized_type'
 
 require 'support/contracts/data/type_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
+RSpec.describe SleepingKingStudios::Docs::Data::Types::ParameterizedType do
   include Spec::Support::Contracts::Data
 
   subject(:type) do
@@ -18,11 +18,11 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
   shared_context 'when initialized with items' do
     let(:items) do
       [
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: 'String'),
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: '#to_s'),
-        SleepingKingStudios::Yard::Data::Types::Type
+        SleepingKingStudios::Docs::Data::Types::Type
           .new(name: 'nil')
       ]
     end
@@ -33,7 +33,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::ParameterizedType do
       [
         described_class.new(
           items: [
-            SleepingKingStudios::Yard::Data::Types::Type.new(
+            SleepingKingStudios::Docs::Data::Types::Type.new(
               name: 'ScienceExperiment'
             )
           ],

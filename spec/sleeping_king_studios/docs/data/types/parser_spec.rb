@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/types/parser'
+require 'sleeping_king_studios/docs/data/types/parser'
 
-RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
+RSpec.describe SleepingKingStudios::Docs::Data::Types::Parser do
   subject(:parser) { described_class.new }
 
   before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
@@ -23,7 +23,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     let(:error_message) { "unable to parse type `#{type}'" }
 
     def array_type(items:, name:, ordered: false)
-      SleepingKingStudios::Yard::Data::Types::ParameterizedType.new(
+      SleepingKingStudios::Docs::Data::Types::ParameterizedType.new(
         name:,
         items:,
         ordered:
@@ -31,11 +31,11 @@ RSpec.describe SleepingKingStudios::Yard::Data::Types::Parser do
     end
 
     def basic_type(name:)
-      SleepingKingStudios::Yard::Data::Types::Type.new(name:)
+      SleepingKingStudios::Docs::Data::Types::Type.new(name:)
     end
 
     def hash_type(keys:, name:, values:)
-      SleepingKingStudios::Yard::Data::Types::KeyValueType.new(
+      SleepingKingStudios::Docs::Data::Types::KeyValueType.new(
         keys:,
         name:,
         values:

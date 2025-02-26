@@ -44,7 +44,7 @@ module Spec::Support::Contracts::Data
       describe '#==' do
         def type_double(mock_class, json)
           mock = instance_double(
-            SleepingKingStudios::Yard::Data::Types::Type,
+            SleepingKingStudios::Docs::Data::Types::Type,
             as_json: json
           )
 
@@ -69,7 +69,7 @@ module Spec::Support::Contracts::Data
           end
 
           example_class 'Spec::CustomType',
-            SleepingKingStudios::Yard::Data::Types::Type
+            SleepingKingStudios::Docs::Data::Types::Type
 
           it { expect(type == other).to be false }
         end

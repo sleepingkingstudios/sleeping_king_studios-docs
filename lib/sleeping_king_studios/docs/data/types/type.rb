@@ -2,9 +2,9 @@
 
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard/data/types'
+require 'sleeping_king_studios/docs/data/types'
 
-module SleepingKingStudios::Yard::Data::Types
+module SleepingKingStudios::Docs::Data::Types
   # Base class for a YARD type.
   class Type
     LOWERCASE_LETTER = /\A[[:lower:]]/

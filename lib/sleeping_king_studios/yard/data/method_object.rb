@@ -267,7 +267,7 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [Array<Hash>] the return types of the method.
     #
-    # @see SleepingKingStudios::Yard::Data::Types::Type.
+    # @see SleepingKingStudios::Docs::Data::Types::Type.
     def returns
       @returns ||=
         native
@@ -339,7 +339,7 @@ module SleepingKingStudios::Yard::Data
     #
     # @return [Array<Hash>] the return types of the yielded block.
     #
-    # @see SleepingKingStudios::Yard::Data::Types::Type.
+    # @see SleepingKingStudios::Docs::Data::Types::Type.
     def yield_returns
       @yield_returns ||=
         native
@@ -536,7 +536,7 @@ module SleepingKingStudios::Yard::Data
 
     def type_parser
       @type_parser ||=
-        SleepingKingStudios::Yard::Data::Types::Parser.new
+        SleepingKingStudios::Docs::Data::Types::Parser.new
     end
 
     def yield_defaults # rubocop:disable Metrics/CyclomaticComplexity

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/types'
+require 'sleeping_king_studios/docs/data/types'
 
-module SleepingKingStudios::Yard::Data::Types
+module SleepingKingStudios::Docs::Data::Types
   # Represents a YARD type with lists of key types and value types.
-  class KeyValueType < SleepingKingStudios::Yard::Data::Types::Type
-    # @param keys [Array<SleepingKingStudios::Yard::Data::Types::Type>] the key
+  class KeyValueType < SleepingKingStudios::Docs::Data::Types::Type
+    # @param keys [Array<SleepingKingStudios::Docs::Data::Types::Type>] the key
     #   types.
     # @param name [String] the name of the type.
-    # @param values [Array<SleepingKingStudios::Yard::Data::Types::Type>] the
+    # @param values [Array<SleepingKingStudios::Docs::Data::Types::Type>] the
     #   value types.
     def initialize(keys:, name:, values:)
       super(name:)
@@ -35,11 +35,11 @@ module SleepingKingStudios::Yard::Data::Types
       )
     end
 
-    # @return [Array<SleepingKingStudios::Yard::Data::Types::Type>] the key
+    # @return [Array<SleepingKingStudios::Docs::Data::Types::Type>] the key
     #   types.
     attr_reader :keys
 
-    # @return [Array<SleepingKingStudios::Yard::Data::Types::Type>] the value
+    # @return [Array<SleepingKingStudios::Docs::Data::Types::Type>] the value
     #   types.
     attr_reader :values
 

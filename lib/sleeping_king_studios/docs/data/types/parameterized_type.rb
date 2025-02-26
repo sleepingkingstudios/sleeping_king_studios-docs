@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/types'
+require 'sleeping_king_studios/docs/data/types'
 
-module SleepingKingStudios::Yard::Data::Types
+module SleepingKingStudios::Docs::Data::Types
   # Represents a YARD type with a list of child types.
-  class ParameterizedType < SleepingKingStudios::Yard::Data::Types::Type
-    # @param items [Array<SleepingKingStudios::Yard::Data::Types::Type>] the
+  class ParameterizedType < SleepingKingStudios::Docs::Data::Types::Type
+    # @param items [Array<SleepingKingStudios::Docs::Data::Types::Type>] the
     #   child types.
     # @param name [String] the name of the type.
     # @param ordered [Boolean] if true, indicates the type represents an order-
@@ -17,7 +17,7 @@ module SleepingKingStudios::Yard::Data::Types
       @ordered = ordered
     end
 
-    # @return [Array<SleepingKingStudios::Yard::Data::Types::Type>] the child
+    # @return [Array<SleepingKingStudios::Docs::Data::Types::Type>] the child
     #   types.
     attr_reader :items
 
