@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SleepingKingStudios
-  module Yard
+  module Docs
     # @api private
     #
     # The current version of the gem.

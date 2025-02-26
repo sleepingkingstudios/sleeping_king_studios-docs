@@ -2,11 +2,11 @@
 
 $LOAD_PATH << './lib'
 
-require 'sleeping_king_studios/yard/version'
+require 'sleeping_king_studios/docs/version'
 
 Gem::Specification.new do |gem|
   gem.name        = 'sleeping_king_studios-yard'
-  gem.version     = SleepingKingStudios::Yard::VERSION
+  gem.version     = SleepingKingStudios::Docs::VERSION
   gem.summary     = 'Tooling for working with YARD documentation.'
 
   description = <<~DESCRIPTION

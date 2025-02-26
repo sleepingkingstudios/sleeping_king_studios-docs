@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard'
+require 'sleeping_king_studios/docs'
 
-RSpec.describe SleepingKingStudios::Yard do
+RSpec.describe SleepingKingStudios::Docs do
   describe '::VERSION' do
     it 'should define the constant' do
       expect(described_class)
         .to have_constant(:VERSION)
-        .with_value(SleepingKingStudios::Yard::Version.to_gem_version)
+        .with_value(SleepingKingStudios::Docs::Version.to_gem_version)
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe SleepingKingStudios::Yard do
     it 'should define the reader' do
       expect(described_class)
         .to have_reader(:version)
-        .with_value(SleepingKingStudios::Yard::Version.to_gem_version)
+        .with_value(SleepingKingStudios::Docs::Version.to_gem_version)
     end
   end
 end

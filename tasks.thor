@@ -4,17 +4,6 @@ require 'sleeping_king_studios/tasks'
 require 'sleeping_king_studios/yard'
 
 SleepingKingStudios::Tasks.configure do |config|
-  config.ci do |ci|
-    ci.rspec = ci.rspec.merge(format: :progress)
-
-    ci.steps =
-      if ENV['CI']
-        %i[rspec rspec_each rubocop simplecov]
-      else
-        %i[rspec rubocop simplecov]
-      end
-  end
-
   config.file do |file|
     file.template_paths =
       [
