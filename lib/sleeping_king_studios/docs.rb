@@ -19,7 +19,7 @@ module SleepingKingStudios
     end
 
     autoload :Commands,      'sleeping_king_studios/yard/commands'
-    autoload :Data,          'sleeping_king_studios/yard/data'
+    autoload :Data,          'sleeping_king_studios/docs/data'
     autoload :Errors,        'sleeping_king_studios/docs/errors'
     autoload :Registry,      'sleeping_king_studios/docs/registry'
     autoload :RegistryQuery, 'sleeping_king_studios/docs/registry_query'

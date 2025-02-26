@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/metadata'
+require 'sleeping_king_studios/docs/data/metadata'
 
 require 'support/contracts/data/base_contract'
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
+RSpec.describe SleepingKingStudios::Docs::Data::Metadata do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 

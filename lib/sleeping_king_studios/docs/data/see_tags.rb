@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
 module SleepingKingStudios::Docs::Data
   # Namespace for objects representing YARD @see tags.

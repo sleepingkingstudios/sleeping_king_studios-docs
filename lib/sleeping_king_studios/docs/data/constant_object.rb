@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Object representing a Ruby constant.
   #
   # Each constant has a name and a value. In addition, a constant may have a
   # short description, a full description, and metadata.
-  class ConstantObject < SleepingKingStudios::Yard::Data::Base
+  class ConstantObject < SleepingKingStudios::Docs::Data::Base
     JSON_PROPERTIES = %i[
       data_path
       description
@@ -71,7 +71,7 @@ module SleepingKingStudios::Yard::Data
 
     # Additional metadata tags from the documentation.
     #
-    # @see SleepingKingStudios::Yard::Data::Metadata.
+    # @see SleepingKingStudios::Docs::Data::Metadata.
     def metadata
       @metadata ||= format_metadata
     end
@@ -93,9 +93,9 @@ module SleepingKingStudios::Yard::Data
 
       parent_class  =
         if native.parent.is_a?(YARD::CodeObjects::ClassObject)
-          SleepingKingStudios::Yard::Data::ClassObject
+          SleepingKingStudios::Docs::Data::ClassObject
         else
-          SleepingKingStudios::Yard::Data::ModuleObject
+          SleepingKingStudios::Docs::Data::ModuleObject
         end
       parent_object = parent_class.new(native: native.parent)
 
@@ -145,7 +145,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_metadata
-      SleepingKingStudios::Yard::Data::Metadata
+      SleepingKingStudios::Docs::Data::Metadata
         .new(native:)
         .as_json
     end

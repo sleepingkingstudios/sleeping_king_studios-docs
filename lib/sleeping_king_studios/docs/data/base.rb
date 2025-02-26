@@ -2,9 +2,9 @@
 
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Base object representing a Ruby object documented in YARD.
   #
   # @abstract

@@ -11,7 +11,7 @@ module SleepingKingStudios::Yard::Commands::Generators
   class DataGenerator < SleepingKingStudios::Yard::Commands::Generators::Base
     # Determines the generated file path for the given data object.
     #
-    # @param data_object [SleepingKingStudios::Yard::Data::Base] the data object
+    # @param data_object [SleepingKingStudios::Docs::Data::Base] the data object
     #   for which the file is generated.
     # @param data_type [String, Symbol] the type of data file to generate.
     #

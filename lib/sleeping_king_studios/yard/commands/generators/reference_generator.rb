@@ -9,7 +9,7 @@ module SleepingKingStudios::Yard::Commands::Generators
     # @overload file_path(data_object:)
     #   Determines the generated file path for the given data object.
     #
-    #   @param data_object [SleepingKingStudios::Yard::Data::Base] the data
+    #   @param data_object [SleepingKingStudios::Docs::Data::Base] the data
     #     object for which the file is generated.
     #
     #   @return [String] the qualified path to the generated file.

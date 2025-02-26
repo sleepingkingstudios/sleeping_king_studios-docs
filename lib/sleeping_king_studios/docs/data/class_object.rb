@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Object representing a Ruby class.
   #
   # Each class can define the following elements:
@@ -22,8 +22,8 @@ module SleepingKingStudios::Yard::Data
   #
   # Additionally, a class can have a description and metadata tags.
   #
-  # @see SleepingKingStudios::Yard::Data::Metadata
-  # @see SleepingKingStudios::Yard::Data::ModuleObject
+  # @see SleepingKingStudios::Docs::Data::Metadata
+  # @see SleepingKingStudios::Docs::Data::ModuleObject
   class ClassObject < ModuleObject
     JSON_PROPERTIES = %i[
       direct_subclasses

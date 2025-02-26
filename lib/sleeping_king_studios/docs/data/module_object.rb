@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Object representing a Ruby module.
   #
   # Each module can define the following elements:
@@ -19,9 +19,9 @@ module SleepingKingStudios::Yard::Data
   #
   # Additionally, a module can have a description and metadata tags.
   #
-  # @see SleepingKingStudios::Yard::Data::ClassObject
-  # @see SleepingKingStudios::Yard::Data::Metadata
-  # @see SleepingKingStudios::Yard::Data::NamespaceObject
+  # @see SleepingKingStudios::Docs::Data::ClassObject
+  # @see SleepingKingStudios::Docs::Data::Metadata
+  # @see SleepingKingStudios::Docs::Data::NamespaceObject
   class ModuleObject < NamespaceObject # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
       data_path
@@ -139,7 +139,7 @@ module SleepingKingStudios::Yard::Data
 
     # Additional metadata tags from the documentation.
     #
-    # @see SleepingKingStudios::Yard::Data::Metadata.
+    # @see SleepingKingStudios::Docs::Data::Metadata.
     def metadata
       @metadata ||= format_metadata
     end
@@ -154,9 +154,9 @@ module SleepingKingStudios::Yard::Data
 
       parent_class  =
         if native.parent.is_a?(YARD::CodeObjects::ClassObject)
-          SleepingKingStudios::Yard::Data::ClassObject
+          SleepingKingStudios::Docs::Data::ClassObject
         else
-          SleepingKingStudios::Yard::Data::ModuleObject
+          SleepingKingStudios::Docs::Data::ModuleObject
         end
       parent_object = parent_class.new(native: native.parent)
 
@@ -200,7 +200,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_metadata
-      SleepingKingStudios::Yard::Data::Metadata
+      SleepingKingStudios::Docs::Data::Metadata
         .new(native:)
         .as_json
     end

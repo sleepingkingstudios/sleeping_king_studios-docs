@@ -26,7 +26,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
     let(:registry) { parse_registry }
     let(:native)   { registry.find { |obj| obj.name == :Rocketry } }
     let(:data_object) do
-      SleepingKingStudios::Yard::Data::ClassObject.new(native:)
+      SleepingKingStudios::Docs::Data::ClassObject.new(native:)
     end
     let(:file_path) { command.file_path(data_object:) }
     let(:file_data) do
@@ -179,8 +179,8 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerat
   describe '#file_path' do
     let(:data_object) do
       instance_double(
-        SleepingKingStudios::Yard::Data::ClassObject,
-        class:     SleepingKingStudios::Yard::Data::ClassObject,
+        SleepingKingStudios::Docs::Data::ClassObject,
+        class:     SleepingKingStudios::Docs::Data::ClassObject,
         data_path:
       )
     end

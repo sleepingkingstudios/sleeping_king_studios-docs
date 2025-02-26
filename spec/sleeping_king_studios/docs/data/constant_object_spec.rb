@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/constant_object'
+require 'sleeping_king_studios/docs/data/constant_object'
 
 require 'support/contracts/data/base_contract'
 require 'support/contracts/data/describable_contract'
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::ConstantObject do
+RSpec.describe SleepingKingStudios::Docs::Data::ConstantObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 

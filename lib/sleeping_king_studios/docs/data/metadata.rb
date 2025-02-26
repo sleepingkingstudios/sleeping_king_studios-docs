@@ -2,9 +2,9 @@
 
 require 'set'
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Object representing the metadata tags for a Ruby module.
   #
   # Each module can have the following metadata tags:
@@ -16,9 +16,9 @@ module SleepingKingStudios::Yard::Data
   #
   # Other tags are not currently supported.
   #
-  # @see SleepingKingStudios::Yard::Data::ModuleObject.
+  # @see SleepingKingStudios::Docs::Data::ModuleObject.
   # @see SleepingKingStudios::Docs::Data::SeeTags.
-  class Metadata < SleepingKingStudios::Yard::Data::Base
+  class Metadata < SleepingKingStudios::Docs::Data::Base
     EMPTYABLE_PROPERTIES = Set.new(
       %i[
         abstract

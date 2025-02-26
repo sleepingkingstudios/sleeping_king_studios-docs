@@ -25,7 +25,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
     let(:registry)    { parse_registry }
     let(:native)      { registry.find { |obj| obj.name == :GRAVITY } }
     let(:data_object) do
-      SleepingKingStudios::Yard::Data::ConstantObject.new(native:)
+      SleepingKingStudios::Docs::Data::ConstantObject.new(native:)
     end
     let(:file_path) { command.file_path(data_object:) }
     let(:file_data) { YAML.dump(data_object.as_json.merge('version' => '*')) }
@@ -172,8 +172,8 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
   describe '#file_path' do
     let(:data_object) do
       instance_double(
-        SleepingKingStudios::Yard::Data::ConstantObject,
-        class:     SleepingKingStudios::Yard::Data::ConstantObject,
+        SleepingKingStudios::Docs::Data::ConstantObject,
+        class:     SleepingKingStudios::Docs::Data::ConstantObject,
         data_path:
       )
     end

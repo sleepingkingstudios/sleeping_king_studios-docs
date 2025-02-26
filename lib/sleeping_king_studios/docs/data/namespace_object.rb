@@ -2,9 +2,9 @@
 
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Object representing a Ruby namespace.
   #
   # Each namespace can define the following elements:
@@ -23,10 +23,10 @@ module SleepingKingStudios::Yard::Data
   # All other namespace properties (attributes and methods) should be reserved
   # for classes and modules, whose representation inherits from NamespaceObject.
   #
-  # @see SleepingKingStudios::Yard::Data::ClassObject
-  # @see SleepingKingStudios::Yard::Data::ModuleObject
-  # @see SleepingKingStudios::Yard::Data::RootObject
-  class NamespaceObject < SleepingKingStudios::Yard::Data::Base # rubocop:disable Metrics/ClassLength
+  # @see SleepingKingStudios::Docs::Data::ClassObject
+  # @see SleepingKingStudios::Docs::Data::ModuleObject
+  # @see SleepingKingStudios::Docs::Data::RootObject
+  class NamespaceObject < SleepingKingStudios::Docs::Data::Base # rubocop:disable Metrics/ClassLength
     JSON_PROPERTIES = %i[
       class_attributes
       class_methods
@@ -284,7 +284,7 @@ module SleepingKingStudios::Yard::Data
       return nil unless public_attribute?(options)
 
       method_object =
-        SleepingKingStudios::Yard::Data::MethodObject
+        SleepingKingStudios::Docs::Data::MethodObject
         .new(native: options.values.find { |method| !method.nil? })
 
       {
@@ -299,7 +299,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_constant(native_constant)
       constant_object =
-        SleepingKingStudios::Yard::Data::ConstantObject
+        SleepingKingStudios::Docs::Data::ConstantObject
         .new(native: native_constant)
 
       {
@@ -319,7 +319,7 @@ module SleepingKingStudios::Yard::Data
 
     def format_method(native_method) # rubocop:disable Metrics/MethodLength
       method_object =
-        SleepingKingStudios::Yard::Data::MethodObject
+        SleepingKingStudios::Docs::Data::MethodObject
         .new(native: native_method)
       hsh           = {
         'name'      => native_method.name.to_s,

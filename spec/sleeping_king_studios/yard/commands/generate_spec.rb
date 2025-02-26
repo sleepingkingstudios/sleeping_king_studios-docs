@@ -31,7 +31,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
     shared_examples 'should only generate root data file' do
       it 'should not generate the class data files' do
-        data_class = SleepingKingStudios::Yard::Data::ClassObject
+        data_class = SleepingKingStudios::Docs::Data::ClassObject
 
         command.call
 
@@ -41,7 +41,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
 
       it 'should not generate the constant data files' do
-        data_class = SleepingKingStudios::Yard::Data::ConstantObject
+        data_class = SleepingKingStudios::Docs::Data::ConstantObject
 
         command.call
 
@@ -51,7 +51,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
 
       it 'should not generate the method data files' do
-        data_class = SleepingKingStudios::Yard::Data::MethodObject
+        data_class = SleepingKingStudios::Docs::Data::MethodObject
 
         command.call
 
@@ -61,7 +61,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
 
       it 'should not generate the module data files' do
-        data_class = SleepingKingStudios::Yard::Data::ModuleObject
+        data_class = SleepingKingStudios::Docs::Data::ModuleObject
 
         command.call
 
@@ -71,7 +71,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
 
       it 'should generate the root namespace data file' do
-        data_class = SleepingKingStudios::Yard::Data::RootObject
+        data_class = SleepingKingStudios::Docs::Data::RootObject
 
         command.call
 
@@ -191,7 +191,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       end
 
       it 'should generate the root namespace data file' do
-        data_class = SleepingKingStudios::Yard::Data::RootObject
+        data_class = SleepingKingStudios::Docs::Data::RootObject
 
         command.call
 
@@ -248,22 +248,22 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     let(:expected_root) { registry.first }
 
     def class_object(native:)
-      be_a(SleepingKingStudios::Yard::Data::ClassObject)
+      be_a(SleepingKingStudios::Docs::Data::ClassObject)
         .and(have_attributes(name: native.path))
     end
 
     def constant_object(native:)
-      be_a(SleepingKingStudios::Yard::Data::ConstantObject)
+      be_a(SleepingKingStudios::Docs::Data::ConstantObject)
         .and(have_attributes(name: native.path))
     end
 
     def method_object(native:)
-      be_a(SleepingKingStudios::Yard::Data::MethodObject)
+      be_a(SleepingKingStudios::Docs::Data::MethodObject)
         .and(have_attributes(name: native.path))
     end
 
     def module_object(native:)
-      be_a(SleepingKingStudios::Yard::Data::ModuleObject)
+      be_a(SleepingKingStudios::Docs::Data::ModuleObject)
         .and(have_attributes(name: native.path))
     end
 

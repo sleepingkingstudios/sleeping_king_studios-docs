@@ -35,23 +35,23 @@ module SleepingKingStudios::Yard::Commands
     private
 
     def build_constant(native:)
-      SleepingKingStudios::Yard::Data::ConstantObject.new(native:)
+      SleepingKingStudios::Docs::Data::ConstantObject.new(native:)
     end
 
     def build_class(native:)
-      SleepingKingStudios::Yard::Data::ClassObject.new(native:)
+      SleepingKingStudios::Docs::Data::ClassObject.new(native:)
     end
 
     def build_method(native:)
-      SleepingKingStudios::Yard::Data::MethodObject.new(native:)
+      SleepingKingStudios::Docs::Data::MethodObject.new(native:)
     end
 
     def build_module(native:)
-      SleepingKingStudios::Yard::Data::ModuleObject.new(native:)
+      SleepingKingStudios::Docs::Data::ModuleObject.new(native:)
     end
 
     def build_root_namespace(native:)
-      SleepingKingStudios::Yard::Data::RootObject.new(native:)
+      SleepingKingStudios::Docs::Data::RootObject.new(native:)
     end
 
     def data_command

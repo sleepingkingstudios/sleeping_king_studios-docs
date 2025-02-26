@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data'
+require 'sleeping_king_studios/docs/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Object representing the top-level Ruby namespace.
   #
   # Each namespace can define the following elements:
@@ -14,8 +14,8 @@ module SleepingKingStudios::Yard::Data
   # - Instance attributes.
   # - Instance methods.
   #
-  # @see SleepingKingStudios::Yard::Data::NamespaceObject
-  class RootObject < SleepingKingStudios::Yard::Data::NamespaceObject
+  # @see SleepingKingStudios::Docs::Data::NamespaceObject
+  class RootObject < SleepingKingStudios::Docs::Data::NamespaceObject
     # The path to the data file.
     #
     # @return [String] the file path.

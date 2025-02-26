@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/namespace_object'
+require 'sleeping_king_studios/docs/data/namespace_object'
 
 require 'support/contracts/data/base_contract'
 require 'support/contracts/data/namespace_contract'
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::NamespaceObject do
+RSpec.describe SleepingKingStudios::Docs::Data::NamespaceObject do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 
