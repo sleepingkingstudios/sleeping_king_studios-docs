@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/generators/data_generator'
+require 'sleeping_king_studios/docs/commands/generators/data_generator'
 
 require 'support/contracts/commands/generator_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Generators::DataGenerator do
+RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path:, **options) }

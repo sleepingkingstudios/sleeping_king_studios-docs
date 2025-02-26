@@ -5,9 +5,9 @@ require 'sleeping_king_studios/tools/toolbelt'
 
 require 'sleeping_king_studios/yard/commands'
 
-module SleepingKingStudios::Yard::Commands
+module SleepingKingStudios::Docs::Commands
   # Generates YARD documentation files.
-  class Generate < SleepingKingStudios::Yard::Commands::Generators::Base # rubocop:disable Metrics/ClassLength
+  class Generate < SleepingKingStudios::Docs::Commands::Generators::Base # rubocop:disable Metrics/ClassLength
     # @overload initialize(docs_path:, **options)
     #   @param docs_path [String] the directory path for generating the
     #     documentation files.
@@ -56,7 +56,7 @@ module SleepingKingStudios::Yard::Commands
 
     def data_command
       @data_command ||=
-        SleepingKingStudios::Yard::Commands::Generators::DataGenerator
+        SleepingKingStudios::Docs::Commands::Generators::DataGenerator
         .new(docs_path:, **options)
     end
 
@@ -163,7 +163,7 @@ module SleepingKingStudios::Yard::Commands
 
     def reference_command
       @reference_command ||=
-        SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+        SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator
         .new(docs_path:, **options)
     end
 

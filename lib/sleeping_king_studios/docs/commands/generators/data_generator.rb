@@ -4,11 +4,11 @@ require 'yaml'
 
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard/commands/generators'
+require 'sleeping_king_studios/docs/commands/generators'
 
-module SleepingKingStudios::Yard::Commands::Generators
+module SleepingKingStudios::Docs::Commands::Generators
   # Generator for writing data files.
-  class DataGenerator < SleepingKingStudios::Yard::Commands::Generators::Base
+  class DataGenerator < SleepingKingStudios::Docs::Commands::Generators::Base
     # Determines the generated file path for the given data object.
     #
     # @param data_object [SleepingKingStudios::Docs::Data::Base] the data object

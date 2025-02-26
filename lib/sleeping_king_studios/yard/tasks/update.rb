@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/generate'
+require 'sleeping_king_studios/docs/commands/generate'
 require 'sleeping_king_studios/yard/tasks'
 require 'sleeping_king_studios/yard/tasks/base'
 
@@ -27,7 +27,7 @@ module SleepingKingStudios::Yard::Tasks
       desc:    'if true, prints status messages to STDOUT'
     # Updates the documentation files for the project.
     def update
-      SleepingKingStudios::Yard::Commands::Generate
+      SleepingKingStudios::Docs::Commands::Generate
         .new(force: true, **tools.hash_tools.symbolize_keys(options))
         .call
     end

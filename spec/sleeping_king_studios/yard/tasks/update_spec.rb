@@ -14,7 +14,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Update do
       end
     end
 
-    let(:command_class) { SleepingKingStudios::Yard::Commands::Generate }
+    let(:command_class) { SleepingKingStudios::Docs::Commands::Generate }
     let(:mock_command) do
       instance_double(command_class, call: nil)
     end

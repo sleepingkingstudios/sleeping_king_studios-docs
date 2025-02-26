@@ -2,11 +2,11 @@
 
 require 'stringio'
 
-require 'sleeping_king_studios/yard/commands/generate'
+require 'sleeping_king_studios/docs/commands/generate'
 
 require 'support/contracts/commands/generator_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
+RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path:, **options) }
@@ -225,7 +225,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
 
     let(:data_command) do
       instance_double(
-        SleepingKingStudios::Yard::Commands::Generators::DataGenerator,
+        SleepingKingStudios::Docs::Commands::Generators::DataGenerator,
         call:      Cuprum::Result.new(status: :success),
         file_path: nil
       )
@@ -238,7 +238,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
     let(:reference_command) do
       instance_double(
-        SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator,
+        SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator,
         call:      Cuprum::Result.new(status: :success),
         file_path: nil
       )
@@ -280,7 +280,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     end
 
     before(:example) do
-      allow(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+      allow(SleepingKingStudios::Docs::Commands::Generators::DataGenerator)
         .to receive(:new)
         .and_return(data_command)
 
@@ -288,7 +288,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         .to receive(:new)
         .and_return(parse_command)
 
-      allow(SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator)
+      allow(SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator)
         .to receive(:new)
         .and_return(reference_command)
 
@@ -325,7 +325,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
     it 'should initialize the data command' do
       command.call
 
-      expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+      expect(SleepingKingStudios::Docs::Commands::Generators::DataGenerator)
         .to have_received(:new)
         .with(docs_path:, **command.options)
     end
@@ -464,7 +464,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       it 'should initialize the data command' do
         command.call
 
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+        expect(SleepingKingStudios::Docs::Commands::Generators::DataGenerator)
           .to have_received(:new)
           .with(docs_path:, **command.options)
       end
@@ -473,7 +473,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expect(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+          SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
           .with(docs_path:, **command.options)
@@ -583,7 +583,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       it 'should initialize the data command' do
         command.call
 
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+        expect(SleepingKingStudios::Docs::Commands::Generators::DataGenerator)
           .to have_received(:new)
           .with(docs_path:, **command.options)
       end
@@ -592,7 +592,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expect(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+          SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
           .with(docs_path:, **command.options)
@@ -611,7 +611,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       it 'should initialize the data command' do
         command.call
 
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+        expect(SleepingKingStudios::Docs::Commands::Generators::DataGenerator)
           .to have_received(:new)
           .with(docs_path:, **command.options)
       end
@@ -620,7 +620,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expect(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+          SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
           .with(docs_path:, **command.options)
@@ -1058,7 +1058,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
       it 'should initialize the data command' do
         command.call
 
-        expect(SleepingKingStudios::Yard::Commands::Generators::DataGenerator)
+        expect(SleepingKingStudios::Docs::Commands::Generators::DataGenerator)
           .to have_received(:new)
           .with(docs_path:, **command.options)
       end
@@ -1067,7 +1067,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Generate do
         command.call
 
         expect(
-          SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator
+          SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator
         )
           .to have_received(:new)
           .with(docs_path:, **command.options)

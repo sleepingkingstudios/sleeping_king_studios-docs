@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/generators'
+require 'sleeping_king_studios/docs/commands/generators'
 
-module SleepingKingStudios::Yard::Commands::Generators
+module SleepingKingStudios::Docs::Commands::Generators
   # Generator for writing reference files.
   class ReferenceGenerator <
-        SleepingKingStudios::Yard::Commands::Generators::Base
+        SleepingKingStudios::Docs::Commands::Generators::Base
     # @overload file_path(data_object:)
     #   Determines the generated file path for the given data object.
     #

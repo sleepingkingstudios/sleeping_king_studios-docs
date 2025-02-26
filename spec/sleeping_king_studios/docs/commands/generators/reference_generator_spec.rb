@@ -2,11 +2,11 @@
 
 require 'stringio'
 
-require 'sleeping_king_studios/yard/commands/generators/reference_generator'
+require 'sleeping_king_studios/docs/commands/generators/reference_generator'
 
 require 'support/contracts/commands/generator_contract'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Generators::ReferenceGenerator do # rubocop:disable Layout/LineLength
+RSpec.describe SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator do # rubocop:disable Layout/LineLength
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path:, **options) }

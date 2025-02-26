@@ -4,9 +4,9 @@ require 'cuprum/command'
 require 'cuprum/exception_handling'
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard/commands/generators'
+require 'sleeping_king_studios/docs/commands/generators'
 
-module SleepingKingStudios::Yard::Commands::Generators
+module SleepingKingStudios::Docs::Commands::Generators
   # Abstract base class for writing generator classes.
   class Base < Cuprum::Command
     include Cuprum::ExceptionHandling
