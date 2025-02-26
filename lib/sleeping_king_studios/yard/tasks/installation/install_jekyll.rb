@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/installation/install_jekyll'
+require 'sleeping_king_studios/docs/commands/installation/install_jekyll'
 require 'sleeping_king_studios/yard/tasks/base'
 require 'sleeping_king_studios/yard/tasks/installation'
 
@@ -39,7 +39,7 @@ module SleepingKingStudios::Yard::Tasks::Installation
       desc:    'if true, prints status messages to STDOUT'
     # Install the Jekyll application
     def install
-      SleepingKingStudios::Yard::Commands::Installation::InstallJekyll
+      SleepingKingStudios::Docs::Commands::Installation::InstallJekyll
         .new(**constructor_options)
         .call(**command_options)
     end

@@ -5,9 +5,9 @@ require 'fileutils'
 require 'cuprum/command'
 require 'cuprum/exception_handling'
 
-require 'sleeping_king_studios/yard/commands'
+require 'sleeping_king_studios/docs/commands'
 
-module SleepingKingStudios::Yard::Commands
+module SleepingKingStudios::Docs::Commands
   # Writes the given contents to a file.
   class WriteFile < Cuprum::Command
     include Cuprum::ExceptionHandling

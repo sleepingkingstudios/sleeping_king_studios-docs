@@ -2,10 +2,10 @@
 
 require 'fileutils'
 
-require 'sleeping_king_studios/yard/commands/installation'
+require 'sleeping_king_studios/docs/commands/installation'
 require 'sleeping_king_studios/docs/errors/file_already_exists'
 
-module SleepingKingStudios::Yard::Commands::Installation
+module SleepingKingStudios::Docs::Commands::Installation
   # Installs the Liquid template files.
   class InstallTemplates < Cuprum::Command
     # @overload initialize(**options)

@@ -4,10 +4,10 @@ require 'fileutils'
 
 require 'erubi'
 
-require 'sleeping_king_studios/yard/commands/installation'
-require 'sleeping_king_studios/yard/commands/installation/install_templates'
+require 'sleeping_king_studios/docs/commands/installation'
+require 'sleeping_king_studios/docs/commands/installation/install_templates'
 
-module SleepingKingStudios::Yard::Commands::Installation
+module SleepingKingStudios::Docs::Commands::Installation
   # Installs the Jekyll application.
   class InstallJekyll < Cuprum::Command # rubocop:disable Metrics/ClassLength
     # @overload initialize(**options)
@@ -178,7 +178,7 @@ module SleepingKingStudios::Yard::Commands::Installation
     end
 
     def install_reference_templates
-      SleepingKingStudios::Yard::Commands::Installation::InstallTemplates
+      SleepingKingStudios::Docs::Commands::Installation::InstallTemplates
         .new(
           dry_run:         dry_run?,
           force:           false,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands'
+require 'sleeping_king_studios/docs/commands'
 
 module SleepingKingStudios::Docs::Commands
   # Namespace for generator commands, which write docs to the filesystem.

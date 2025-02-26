@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/installation/install_templates'
+require 'sleeping_king_studios/docs/commands/installation/install_templates'
 
 RSpec.describe \
-  SleepingKingStudios::Yard::Commands::Installation::InstallTemplates \
+  SleepingKingStudios::Docs::Commands::Installation::InstallTemplates \
 do
   subject(:command) { described_class.new(**options) }
 

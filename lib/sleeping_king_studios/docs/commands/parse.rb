@@ -3,9 +3,9 @@
 require 'cuprum/command'
 require 'yard'
 
-require 'sleeping_king_studios/yard/commands'
+require 'sleeping_king_studios/docs/commands'
 
-module SleepingKingStudios::Yard::Commands
+module SleepingKingStudios::Docs::Commands
   # Adds the specified data to the YARD Registry.
   class Parse < Cuprum::Command
     # @!method call

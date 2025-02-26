@@ -18,7 +18,7 @@ module SleepingKingStudios
       end
     end
 
-    autoload :Commands,      'sleeping_king_studios/yard/commands'
+    autoload :Commands,      'sleeping_king_studios/docs/commands'
     autoload :Data,          'sleeping_king_studios/docs/data'
     autoload :Errors,        'sleeping_king_studios/docs/errors'
     autoload :Registry,      'sleeping_king_studios/docs/registry'

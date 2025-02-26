@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/installation/install_workflow'
+require 'sleeping_king_studios/docs/commands/installation/install_workflow'
 require 'sleeping_king_studios/yard/tasks/base'
 require 'sleeping_king_studios/yard/tasks/installation'
 
@@ -28,7 +28,7 @@ module SleepingKingStudios::Yard::Tasks::Installation
       desc:    'if true, prints status messages to STDOUT'
     # Installs the GitHub pages CI workflow.
     def workflow
-      SleepingKingStudios::Yard::Commands::Installation::InstallWorkflow
+      SleepingKingStudios::Docs::Commands::Installation::InstallWorkflow
         .new(**constructor_options)
         .call(**command_options)
     end

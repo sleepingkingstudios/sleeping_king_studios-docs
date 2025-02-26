@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/write_file'
+require 'sleeping_king_studios/docs/commands/write_file'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
+RSpec.describe SleepingKingStudios::Docs::Commands::WriteFile do
   subject(:command) { described_class.new(**constructor_options) }
 
   let(:constructor_options) { {} }

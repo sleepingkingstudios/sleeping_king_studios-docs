@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/installation/install_jekyll'
+require 'sleeping_king_studios/docs/commands/installation/install_jekyll'
 
 RSpec.describe \
-  SleepingKingStudios::Yard::Commands::Installation::InstallJekyll \
+  SleepingKingStudios::Docs::Commands::Installation::InstallJekyll \
 do
   subject(:command) { described_class.new(**options) }
 
@@ -23,7 +23,7 @@ do
   describe '#call' do
     let(:docs_path) { '/path/to/docs' }
     let(:templates_command_class) do
-      SleepingKingStudios::Yard::Commands::Installation::InstallTemplates
+      SleepingKingStudios::Docs::Commands::Installation::InstallTemplates
     end
     let(:mock_templates_command) do
       instance_double(templates_command_class, call: Cuprum::Result.new)

@@ -10,7 +10,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Installation::InstallJekyll do
     let(:arguments) { [] }
     let(:options)   { {} }
     let(:command_class) do
-      SleepingKingStudios::Yard::Commands::Installation::InstallJekyll
+      SleepingKingStudios::Docs::Commands::Installation::InstallJekyll
     end
     let(:mock_command) do
       instance_double(command_class, call: nil)

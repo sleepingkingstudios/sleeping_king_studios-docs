@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/parse'
+require 'sleeping_king_studios/docs/commands/parse'
 
-RSpec.describe SleepingKingStudios::Yard::Commands::Parse do
+RSpec.describe SleepingKingStudios::Docs::Commands::Parse do
   subject(:command) { described_class.new }
 
   describe '.new' do

@@ -3,7 +3,7 @@
 require 'cuprum/command'
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard/commands'
+require 'sleeping_king_studios/docs/commands'
 
 module SleepingKingStudios::Docs::Commands
   # Generates YARD documentation files.

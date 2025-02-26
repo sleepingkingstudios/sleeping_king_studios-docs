@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/commands/installation/install_templates'
+require 'sleeping_king_studios/docs/commands/installation/install_templates'
 require 'sleeping_king_studios/yard/tasks/base'
 require 'sleeping_king_studios/yard/tasks/installation'
 
@@ -27,7 +27,7 @@ module SleepingKingStudios::Yard::Tasks::Installation
       desc:    'if true, prints status messages to STDOUT'
     # Installs or updates the Jekyll templates
     def templates
-      SleepingKingStudios::Yard::Commands::Installation::InstallTemplates
+      SleepingKingStudios::Docs::Commands::Installation::InstallTemplates
         .new(
           dry_run: options['dry_run'],
           force:   options['force'],
