@@ -13,7 +13,7 @@ module SleepingKingStudios::Yard::Data::Types
     # @param name [String] the name of the type.
     def initialize(name:)
       @name     = name
-      @registry = SleepingKingStudios::Yard::Registry.instance
+      @registry = SleepingKingStudios::Docs::Registry.instance
     end
 
     # @return [String] the name of the type.
@@ -52,7 +52,7 @@ module SleepingKingStudios::Yard::Data::Types
       return @exists = false if literal? || method?
 
       @exists =
-        SleepingKingStudios::Yard::RegistryQuery
+        SleepingKingStudios::Docs::RegistryQuery
         .new(registry:)
         .definition_exists?(name)
     end

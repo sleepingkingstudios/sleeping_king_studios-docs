@@ -17,13 +17,13 @@ module Spec::Support::Contracts::Data
       shared_context 'when the definition exists' do
         let(:query) do
           instance_double(
-            SleepingKingStudios::Yard::RegistryQuery,
+            SleepingKingStudios::Docs::RegistryQuery,
             definition_exists?: true
           )
         end
 
         before(:example) do
-          allow(SleepingKingStudios::Yard::RegistryQuery)
+          allow(SleepingKingStudios::Docs::RegistryQuery)
             .to receive(:new)
             .and_return(query)
         end
@@ -32,13 +32,13 @@ module Spec::Support::Contracts::Data
       before(:context) do
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Yard::Registry.clear
+        SleepingKingStudios::Docs::Registry.clear
       end
 
       after(:example) do
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Yard::Registry.clear
+        SleepingKingStudios::Docs::Registry.clear
       end
 
       describe '#==' do
@@ -146,13 +146,13 @@ module Spec::Support::Contracts::Data
       describe '#exists?' do
         let(:query) do
           instance_double(
-            SleepingKingStudios::Yard::RegistryQuery,
+            SleepingKingStudios::Docs::RegistryQuery,
             definition_exists?: false
           )
         end
 
         before(:example) do
-          allow(SleepingKingStudios::Yard::RegistryQuery)
+          allow(SleepingKingStudios::Docs::RegistryQuery)
             .to receive(:new)
             .and_return(query)
         end
@@ -339,7 +339,7 @@ module Spec::Support::Contracts::Data
           end
 
           before(:example) do
-            allow(SleepingKingStudios::Yard::Registry)
+            allow(SleepingKingStudios::Docs::Registry)
               .to receive(:instance)
               .and_return(mock_registry)
           end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard'
+require 'sleeping_king_studios/docs'
 
-module SleepingKingStudios::Yard
+module SleepingKingStudios::Docs
   # Checks for the presence of requested data in the YARD registry.
   class RegistryQuery
     # @param registry [Enumerable] the YARD registry.

@@ -45,7 +45,7 @@ module Spec::Support
       ensure
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Yard::Registry.clear
+        SleepingKingStudios::Docs::Registry.clear
       end
     end
   end

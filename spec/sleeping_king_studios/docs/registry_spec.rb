@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/registry'
+require 'sleeping_king_studios/docs/registry'
 
-RSpec.describe SleepingKingStudios::Yard::Registry do
+RSpec.describe SleepingKingStudios::Docs::Registry do
   before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
 
   after(:example) { YARD::Registry.clear }

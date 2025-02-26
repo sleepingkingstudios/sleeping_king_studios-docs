@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/registry_query'
+require 'sleeping_king_studios/docs/registry_query'
 
-RSpec.describe SleepingKingStudios::Yard::RegistryQuery do
+RSpec.describe SleepingKingStudios::Docs::RegistryQuery do
   subject(:query) { described_class.new(registry:) }
 
   let(:registry) { YARD::Registry }

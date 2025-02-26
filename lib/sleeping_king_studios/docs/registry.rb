@@ -2,9 +2,9 @@
 
 require 'yard'
 
-require 'sleeping_king_studios/yard'
+require 'sleeping_king_studios/docs'
 
-module SleepingKingStudios::Yard
+module SleepingKingStudios::Docs
   # Dependency injection provider wrapping the YARD registry.
   module Registry
     # Clears the cached registry, if any.
