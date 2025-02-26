@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags/reference_tag'
+require 'sleeping_king_studios/docs/data/see_tags/reference_tag'
 
 require 'support/contracts/data/see_tag_contract'
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ReferenceTag do
+RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 

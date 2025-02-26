@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a plain text @see tag.
-  class TextTag < SleepingKingStudios::Yard::Data::SeeTags::Base
+  class TextTag < SleepingKingStudios::Docs::Data::SeeTags::Base
     class << self
       # Checks if the given tag object is plain text.
       #

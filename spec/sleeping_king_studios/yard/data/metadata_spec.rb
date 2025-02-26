@@ -17,7 +17,7 @@ RSpec.describe SleepingKingStudios::Yard::Data::Metadata do
   let(:native)  { YARD::Registry.find { |obj| obj.title == 'Space' } }
 
   def format_see_tag(tag)
-    SleepingKingStudios::Yard::Data::SeeTags
+    SleepingKingStudios::Docs::Data::SeeTags
       .build(native: tag, parent: native)
       .as_json
   end

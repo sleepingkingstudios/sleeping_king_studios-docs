@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a @see tag with a link.
-  class LinkTag < SleepingKingStudios::Yard::Data::SeeTags::Base
+  class LinkTag < SleepingKingStudios::Docs::Data::SeeTags::Base
     # Pattern used to match external links. YARD seems to use the presence of a
     # protocol to identify a link, so "http://foo" is a valid link, but
     # "www.example.com" is not.

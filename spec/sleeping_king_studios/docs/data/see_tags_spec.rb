@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::SeeTags do
+RSpec.describe SleepingKingStudios::Docs::Data::SeeTags do
   include Spec::Support::Fixtures
 
   describe '.build' do

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a @see tag with a definition link.
-  class DefinitionTag < SleepingKingStudios::Yard::Data::SeeTags::ReferenceTag
+  class DefinitionTag < SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag
     DEFINITION_PATTERN =
       /\A(::)?[[:upper:]][[:alnum:]]*(::[[:upper:]][[:alnum:]]*)*\z/
     private_constant :DEFINITION_PATTERN

@@ -22,7 +22,7 @@ module SleepingKingStudios::Yard
     autoload :RootObject,
       'sleeping_king_studios/yard/data/root_object'
     autoload :SeeTags,
-      'sleeping_king_studios/yard/data/see_tags'
+      'sleeping_king_studios/docs/data/see_tags'
     autoload :Types,
       'sleeping_king_studios/yard/data/types'
   end

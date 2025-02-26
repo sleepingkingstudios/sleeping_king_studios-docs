@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a @see tag with a constant or method link.
   #
   # @abstract
-  class NamespaceItemTag < SleepingKingStudios::Yard::Data::SeeTags::ReferenceTag # rubocop:disable Layout/LineLength
-    # (see SleepingKingStudios::Yard::Data::SeeTags::Base#initialize)
+  class NamespaceItemTag < SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag # rubocop:disable Layout/LineLength
+    # (see SleepingKingStudios::Docs::Data::SeeTags::Base#initialize)
     def initialize(native:, parent:)
       super
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a @see tag with a constant link.
-  class ConstantTag < SleepingKingStudios::Yard::Data::SeeTags::NamespaceItemTag
+  class ConstantTag < SleepingKingStudios::Docs::Data::SeeTags::NamespaceItemTag
     DEFINITION_PREFIX =
       '(::)?[[:upper:]][[:alnum:]]*(::[[:upper:]][[:alnum:]]*)*'
     private_constant :DEFINITION_PREFIX

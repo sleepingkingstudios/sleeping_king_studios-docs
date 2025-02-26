@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags/class_method_tag'
+require 'sleeping_king_studios/docs/data/see_tags/class_method_tag'
 
 require 'support/contracts/data/see_tag_contract'
 require 'support/fixtures'
 
-RSpec.describe SleepingKingStudios::Yard::Data::SeeTags::ClassMethodTag do
+RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
   include Spec::Support::Contracts::Data
   include Spec::Support::Fixtures
 

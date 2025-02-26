@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a @see tag with an instance method link.
-  class InstanceMethodTag < SleepingKingStudios::Yard::Data::SeeTags::NamespaceItemTag # rubocop:disable Layout/LineLength
+  class InstanceMethodTag < SleepingKingStudios::Docs::Data::SeeTags::NamespaceItemTag # rubocop:disable Layout/LineLength
     DEFINITION_PREFIX =
       '(::)?[[:upper:]][[:alnum:]]*(::[[:upper:]][[:alnum:]]*)*'
     private_constant :DEFINITION_PREFIX

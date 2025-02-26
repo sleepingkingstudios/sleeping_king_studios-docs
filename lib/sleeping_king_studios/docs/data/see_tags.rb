@@ -2,27 +2,27 @@
 
 require 'sleeping_king_studios/yard/data'
 
-module SleepingKingStudios::Yard::Data
+module SleepingKingStudios::Docs::Data
   # Namespace for objects representing YARD @see tags.
   module SeeTags
     autoload :Base,
-      'sleeping_king_studios/yard/data/see_tags/base'
+      'sleeping_king_studios/docs/data/see_tags/base'
     autoload :ClassMethodTag,
-      'sleeping_king_studios/yard/data/see_tags/class_method_tag'
+      'sleeping_king_studios/docs/data/see_tags/class_method_tag'
     autoload :ConstantTag,
-      'sleeping_king_studios/yard/data/see_tags/constant_tag'
+      'sleeping_king_studios/docs/data/see_tags/constant_tag'
     autoload :DefinitionTag,
-      'sleeping_king_studios/yard/data/see_tags/definition_tag'
+      'sleeping_king_studios/docs/data/see_tags/definition_tag'
     autoload :InstanceMethodTag,
-      'sleeping_king_studios/yard/data/see_tags/instance_method_tag'
+      'sleeping_king_studios/docs/data/see_tags/instance_method_tag'
     autoload :LinkTag,
-      'sleeping_king_studios/yard/data/see_tags/link_tag'
+      'sleeping_king_studios/docs/data/see_tags/link_tag'
     autoload :NamespaceItemTag,
-      'sleeping_king_studios/yard/data/see_tags/namespace_item_tag'
+      'sleeping_king_studios/docs/data/see_tags/namespace_item_tag'
     autoload :ReferenceTag,
-      'sleeping_king_studios/yard/data/see_tags/reference_tag'
+      'sleeping_king_studios/docs/data/see_tags/reference_tag'
     autoload :TextTag,
-      'sleeping_king_studios/yard/data/see_tags/text_tag'
+      'sleeping_king_studios/docs/data/see_tags/text_tag'
 
     class << self
       # Creates a wrapper object for the given @see tag.
@@ -32,7 +32,7 @@ module SleepingKingStudios::Yard::Data
       # @param parent [YARD::Tags::Tag] the YARD object representing the parent
       #   object, which contains the @see tag.
       #
-      # @return [SleepingKingStudios::Yard::Data::SeeTags::Base] the wrapped
+      # @return [SleepingKingStudios::Docs::Data::SeeTags::Base] the wrapped
       #   object representing the @see tag.
       def build(native:, parent:)
         build_text_tag(native:, parent:) ||

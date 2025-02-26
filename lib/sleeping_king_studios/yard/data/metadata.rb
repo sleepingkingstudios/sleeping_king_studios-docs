@@ -17,7 +17,7 @@ module SleepingKingStudios::Yard::Data
   # Other tags are not currently supported.
   #
   # @see SleepingKingStudios::Yard::Data::ModuleObject.
-  # @see SleepingKingStudios::Yard::Data::SeeTags.
+  # @see SleepingKingStudios::Docs::Data::SeeTags.
   class Metadata < SleepingKingStudios::Yard::Data::Base
     EMPTYABLE_PROPERTIES = Set.new(
       %i[
@@ -178,7 +178,7 @@ module SleepingKingStudios::Yard::Data
     end
 
     def format_see_tag(tag)
-      SleepingKingStudios::Yard::Data::SeeTags
+      SleepingKingStudios::Docs::Data::SeeTags
         .build(
           native: tag,
           parent: definition_tag?(native) ? native : native.parent

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/data/see_tags'
+require 'sleeping_king_studios/docs/data/see_tags'
 
-module SleepingKingStudios::Yard::Data::SeeTags
+module SleepingKingStudios::Docs::Data::SeeTags
   # Data object representing a @see tag with a reference link.
   #
   # @abstract
-  class ReferenceTag < SleepingKingStudios::Yard::Data::SeeTags::Base
+  class ReferenceTag < SleepingKingStudios::Docs::Data::SeeTags::Base
     SEPARATORS = ['::', '.', '#'].freeze
     private_constant :SEPARATORS
 
