@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/errors/file_already_exists'
+require 'sleeping_king_studios/docs/errors/file_error'
 
-RSpec.describe SleepingKingStudios::Yard::Errors::FileAlreadyExists do
-  subject(:error) { described_class.new(path:) }
+RSpec.describe SleepingKingStudios::Docs::Errors::FileError do
+  subject(:error) { described_class.new(message:, path:) }
 
-  let(:path) { 'path/to/file.txt' }
+  let(:message) { 'something went wrong' }
+  let(:path)    { 'path/to/files' }
 
   describe '::TYPE' do
     include_examples 'should define immutable constant',
       :TYPE,
-      'sleeping_king_studios.yard.errors.file_already_exists'
+      'sleeping_king_studios.docs.errors.file_error'
   end
 
   describe '.new' do
@@ -18,7 +19,7 @@ RSpec.describe SleepingKingStudios::Yard::Errors::FileAlreadyExists do
       expect(described_class)
         .to be_constructible
         .with(0).arguments
-        .and_keywords(:path)
+        .and_keywords(:message, :path)
     end
   end
 
@@ -35,9 +36,7 @@ RSpec.describe SleepingKingStudios::Yard::Errors::FileAlreadyExists do
   end
 
   describe '#message' do
-    let(:expected) { "file already exists at #{path.inspect}" }
-
-    include_examples 'should define reader', :message, -> { be == expected }
+    include_examples 'should define reader', :message, -> { message }
   end
 
   describe '#path' do

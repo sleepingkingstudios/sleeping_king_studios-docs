@@ -5,7 +5,7 @@ require 'fileutils'
 require 'erubi'
 
 require 'sleeping_king_studios/yard/commands/installation'
-require 'sleeping_king_studios/yard/errors/file_already_exists'
+require 'sleeping_king_studios/docs/errors/file_already_exists'
 
 module SleepingKingStudios::Yard::Commands::Installation
   # Installs the GitHub pages CI workflow.
@@ -53,7 +53,7 @@ module SleepingKingStudios::Yard::Commands::Installation
       return unless File.exist?(filename)
 
       error =
-        SleepingKingStudios::Yard::Errors::FileAlreadyExists
+        SleepingKingStudios::Docs::Errors::FileAlreadyExists
         .new(path: filename)
 
       error_stream.puts("Error: #{error.message}")

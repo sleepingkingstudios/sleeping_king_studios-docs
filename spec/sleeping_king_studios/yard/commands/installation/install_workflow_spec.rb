@@ -172,7 +172,7 @@ do
 
     context 'when the workflow file already exists' do
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::FileAlreadyExists
+        SleepingKingStudios::Docs::Errors::FileAlreadyExists
           .new(path: workflow_file_path)
       end
       let(:expected_output) do

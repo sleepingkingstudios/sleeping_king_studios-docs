@@ -66,7 +66,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
     context 'when the directory cannot be created' do
       let(:invalid_path) { File.expand_path('path') }
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::InvalidDirectory
+        SleepingKingStudios::Docs::Errors::InvalidDirectory
           .new(path: invalid_path)
       end
 
@@ -99,7 +99,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
 
     context 'when the file already exists' do
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::FileAlreadyExists
+        SleepingKingStudios::Docs::Errors::FileAlreadyExists
           .new(path: File.expand_path(file_path))
       end
 
@@ -153,7 +153,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::WriteFile do
 
     context 'when a directory exists at the file path' do
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::InvalidFile
+        SleepingKingStudios::Docs::Errors::InvalidFile
           .new(path: File.expand_path(file_path))
       end
 

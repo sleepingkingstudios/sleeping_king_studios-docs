@@ -111,7 +111,7 @@ do
     context 'when a template file already exists' do
       let(:existing_file) { expected_files[1] }
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::FileAlreadyExists
+        SleepingKingStudios::Docs::Errors::FileAlreadyExists
           .new(path: existing_file)
       end
       let(:expected_output) do

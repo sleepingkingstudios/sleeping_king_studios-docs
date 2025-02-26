@@ -25,7 +25,7 @@ module SleepingKingStudios::Yard::Commands
     private
 
     def file_not_found_error(path)
-      SleepingKingStudios::Yard::Errors::FileNotFound.new(path:)
+      SleepingKingStudios::Docs::Errors::FileNotFound.new(path:)
     end
 
     def process(path = nil)

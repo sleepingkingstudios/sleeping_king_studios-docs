@@ -2,13 +2,13 @@
 
 require 'cuprum/error'
 
-require 'sleeping_king_studios/yard/errors'
+require 'sleeping_king_studios/docs/errors'
 
-module SleepingKingStudios::Yard::Errors
+module SleepingKingStudios::Docs::Errors
   # Abstract base class for errors interacting with the file system.
   class FileError < Cuprum::Error
     # Short string used to identify the type of error.
-    TYPE = 'sleeping_king_studios.yard.errors.file_error'
+    TYPE = 'sleeping_king_studios.docs.errors.file_error'
 
     # @param message [String] message describing the nature of the error.
     # @param path [String] the invalid file or directory path.

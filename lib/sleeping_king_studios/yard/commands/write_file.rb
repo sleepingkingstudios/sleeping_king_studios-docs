@@ -44,7 +44,7 @@ module SleepingKingStudios::Yard::Commands
       return unless File.exist?(file_path)
 
       error =
-        SleepingKingStudios::Yard::Errors::FileAlreadyExists
+        SleepingKingStudios::Docs::Errors::FileAlreadyExists
         .new(path: file_path)
 
       failure(error)
@@ -67,13 +67,13 @@ module SleepingKingStudios::Yard::Commands
     def invalid_directory_error(exception)
       dir_path = exception.message.split(' - ').last
 
-      SleepingKingStudios::Yard::Errors::InvalidDirectory.new(path: dir_path)
+      SleepingKingStudios::Docs::Errors::InvalidDirectory.new(path: dir_path)
     end
 
     def invalid_file_error(exception)
       file_path = exception.message.split(' - ').last
 
-      SleepingKingStudios::Yard::Errors::InvalidFile.new(path: file_path)
+      SleepingKingStudios::Docs::Errors::InvalidFile.new(path: file_path)
     end
 
     def process(contents:, file_path:)

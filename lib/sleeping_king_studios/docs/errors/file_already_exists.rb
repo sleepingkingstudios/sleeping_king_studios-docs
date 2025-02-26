@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/errors'
+require 'sleeping_king_studios/docs/errors'
 
-module SleepingKingStudios::Yard::Errors
+module SleepingKingStudios::Docs::Errors
   # Error returned when attempting to create an existing file.
-  class FileAlreadyExists < SleepingKingStudios::Yard::Errors::FileError
+  class FileAlreadyExists < SleepingKingStudios::Docs::Errors::FileError
     # Short string used to identify the type of error.
-    TYPE = 'sleeping_king_studios.yard.errors.file_already_exists'
+    TYPE = 'sleeping_king_studios.docs.errors.file_already_exists'
 
     # @param path [String] the invalid file path.
     def initialize(path:)

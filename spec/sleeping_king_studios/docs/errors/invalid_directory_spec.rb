@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/errors/invalid_file'
+require 'sleeping_king_studios/docs/errors/invalid_directory'
 
-RSpec.describe SleepingKingStudios::Yard::Errors::InvalidFile do
+RSpec.describe SleepingKingStudios::Docs::Errors::InvalidDirectory do
   subject(:error) { described_class.new(path:) }
 
-  let(:path) { 'path/to/file' }
+  let(:path) { 'path/to/file.txt' }
 
   describe '::TYPE' do
     include_examples 'should define immutable constant',
       :TYPE,
-      'sleeping_king_studios.yard.errors.invalid_file'
+      'sleeping_king_studios.docs.errors.invalid_directory'
   end
 
   describe '.new' do
@@ -35,7 +35,7 @@ RSpec.describe SleepingKingStudios::Yard::Errors::InvalidFile do
   end
 
   describe '#message' do
-    let(:expected) { "directory already exists at #{path.inspect}" }
+    let(:expected) { "file already exists at #{path.inspect}" }
 
     include_examples 'should define reader', :message, -> { be == expected }
   end

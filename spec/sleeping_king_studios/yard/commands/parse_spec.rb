@@ -27,7 +27,7 @@ RSpec.describe SleepingKingStudios::Yard::Commands::Parse do
     describe 'with an invalid file or directory path' do
       let(:path) { 'lib/path/to/files' }
       let(:expected_error) do
-        SleepingKingStudios::Yard::Errors::FileNotFound.new(path:)
+        SleepingKingStudios::Docs::Errors::FileNotFound.new(path:)
       end
 
       it 'should return a failing result' do

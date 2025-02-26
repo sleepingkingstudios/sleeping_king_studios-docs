@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/errors'
+require 'sleeping_king_studios/docs/errors'
 
-module SleepingKingStudios::Yard::Errors
+module SleepingKingStudios::Docs::Errors
   # Error returned when attempting to parse an invalid file or directory.
-  class FileNotFound < SleepingKingStudios::Yard::Errors::FileError
+  class FileNotFound < SleepingKingStudios::Docs::Errors::FileError
     # Short string used to identify the type of error.
-    TYPE = 'sleeping_king_studios.yard.errors.file_not_found'
+    TYPE = 'sleeping_king_studios.docs.errors.file_not_found'
 
     # @param path [String] the invalid file path.
     def initialize(path:)
