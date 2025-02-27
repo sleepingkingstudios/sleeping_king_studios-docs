@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Type#inspect
+parent_path: sleeping-king-studios/docs/data/types/type
+signature: inspect
+slug: inspect
+constructor: false
+data_path: sleeping-king-studios/docs/data/types/type/i-inspect
+returns:
+- description: a user-friendly representation of the Type.
+  type:
+  - name: String
+version: "*"

@@ -1,6 +1,6 @@
-# SleepingKingStudios::Yard
+# SleepingKingStudios::Docs
 
-Tooling for working with YARD documentation.
+Tools for generating a versioned documentation site from YARD docs.
 
 ## Installation
 
@@ -9,7 +9,7 @@ Add the docs dependencies to your Gemfile:
 ```ruby
 group :doc do
   gem 'jekyll', '~> 4.3'
-  gem 'sleeping_king_studios-yard'
+  gem 'sleeping_king_studios-docs'
   gem 'webrick', '~> 1.8' # Use Webrick as local content server.
   gem 'yard', '~> 0.9',  require: false
 end
@@ -22,7 +22,7 @@ Generate or update your `tasks.thor` file:
 ```ruby
 # frozen_string_literal: true
 
-load 'sleeping_king_studios/yard/tasks.rb'
+load 'sleeping_king_studios/docs/tasks.rb'
 ```
 
 ### Installation Script
@@ -71,7 +71,7 @@ Generate the root document at `./docs/index.md`. This should provide an overview
 ```markdown
 # My Project
 
-My Project is documented using `SleepingKingStudios::Yard`.
+My Project is documented using `SleepingKingStudios::Docs`.
 
 For previous releases, see the [Versions]({{site.baseurl}}/versions) page.
 ```

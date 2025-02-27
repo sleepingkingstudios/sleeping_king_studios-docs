@@ -1,0 +1,64 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag
+slug: reference-tag
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/see_tags/reference_tag.rb
+parent_path: sleeping-king-studios/docs/data/see-tags
+short_description: Data object representing a @see tag with a reference link.
+instance_attributes:
+- name: parent
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/see-tags/base/i-parent
+  slug: parent
+  inherited: true
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-as-json
+  slug: as-json
+  inherited: false
+- name: exists?
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-exists?
+  slug: exists?
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/data/see-tags/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: path
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-path
+  slug: path
+  inherited: false
+- name: reference
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-reference
+  slug: reference
+  inherited: false
+- name: text
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text
+  slug: text
+  inherited: true
+- name: text?
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text?
+  slug: text?
+  inherited: true
+data_path: sleeping-king-studios/docs/data/see-tags/reference-tag
+metadata:
+  abstract: ''
+constructor: true
+direct_subclasses:
+- name: SleepingKingStudios::Docs::Data::SeeTags::DefinitionTag
+  slug: definition-tag
+  path: sleeping-king-studios/docs/data/see-tags/definition-tag
+- name: SleepingKingStudios::Docs::Data::SeeTags::NamespaceItemTag
+  slug: namespace-item-tag
+  path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::SeeTags::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/see-tags/base
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: "*"

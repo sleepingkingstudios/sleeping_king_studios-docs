@@ -1,0 +1,78 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag
+slug: instance-method-tag
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/see_tags/instance_method_tag.rb
+parent_path: sleeping-king-studios/docs/data/see-tags
+short_description: Data object representing a @see tag with an instance method link.
+class_methods:
+- name: match?
+  path: sleeping-king-studios/docs/data/see-tags/instance-method-tag/c-match?
+  slug: match?
+  inherited: false
+instance_attributes:
+- name: parent
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/see-tags/base/i-parent
+  slug: parent
+  inherited: true
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-as-json
+  slug: as-json
+  inherited: true
+- name: attribute?
+  path: sleeping-king-studios/docs/data/see-tags/instance-method-tag/i-attribute?
+  slug: attribute?
+  inherited: false
+- name: exists?
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-exists?
+  slug: exists?
+  inherited: true
+- name: initialize
+  path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: local?
+  path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag/i-local?
+  slug: local?
+  inherited: true
+- name: path
+  path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag/i-path
+  slug: path
+  inherited: true
+- name: reference
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-reference
+  slug: reference
+  inherited: true
+- name: text
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text
+  slug: text
+  inherited: true
+- name: text?
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text?
+  slug: text?
+  inherited: true
+- name: type
+  path: sleeping-king-studios/docs/data/see-tags/instance-method-tag/i-type
+  slug: type
+  inherited: false
+data_path: sleeping-king-studios/docs/data/see-tags/instance-method-tag
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::SeeTags::NamespaceItemTag
+  slug: namespace-item-tag
+  path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag
+- name: SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag
+  slug: reference-tag
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag
+- name: SleepingKingStudios::Docs::Data::SeeTags::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/see-tags/base
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: "*"

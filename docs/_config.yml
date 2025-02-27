@@ -17,12 +17,12 @@ defaults:
   values:
     encoding: 'utf-8'
     layout: 'default'
-    title: 'SleepingKingStudios::Yard'
+    title: 'SleepingKingStudios::Docs'
 exclude:
   - /vendor
 description: |
-    Tooling for working with YARD documentation.
+  Tools for generating a versioned documentation site from YARD docs.
 markdown: kramdown
-repository: sleepingkingstudios/sleeping_king_studios-yard
+repository: sleepingkingstudios/sleeping_king_studios-docs
 theme: jekyll-theme-dinky
 title: 'Docs'

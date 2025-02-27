@@ -1,0 +1,24 @@
+---
+name: SleepingKingStudios::Docs::Data::Metadata#examples
+parent_path: sleeping-king-studios/docs/data/metadata
+signature: examples
+slug: examples
+constructor: false
+data_path: sleeping-king-studios/docs/data/metadata/i-examples
+description: |-
+  Each @example tag is represented as a Hash with the following keys:
+
+  - 'name': The displayed name of the example. May be an empty String.
+  - 'text': The text for the example.
+returns:
+- description: the collected examples.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+      keys:
+      - name: String
+      values:
+      - name: String
+short_description: Collects the @example tags defined for the module.
+version: "*"

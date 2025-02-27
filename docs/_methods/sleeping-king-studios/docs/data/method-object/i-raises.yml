@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#raises
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: raises
+slug: raises
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-raises
+description: |-
+  Each raised exception is a Hash with the following keys:
+
+  - 'type': The type of exception raised.
+  - 'description': The description of the exception, or details on when the
+    exception is raised.
+returns:
+- description: the exceptions raised.by the method.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+short_description: The documented raised exceptions of the method.
+version: "*"

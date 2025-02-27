@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::NamespaceItemTag#local?
+parent_path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag
+signature: local?
+slug: local?
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/namespace-item-tag/i-local?
+returns:
+- description: |-
+    true if the constant is defined by the tagged
+    object; otherwise false.
+  type:
+  - name: 'true'
+  - name: 'false'
+version: "*"

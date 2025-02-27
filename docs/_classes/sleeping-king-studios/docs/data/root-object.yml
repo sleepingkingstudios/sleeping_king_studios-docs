@@ -1,0 +1,87 @@
+---
+name: SleepingKingStudios::Docs::Data::RootObject
+slug: root-object
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/root_object.rb
+parent_path: sleeping-king-studios/docs/data
+short_description: Object representing the top-level Ruby namespace.
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/namespace-object/i-as-json
+  slug: as-json
+  inherited: true
+- name: class_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-attributes
+  slug: class-attributes
+  inherited: true
+- name: class_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-methods
+  slug: class-methods
+  inherited: true
+- name: constants
+  path: sleeping-king-studios/docs/data/namespace-object/i-constants
+  slug: constants
+  inherited: true
+- name: data_path
+  path: sleeping-king-studios/docs/data/root-object/i-data-path
+  slug: data-path
+  inherited: false
+- name: defined_classes
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-classes
+  slug: defined-classes
+  inherited: true
+- name: defined_modules
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-modules
+  slug: defined-modules
+  inherited: true
+- name: initialize
+  path: sleeping-king-studios/docs/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: instance_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-attributes
+  slug: instance-attributes
+  inherited: true
+- name: instance_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-methods
+  slug: instance-methods
+  inherited: true
+- name: name
+  path: sleeping-king-studios/docs/data/root-object/i-name
+  slug: name
+  inherited: false
+- name: slug
+  path: sleeping-king-studios/docs/data/root-object/i-slug
+  slug: slug
+  inherited: false
+- name: type
+  path: sleeping-king-studios/docs/data/namespace-object/i-type
+  slug: type
+  inherited: true
+data_path: sleeping-king-studios/docs/data/root-object
+description: |-
+  Each namespace can define the following elements:
+
+  - Definitions (classes and modules).
+  - Constants.
+  - Class attributes.
+  - Class methods.
+  - Instance attributes.
+  - Instance methods.
+metadata:
+  see:
+  - label: SleepingKingStudios::Docs::Data::NamespaceObject
+    path: sleeping-king-studios/docs/data/namespace-object
+    text:
+    type: reference
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::NamespaceObject
+  slug: namespace-object
+  path: sleeping-king-studios/docs/data/namespace-object
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: "*"

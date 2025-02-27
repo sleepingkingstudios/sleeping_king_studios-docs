@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallJekyll#description
+parent_path: sleeping-king-studios/docs/commands/installation/install-jekyll
+signature: description
+slug: description
+constructor: false
+data_path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-description
+returns:
+- description: a short description of the documented library.
+  type:
+  - name: String
+version: "*"

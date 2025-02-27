@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Errors::FileNotFound#initialize
+parent_path: sleeping-king-studios/docs/errors/file-not-found
+signature: initialize(path:)
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/errors/file-not-found/i-initialize
+params:
+- description: the invalid file path.
+  name: path
+  type:
+  - name: String
+returns:
+- description: a new instance of FileNotFound
+  type:
+  - name: FileNotFound
+version: "*"

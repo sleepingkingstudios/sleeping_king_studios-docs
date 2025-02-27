@@ -1,0 +1,102 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject
+slug: namespace-object
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/namespace_object.rb
+parent_path: sleeping-king-studios/docs/data
+short_description: Object representing a Ruby namespace.
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/namespace-object/i-as-json
+  slug: as-json
+  inherited: false
+- name: class_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-attributes
+  slug: class-attributes
+  inherited: false
+- name: class_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-methods
+  slug: class-methods
+  inherited: false
+- name: constants
+  path: sleeping-king-studios/docs/data/namespace-object/i-constants
+  slug: constants
+  inherited: false
+- name: defined_classes
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-classes
+  slug: defined-classes
+  inherited: false
+- name: defined_modules
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-modules
+  slug: defined-modules
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: instance_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-attributes
+  slug: instance-attributes
+  inherited: false
+- name: instance_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-methods
+  slug: instance-methods
+  inherited: false
+- name: name
+  path: sleeping-king-studios/docs/data/namespace-object/i-name
+  slug: name
+  inherited: false
+- name: slug
+  path: sleeping-king-studios/docs/data/namespace-object/i-slug
+  slug: slug
+  inherited: false
+- name: type
+  path: sleeping-king-studios/docs/data/namespace-object/i-type
+  slug: type
+  inherited: false
+data_path: sleeping-king-studios/docs/data/namespace-object
+description: |-
+  Each namespace can define the following elements:
+
+  - Definitions (classes and modules).
+  - Constants.
+  - Class attributes.
+  - Class methods.
+  - Instance attributes.
+  - Instance methods.
+
+  In most cases, there should be one documented namespace, reflecting the
+  top-level namespace, and in most cases should only include defined classes
+  and/or modules. Top-level constants may be required on a case-by-case basis.
+
+  All other namespace properties (attributes and methods) should be reserved
+  for classes and modules, whose representation inherits from NamespaceObject.
+metadata:
+  see:
+  - label: SleepingKingStudios::Docs::Data::ClassObject
+    path: sleeping-king-studios/docs/data/class-object
+    text:
+    type: reference
+  - label: SleepingKingStudios::Docs::Data::ModuleObject
+    path: sleeping-king-studios/docs/data/module-object
+    text:
+    type: reference
+  - label: SleepingKingStudios::Docs::Data::RootObject
+    path: sleeping-king-studios/docs/data/root-object
+    text:
+    type: reference
+constructor: true
+direct_subclasses:
+- name: SleepingKingStudios::Docs::Data::ModuleObject
+  slug: module-object
+  path: sleeping-king-studios/docs/data/module-object
+- name: SleepingKingStudios::Docs::Data::RootObject
+  slug: root-object
+  path: sleeping-king-studios/docs/data/root-object
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: "*"

@@ -1,0 +1,25 @@
+---
+name: SleepingKingStudios::Docs::Data::ModuleObject#extended_modules
+parent_path: sleeping-king-studios/docs/data/module-object
+signature: extended_modules
+slug: extended-modules
+constructor: false
+data_path: sleeping-king-studios/docs/data/module-object/i-extended-modules
+description: |-
+  For each extending Module, it returns a Hash with the following keys:
+
+  - 'name': The name of the extending module.
+  - 'slug': A url-safe, hyphen-separated representation of the name.
+  - 'path': The path to the data file for the module.
+returns:
+- description: the extended modules.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+      keys:
+      - name: String
+      values:
+      - name: String
+short_description: A list of the modules that extend the original module.
+version: "*"

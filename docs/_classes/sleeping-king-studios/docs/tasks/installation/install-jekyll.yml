@@ -1,0 +1,22 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation::InstallJekyll
+slug: install-jekyll
+type: class
+files:
+- lib/sleeping_king_studios/docs/tasks/installation/install_jekyll.rb
+parent_path: sleeping-king-studios/docs/tasks/installation
+short_description: CLI task for installing the Jekyll application.
+instance_methods:
+- name: install
+  path: sleeping-king-studios/docs/tasks/installation/install-jekyll/i-install
+  slug: install
+  inherited: false
+data_path: sleeping-king-studios/docs/tasks/installation/install-jekyll
+constructor: false
+inherited_classes:
+- name: SleepingKingStudios::Docs::Tasks::Base
+  slug: base
+  path: sleeping-king-studios/docs/tasks/base
+- name: Thor
+  slug: thor
+version: "*"

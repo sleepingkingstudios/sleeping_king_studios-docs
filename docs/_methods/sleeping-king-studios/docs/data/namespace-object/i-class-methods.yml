@@ -1,0 +1,25 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#class_methods
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: class_methods
+slug: class-methods
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-class-methods
+description: |-
+  For each method, it returns a Hash with the following keys:
+
+  - 'name': The name of the method, including trailing characters such as
+    `=' or `?'.
+  - 'path': The path to the method data file.
+returns:
+- description: the documented class methods.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+      keys:
+      - name: String
+      values:
+      - name: String
+short_description: Finds the class methods defined for the namespace.
+version: "*"
