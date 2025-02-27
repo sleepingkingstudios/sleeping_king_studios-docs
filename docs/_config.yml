@@ -22,6 +22,8 @@ exclude:
   - /vendor
 description: |
   Tools for generating a versioned documentation site from YARD docs.
+github:
+  repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs
 markdown: kramdown
 repository: sleepingkingstudios/sleeping_king_studios-docs
 theme: jekyll-theme-dinky
