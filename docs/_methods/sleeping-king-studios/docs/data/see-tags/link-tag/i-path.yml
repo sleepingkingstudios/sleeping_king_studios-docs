@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::LinkTag#path
+parent_path: sleeping-king-studios/docs/data/see-tags/link-tag
+signature: path
+slug: path
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/link-tag/i-path
+returns:
+- description: the path used to generate the link.
+  type:
+  - name: String
+version: "*"

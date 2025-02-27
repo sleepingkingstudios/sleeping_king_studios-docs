@@ -1,0 +1,33 @@
+---
+name: SleepingKingStudios::Docs::RegistryQuery
+slug: registry-query
+type: class
+files:
+- lib/sleeping_king_studios/docs/registry_query.rb
+parent_path: sleeping-king-studios/docs
+short_description: Checks for the presence of requested data in the YARD registry.
+instance_methods:
+- name: class_method_exists?
+  path: sleeping-king-studios/docs/registry-query/i-class-method-exists?
+  slug: class-method-exists?
+  inherited: false
+- name: constant_exists?
+  path: sleeping-king-studios/docs/registry-query/i-constant-exists?
+  slug: constant-exists?
+  inherited: false
+- name: definition_exists?
+  path: sleeping-king-studios/docs/registry-query/i-definition-exists?
+  slug: definition-exists?
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/registry-query/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+- name: instance_method_exists?
+  path: sleeping-king-studios/docs/registry-query/i-instance-method-exists?
+  slug: instance-method-exists?
+  inherited: false
+data_path: sleeping-king-studios/docs/registry-query
+constructor: true
+version: "*"

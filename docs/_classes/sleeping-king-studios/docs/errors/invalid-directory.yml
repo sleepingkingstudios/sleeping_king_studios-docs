@@ -1,0 +1,35 @@
+---
+name: SleepingKingStudios::Docs::Errors::InvalidDirectory
+slug: invalid-directory
+type: class
+files:
+- lib/sleeping_king_studios/docs/errors/invalid_directory.rb
+parent_path: sleeping-king-studios/docs/errors
+short_description: Error returned when attempting to create an invalid directory.
+constants:
+- name: TYPE
+  path: sleeping-king-studios/docs/errors/invalid-directory/type
+  slug: type
+  inherited: false
+instance_attributes:
+- name: path
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/file-error/i-path
+  slug: path
+  inherited: true
+instance_methods:
+- name: initialize
+  path: sleeping-king-studios/docs/errors/invalid-directory/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+data_path: sleeping-king-studios/docs/errors/invalid-directory
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Errors::FileError
+  slug: file-error
+  path: sleeping-king-studios/docs/errors/file-error
+- name: Cuprum::Error
+  slug: error
+version: "*"

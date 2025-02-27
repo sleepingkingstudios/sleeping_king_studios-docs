@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation::InstallWorkflow#workflow
+parent_path: sleeping-king-studios/docs/tasks/installation/install-workflow
+signature: workflow
+slug: workflow
+constructor: false
+data_path: sleeping-king-studios/docs/tasks/installation/install-workflow/i-workflow
+short_description: Installs the GitHub pages CI workflow.
+version: "*"

@@ -1,9 +1,0 @@
----
-name: SleepingKingStudios::Yard::Tasks::Generate#generate
-parent_path: sleeping-king-studios/yard/tasks/generate
-signature: generate
-slug: generate
-constructor: false
-data_path: sleeping-king-studios/yard/tasks/generate/i-generate
-short_description: Generates documentation files for the project.
-version: "*"

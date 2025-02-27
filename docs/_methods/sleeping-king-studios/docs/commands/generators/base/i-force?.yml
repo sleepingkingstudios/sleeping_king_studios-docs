@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Generators::Base#force?
+parent_path: sleeping-king-studios/docs/commands/generators/base
+signature: force?
+slug: force?
+constructor: false
+data_path: sleeping-king-studios/docs/commands/generators/base/i-force?
+returns:
+- description: if true, overwrites any existing files.
+  type:
+  - name: Boolean
+version: "*"

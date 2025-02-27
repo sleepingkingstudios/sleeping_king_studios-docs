@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Generate#generate
+parent_path: sleeping-king-studios/docs/tasks/generate
+signature: generate
+slug: generate
+constructor: false
+data_path: sleeping-king-studios/docs/tasks/generate/i-generate
+short_description: Generates documentation files for the project.
+version: "*"

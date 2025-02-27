@@ -1,0 +1,22 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation::InstallTemplates
+slug: install-templates
+type: class
+files:
+- lib/sleeping_king_studios/docs/tasks/installation/install_templates.rb
+parent_path: sleeping-king-studios/docs/tasks/installation
+short_description: CLI task for installing Jekyll templates for a library.
+instance_methods:
+- name: templates
+  path: sleeping-king-studios/docs/tasks/installation/install-templates/i-templates
+  slug: templates
+  inherited: false
+data_path: sleeping-king-studios/docs/tasks/installation/install-templates
+constructor: false
+inherited_classes:
+- name: SleepingKingStudios::Docs::Tasks::Base
+  slug: base
+  path: sleeping-king-studios/docs/tasks/base
+- name: Thor
+  slug: thor
+version: "*"

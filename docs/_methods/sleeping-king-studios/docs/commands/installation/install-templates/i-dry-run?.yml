@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallTemplates#dry_run?
+parent_path: sleeping-king-studios/docs/commands/installation/install-templates
+signature: dry_run?
+slug: dry-run?
+constructor: false
+data_path: sleeping-king-studios/docs/commands/installation/install-templates/i-dry-run?
+returns:
+- description: if true, does not apply filesystem changes.
+  type:
+  - name: Boolean
+version: "*"

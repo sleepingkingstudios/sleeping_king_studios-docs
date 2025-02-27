@@ -1,0 +1,18 @@
+---
+name: SleepingKingStudios::Docs::Data::Metadata#deprecated
+parent_path: sleeping-king-studios/docs/data/metadata
+signature: deprecated
+slug: deprecated
+constructor: false
+data_path: sleeping-king-studios/docs/data/metadata/i-deprecated
+returns:
+- description: |-
+    the contents of the @deprecated tag, or an empty string
+    if the tag does not have contents.
+  type:
+  - name: String
+- description: if there is no @deprecated tag defined.
+  type:
+  - name: nil
+short_description: Returns the @deprecated tag, if any, defined for the module.
+version: "*"

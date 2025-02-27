@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallWorkflow#force?
+parent_path: sleeping-king-studios/docs/commands/installation/install-workflow
+signature: force?
+slug: force?
+constructor: false
+data_path: sleeping-king-studios/docs/commands/installation/install-workflow/i-force?
+returns:
+- description: if true, overwrites existing template files.
+  type:
+  - name: Boolean
+version: "*"

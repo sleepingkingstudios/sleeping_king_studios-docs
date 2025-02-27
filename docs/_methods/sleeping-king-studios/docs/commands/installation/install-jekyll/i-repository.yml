@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallJekyll#repository
+parent_path: sleeping-king-studios/docs/commands/installation/install-jekyll
+signature: repository
+slug: repository
+constructor: false
+data_path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-repository
+returns:
+- description: the URL of the library repository.
+  type:
+  - name: String
+version: "*"

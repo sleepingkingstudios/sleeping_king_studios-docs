@@ -1,0 +1,52 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallJekyll#initialize
+parent_path: sleeping-king-studios/docs/commands/installation/install-jekyll
+signature: 'initialize(error_stream: $stderr, output_stream: $stdout, **options)'
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-initialize
+overloads:
+- name: SleepingKingStudios::Docs::Commands::Installation::InstallJekyll#initialize
+  parent_path: sleeping-king-studios/docs/commands/installation/install-jekyll
+  signature: initialize(**options)
+  slug: initialize
+  constructor: true
+  options:
+  - name: options
+    opts:
+    - description: |-
+        a short description of the
+        documented library.
+      name: description
+      type:
+      - name: String
+    - description: |-
+        if true, does not apply filesystem
+        changes. Defaults to false.
+      name: dry_run
+      type:
+      - name: Boolean
+    - description: the name of the documented library.
+      name: name
+      type:
+      - name: String
+    - description: the URL of the library repository.
+      name: repository
+      type:
+      - name: String
+    - description: |-
+        if true, prints updates to STDOUT.
+        Defaults to true.
+      name: verbose
+      type:
+      - name: Boolean
+  params:
+  - description: additional options for the command.
+    name: options
+    type:
+    - name: Hash
+returns:
+- description: a new instance of InstallJekyll
+  type:
+  - name: InstallJekyll
+version: "*"

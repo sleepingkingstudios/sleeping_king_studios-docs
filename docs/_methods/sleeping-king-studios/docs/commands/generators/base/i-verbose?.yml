@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Generators::Base#verbose?
+parent_path: sleeping-king-studios/docs/commands/generators/base
+signature: verbose?
+slug: verbose?
+constructor: false
+data_path: sleeping-king-studios/docs/commands/generators/base/i-verbose?
+returns:
+- description: if true, prints status messages to STDOUT.
+  type:
+  - name: Boolean
+version: "*"

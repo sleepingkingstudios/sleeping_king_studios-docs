@@ -1,0 +1,142 @@
+---
+name: SleepingKingStudios::Docs::Data::ClassObject
+slug: class-object
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/class_object.rb
+parent_path: sleeping-king-studios/docs/data
+short_description: Object representing a Ruby class.
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/class-object/i-as-json
+  slug: as-json
+  inherited: false
+- name: class_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-attributes
+  slug: class-attributes
+  inherited: true
+- name: class_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-methods
+  slug: class-methods
+  inherited: true
+- name: constants
+  path: sleeping-king-studios/docs/data/namespace-object/i-constants
+  slug: constants
+  inherited: true
+- name: constructor?
+  path: sleeping-king-studios/docs/data/class-object/i-constructor?
+  slug: constructor?
+  inherited: false
+- name: data_path
+  path: sleeping-king-studios/docs/data/module-object/i-data-path
+  slug: data-path
+  inherited: true
+- name: defined_classes
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-classes
+  slug: defined-classes
+  inherited: true
+- name: defined_modules
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-modules
+  slug: defined-modules
+  inherited: true
+- name: description
+  path: sleeping-king-studios/docs/data/module-object/i-description
+  slug: description
+  inherited: true
+- name: direct_subclasses
+  path: sleeping-king-studios/docs/data/class-object/i-direct-subclasses
+  slug: direct-subclasses
+  inherited: false
+- name: extended_modules
+  path: sleeping-king-studios/docs/data/module-object/i-extended-modules
+  slug: extended-modules
+  inherited: true
+- name: files
+  path: sleeping-king-studios/docs/data/module-object/i-files
+  slug: files
+  inherited: true
+- name: included_modules
+  path: sleeping-king-studios/docs/data/module-object/i-included-modules
+  slug: included-modules
+  inherited: true
+- name: inherited_classes
+  path: sleeping-king-studios/docs/data/class-object/i-inherited-classes
+  slug: inherited-classes
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: instance_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-attributes
+  slug: instance-attributes
+  inherited: true
+- name: instance_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-methods
+  slug: instance-methods
+  inherited: true
+- name: metadata
+  path: sleeping-king-studios/docs/data/module-object/i-metadata
+  slug: metadata
+  inherited: true
+- name: name
+  path: sleeping-king-studios/docs/data/namespace-object/i-name
+  slug: name
+  inherited: true
+- name: parent_path
+  path: sleeping-king-studios/docs/data/module-object/i-parent-path
+  slug: parent-path
+  inherited: true
+- name: short_description
+  path: sleeping-king-studios/docs/data/module-object/i-short-description
+  slug: short-description
+  inherited: true
+- name: slug
+  path: sleeping-king-studios/docs/data/namespace-object/i-slug
+  slug: slug
+  inherited: true
+- name: type
+  path: sleeping-king-studios/docs/data/class-object/i-type
+  slug: type
+  inherited: false
+data_path: sleeping-king-studios/docs/data/class-object
+description: |-
+  Each class can define the following elements:
+
+  - Defined In files.
+  - inherited classes.
+  - extend-ed modules.
+  - include-ed modules.
+  - Definitions (classes and modules).
+  - Constants.
+  - Class attributes.
+  - Class methods.
+  - A constructor method.
+  - Instance attributes.
+  - Instance methods.
+  - Known subclasses.
+
+  Additionally, a class can have a description and metadata tags.
+metadata:
+  see:
+  - label: SleepingKingStudios::Docs::Data::Metadata
+    path: sleeping-king-studios/docs/data/metadata
+    text:
+    type: reference
+  - label: SleepingKingStudios::Docs::Data::ModuleObject
+    path: sleeping-king-studios/docs/data/module-object
+    text:
+    type: reference
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::ModuleObject
+  slug: module-object
+  path: sleeping-king-studios/docs/data/module-object
+- name: SleepingKingStudios::Docs::Data::NamespaceObject
+  slug: namespace-object
+  path: sleeping-king-studios/docs/data/namespace-object
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: "*"

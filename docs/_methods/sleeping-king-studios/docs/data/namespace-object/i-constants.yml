@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#constants
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: constants
+slug: constants
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-constants
+returns:
+- description: the names of the constants.
+  type:
+  - name: Array
+    items:
+    - name: String
+short_description: Finds the names of the constants defined under this namespace.
+version: "*"

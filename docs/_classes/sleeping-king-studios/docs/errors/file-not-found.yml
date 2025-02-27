@@ -1,0 +1,35 @@
+---
+name: SleepingKingStudios::Docs::Errors::FileNotFound
+slug: file-not-found
+type: class
+files:
+- lib/sleeping_king_studios/docs/errors/file_not_found.rb
+parent_path: sleeping-king-studios/docs/errors
+short_description: Error returned when attempting to parse an invalid file or directory.
+constants:
+- name: TYPE
+  path: sleeping-king-studios/docs/errors/file-not-found/type
+  slug: type
+  inherited: false
+instance_attributes:
+- name: path
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/file-error/i-path
+  slug: path
+  inherited: true
+instance_methods:
+- name: initialize
+  path: sleeping-king-studios/docs/errors/file-not-found/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+data_path: sleeping-king-studios/docs/errors/file-not-found
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Errors::FileError
+  slug: file-error
+  path: sleeping-king-studios/docs/errors/file-error
+- name: Cuprum::Error
+  slug: error
+version: "*"

@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::DefinitionTag#reference
+parent_path: sleeping-king-studios/docs/data/see-tags/definition-tag
+signature: reference
+slug: reference
+aliases:
+- label
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/definition-tag/i-reference
+returns:
+- description: the label used to generate the reference link.
+  type:
+  - name: String
+version: "*"

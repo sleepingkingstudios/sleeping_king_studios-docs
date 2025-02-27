@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::WriteFile#force?
+parent_path: sleeping-king-studios/docs/commands/write-file
+signature: force?
+slug: force?
+constructor: false
+data_path: sleeping-king-studios/docs/commands/write-file/i-force?
+returns:
+- description: if true, overwrites an existing file.
+  type:
+  - name: Boolean
+version: "*"

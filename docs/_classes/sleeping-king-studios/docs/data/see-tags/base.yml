@@ -1,0 +1,52 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::Base
+slug: base
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/see_tags/base.rb
+parent_path: sleeping-king-studios/docs/data/see-tags
+short_description: Data object representing a plain text @see tag.
+instance_attributes:
+- name: parent
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/see-tags/base/i-parent
+  slug: parent
+  inherited: false
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/base/i-as-json
+  slug: as-json
+  inherited: true
+- name: initialize
+  path: sleeping-king-studios/docs/data/see-tags/base/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+- name: text
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text
+  slug: text
+  inherited: false
+- name: text?
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text?
+  slug: text?
+  inherited: false
+data_path: sleeping-king-studios/docs/data/see-tags/base
+metadata:
+  abstract: ''
+constructor: true
+direct_subclasses:
+- name: SleepingKingStudios::Docs::Data::SeeTags::LinkTag
+  slug: link-tag
+  path: sleeping-king-studios/docs/data/see-tags/link-tag
+- name: SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag
+  slug: reference-tag
+  path: sleeping-king-studios/docs/data/see-tags/reference-tag
+- name: SleepingKingStudios::Docs::Data::SeeTags::TextTag
+  slug: text-tag
+  path: sleeping-king-studios/docs/data/see-tags/text-tag
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: "*"
