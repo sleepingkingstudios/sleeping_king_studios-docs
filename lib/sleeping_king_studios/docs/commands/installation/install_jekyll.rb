@@ -233,7 +233,7 @@ module SleepingKingStudios::Docs::Commands::Installation
           SleepingKingStudios::Docs.gem_path,
           'lib',
           'sleeping_king_studios',
-          'yard',
+          'docs',
           'templates'
         )
     end

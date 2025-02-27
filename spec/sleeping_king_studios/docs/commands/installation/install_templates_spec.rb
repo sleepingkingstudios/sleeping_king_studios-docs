@@ -27,7 +27,7 @@ do
         SleepingKingStudios::Docs.gem_path,
         'lib',
         'sleeping_king_studios',
-        'yard',
+        'docs',
         'templates',
         'includes',
         'reference'

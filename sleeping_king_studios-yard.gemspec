@@ -30,10 +30,10 @@ Gem::Specification.new do |gem|
     Dir[
       'lib/**/*.rb',
       'lib/**/*.treetop',
-      'lib/sleeping_king_studios/yard/templates/**/*.md',
-      'lib/sleeping_king_studios/yard/templates/**/*.md.erb',
-      'lib/sleeping_king_studios/yard/templates/**/*.yml',
-      'lib/sleeping_king_studios/yard/templates/**/*.yml.erb',
+      'lib/sleeping_king_studios/docs/templates/**/*.md',
+      'lib/sleeping_king_studios/docs/templates/**/*.md.erb',
+      'lib/sleeping_king_studios/docs/templates/**/*.yml',
+      'lib/sleeping_king_studios/docs/templates/**/*.yml.erb',
       'LICENSE',
       '*.md'
     ]
