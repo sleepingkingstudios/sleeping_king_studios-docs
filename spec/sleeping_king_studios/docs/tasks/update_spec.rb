@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/tasks/generate'
+require 'sleeping_king_studios/docs/tasks/update'
 
-RSpec.describe SleepingKingStudios::Yard::Tasks::Generate do
+RSpec.describe SleepingKingStudios::Docs::Tasks::Update do
   subject(:task) { described_class.new }
 
-  describe '#generate' do
+  describe '#update' do
     shared_examples 'should call the command' do
       it 'should call the command' do
         invoke_task
@@ -24,7 +24,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Generate do
       {
         'docs_path' => './docs',
         'dry_run'   => false,
-        'force'     => false,
+        'force'     => true,
         'verbose'   => true
       }.merge(options)
     end
@@ -43,7 +43,7 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Generate do
     end
 
     def invoke_task
-      task.invoke(:generate, arguments, options)
+      task.invoke(:update, arguments, options)
     end
 
     include_examples 'should call the command'
@@ -56,12 +56,6 @@ RSpec.describe SleepingKingStudios::Yard::Tasks::Generate do
 
     describe 'with --dry-run' do
       let(:options) { super().merge('dry_run' => true) }
-
-      include_examples 'should call the command'
-    end
-
-    describe 'with --force' do
-      let(:options) { super().merge('force' => true) }
 
       include_examples 'should call the command'
     end

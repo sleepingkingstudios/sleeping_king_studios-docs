@@ -232,7 +232,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
     end
     let(:parse_command) do
       instance_double(
-        SleepingKingStudios::Yard::Commands::Parse,
+        SleepingKingStudios::Docs::Commands::Parse,
         call: Cuprum::Result.new(status: :success)
       )
     end
@@ -284,7 +284,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
         .to receive(:new)
         .and_return(data_command)
 
-      allow(SleepingKingStudios::Yard::Commands::Parse)
+      allow(SleepingKingStudios::Docs::Commands::Parse)
         .to receive(:new)
         .and_return(parse_command)
 

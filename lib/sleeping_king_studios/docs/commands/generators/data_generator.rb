@@ -61,7 +61,7 @@ module SleepingKingStudios::Docs::Commands::Generators
 
     def write_command
       @write_command ||=
-        SleepingKingStudios::Yard::Commands::WriteFile
+        SleepingKingStudios::Docs::Commands::WriteFile
         .new(force: force?)
     end
   end

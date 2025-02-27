@@ -24,7 +24,7 @@ do
     let(:docs_path) { '/path/to/docs' }
     let(:templates_path) do
       File.join(
-        SleepingKingStudios::Yard.gem_path,
+        SleepingKingStudios::Docs.gem_path,
         'lib',
         'sleeping_king_studios',
         'yard',

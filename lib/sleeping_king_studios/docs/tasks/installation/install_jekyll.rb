@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'sleeping_king_studios/docs/commands/installation/install_jekyll'
-require 'sleeping_king_studios/yard/tasks/base'
-require 'sleeping_king_studios/yard/tasks/installation'
+require 'sleeping_king_studios/docs/tasks/base'
+require 'sleeping_king_studios/docs/tasks/installation'
 
-module SleepingKingStudios::Yard::Tasks::Installation
+module SleepingKingStudios::Docs::Tasks::Installation
   # CLI task for installing the Jekyll application.
-  class InstallJekyll < SleepingKingStudios::Yard::Tasks::Base
+  class InstallJekyll < SleepingKingStudios::Docs::Tasks::Base
     namespace 'docs'
 
     desc 'install', 'Install the Jekyll application'

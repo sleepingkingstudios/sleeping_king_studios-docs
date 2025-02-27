@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/yard/tasks/installation/install_workflow'
+require 'sleeping_king_studios/docs/tasks/installation/install_workflow'
 
 RSpec.describe \
-  SleepingKingStudios::Yard::Tasks::Installation::InstallWorkflow \
+  SleepingKingStudios::Docs::Tasks::Installation::InstallWorkflow \
 do
   subject(:task) { described_class.new }
 

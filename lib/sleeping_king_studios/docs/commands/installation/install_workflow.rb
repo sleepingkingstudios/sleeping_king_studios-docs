@@ -110,7 +110,7 @@ module SleepingKingStudios::Docs::Commands::Installation
     def templates_path
       @templates_path ||=
         File.join(
-          SleepingKingStudios::Yard.gem_path,
+          SleepingKingStudios::Docs.gem_path,
           'lib',
           'sleeping_king_studios',
           'yard',

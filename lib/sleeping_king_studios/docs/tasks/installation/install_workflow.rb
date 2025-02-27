@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'sleeping_king_studios/docs/commands/installation/install_workflow'
-require 'sleeping_king_studios/yard/tasks/base'
-require 'sleeping_king_studios/yard/tasks/installation'
+require 'sleeping_king_studios/docs/tasks/base'
+require 'sleeping_king_studios/docs/tasks/installation'
 
-module SleepingKingStudios::Yard::Tasks::Installation
+module SleepingKingStudios::Docs::Tasks::Installation
   # CLI task for installing the GitHub pages CI workflow.
-  class InstallWorkflow < SleepingKingStudios::Yard::Tasks::Base
+  class InstallWorkflow < SleepingKingStudios::Docs::Tasks::Base
     namespace 'docs:install'
 
     desc 'workflow', 'Installs the GitHub pages CI workflow'

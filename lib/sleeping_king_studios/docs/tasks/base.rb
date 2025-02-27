@@ -4,9 +4,9 @@ require 'thor'
 
 require 'sleeping_king_studios/tools/toolbelt'
 
-require 'sleeping_king_studios/yard'
+require 'sleeping_king_studios/docs'
 
-module SleepingKingStudios::Yard
+module SleepingKingStudios::Docs
   module Tasks
     # Generic base CLI task.
     class Base < Thor

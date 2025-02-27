@@ -17,7 +17,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
   describe '#call' do
     let(:write_command) do
       instance_double(
-        SleepingKingStudios::Yard::Commands::WriteFile,
+        SleepingKingStudios::Docs::Commands::WriteFile,
         call: Cuprum::Result.new(status: :success)
       )
     end
@@ -43,7 +43,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
     end
 
     before(:example) do
-      allow(SleepingKingStudios::Yard::Commands::WriteFile)
+      allow(SleepingKingStudios::Docs::Commands::WriteFile)
         .to receive(:new)
         .and_return(write_command)
 
@@ -68,7 +68,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
     it 'should initialize the writer command' do
       call_command
 
-      expect(SleepingKingStudios::Yard::Commands::WriteFile)
+      expect(SleepingKingStudios::Docs::Commands::WriteFile)
         .to have_received(:new)
         .with(force: false)
     end
@@ -125,7 +125,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
       it 'should initialize the writer command' do
         call_command
 
-        expect(SleepingKingStudios::Yard::Commands::WriteFile)
+        expect(SleepingKingStudios::Docs::Commands::WriteFile)
           .to have_received(:new)
           .with(force: true)
       end

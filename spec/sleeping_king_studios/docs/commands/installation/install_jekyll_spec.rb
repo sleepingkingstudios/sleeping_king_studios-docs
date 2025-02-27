@@ -39,7 +39,7 @@ do
     end
     let(:templates_path) do
       File.join(
-        SleepingKingStudios::Yard.gem_path,
+        SleepingKingStudios::Docs.gem_path,
         'lib',
         'sleeping_king_studios',
         'yard',
