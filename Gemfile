@@ -26,7 +26,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.22'
 end
 
-group :doc do # YARD
+group :docs do
   gem 'jekyll', '~> 4.3'
   gem 'jekyll-theme-dinky', '~> 0.2'
 
