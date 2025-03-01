@@ -14,7 +14,7 @@ Tools for generating a versioned documentation site from YARD docs.
 Add the docs dependencies to your Gemfile:
 
 ```ruby
-group :doc do
+group :docs do
   gem 'jekyll'
   gem 'sleeping_king_studios-docs'
   gem 'webrick'
