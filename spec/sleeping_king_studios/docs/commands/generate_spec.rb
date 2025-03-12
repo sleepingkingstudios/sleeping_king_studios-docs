@@ -642,13 +642,6 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
         OUTPUT
       end
 
-      def indent_lines(str)
-        str
-          .lines
-          .map { |line| line.empty? ? '' : "  #{line}" }
-          .join
-      end
-
       it 'should return a passing result' do
         expect(command.call).to be_a_passing_result
       end
