@@ -642,13 +642,6 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
         OUTPUT
       end
 
-      def indent_lines(str)
-        str
-          .lines
-          .map { |line| line.empty? ? '' : "  #{line}" }
-          .join
-      end
-
       it 'should return a passing result' do
         expect(command.call).to be_a_passing_result
       end
@@ -678,14 +671,20 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
           OUTPUT
         end
         let(:expected_errors) do
-          <<~OUTPUT.then { |str| indent_lines(str) }
-            - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+          <<~OUTPUT
+              - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+
+            Failures:
+              - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
           OUTPUT
         end
         let(:expected_output) do
           <<~OUTPUT
             Generating Root Namespace:
             - root namespace
+              - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+
+            Failures:
               - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
           OUTPUT
         end
@@ -817,18 +816,31 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
             OUTPUT
           end
           let(:expected_errors) do
-            <<~OUTPUT.then { |str| indent_lines(str) }
-              - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
+            <<~OUTPUT
+                - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
+
+              Failures:
+                - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
             OUTPUT
           end
           let(:expected_output) do
@@ -868,6 +880,19 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
               - TopLevelModule::ScopedModule
                 - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
                 - SUCCESS: file written to reference/top-level-module/scoped-module.md
+
+              Failures:
+                - FAILURE: unable to write file to namespaces/root.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to classes/top-level-class.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to classes/top-level-module/scoped-class.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to constants/top-level-constant.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to constants/top-level-module/scoped-constant.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/i-top-level-instance-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/c-top-level-class-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/top-level-module/i-scoped-instance-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to methods/top-level-module/c-scoped-class-method.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to modules/top-level-module.yml - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to modules/top-level-module/scoped-module.yml - Cuprum::Error: something went wrong
             OUTPUT
           end
 
@@ -958,11 +983,17 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
             OUTPUT
           end
           let(:expected_errors) do
-            <<~OUTPUT.then { |str| indent_lines(str) }
-              - FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
-              - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
+            <<~OUTPUT
+                - FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
+
+              Failures:
+                - FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
             OUTPUT
           end
           let(:expected_output) do
@@ -1001,6 +1032,12 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
                 - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
               - TopLevelModule::ScopedModule
                 - SUCCESS: file written to modules/top-level-module/scoped-module.yml
+                - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
+
+              Failures:
+                - FAILURE: unable to write file to reference/top-level-class.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module/scoped-class.md - Cuprum::Error: something went wrong
+                - FAILURE: unable to write file to reference/top-level-module.md - Cuprum::Error: something went wrong
                 - FAILURE: unable to write file to reference/top-level-module/scoped-module.md - Cuprum::Error: something went wrong
             OUTPUT
           end

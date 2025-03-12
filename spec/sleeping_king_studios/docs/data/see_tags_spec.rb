@@ -200,5 +200,11 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags do
     wrap_context 'using fixture', 'unmatched instance method' do
       include_examples 'should wrap the tag with', 'InstanceMethodTag'
     end
+
+    wrap_context 'using fixture', 'unstructured' do
+      let(:parent) { YARD::Registry.find { |obj| obj.title == 'Html' } }
+
+      include_examples 'should wrap the tag with', 'UnstructuredTag'
+    end
   end
 end

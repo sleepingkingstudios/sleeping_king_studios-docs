@@ -34,6 +34,8 @@ module SleepingKingStudios::Docs::Commands
 
     private
 
+    attr_reader :failures
+
     def build_constant(native:)
       SleepingKingStudios::Docs::Data::ConstantObject.new(native:)
     end
@@ -148,11 +150,15 @@ module SleepingKingStudios::Docs::Commands
     def process(file_path: nil)
       step { parse_registry(file_path:) }
 
+      @failures = []
+
       generate_root_namespace
       generate_classes
       generate_constants
       generate_methods
       generate_modules
+
+      report_all_failures
 
       nil
     end
@@ -205,8 +211,19 @@ module SleepingKingStudios::Docs::Commands
         .find { |obj| obj.type == :root }
     end
 
-    def report_failure(file_path:, result:)
-      message = verbose? ? '  - ' : ''
+    def report_all_failures
+      return if failures.empty?
+      return unless verbose?
+
+      warn "\nFailures:"
+
+      failures.each do |failure|
+        report_failure(**failure, nested: true)
+      end
+    end
+
+    def report_failure(file_path:, result:, nested: false)
+      message = nested ? '  - ' : ''
       message +=
         "FAILURE: unable to write file to #{file_path} - " \
         "#{result.error.class}: #{result.error.message}"
@@ -224,7 +241,9 @@ module SleepingKingStudios::Docs::Commands
       if result.success?
         report_success(file_path:)
       else
-        report_failure(file_path:, result:)
+        failures << { file_path:, result: }
+
+        report_failure(file_path:, result:, nested: verbose?)
       end
 
       result

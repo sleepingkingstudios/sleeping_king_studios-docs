@@ -58,6 +58,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
       it { expect(described_class.match?(native)).to be true }
     end
 
+    wrap_context 'using fixture', 'instance method operator' do
+      it { expect(described_class.match?(native)).to be true }
+    end
+
     wrap_context 'using fixture', 'instance method predicate' do
       it { expect(described_class.match?(native)).to be true }
     end
@@ -121,6 +125,17 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
         super().merge(
           'label' => '#rocket_launched=',
           'path'  => '#instance-attribute-rocket-launched='
+        )
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'instance method operator' do
+      let(:expected) do
+        super().merge(
+          'label' => '#<<',
+          'path'  => '#instance-method-<<'
         )
       end
 
@@ -211,6 +226,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
       it { expect(see_tag.attribute?).to be true }
     end
 
+    wrap_context 'using fixture', 'instance method operator' do
+      it { expect(see_tag.attribute?).to be false }
+    end
+
     wrap_context 'using fixture', 'instance method predicate' do
       it { expect(see_tag.attribute?).to be false }
     end
@@ -251,6 +270,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
       it { expect(see_tag.exists?).to be true }
     end
 
+    wrap_context 'using fixture', 'instance method operator' do
+      it { expect(see_tag.exists?).to be true }
+    end
+
     wrap_context 'using fixture', 'instance method predicate' do
       it { expect(see_tag.exists?).to be true }
     end
@@ -288,6 +311,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
     end
 
     wrap_context 'using fixture', 'instance attribute writer' do
+      it { expect(see_tag.local?).to be true }
+    end
+
+    wrap_context 'using fixture', 'instance method operator' do
       it { expect(see_tag.local?).to be true }
     end
 
@@ -333,6 +360,12 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
 
     wrap_context 'using fixture', 'instance attribute writer' do
       let(:expected) { '#instance-attribute-rocket-launched=' }
+
+      it { expect(see_tag.path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'instance method operator' do
+      let(:expected) { '#instance-method-<<' }
 
       it { expect(see_tag.path).to be == expected }
     end
@@ -387,6 +420,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag do
 
     wrap_context 'using fixture', 'instance attribute writer' do
       it { expect(see_tag.reference).to be == '#rocket_launched=' }
+    end
+
+    wrap_context 'using fixture', 'instance method operator' do
+      it { expect(see_tag.reference).to be == '#<<' }
     end
 
     wrap_context 'using fixture', 'instance method predicate' do

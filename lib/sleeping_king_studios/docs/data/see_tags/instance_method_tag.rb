@@ -9,9 +9,12 @@ module SleepingKingStudios::Docs::Data::SeeTags
       '(::)?[[:upper:]][[:alnum:]]*(::[[:upper:]][[:alnum:]]*)*'
     private_constant :DEFINITION_PREFIX
 
-    INSTANCE_METHOD_PATTERN =
-      /\A(#{DEFINITION_PREFIX})?#([[[:lower:]][[:digit:]]_])+[=?]?\z/
+    METHOD_SUFFIX =
+      '([[[:lower:]][[:digit:]]_\+\-\*\/\[\]\<\>])+[=?]'
+    private_constant :METHOD_SUFFIX
 
+    INSTANCE_METHOD_PATTERN =
+      /\A(#{DEFINITION_PREFIX})?##{METHOD_SUFFIX}?\z/
     private_constant :INSTANCE_METHOD_PATTERN
 
     class << self

@@ -42,6 +42,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
       it { expect(described_class.match?(native)).to be true }
     end
 
+    wrap_context 'using fixture', 'class method operator' do
+      it { expect(described_class.match?(native)).to be true }
+    end
+
     wrap_context 'using fixture', 'class method predicate' do
       it { expect(described_class.match?(native)).to be true }
     end
@@ -125,6 +129,17 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
         super().merge(
           'label' => '.curvature=',
           'path'  => '#class-attribute-curvature='
+        )
+      end
+
+      it { expect(see_tag.as_json).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'class method operator' do
+      let(:expected) do
+        super().merge(
+          'label' => '.[]=',
+          'path'  => '#class-method-[]='
         )
       end
 
@@ -222,6 +237,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
       it { expect(see_tag.attribute?).to be true }
     end
 
+    wrap_context 'using fixture', 'class method operator' do
+      it { expect(see_tag.attribute?).to be false }
+    end
+
     wrap_context 'using fixture', 'class method predicate' do
       it { expect(see_tag.attribute?).to be false }
     end
@@ -266,6 +285,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
       it { expect(see_tag.exists?).to be true }
     end
 
+    wrap_context 'using fixture', 'class method operator' do
+      it { expect(see_tag.exists?).to be true }
+    end
+
     wrap_context 'using fixture', 'class method predicate' do
       it { expect(see_tag.exists?).to be true }
     end
@@ -307,6 +330,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
     end
 
     wrap_context 'using fixture', 'class attribute writer' do
+      it { expect(see_tag.local?).to be true }
+    end
+
+    wrap_context 'using fixture', 'class method operator' do
       it { expect(see_tag.local?).to be true }
     end
 
@@ -356,6 +383,12 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
 
     wrap_context 'using fixture', 'class attribute writer' do
       let(:expected) { '#class-attribute-curvature=' }
+
+      it { expect(see_tag.path).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'class method operator' do
+      let(:expected) { '#class-method-[]=' }
 
       it { expect(see_tag.path).to be == expected }
     end
@@ -420,6 +453,12 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ClassMethodTag do
 
     wrap_context 'using fixture', 'class attribute writer' do
       let(:expected) { '.curvature=' }
+
+      it { expect(see_tag.reference).to be == expected }
+    end
+
+    wrap_context 'using fixture', 'class method operator' do
+      let(:expected) { '.[]=' }
 
       it { expect(see_tag.reference).to be == expected }
     end
