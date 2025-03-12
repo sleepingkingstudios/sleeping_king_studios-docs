@@ -23,6 +23,8 @@ module SleepingKingStudios::Docs::Data
       'sleeping_king_studios/docs/data/see_tags/reference_tag'
     autoload :TextTag,
       'sleeping_king_studios/docs/data/see_tags/text_tag'
+    autoload :UnstructuredTag,
+      'sleeping_king_studios/docs/data/see_tags/unstructured_tag'
 
     class << self
       # Creates a wrapper object for the given @see tag.
@@ -40,7 +42,8 @@ module SleepingKingStudios::Docs::Data
           build_constant_tag(native:, parent:) ||
           build_class_method_tag(native:, parent:) ||
           build_definition_tag(native:, parent:) ||
-          build_instance_method_tag(native:, parent:)
+          build_instance_method_tag(native:, parent:) ||
+          build_unstructured_tag(native:, parent:)
       end
 
       private
@@ -88,6 +91,10 @@ module SleepingKingStudios::Docs::Data
         return unless TextTag.match?(native)
 
         TextTag.new(native:, parent:)
+      end
+
+      def build_unstructured_tag(native:, parent:)
+        UnstructuredTag.new(native:, parent:)
       end
     end
   end
