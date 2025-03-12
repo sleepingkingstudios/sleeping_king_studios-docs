@@ -27,7 +27,7 @@ group :development, :test do
 end
 
 group :docs do
-  gem 'jekyll', '~> 4.3'
+  gem 'jekyll', '~> 4.4'
   gem 'jekyll-theme-dinky', '~> 0.2'
 
   # Use Kramdown to parse GFM-dialect Markdown.
