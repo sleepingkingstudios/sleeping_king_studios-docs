@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios
+slug: sleeping-king-studios
+type: module
+files:
+- lib/sleeping_king_studios/docs.rb
+- lib/sleeping_king_studios/docs/version.rb
+parent_path: ''
+short_description: Hic iacet Arthurus, rex quondam, rexque futurus.
+defined_modules:
+- name: Docs
+  slug: docs
+data_path: sleeping-king-studios
+version: '0.1'

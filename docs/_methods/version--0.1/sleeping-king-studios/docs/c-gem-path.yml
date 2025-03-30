@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs.gem_path
+parent_path: sleeping-king-studios/docs
+signature: gem_path
+slug: gem-path
+constructor: false
+data_path: sleeping-king-studios/docs/c-gem-path
+returns:
+- description: the absolute path to the gem directory.
+  type:
+  - name: String
+version: '0.1'

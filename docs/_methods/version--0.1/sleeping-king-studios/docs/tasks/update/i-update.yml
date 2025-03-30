@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Update#update
+parent_path: sleeping-king-studios/docs/tasks/update
+signature: update
+slug: update
+constructor: false
+data_path: sleeping-king-studios/docs/tasks/update/i-update
+short_description: Updates the documentation files for the project.
+version: '0.1'

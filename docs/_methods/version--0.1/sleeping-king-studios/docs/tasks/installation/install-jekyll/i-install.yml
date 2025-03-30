@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation::InstallJekyll#install
+parent_path: sleeping-king-studios/docs/tasks/installation/install-jekyll
+signature: install
+slug: install
+constructor: false
+data_path: sleeping-king-studios/docs/tasks/installation/install-jekyll/i-install
+short_description: Install the Jekyll application
+version: '0.1'

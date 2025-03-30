@@ -45,6 +45,9 @@ direct_subclasses:
 - name: SleepingKingStudios::Docs::Data::SeeTags::TextTag
   slug: text-tag
   path: sleeping-king-studios/docs/data/see-tags/text-tag
+- name: SleepingKingStudios::Docs::Data::SeeTags::UnstructuredTag
+  slug: unstructured-tag
+  path: sleeping-king-studios/docs/data/see-tags/unstructured-tag
 inherited_classes:
 - name: SleepingKingStudios::Docs::Data::Base
   slug: base

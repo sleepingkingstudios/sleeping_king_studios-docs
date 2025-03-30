@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Type#name
+parent_path: sleeping-king-studios/docs/data/types/type
+signature: name
+slug: name
+constructor: false
+data_path: sleeping-king-studios/docs/data/types/type/i-name
+returns:
+- description: the name of the type.
+  type:
+  - name: String
+version: '0.1'

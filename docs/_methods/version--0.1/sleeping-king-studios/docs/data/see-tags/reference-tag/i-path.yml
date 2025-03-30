@@ -1,0 +1,13 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag#path
+parent_path: sleeping-king-studios/docs/data/see-tags/reference-tag
+signature: path
+slug: path
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-path
+returns:
+- description: the path used to generate the reference link.
+  type:
+  - name: String
+  - name: nil
+version: '0.1'

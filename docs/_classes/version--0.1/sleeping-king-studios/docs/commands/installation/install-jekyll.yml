@@ -1,0 +1,40 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallJekyll
+slug: install-jekyll
+type: class
+files:
+- lib/sleeping_king_studios/docs/commands/installation/install_jekyll.rb
+parent_path: sleeping-king-studios/docs/commands/installation
+short_description: Installs the Jekyll application.
+instance_methods:
+- name: description
+  path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-description
+  slug: description
+  inherited: false
+- name: dry_run?
+  path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-dry-run?
+  slug: dry-run?
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+- name: name
+  path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-name
+  slug: name
+  inherited: false
+- name: repository
+  path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-repository
+  slug: repository
+  inherited: false
+- name: verbose?
+  path: sleeping-king-studios/docs/commands/installation/install-jekyll/i-verbose?
+  slug: verbose?
+  inherited: false
+data_path: sleeping-king-studios/docs/commands/installation/install-jekyll
+constructor: true
+inherited_classes:
+- name: Cuprum::Command
+  slug: command
+version: '0.1'

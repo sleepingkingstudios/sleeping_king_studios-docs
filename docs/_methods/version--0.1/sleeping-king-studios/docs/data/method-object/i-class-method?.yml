@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#class_method?
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: class_method?
+slug: class-method?
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-class-method?
+returns:
+- description: true if the method is a class method; otherwise false.
+  type:
+  - name: Boolean
+version: '0.1'

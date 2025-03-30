@@ -1,0 +1,18 @@
+---
+name: SleepingKingStudios::Docs::Commands::WriteFile#initialize
+parent_path: sleeping-king-studios/docs/commands/write-file
+signature: 'initialize(force: false)'
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/commands/write-file/i-initialize
+params:
+- description: if true, overwrites an existing file.
+  name: force
+  type:
+  - name: Boolean
+  default: 'false'
+returns:
+- description: a new instance of WriteFile
+  type:
+  - name: WriteFile
+version: '0.1'

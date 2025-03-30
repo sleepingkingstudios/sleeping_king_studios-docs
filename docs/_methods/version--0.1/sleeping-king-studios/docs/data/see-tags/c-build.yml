@@ -1,0 +1,29 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags.build
+parent_path: sleeping-king-studios/docs/data/see-tags
+signature: build(native:, parent:)
+slug: build
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/c-build
+params:
+- description: |-
+    the YARD object representing the @see
+    tag.
+  name: native
+  type:
+  - name: YARD::Tags::Tag
+- description: |-
+    the YARD object representing the parent
+    object, which contains the @see tag.
+  name: parent
+  type:
+  - name: YARD::Tags::Tag
+returns:
+- description: |-
+    the wrapped
+    object representing the @see tag.
+  type:
+  - name: SleepingKingStudios::Docs::Data::SeeTags::Base
+    path: sleeping-king-studios/docs/data/see-tags/base
+short_description: Creates a wrapper object for the given @see tag.
+version: '0.1'

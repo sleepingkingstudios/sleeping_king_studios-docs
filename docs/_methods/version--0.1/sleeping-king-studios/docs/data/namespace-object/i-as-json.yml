@@ -1,0 +1,34 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#as_json
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: as_json
+slug: as-json
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-as-json
+description: |-
+  Returns a Hash with the following keys:
+
+  - 'name': The full, qualified name of the namespace.
+  - 'slug': The name of the namespace in url-safe format.
+
+  Additionally, the returned Hash will conditionally include the following
+  keys, if the namespace defines at least one of the corresponding code
+  objects.
+
+  - 'class_attributes': The class attributes, if any.
+  - 'class_methods': The class methods, if any.
+  - 'constants': The constants, if any.
+  - 'defined_classes': The defined Classes, if any.
+  - 'defined_modules': The defined Modules, if any.
+  - 'instance_attributes': The instance attributes, if any.
+  - 'instance_methods': The instance methods, if any.
+returns:
+- description: the representation of the namespace.
+  type:
+  - name: Hash
+    keys:
+    - name: String
+    values:
+    - name: Object
+short_description: Generates a JSON-compatible representation of the namespace.
+version: '0.1'

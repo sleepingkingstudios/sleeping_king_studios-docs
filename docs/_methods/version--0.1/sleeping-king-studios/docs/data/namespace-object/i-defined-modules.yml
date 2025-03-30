@@ -1,0 +1,29 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#defined_modules
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: defined_modules
+slug: defined-modules
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-defined-modules
+description: |-
+  For each defined Module, it returns a Hash with the following keys:
+
+  - 'name': The name of the defined Module.
+  - 'slug': A url-safe, hyphen-separated representation of the name.
+metadata:
+  examples:
+  - name: ''
+    text: |-
+      # Given a class FuelConsumer in the namespace Space::Engineering:
+      namespace.name
+      #=> 'Space::Engineering'
+      namespace.defined_classes
+      #=> [{ 'name' => 'FuelConsumer', 'slug' => 'fuel-consumer' }]
+returns:
+- description: the defined modules.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+short_description: Finds the Modules defined under this namespace, if any.
+version: '0.1'

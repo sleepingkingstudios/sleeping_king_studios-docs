@@ -1,0 +1,20 @@
+---
+name: SleepingKingStudios::Docs::RegistryQuery#constant_exists?
+parent_path: sleeping-king-studios/docs/registry-query
+signature: constant_exists?(constant_name)
+slug: constant-exists?
+constructor: false
+data_path: sleeping-king-studios/docs/registry-query/i-constant-exists?
+params:
+- description: |-
+    the name of the constant and defining
+    namespace, if any.
+  name: constant_name
+  type:
+  - name: String
+returns:
+- description: true if the constant exists, otherwise false.
+  type:
+  - name: Boolean
+short_description: Checks if the given constant is defined in the registry.
+version: '0.1'
