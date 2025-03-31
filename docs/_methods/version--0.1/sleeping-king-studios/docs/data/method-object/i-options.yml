@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#options
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: options
+slug: options
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-options
+description: |-
+  Each option is a Hash with the following keys:
+
+  - 'name': The name of the parameter.
+  - 'type': The JSON representation of the parsed Type object.
+  - 'description': The description of the parameter.
+returns:
+- description: the method options.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+short_description: The documented options of the method.
+version: '0.1'

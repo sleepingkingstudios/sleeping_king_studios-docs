@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Parser#initialize
+parent_path: sleeping-king-studios/docs/data/types/parser
+signature: initialize
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/data/types/parser/i-initialize
+returns:
+- description: a new instance of Parser
+  type:
+  - name: Parser
+version: '0.1'

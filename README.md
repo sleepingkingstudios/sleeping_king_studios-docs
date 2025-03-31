@@ -9,6 +9,34 @@ Tools for generating a versioned documentation site from YARD docs.
   </a>
 </blockquote>
 
+## About
+
+### Compatibility
+
+SleepingKingStudios::Yard is tested against Ruby (MRI) 3.1 through 3.4.
+
+### Documentation
+
+Documentation is generated using [YARD](https://yardoc.org/), and can be generated locally using the `yard` gem. Online documentation for current and previous versions is available at [sleepingkingstudios.com](https://www.sleepingkingstudios.com/sleeping_king_studios-docs).
+
+### License
+
+Copyright (c) 2022-2025 Rob Smith
+
+SleepingKingStudios::Docs is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+### Contribute
+
+The canonical repository for this gem is located at https://github.com/sleepingkingstudios/sleeping_king_studios-docs.
+
+To report a bug or submit a feature request, please use the [Issue Tracker](https://github.com/sleepingkingstudios/sleeping_king_studios-docs/issues).
+
+To contribute code, please fork the repository, make the desired updates, and then provide a [Pull Request](https://github.com/sleepingkingstudios/sleeping_king_studios-docs/pulls). Pull requests must include appropriate tests for consideration, and all code must be properly formatted.
+
+### Code of Conduct
+
+Please note that the `SleepingKingStudios::Docs` project is released with a [Contributor Code of Conduct](https://github.com/sleepingkingstudios/sleeping_king_studios-docs/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
 ## Installation
 
 Add the docs dependencies to your Gemfile:

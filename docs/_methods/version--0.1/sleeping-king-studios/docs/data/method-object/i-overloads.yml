@@ -1,0 +1,19 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#overloads
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: overloads
+slug: overloads
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-overloads
+description: |-
+  Each overload is a JSON representation of a method, and includes the same
+  tags and properties (with the exception that an overload cannot itself
+  have overloads).
+metadata:
+  see:
+  - label: "#as_json"
+    path: sleeping-king-studios/docs/data/method-object#instance-method-as-json
+    text:
+    type: reference
+short_description: The documented overloads for the method.
+version: '0.1'

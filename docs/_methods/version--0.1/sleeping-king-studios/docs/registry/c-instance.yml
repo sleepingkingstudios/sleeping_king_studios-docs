@@ -1,0 +1,13 @@
+---
+name: SleepingKingStudios::Docs::Registry.instance
+parent_path: sleeping-king-studios/docs/registry
+signature: instance
+slug: instance
+constructor: false
+data_path: sleeping-king-studios/docs/registry/c-instance
+returns:
+- description: the cached registry.
+  type:
+  - name: Array
+short_description: Caches and returns the contents of the YARD registry.
+version: '0.1'

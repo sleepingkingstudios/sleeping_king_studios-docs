@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Errors::FileError#path
+parent_path: sleeping-king-studios/docs/errors/file-error
+signature: path
+slug: path
+constructor: false
+data_path: sleeping-king-studios/docs/errors/file-error/i-path
+returns:
+- description: the invalid file or directory path.
+  type:
+  - name: String
+version: '0.1'

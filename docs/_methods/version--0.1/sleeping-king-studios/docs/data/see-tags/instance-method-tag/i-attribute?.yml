@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::InstanceMethodTag#attribute?
+parent_path: sleeping-king-studios/docs/data/see-tags/instance-method-tag
+signature: attribute?
+slug: attribute?
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/instance-method-tag/i-attribute?
+returns:
+- description: |-
+    true if the referenced class method is an attribute;
+    otherwise false.
+  type:
+  - name: 'true'
+  - name: 'false'
+version: '0.1'

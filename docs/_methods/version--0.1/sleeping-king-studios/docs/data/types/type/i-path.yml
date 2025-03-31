@@ -1,0 +1,16 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Type#path
+parent_path: sleeping-king-studios/docs/data/types/type
+signature: path
+slug: path
+constructor: false
+data_path: sleeping-king-studios/docs/data/types/type/i-path
+returns:
+- description: |-
+    the qualified relative path of the definition, or
+    nil if the type is not a class or module or it is not documented by
+    YARD.
+  type:
+  - name: String
+  - name: nil
+version: '0.1'

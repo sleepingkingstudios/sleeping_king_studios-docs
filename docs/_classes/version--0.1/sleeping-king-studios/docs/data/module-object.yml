@@ -1,0 +1,132 @@
+---
+name: SleepingKingStudios::Docs::Data::ModuleObject
+slug: module-object
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/module_object.rb
+parent_path: sleeping-king-studios/docs/data
+short_description: Object representing a Ruby module.
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/module-object/i-as-json
+  slug: as-json
+  inherited: false
+- name: class_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-attributes
+  slug: class-attributes
+  inherited: true
+- name: class_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-class-methods
+  slug: class-methods
+  inherited: true
+- name: constants
+  path: sleeping-king-studios/docs/data/namespace-object/i-constants
+  slug: constants
+  inherited: true
+- name: data_path
+  path: sleeping-king-studios/docs/data/module-object/i-data-path
+  slug: data-path
+  inherited: false
+- name: defined_classes
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-classes
+  slug: defined-classes
+  inherited: true
+- name: defined_modules
+  path: sleeping-king-studios/docs/data/namespace-object/i-defined-modules
+  slug: defined-modules
+  inherited: true
+- name: description
+  path: sleeping-king-studios/docs/data/module-object/i-description
+  slug: description
+  inherited: false
+- name: extended_modules
+  path: sleeping-king-studios/docs/data/module-object/i-extended-modules
+  slug: extended-modules
+  inherited: false
+- name: files
+  path: sleeping-king-studios/docs/data/module-object/i-files
+  slug: files
+  inherited: false
+- name: included_modules
+  path: sleeping-king-studios/docs/data/module-object/i-included-modules
+  slug: included-modules
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: instance_attributes
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-attributes
+  slug: instance-attributes
+  inherited: true
+- name: instance_methods
+  path: sleeping-king-studios/docs/data/namespace-object/i-instance-methods
+  slug: instance-methods
+  inherited: true
+- name: metadata
+  path: sleeping-king-studios/docs/data/module-object/i-metadata
+  slug: metadata
+  inherited: false
+- name: name
+  path: sleeping-king-studios/docs/data/namespace-object/i-name
+  slug: name
+  inherited: true
+- name: parent_path
+  path: sleeping-king-studios/docs/data/module-object/i-parent-path
+  slug: parent-path
+  inherited: false
+- name: short_description
+  path: sleeping-king-studios/docs/data/module-object/i-short-description
+  slug: short-description
+  inherited: false
+- name: slug
+  path: sleeping-king-studios/docs/data/namespace-object/i-slug
+  slug: slug
+  inherited: true
+- name: type
+  path: sleeping-king-studios/docs/data/module-object/i-type
+  slug: type
+  inherited: false
+data_path: sleeping-king-studios/docs/data/module-object
+description: |-
+  Each module can define the following elements:
+
+  - Defined In files.
+  - extend-ed modules.
+  - include-ed modules.
+  - Definitions (classes and modules).
+  - Constants.
+  - Class attributes.
+  - Class methods.
+  - Instance attributes.
+  - Instance methods.
+
+  Additionally, a module can have a description and metadata tags.
+metadata:
+  see:
+  - label: SleepingKingStudios::Docs::Data::ClassObject
+    path: sleeping-king-studios/docs/data/class-object
+    text:
+    type: reference
+  - label: SleepingKingStudios::Docs::Data::Metadata
+    path: sleeping-king-studios/docs/data/metadata
+    text:
+    type: reference
+  - label: SleepingKingStudios::Docs::Data::NamespaceObject
+    path: sleeping-king-studios/docs/data/namespace-object
+    text:
+    type: reference
+constructor: true
+direct_subclasses:
+- name: SleepingKingStudios::Docs::Data::ClassObject
+  slug: class-object
+  path: sleeping-king-studios/docs/data/class-object
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::NamespaceObject
+  slug: namespace-object
+  path: sleeping-king-studios/docs/data/namespace-object
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: '0.1'

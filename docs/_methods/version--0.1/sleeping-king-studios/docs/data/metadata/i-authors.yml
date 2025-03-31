@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::Metadata#authors
+parent_path: sleeping-king-studios/docs/data/metadata
+signature: authors
+slug: authors
+constructor: false
+data_path: sleeping-king-studios/docs/data/metadata/i-authors
+returns:
+- description: the collected authors.
+  type:
+  - name: Array
+    items:
+    - name: String
+short_description: Collects the @author tags defined for the module.
+version: '0.1'

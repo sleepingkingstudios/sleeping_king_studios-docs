@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation
+slug: installation
+type: module
+files:
+- lib/sleeping_king_studios/docs/tasks/installation.rb
+- lib/sleeping_king_studios/docs/tasks/installation/install_jekyll.rb
+- lib/sleeping_king_studios/docs/tasks/installation/install_workflow.rb
+- lib/sleeping_king_studios/docs/tasks/installation/install_templates.rb
+parent_path: sleeping-king-studios/docs/tasks
+short_description: Namespace for CLI tasks for installing and updating the Jekyll
+  docs.
+defined_classes:
+- name: InstallJekyll
+  slug: install-jekyll
+- name: InstallTemplates
+  slug: install-templates
+- name: InstallWorkflow
+  slug: install-workflow
+data_path: sleeping-king-studios/docs/tasks/installation
+version: '0.1'

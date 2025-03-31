@@ -11,6 +11,7 @@ files:
 - lib/sleeping_king_studios/docs/data/see_tags/reference_tag.rb
 - lib/sleeping_king_studios/docs/data/see_tags/definition_tag.rb
 - lib/sleeping_king_studios/docs/data/see_tags/class_method_tag.rb
+- lib/sleeping_king_studios/docs/data/see_tags/unstructured_tag.rb
 - lib/sleeping_king_studios/docs/data/see_tags/namespace_item_tag.rb
 - lib/sleeping_king_studios/docs/data/see_tags/instance_method_tag.rb
 parent_path: sleeping-king-studios/docs/data
@@ -39,5 +40,7 @@ defined_classes:
   slug: reference-tag
 - name: TextTag
   slug: text-tag
+- name: UnstructuredTag
+  slug: unstructured-tag
 data_path: sleeping-king-studios/docs/data/see-tags
 version: "*"
