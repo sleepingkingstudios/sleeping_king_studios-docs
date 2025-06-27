@@ -8,6 +8,6 @@ def invoke_pact; end
 
 def summon_dark_lord(name:); end
 
-private
+private # rubocop:disable Lint/UselessAccessModifier
 
 def generate_prophesy; end

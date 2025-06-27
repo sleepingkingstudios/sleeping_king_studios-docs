@@ -10,6 +10,6 @@ attr_writer :secret_formula
 
 attr_accessor :magic_enabled
 
-private
+private # rubocop:disable Lint/UselessAccessModifier
 
 attr_reader :thaumaturgy

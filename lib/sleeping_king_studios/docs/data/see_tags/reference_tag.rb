@@ -51,10 +51,10 @@ module SleepingKingStudios::Docs::Data::SeeTags
     def absolute_path?
       return @absolute_path unless @absolute_path.nil?
 
-      @absolute_path = query_registry(reference)
+      @absolute_path = registry_item_exists?(reference)
     end
 
-    def query_registry(_)
+    def registry_item_exists?(_)
       false
     end
 
@@ -78,7 +78,7 @@ module SleepingKingStudios::Docs::Data::SeeTags
 
       return @relative_path = false if parent.root?
 
-      @relative_path = query_registry(qualified_path)
+      @relative_path = registry_item_exists?(qualified_path)
     end
 
     def slugify_path(path)
