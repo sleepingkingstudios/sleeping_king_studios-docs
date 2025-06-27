@@ -39,7 +39,7 @@ module SleepingKingStudios::Docs::Data::SeeTags
 
     private
 
-    def query_registry(name)
+    def registry_item_exists?(name)
       registry_query.definition_exists?(name)
     end
 

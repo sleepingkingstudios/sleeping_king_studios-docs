@@ -70,7 +70,7 @@ module SleepingKingStudios::Docs::Data::SeeTags
       @normalized_path = @normalized_path.reverse.sub('::', '.').reverse
     end
 
-    def query_registry(name)
+    def registry_item_exists?(name)
       registry_query.class_method_exists?(name)
     end
 

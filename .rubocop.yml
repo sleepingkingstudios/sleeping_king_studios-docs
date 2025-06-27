@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rspec
 
 inherit_gem:
@@ -46,6 +46,9 @@ RSpec/ExampleWording:
 
 RSpec/HookArgument:
   EnforcedStyle: example
+
+RSpec/IncludeExamples:
+  Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
