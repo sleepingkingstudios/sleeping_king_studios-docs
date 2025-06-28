@@ -55,6 +55,8 @@ do
     let(:expected_config) do
       <<~YAML
         ---
+        plugins:
+          - sleeping_king_studios/docs/jekyll/plugins/liquid/filters/anchorize_slug
         collections:
           classes:
             output: false
