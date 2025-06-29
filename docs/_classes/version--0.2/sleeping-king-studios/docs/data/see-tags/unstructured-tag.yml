@@ -1,0 +1,48 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::UnstructuredTag
+slug: unstructured-tag
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/see_tags/unstructured_tag.rb
+parent_path: sleeping-king-studios/docs/data/see-tags
+short_description: Data object representing an unstructured @see tag.
+class_methods:
+- name: match?
+  path: sleeping-king-studios/docs/data/see-tags/unstructured-tag/c-match?
+  slug: match?
+  inherited: false
+instance_attributes:
+- name: parent
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/see-tags/base/i-parent
+  slug: parent
+  inherited: true
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/see-tags/unstructured-tag/i-as-json
+  slug: as-json
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/data/see-tags/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: text
+  path: sleeping-king-studios/docs/data/see-tags/unstructured-tag/i-text
+  slug: text
+  inherited: false
+- name: text?
+  path: sleeping-king-studios/docs/data/see-tags/base/i-text?
+  slug: text?
+  inherited: true
+data_path: sleeping-king-studios/docs/data/see-tags/unstructured-tag
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::SeeTags::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/see-tags/base
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: '0.2'

@@ -1,0 +1,51 @@
+---
+name: SleepingKingStudios::Docs
+slug: docs
+type: module
+files:
+- lib/sleeping_king_studios/docs.rb
+- lib/sleeping_king_studios/docs/data.rb
+- lib/sleeping_king_studios/docs/tasks.rb
+- lib/sleeping_king_studios/docs/errors.rb
+- lib/sleeping_king_studios/docs/jekyll.rb
+- lib/sleeping_king_studios/docs/version.rb
+- lib/sleeping_king_studios/docs/commands.rb
+- lib/sleeping_king_studios/docs/registry.rb
+- lib/sleeping_king_studios/docs/tasks/base.rb
+- lib/sleeping_king_studios/docs/registry_query.rb
+parent_path: sleeping-king-studios
+short_description: Tooling for working with YARD documentation.
+class_methods:
+- name: gem_path
+  path: sleeping-king-studios/docs/c-gem-path
+  slug: gem-path
+  inherited: false
+- name: version
+  path: sleeping-king-studios/docs/c-version
+  slug: version
+  inherited: false
+constants:
+- name: VERSION
+  path: sleeping-king-studios/docs/version
+  slug: version
+  inherited: false
+defined_classes:
+- name: RegistryQuery
+  slug: registry-query
+defined_modules:
+- name: Commands
+  slug: commands
+- name: Data
+  slug: data
+- name: Errors
+  slug: errors
+- name: Jekyll
+  slug: jekyll
+- name: Registry
+  slug: registry
+- name: Tasks
+  slug: tasks
+- name: Version
+  slug: version
+data_path: sleeping-king-studios/docs
+version: '0.2'

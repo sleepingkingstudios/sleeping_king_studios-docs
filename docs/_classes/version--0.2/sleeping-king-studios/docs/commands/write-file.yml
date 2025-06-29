@@ -1,0 +1,31 @@
+---
+name: SleepingKingStudios::Docs::Commands::WriteFile
+slug: write-file
+type: class
+files:
+- lib/sleeping_king_studios/docs/commands/write_file.rb
+parent_path: sleeping-king-studios/docs/commands
+short_description: Writes the given contents to a file.
+instance_methods:
+- name: call
+  path: sleeping-king-studios/docs/commands/write-file/i-call
+  slug: call
+  inherited: false
+- name: force?
+  path: sleeping-king-studios/docs/commands/write-file/i-force?
+  slug: force?
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/commands/write-file/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+data_path: sleeping-king-studios/docs/commands/write-file
+included_modules:
+- name: Cuprum::ExceptionHandling
+  slug: exception-handling
+constructor: true
+inherited_classes:
+- name: Cuprum::Command
+  slug: command
+version: '0.2'

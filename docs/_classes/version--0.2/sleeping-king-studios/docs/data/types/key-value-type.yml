@@ -1,0 +1,68 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::KeyValueType
+slug: key-value-type
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/types/key_value_type.rb
+parent_path: sleeping-king-studios/docs/data/types
+short_description: Represents a YARD type with lists of key types and value types.
+instance_attributes:
+- name: keys
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/types/key-value-type/i-keys
+  slug: keys
+  inherited: false
+- name: name
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/types/type/i-name
+  slug: name
+  inherited: true
+- name: values
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/data/types/key-value-type/i-values
+  slug: values
+  inherited: false
+instance_methods:
+- name: "=="
+  path: sleeping-king-studios/docs/data/types/type/i-==
+  slug: "=="
+  inherited: true
+- name: as_json
+  path: sleeping-king-studios/docs/data/types/key-value-type/i-as-json
+  slug: as-json
+  inherited: false
+- name: exists?
+  path: sleeping-king-studios/docs/data/types/type/i-exists?
+  slug: exists?
+  inherited: true
+- name: initialize
+  path: sleeping-king-studios/docs/data/types/key-value-type/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+- name: inspect
+  path: sleeping-king-studios/docs/data/types/type/i-inspect
+  slug: inspect
+  inherited: true
+- name: literal?
+  path: sleeping-king-studios/docs/data/types/type/i-literal?
+  slug: literal?
+  inherited: true
+- name: method?
+  path: sleeping-king-studios/docs/data/types/type/i-method?
+  slug: method?
+  inherited: true
+- name: path
+  path: sleeping-king-studios/docs/data/types/type/i-path
+  slug: path
+  inherited: true
+data_path: sleeping-king-studios/docs/data/types/key-value-type
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::Types::Type
+  slug: type
+  path: sleeping-king-studios/docs/data/types/type
+version: '0.2'

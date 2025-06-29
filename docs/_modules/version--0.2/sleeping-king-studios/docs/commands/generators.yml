@@ -1,0 +1,20 @@
+---
+name: SleepingKingStudios::Docs::Commands::Generators
+slug: generators
+type: module
+files:
+- lib/sleeping_king_studios/docs/commands/generators.rb
+- lib/sleeping_king_studios/docs/commands/generators/base.rb
+- lib/sleeping_king_studios/docs/commands/generators/data_generator.rb
+- lib/sleeping_king_studios/docs/commands/generators/reference_generator.rb
+parent_path: sleeping-king-studios/docs/commands
+short_description: Namespace for generator commands, which write docs to the filesystem.
+defined_classes:
+- name: Base
+  slug: base
+- name: DataGenerator
+  slug: data-generator
+- name: ReferenceGenerator
+  slug: reference-generator
+data_path: sleeping-king-studios/docs/commands/generators
+version: '0.2'

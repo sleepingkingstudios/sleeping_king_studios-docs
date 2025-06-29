@@ -1,0 +1,27 @@
+---
+name: SleepingKingStudios::Docs::Errors
+slug: errors
+type: module
+files:
+- lib/sleeping_king_studios/docs/errors.rb
+- lib/sleeping_king_studios/docs/errors/file_error.rb
+- lib/sleeping_king_studios/docs/errors/invalid_file.rb
+- lib/sleeping_king_studios/docs/errors/file_not_found.rb
+- lib/sleeping_king_studios/docs/errors/invalid_directory.rb
+- lib/sleeping_king_studios/docs/errors/file_already_exists.rb
+parent_path: sleeping-king-studios/docs
+short_description: Namespace for error objects, which encapsulate command failure
+  states.
+defined_classes:
+- name: FileAlreadyExists
+  slug: file-already-exists
+- name: FileError
+  slug: file-error
+- name: FileNotFound
+  slug: file-not-found
+- name: InvalidDirectory
+  slug: invalid-directory
+- name: InvalidFile
+  slug: invalid-file
+data_path: sleeping-king-studios/docs/errors
+version: '0.2'

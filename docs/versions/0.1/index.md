@@ -12,7 +12,7 @@ SleepingKingStudios::Docs provides a CLI and tooling for generating a static web
 
 ## Documentation
 
-This is the documentation for Version 1.0 of SleepingKingStudios::Docs.
+This is the documentation for Version 0.1 of SleepingKingStudios::Docs.
 
 - For the current development build, see [Documentation]({{site.baseurl}}/).
 - For previous releases, see the [Versions]({{site.baseurl}}/versions) page.

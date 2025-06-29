@@ -1,0 +1,27 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#yield_returns
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: yield_returns
+slug: yield-returns
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-yield-returns
+description: |-
+  Each return type or types is a Hash with the following keys:
+
+  - 'type': The JSON representation of the parsed Type object.
+  - 'description': The description of the returned type, or details on when
+    that type will be returned.
+metadata:
+  see:
+  - label: SleepingKingStudios::Docs::Data::Types::Type
+    path: sleeping-king-studios/docs/data/types/type
+    text:
+    type: reference
+returns:
+- description: the return types of the yielded block.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+short_description: The return type or types of the yielded block.
+version: '0.2'

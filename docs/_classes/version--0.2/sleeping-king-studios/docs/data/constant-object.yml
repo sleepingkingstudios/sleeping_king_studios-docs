@@ -1,0 +1,60 @@
+---
+name: SleepingKingStudios::Docs::Data::ConstantObject
+slug: constant-object
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/constant_object.rb
+parent_path: sleeping-king-studios/docs/data
+short_description: Object representing a Ruby constant.
+instance_methods:
+- name: as_json
+  path: sleeping-king-studios/docs/data/constant-object/i-as-json
+  slug: as-json
+  inherited: false
+- name: data_path
+  path: sleeping-king-studios/docs/data/constant-object/i-data-path
+  slug: data-path
+  inherited: false
+- name: description
+  path: sleeping-king-studios/docs/data/constant-object/i-description
+  slug: description
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/data/base/i-initialize
+  slug: initialize
+  inherited: true
+  constructor: true
+- name: metadata
+  path: sleeping-king-studios/docs/data/constant-object/i-metadata
+  slug: metadata
+  inherited: false
+- name: name
+  path: sleeping-king-studios/docs/data/constant-object/i-name
+  slug: name
+  inherited: false
+- name: parent_path
+  path: sleeping-king-studios/docs/data/constant-object/i-parent-path
+  slug: parent-path
+  inherited: false
+- name: short_description
+  path: sleeping-king-studios/docs/data/constant-object/i-short-description
+  slug: short-description
+  inherited: false
+- name: slug
+  path: sleeping-king-studios/docs/data/constant-object/i-slug
+  slug: slug
+  inherited: false
+- name: value
+  path: sleeping-king-studios/docs/data/constant-object/i-value
+  slug: value
+  inherited: false
+data_path: sleeping-king-studios/docs/data/constant-object
+description: |-
+  Each constant has a name and a value. In addition, a constant may have a
+  short description, a full description, and metadata.
+constructor: true
+inherited_classes:
+- name: SleepingKingStudios::Docs::Data::Base
+  slug: base
+  path: sleeping-king-studios/docs/data/base
+version: '0.2'

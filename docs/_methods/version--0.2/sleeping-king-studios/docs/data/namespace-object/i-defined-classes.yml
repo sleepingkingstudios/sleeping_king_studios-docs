@@ -1,0 +1,29 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#defined_classes
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: defined_classes
+slug: defined-classes
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-defined-classes
+description: |-
+  For each defined Class, it returns a Hash with the following keys:
+
+  - 'name': The name of the defined Class.
+  - 'slug': A url-safe, hyphen-separated representation of the name.
+metadata:
+  examples:
+  - name: ''
+    text: |-
+      # Given a class LaunchWindow in the namespace Space::Operations:
+      namespace.name
+      #=> 'Space::Operations'
+      namespace.defined_classes
+      #=> [{ 'name' => 'LaunchWindow', 'slug' => 'launch-window' }]
+returns:
+- description: the defined classes.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+short_description: Finds the Classes defined under this namespace, if any.
+version: '0.2'

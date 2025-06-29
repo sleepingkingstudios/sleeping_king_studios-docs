@@ -1,0 +1,22 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation::InstallWorkflow
+slug: install-workflow
+type: class
+files:
+- lib/sleeping_king_studios/docs/tasks/installation/install_workflow.rb
+parent_path: sleeping-king-studios/docs/tasks/installation
+short_description: CLI task for installing the GitHub pages CI workflow.
+instance_methods:
+- name: workflow
+  path: sleeping-king-studios/docs/tasks/installation/install-workflow/i-workflow
+  slug: workflow
+  inherited: false
+data_path: sleeping-king-studios/docs/tasks/installation/install-workflow
+constructor: false
+inherited_classes:
+- name: SleepingKingStudios::Docs::Tasks::Base
+  slug: base
+  path: sleeping-king-studios/docs/tasks/base
+- name: Thor
+  slug: thor
+version: '0.2'

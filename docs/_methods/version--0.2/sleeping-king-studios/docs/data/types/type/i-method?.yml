@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Type#method?
+parent_path: sleeping-king-studios/docs/data/types/type
+signature: method?
+slug: method?
+constructor: false
+data_path: sleeping-king-studios/docs/data/types/type/i-method?
+returns:
+- description: true if the name is a method name, otherwise false.
+  type:
+  - name: Boolean
+version: '0.2'

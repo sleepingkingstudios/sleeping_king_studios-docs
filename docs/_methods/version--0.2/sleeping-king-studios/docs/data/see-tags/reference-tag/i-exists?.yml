@@ -1,0 +1,16 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag#exists?
+parent_path: sleeping-king-studios/docs/data/see-tags/reference-tag
+signature: exists?
+slug: exists?
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-exists?
+returns:
+- description: |-
+    true if the referenced code object exists; otherwise
+    false.
+  type:
+  - name: 'true'
+  - name: 'false'
+short_description: Checks if the referenced code object exists in the registry.
+version: '0.2'

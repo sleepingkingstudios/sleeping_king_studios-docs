@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#metadata
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: metadata
+slug: metadata
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-metadata
+metadata:
+  see:
+  - label: SleepingKingStudios::Docs::Data::Metadata
+    path: sleeping-king-studios/docs/data/metadata
+    text:
+    type: reference
+short_description: Additional metadata tags from the documentation.
+version: '0.2'

@@ -1,0 +1,20 @@
+---
+name: SleepingKingStudios::Docs::RegistryQuery#class_method_exists?
+parent_path: sleeping-king-studios/docs/registry-query
+signature: class_method_exists?(method_name)
+slug: class-method-exists?
+constructor: false
+data_path: sleeping-king-studios/docs/registry-query/i-class-method-exists?
+params:
+- description: |-
+    the name of the method and defining namespace,
+    if any.
+  name: method_name
+  type:
+  - name: String
+returns:
+- description: true if the class method exists, otherwise false.
+  type:
+  - name: Boolean
+short_description: Checks if the given class method is defined in the registry.
+version: '0.2'

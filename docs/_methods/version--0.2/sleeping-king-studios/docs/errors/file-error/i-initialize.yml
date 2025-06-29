@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Docs::Errors::FileError#initialize
+parent_path: sleeping-king-studios/docs/errors/file-error
+signature: initialize(message:, path:)
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/errors/file-error/i-initialize
+params:
+- description: message describing the nature of the error.
+  name: message
+  type:
+  - name: String
+- description: the invalid file or directory path.
+  name: path
+  type:
+  - name: String
+returns:
+- description: a new instance of FileError
+  type:
+  - name: FileError
+version: '0.2'

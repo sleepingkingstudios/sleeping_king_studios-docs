@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Installation::InstallTemplates#verbose?
+parent_path: sleeping-king-studios/docs/commands/installation/install-templates
+signature: verbose?
+slug: verbose?
+constructor: false
+data_path: sleeping-king-studios/docs/commands/installation/install-templates/i-verbose?
+returns:
+- description: if true, prints updates to STDOUT.
+  type:
+  - name: Boolean
+version: '0.2'

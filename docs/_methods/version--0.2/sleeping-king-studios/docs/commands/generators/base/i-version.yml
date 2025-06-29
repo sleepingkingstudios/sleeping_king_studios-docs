@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Commands::Generators::Base#version
+parent_path: sleeping-king-studios/docs/commands/generators/base
+signature: version
+slug: version
+constructor: false
+data_path: sleeping-king-studios/docs/commands/generators/base/i-version
+returns:
+- description: the code version for the generated documentation.
+  type:
+  - name: String
+version: '0.2'

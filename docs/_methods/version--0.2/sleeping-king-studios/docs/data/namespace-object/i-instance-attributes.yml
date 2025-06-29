@@ -1,0 +1,23 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#instance_attributes
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: instance_attributes
+slug: instance-attributes
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-instance-attributes
+description: |-
+  For each instance attribute, it returns a Hash with the following keys:
+
+  - 'name': The name of the attribute.
+  - 'read': True if the attribute defines a reader method.
+  - 'write': True if the attribute defines a writer method.
+  - 'path': The path to the reader method data file, or the writer method
+    data file if the attribute does not define a reader method.
+returns:
+- description: the instance attributes.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+short_description: Finds the instance attributes defined for the namespace.
+version: '0.2'
