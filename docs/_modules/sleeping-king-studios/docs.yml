@@ -7,6 +7,7 @@ files:
 - lib/sleeping_king_studios/docs/data.rb
 - lib/sleeping_king_studios/docs/tasks.rb
 - lib/sleeping_king_studios/docs/errors.rb
+- lib/sleeping_king_studios/docs/jekyll.rb
 - lib/sleeping_king_studios/docs/version.rb
 - lib/sleeping_king_studios/docs/commands.rb
 - lib/sleeping_king_studios/docs/registry.rb
@@ -38,6 +39,8 @@ defined_modules:
   slug: data
 - name: Errors
   slug: errors
+- name: Jekyll
+  slug: jekyll
 - name: Registry
   slug: registry
 - name: Tasks

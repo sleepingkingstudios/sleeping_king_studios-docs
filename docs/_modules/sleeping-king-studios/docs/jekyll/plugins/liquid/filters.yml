@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Plugins::Liquid::Filters
+slug: filters
+type: module
+files:
+- lib/sleeping_king_studios/docs/jekyll/plugins/liquid/filters.rb
+- lib/sleeping_king_studios/docs/jekyll/plugins/liquid/filters/anchorize_slug.rb
+parent_path: sleeping-king-studios/docs/jekyll/plugins/liquid
+short_description: Filters for extending Liquid template functionality.
+defined_modules:
+- name: AnchorizeSlug
+  slug: anchorize-slug
+data_path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters
+version: "*"

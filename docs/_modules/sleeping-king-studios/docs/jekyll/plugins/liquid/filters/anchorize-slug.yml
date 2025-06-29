@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Plugins::Liquid::Filters::AnchorizeSlug
+slug: anchorize-slug
+type: module
+files:
+- lib/sleeping_king_studios/docs/jekyll/plugins/liquid/filters/anchorize_slug.rb
+parent_path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters
+short_description: Liquid filter for converting a reference slug to a safe HTML anchor.
+instance_methods:
+- name: anchorize_slug
+  path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug/i-anchorize-slug
+  slug: anchorize-slug
+  inherited: false
+data_path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug
+version: "*"

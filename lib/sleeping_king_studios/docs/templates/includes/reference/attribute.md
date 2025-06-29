@@ -1,6 +1,6 @@
 {% assign method = site.methods | where: "data_path", include.attribute.path | where: "version", page.version | first %}
 {% capture prefix %}{{ include.type }}-attribute{% endcapture %}
-{% capture heading_id %}{{ prefix }}-{{ method.slug | replace: "=", "--equals" }}{% endcapture %}
+{% capture heading_id %}{{ prefix }}-{{ method.slug | anchorize_slug }}{% endcapture %}
 
 {% include reference/attributes/heading.md attribute=include.attribute heading_id=heading_id method=method type=include.type %}
 

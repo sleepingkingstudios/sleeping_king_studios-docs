@@ -55,6 +55,8 @@ do
     let(:expected_config) do
       <<~YAML
         ---
+        plugins:
+          - sleeping_king_studios/docs/jekyll/plugins/required
         collections:
           classes:
             output: false
