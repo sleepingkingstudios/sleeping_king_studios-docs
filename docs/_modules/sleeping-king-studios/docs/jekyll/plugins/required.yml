@@ -1,0 +1,19 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Plugins::Required
+slug: required
+type: module
+files:
+- lib/sleeping_king_studios/docs/jekyll/plugins/required.rb
+parent_path: sleeping-king-studios/docs/jekyll/plugins
+short_description: Helper module for loading all required Jekyll plugins.
+instance_methods:
+- name: anchorize_slug
+  path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug/i-anchorize-slug
+  slug: anchorize-slug
+  inherited: true
+data_path: sleeping-king-studios/docs/jekyll/plugins/required
+included_modules:
+- name: SleepingKingStudios::Docs::Jekyll::Plugins::Liquid::Filters::AnchorizeSlug
+  slug: anchorize-slug
+  path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug
+version: "*"
