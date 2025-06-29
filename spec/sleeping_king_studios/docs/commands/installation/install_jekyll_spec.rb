@@ -56,7 +56,7 @@ do
       <<~YAML
         ---
         plugins:
-          - sleeping_king_studios/docs/jekyll/plugins/liquid/filters/anchorize_slug
+          - sleeping_king_studios/docs/jekyll/plugins/required
         collections:
           classes:
             output: false
