@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::Base#parent
+parent_path: sleeping-king-studios/docs/data/see-tags/base
+signature: parent
+slug: parent
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/base/i-parent
+returns:
+- description: |-
+    the YARD object representing the parent object,
+    which contains the @see tag.
+  type:
+  - name: YARD::Tags::Tag
+version: '0.2'

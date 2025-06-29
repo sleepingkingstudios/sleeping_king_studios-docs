@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Errors::InvalidDirectory#initialize
+parent_path: sleeping-king-studios/docs/errors/invalid-directory
+signature: initialize(path:)
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/errors/invalid-directory/i-initialize
+params:
+- description: the invalid directory path.
+  name: path
+  type:
+  - name: String
+returns:
+- description: a new instance of InvalidDirectory
+  type:
+  - name: InvalidDirectory
+version: '0.2'

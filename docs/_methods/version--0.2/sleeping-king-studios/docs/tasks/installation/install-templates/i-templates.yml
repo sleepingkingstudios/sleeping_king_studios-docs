@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Tasks::Installation::InstallTemplates#templates
+parent_path: sleeping-king-studios/docs/tasks/installation/install-templates
+signature: templates
+slug: templates
+constructor: false
+data_path: sleeping-king-studios/docs/tasks/installation/install-templates/i-templates
+short_description: Installs or updates the Jekyll templates
+version: '0.2'

@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Plugins::Liquid
+slug: liquid
+type: module
+files:
+- lib/sleeping_king_studios/docs/jekyll/plugins/liquid.rb
+- lib/sleeping_king_studios/docs/jekyll/plugins/liquid/filters.rb
+parent_path: sleeping-king-studios/docs/jekyll/plugins
+short_description: Plugins for extending Liquid template functionality.
+defined_modules:
+- name: Filters
+  slug: filters
+data_path: sleeping-king-studios/docs/jekyll/plugins/liquid
+version: '0.2'

@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Parser::ParseError
+slug: parse-error
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/types/parser.rb
+parent_path: sleeping-king-studios/docs/data/types/parser
+short_description: Exception raised when encountering an invalid type string.
+data_path: sleeping-king-studios/docs/data/types/parser/parse-error
+constructor: false
+inherited_classes:
+- name: StandardError
+  slug: standard-error
+version: '0.2'

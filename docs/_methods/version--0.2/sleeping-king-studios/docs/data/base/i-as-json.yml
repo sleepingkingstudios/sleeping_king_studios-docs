@@ -1,0 +1,13 @@
+---
+name: SleepingKingStudios::Docs::Data::Base#as_json
+parent_path: sleeping-king-studios/docs/data/base
+signature: as_json
+slug: as-json
+constructor: false
+data_path: sleeping-king-studios/docs/data/base/i-as-json
+returns:
+- description: the JSON representation.
+  type:
+  - name: Hash
+short_description: Generates a JSON-compatible representation of the object.
+version: '0.2'

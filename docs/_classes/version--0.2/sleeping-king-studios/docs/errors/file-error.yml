@@ -1,0 +1,45 @@
+---
+name: SleepingKingStudios::Docs::Errors::FileError
+slug: file-error
+type: class
+files:
+- lib/sleeping_king_studios/docs/errors/file_error.rb
+parent_path: sleeping-king-studios/docs/errors
+short_description: Abstract base class for errors interacting with the file system.
+constants:
+- name: TYPE
+  path: sleeping-king-studios/docs/errors/file-error/type
+  slug: type
+  inherited: false
+instance_attributes:
+- name: path
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/file-error/i-path
+  slug: path
+  inherited: false
+instance_methods:
+- name: initialize
+  path: sleeping-king-studios/docs/errors/file-error/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+data_path: sleeping-king-studios/docs/errors/file-error
+constructor: true
+direct_subclasses:
+- name: SleepingKingStudios::Docs::Errors::FileAlreadyExists
+  slug: file-already-exists
+  path: sleeping-king-studios/docs/errors/file-already-exists
+- name: SleepingKingStudios::Docs::Errors::FileNotFound
+  slug: file-not-found
+  path: sleeping-king-studios/docs/errors/file-not-found
+- name: SleepingKingStudios::Docs::Errors::InvalidDirectory
+  slug: invalid-directory
+  path: sleeping-king-studios/docs/errors/invalid-directory
+- name: SleepingKingStudios::Docs::Errors::InvalidFile
+  slug: invalid-file
+  path: sleeping-king-studios/docs/errors/invalid-file
+inherited_classes:
+- name: Cuprum::Error
+  slug: error
+version: '0.2'

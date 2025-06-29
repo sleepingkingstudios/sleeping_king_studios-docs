@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::LinkTag.match?
+parent_path: sleeping-king-studios/docs/data/see-tags/link-tag
+signature: match?(native)
+slug: match?
+aliases:
+- matches?
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/link-tag/c-match?
+params:
+- description: the tag object.
+  name: native
+  type:
+  - name: YARD::Tags::Tag
+returns:
+- description: true if the tag object is a link; otherwise false.
+  type:
+  - name: 'true'
+  - name: 'false'
+short_description: Checks if the given tag object is a link.
+version: '0.2'

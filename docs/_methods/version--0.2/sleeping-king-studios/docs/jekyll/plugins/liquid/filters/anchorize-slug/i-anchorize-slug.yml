@@ -1,0 +1,22 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Plugins::Liquid::Filters::AnchorizeSlug#anchorize_slug
+parent_path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug
+signature: anchorize_slug(slug)
+slug: anchorize-slug
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug/i-anchorize-slug
+description: |-
+  Certain characters are valid Ruby identifiers but cause issues when used
+  as HTML anchors, such as equals signs, hashes, question marks, and square
+  brackets. This method replaces each with a placeholder value.
+params:
+- description: the slug to convert.
+  name: slug
+  type:
+  - name: String
+returns:
+- description: the converted slug.
+  type:
+  - name: String
+short_description: Converts the slug to a string usable as an HTML anchor.
+version: '0.2'

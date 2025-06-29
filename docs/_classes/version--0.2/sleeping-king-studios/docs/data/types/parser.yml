@@ -1,0 +1,36 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::Parser
+slug: parser
+type: class
+files:
+- lib/sleeping_king_studios/docs/data/types/parser.rb
+parent_path: sleeping-king-studios/docs/data/types
+short_description: Parses a YARD type list into a nested data object.
+defined_classes:
+- name: ParseError
+  slug: parse-error
+instance_methods:
+- name: initialize
+  path: sleeping-king-studios/docs/data/types/parser/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+- name: parse
+  path: sleeping-king-studios/docs/data/types/parser/i-parse
+  slug: parse
+  inherited: false
+data_path: sleeping-king-studios/docs/data/types/parser
+metadata:
+  notes:
+  - |-
+    Certain combinations of comparable methods and parameterized types are
+    known not to parse: list types with `#<=` or `#>` methods, and hash types
+    with `#<`, `#==`, or `#>` keys. As a workaround, add trailing whitespace
+    between the method name and any subsequent control characters.
+  see:
+  - label: https://www.rubydoc.info/gems/yard/file/docs/Tags.md#types-specifier-list
+    path: https://www.rubydoc.info/gems/yard/file/docs/Tags.md#types-specifier-list
+    text:
+    type: link
+constructor: true
+version: '0.2'

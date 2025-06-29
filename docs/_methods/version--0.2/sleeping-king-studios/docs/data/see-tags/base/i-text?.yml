@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::Base#text?
+parent_path: sleeping-king-studios/docs/data/see-tags/base
+signature: text?
+slug: text?
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/base/i-text?
+returns:
+- description: true if the tag has display text, otherwise false.
+  type:
+  - name: Boolean
+version: '0.2'

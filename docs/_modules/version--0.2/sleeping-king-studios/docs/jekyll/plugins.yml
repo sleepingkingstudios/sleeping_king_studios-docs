@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Plugins
+slug: plugins
+type: module
+files:
+- lib/sleeping_king_studios/docs/jekyll/plugins.rb
+- lib/sleeping_king_studios/docs/jekyll/plugins/liquid.rb
+- lib/sleeping_king_studios/docs/jekyll/plugins/required.rb
+parent_path: sleeping-king-studios/docs/jekyll
+short_description: Plugins for extending Jekyll functionality.
+defined_modules:
+- name: Liquid
+  slug: liquid
+- name: Required
+  slug: required
+data_path: sleeping-king-studios/docs/jekyll/plugins
+version: '0.2'

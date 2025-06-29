@@ -1,0 +1,27 @@
+---
+name: SleepingKingStudios::Docs::Commands::Generators::DataGenerator#file_path
+parent_path: sleeping-king-studios/docs/commands/generators/data-generator
+signature: 'file_path(data_object:, data_type: nil)'
+slug: file-path
+constructor: false
+data_path: sleeping-king-studios/docs/commands/generators/data-generator/i-file-path
+params:
+- description: |-
+    the data object
+    for which the file is generated.
+  name: data_object
+  type:
+  - name: SleepingKingStudios::Docs::Data::Base
+    path: sleeping-king-studios/docs/data/base
+- description: the type of data file to generate.
+  name: data_type
+  type:
+  - name: String
+  - name: Symbol
+  default: nil
+returns:
+- description: the qualified path to the generated file.
+  type:
+  - name: String
+short_description: Determines the generated file path for the given data object.
+version: '0.2'

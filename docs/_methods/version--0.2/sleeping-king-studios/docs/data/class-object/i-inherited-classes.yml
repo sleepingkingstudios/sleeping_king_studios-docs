@@ -1,0 +1,25 @@
+---
+name: SleepingKingStudios::Docs::Data::ClassObject#inherited_classes
+parent_path: sleeping-king-studios/docs/data/class-object
+signature: inherited_classes
+slug: inherited-classes
+constructor: false
+data_path: sleeping-king-studios/docs/data/class-object/i-inherited-classes
+description: |-
+  For each inherited Class, it returns a Hash with the following keys:
+
+  - 'name': The name of the inherited class.
+  - 'slug': A url-safe, hyphen-separated representation of the name.
+  - 'path': The path to the data file for the class.
+returns:
+- description: the inherited classes.
+  type:
+  - name: Array
+    items:
+    - name: Hash
+      keys:
+      - name: String
+      values:
+      - name: String
+short_description: A list of the classes that are inherited by the class.
+version: '0.2'

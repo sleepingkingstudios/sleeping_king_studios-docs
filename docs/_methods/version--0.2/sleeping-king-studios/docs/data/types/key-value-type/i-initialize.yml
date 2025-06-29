@@ -1,0 +1,35 @@
+---
+name: SleepingKingStudios::Docs::Data::Types::KeyValueType#initialize
+parent_path: sleeping-king-studios/docs/data/types/key-value-type
+signature: initialize(keys:, name:, values:)
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/data/types/key-value-type/i-initialize
+params:
+- description: |-
+    the key
+    types.
+  name: keys
+  type:
+  - name: Array
+    items:
+    - name: SleepingKingStudios::Docs::Data::Types::Type
+      path: sleeping-king-studios/docs/data/types/type
+- description: the name of the type.
+  name: name
+  type:
+  - name: String
+- description: |-
+    the
+    value types.
+  name: values
+  type:
+  - name: Array
+    items:
+    - name: SleepingKingStudios::Docs::Data::Types::Type
+      path: sleeping-king-studios/docs/data/types/type
+returns:
+- description: a new instance of KeyValueType
+  type:
+  - name: KeyValueType
+version: '0.2'
