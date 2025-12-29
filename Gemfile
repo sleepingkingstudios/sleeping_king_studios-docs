@@ -25,6 +25,8 @@ group :development, :test do
 end
 
 group :docs do
+  gem 'irb', '~> 1.16' if RUBY_VERSION >= '4.0'
+
   gem 'jekyll', '~> 4.4'
   gem 'jekyll-theme-dinky', '~> 0.2'
 
