@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH << './lib'
-
-require 'sleeping_king_studios/docs/version'
+require_relative 'lib/sleeping_king_studios/docs/version'
 
 Gem::Specification.new do |gem|
   gem.name        = 'sleeping_king_studios-docs'
@@ -26,7 +24,7 @@ Gem::Specification.new do |gem|
     'rubygems_mfa_required' => 'true'
   }
 
-  gem.required_ruby_version = '~> 3.1'
+  gem.required_ruby_version = ['>= 3.1', '< 5']
   gem.require_path = 'lib'
   gem.files        =
     Dir[
@@ -40,9 +38,9 @@ Gem::Specification.new do |gem|
       '*.md'
     ]
 
-  gem.add_runtime_dependency 'cuprum', '~> 1.0'
+  gem.add_runtime_dependency 'cuprum', '~> 1.3', '>= 1.3.1'
   gem.add_runtime_dependency 'erubi', '~> 1.13'
-  gem.add_runtime_dependency 'sleeping_king_studios-tools', '~> 1.2'
+  gem.add_runtime_dependency 'sleeping_king_studios-tools', '~> 1.2', '>= 1.2.1'
   gem.add_runtime_dependency 'thor', '~> 1.3'
   gem.add_runtime_dependency 'treetop', '~> 1.6'
   gem.add_runtime_dependency 'yard', '~> 0.9'
