@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.2.1
+
+Added support for Ruby 4.0.
+
 # 0.2.0
 
 > **Upgrade Notes**
