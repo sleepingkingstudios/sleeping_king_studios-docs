@@ -74,12 +74,12 @@ module SleepingKingStudios::Docs::Data::Types
         .select { |const_name| const_name.to_s.end_with?('0') }
         .sort
         .to_h \
-      do |const_name|
-        ext   = TypesSpecifierList.const_get(const_name)
-        value = tools.string_tools.underscore(const_name.to_s[0...-1]).intern
+        do |const_name|
+          ext   = TypesSpecifierList.const_get(const_name)
+          value = tools.string_tools.underscore(const_name.to_s[0...-1]).intern
 
-        [ext, value]
-      end
+          [ext, value]
+        end
     end
 
     def handle_key_value_type(node)

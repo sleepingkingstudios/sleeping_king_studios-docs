@@ -4,9 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'cuprum',
-  branch: 'main',
-  git:    'https://github.com/sleepingkingstudios/cuprum'
+gem 'cuprum', '~> 1.3'
 gem 'sleeping_king_studios-tasks', '~> 0.4', '>= 0.4.1'
 
 group :development, :test do
@@ -14,8 +12,8 @@ group :development, :test do
 
   gem 'rspec', '~> 3.13'
   gem 'rspec-sleeping_king_studios', '~> 2.8'
-  gem 'rubocop', '~> 1.77'
-  gem 'rubocop-rspec', '~> 3.6'
+  gem 'rubocop', '~> 1.82'
+  gem 'rubocop-rspec', '~> 3.8'
   gem 'simplecov', '~> 0.22'
 end
 
