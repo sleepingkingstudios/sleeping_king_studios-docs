@@ -1,7 +1,7 @@
 ---
 breadcrumbs:
   - name: Documentation
-    path: './'
+    path: '/'
 ---
 
 # Tasks
@@ -157,5 +157,3 @@ root_path
 
 verbose
 : If the `--skip-verbose` flag is set, the task will not output its status to STDOUT.
-
-{% include breadcrumbs.md %}

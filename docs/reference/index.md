@@ -1,14 +1,12 @@
 ---
 breadcrumbs:
   - name: Documentation
-    path: '../'
+    path: '/'
 version: '*'
 ---
 
 {% assign root_namespace = site.namespaces | where: "version", page.version | first %}
 
-# SleepingKingStudios::Docs Reference
+# {{ site.project_metadata.name }} Reference
 
 {% include reference/namespace.md label=false namespace=root_namespace %}
-
-{% include breadcrumbs.md %}

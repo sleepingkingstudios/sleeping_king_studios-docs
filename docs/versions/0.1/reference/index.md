@@ -14,5 +14,3 @@ version: '0.1'
 # SleepingKingStudios::Docs Reference
 
 {% include reference/namespace.md label=false namespace=root_namespace %}
-
-{% include breadcrumbs.md %}
