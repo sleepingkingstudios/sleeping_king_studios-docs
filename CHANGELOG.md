@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.3.0
+
+Removed support for Ruby 3.1.
+
 # 0.2.1
 
 Added support for Ruby 4.0.

@@ -13,7 +13,7 @@ Tools for generating a versioned documentation site from YARD docs.
 
 ### Compatibility
 
-SleepingKingStudios::Yard is tested against Ruby (MRI) 3.1 through 3.4.
+SleepingKingStudios::Yard is tested against Ruby (MRI) 3.2 through 4.0.
 
 ### Documentation
 
