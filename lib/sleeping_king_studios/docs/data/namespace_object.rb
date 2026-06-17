@@ -359,8 +359,8 @@ module SleepingKingStudios::Docs::Data
 
     def public_attribute?(options)
       options
-        .values
-        .select { |value| value.is_a?(YARD::CodeObjects::MethodObject) }
+        .each_value
+        .grep(YARD::CodeObjects::MethodObject)
         .any? { |obj| !private_method?(obj) }
     end
 

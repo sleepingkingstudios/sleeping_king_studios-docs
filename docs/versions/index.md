@@ -1,14 +1,14 @@
 ---
 breadcrumbs:
   - name: Documentation
-    path: '../'
+    path: '/'
 ---
 
 # Versions
 
-For more information on release versions, see the [Changelog](https://github.com/sleepingkingstudios/sleeping_king_studios-docs/blob/main/CHANGELOG.md).
+For more information on release versions, see the [Changelog]({{site.project_metadata.repository_url}}/blob/main/CHANGELOG.md).
 
-- [Version 0.1]({{site.baseurl}}/versions/0.1)
-- [Version 0.2]({{site.baseurl}}/versions/0.2)
-
-{% include breadcrumbs.md %}
+{% assign versions = site.project_metadata.versions | reverse %}
+{% for version in versions %}
+- [Version {{ version }}]({{site.baseurl}}/versions/{{version}})
+{%- endfor %}

@@ -18,15 +18,20 @@ defaults:
     type: 'pages'
   values:
     encoding: 'utf-8'
-    layout: 'default'
+    layout: 'page'
     title: 'SleepingKingStudios::Docs'
 exclude:
   - /vendor
 description: |
   Tools for generating a versioned documentation site from YARD docs.
 github:
-  repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs
+  repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs # The sidebar link for the Dinky theme.
 markdown: kramdown
-repository: sleepingkingstudios/sleeping_king_studios-docs
 theme: jekyll-theme-dinky
-title: 'Docs'
+title: 'Docs' # The sidebar title for the Dinky theme.
+project_metadata:
+  name:           SleepingKingStudios::Docs
+  repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs
+  versions:
+    - 0.1
+    - 0.2
