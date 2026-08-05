@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'sleeping_king_studios-tasks', '~> 0.4', '>= 0.4.1'
+gem 'cuprum-cli',
+  git: 'https://github.com/sleepingkingstudios/cuprum-cli/'
 
 group :development, :test do
   gem 'byebug', '~> 11.1'
