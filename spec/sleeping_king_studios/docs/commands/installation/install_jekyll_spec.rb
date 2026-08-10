@@ -22,12 +22,6 @@ do
 
   describe '#call' do
     let(:docs_path) { '/path/to/docs' }
-    let(:templates_command_class) do
-      SleepingKingStudios::Docs::Commands::Installation::InstallTemplates
-    end
-    let(:mock_templates_command) do
-      instance_double(templates_command_class, call: Cuprum::Result.new)
-    end
     let(:gitignore_path) do
       File.join(Dir.pwd, '.gitignore')
     end
@@ -191,10 +185,6 @@ do
     end
 
     before(:example) do
-      allow(templates_command_class)
-        .to receive(:new)
-        .and_return(mock_templates_command)
-
       allow(Dir).to receive(:exist?).and_return(false)
       allow(File).to receive_messages(
         exist?: false,
@@ -305,20 +295,6 @@ do
       expect(File)
         .to have_received(:write)
         .with(breadcrumbs_page_path, expected_breadcrumbs)
-    end
-
-    it 'should generate the reference templates', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-      command.call(docs_path:)
-
-      expect(templates_command_class)
-        .to have_received(:new)
-        .with(
-          dry_run:         false,
-          force:           false,
-          ignore_existing: true,
-          verbose:         false
-        )
-      expect(mock_templates_command).to have_received(:call).with(docs_path:)
     end
 
     it 'should print the report to STDOUT' do
@@ -572,20 +548,6 @@ do
         command.call(docs_path:)
 
         expect(File).not_to have_received(:write)
-      end
-
-      it 'should not generate the reference templates', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        command.call(docs_path:)
-
-        expect(templates_command_class)
-          .to have_received(:new)
-          .with(
-            dry_run:         true,
-            force:           false,
-            ignore_existing: true,
-            verbose:         false
-          )
-        expect(mock_templates_command).to have_received(:call).with(docs_path:)
       end
 
       it 'should print the report to STDOUT' do

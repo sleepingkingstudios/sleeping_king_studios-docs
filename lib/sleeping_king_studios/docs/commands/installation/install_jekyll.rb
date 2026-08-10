@@ -5,7 +5,6 @@ require 'fileutils'
 require 'erubi'
 
 require 'sleeping_king_studios/docs/commands/installation'
-require 'sleeping_king_studios/docs/commands/installation/install_templates'
 
 module SleepingKingStudios::Docs::Commands::Installation
   # Installs the Jekyll application.
@@ -168,24 +167,11 @@ module SleepingKingStudios::Docs::Commands::Installation
 
       file_path = File.join(includes_path, 'breadcrumbs.md')
 
-      unless File.exist?(file_path)
-        template_path = File.join(templates_path, 'includes', 'breadcrumbs.md')
+      return if File.exist?(file_path)
 
-        File.write(file_path, File.read(template_path)) unless dry_run?
-      end
+      template_path = File.join(templates_path, 'includes', 'breadcrumbs.md')
 
-      install_reference_templates
-    end
-
-    def install_reference_templates
-      SleepingKingStudios::Docs::Commands::Installation::InstallTemplates
-        .new(
-          dry_run:         dry_run?,
-          force:           false,
-          ignore_existing: true,
-          verbose:         false
-        )
-        .call(docs_path:)
+      File.write(file_path, File.read(template_path)) unless dry_run?
     end
 
     def jekyll_cache_path

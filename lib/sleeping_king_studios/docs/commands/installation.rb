@@ -7,9 +7,5 @@ module SleepingKingStudios::Docs::Commands
   module Installation
     autoload :InstallJekyll,
       'sleeping_king_studios/docs/commands/installation/install_jekyll'
-    autoload :InstallTemplates,
-      'sleeping_king_studios/docs/commands/installation/install_templates'
-    autoload :InstallWorkflow,
-      'sleeping_king_studios/docs/commands/installation/install_workflow'
   end
 end

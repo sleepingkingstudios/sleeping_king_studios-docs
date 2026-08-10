@@ -28,8 +28,6 @@ module SleepingKingStudios::Docs::Jekyll::Commands
       option :ruby_version
     end
 
-    private
-
     full_name 'docs:jekyll:install_workflow'
 
     description \
@@ -44,6 +42,8 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
     option :ruby_version,
       default: -> { RUBY_VERSION.split('.')[..1].join('.') }
+
+    private
 
     def process
       Generator

@@ -8,9 +8,7 @@ require 'sleeping_king_studios/docs/jekyll/commands/install_workflow'
 RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallWorkflow do
   include Cuprum::Cli::RSpec::Deferred::OptionsExamples
 
-  subject(:command) do
-    described_class.new(file_system:, standard_io:)
-  end
+  subject(:command) { described_class.new(file_system:, standard_io:) }
 
   let(:template_path) do
     File.join(
