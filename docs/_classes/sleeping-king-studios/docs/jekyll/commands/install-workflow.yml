@@ -1,0 +1,23 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::InstallWorkflow
+slug: install-workflow
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/commands/install_workflow.rb
+parent_path: sleeping-king-studios/docs/jekyll/commands
+short_description: Command for installing a Github workflow to deploy the docs to
+  Pages.
+defined_classes:
+- name: Generator
+  slug: generator
+data_path: sleeping-king-studios/docs/jekyll/commands/install-workflow
+included_modules:
+- name: Cuprum::Cli::Options::Quiet
+  slug: quiet
+- name: Cuprum::Cli::Options::Verbose
+  slug: verbose
+constructor: false
+inherited_classes:
+- name: Cuprum::Cli::Command
+  slug: command
+version: "*"

@@ -1,0 +1,24 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Install
+slug: install
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/commands/install.rb
+parent_path: sleeping-king-studios/docs/jekyll/commands
+short_description: Installs the Jekyll application.
+defined_classes:
+- name: Generator
+  slug: generator
+data_path: sleeping-king-studios/docs/jekyll/commands/install
+included_modules:
+- name: Cuprum::Cli::Dependencies::StandardIo::Helpers
+  slug: helpers
+- name: Cuprum::Cli::Options::Quiet
+  slug: quiet
+- name: Cuprum::Cli::Options::Verbose
+  slug: verbose
+constructor: false
+inherited_classes:
+- name: Cuprum::Cli::Command
+  slug: command
+version: "*"
