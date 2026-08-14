@@ -34,8 +34,10 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
       return success(nil) if ignore_existing? && file_system.file?(output_path)
 
-      handle_file_error(output_path:, relative_path:) do
-        write_template_file(output_path:, template_path:)
+      handle_file_error(output_path) do
+        write_template_file(output_path:, template_path:) unless dry_run?
+
+        say("  - Copying template #{relative_path}", verbose: true)
       end
     end
 
@@ -72,17 +74,15 @@ module SleepingKingStudios::Docs::Jekyll::Commands
       build_result(error:, value: output_paths)
     end
 
-    def handle_file_error(output_path:, relative_path:)
-      yield unless dry_run?
+    def handle_file_error(file_path)
+      yield
 
-      say("  - Copying template #{relative_path}", verbose: true)
-
-      success(output_path)
+      success(file_path)
     rescue Cuprum::Cli::Dependencies::FileSystem::FileError => exception
       warn("  ! #{exception.message}")
 
       error = Cuprum::Cli::Files::Errors::FileNotWriteable.new(
-        file_path: output_path,
+        file_path:,
         message:   exception.message
       )
       failure(error)
@@ -97,9 +97,6 @@ module SleepingKingStudios::Docs::Jekyll::Commands
       say("\n", verbose: true)
 
       output_paths, errors = copy_templates
-
-      say("\n", verbose: true)
-      say 'Done!'
 
       handle_errors(errors:, output_paths:)
     end

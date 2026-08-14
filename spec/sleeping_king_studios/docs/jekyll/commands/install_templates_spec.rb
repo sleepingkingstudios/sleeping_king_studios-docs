@@ -10,21 +10,14 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
   subject(:command) { described_class.new(file_system:, standard_io:) }
 
   let(:templates_path) do
-    File.join(
-      SleepingKingStudios::Docs.gem_path,
-      'lib',
-      'sleeping_king_studios',
-      'docs',
-      'templates',
-      'includes'
-    )
+    SleepingKingStudios::Docs::Jekyll::Commands.templates_path
   end
   let(:template_files) do
     {
       'template.md' => 'Top Level Template',
       'reference'   => { 'inner.md' => 'Reference Template' }
     }
-      .transform_keys { |path| File.join(templates_path, path) }
+      .transform_keys { |path| File.join(templates_path, 'includes', path) }
   end
   let(:files) do
     tools.hash_tools.deep_dup(template_files)
@@ -122,7 +115,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
             output  += "  - Copying template #{template}\n"
           end
 
-          output += "\nDone!\n"
+          output
         end
 
         it 'should write the output to STDOUT' do
@@ -149,14 +142,13 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
       file_paths.to_h do |path|
         [
           File.join(File.join(command.docs_path, '_includes'), path),
-          file_system.read_file(File.join(templates_path, path))
+          file_system.read_file(File.join(templates_path, 'includes', path))
         ]
       end
     end
     let(:expected_output) do
       <<~OUTPUT
         Copying template files (force=#{options.fetch(:force, false)})...
-        Done!
       OUTPUT
     end
     let(:expected_errors) { '' }

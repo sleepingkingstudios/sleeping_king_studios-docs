@@ -17,11 +17,7 @@ module SleepingKingStudios::Docs::Jekyll::Commands
     class Generator < Cuprum::Cli::Files::Generator
       output '%<file_path>s',
         template: File.join(
-          SleepingKingStudios::Docs.gem_path,
-          'lib',
-          'sleeping_king_studios',
-          'docs',
-          'templates',
+          SleepingKingStudios::Docs::Jekyll::Commands.templates_path,
           'deploy-pages.yml.erb'
         )
 
