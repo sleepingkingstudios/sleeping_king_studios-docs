@@ -1,0 +1,25 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands
+slug: commands
+type: module
+files:
+- lib/sleeping_king_studios/docs/jekyll/commands.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/install.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/install_workflow.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/install_templates.rb
+parent_path: sleeping-king-studios/docs/jekyll
+short_description: Namespace for commands which install the Jekyll application.
+class_methods:
+- name: templates_path
+  path: sleeping-king-studios/docs/jekyll/commands/c-templates-path
+  slug: templates-path
+  inherited: false
+defined_classes:
+- name: Install
+  slug: install
+- name: InstallTemplates
+  slug: install-templates
+- name: InstallWorkflow
+  slug: install-workflow
+data_path: sleeping-king-studios/docs/jekyll/commands
+version: "*"

@@ -1,0 +1,21 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates
+slug: install-templates
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/commands/install_templates.rb
+parent_path: sleeping-king-studios/docs/jekyll/commands
+short_description: Command for installing or updating Jekyll templates for docs.
+data_path: sleeping-king-studios/docs/jekyll/commands/install-templates
+included_modules:
+- name: Cuprum::Cli::Dependencies::StandardIo::Helpers
+  slug: helpers
+- name: Cuprum::Cli::Options::Quiet
+  slug: quiet
+- name: Cuprum::Cli::Options::Verbose
+  slug: verbose
+constructor: false
+inherited_classes:
+- name: Cuprum::Cli::Command
+  slug: command
+version: "*"

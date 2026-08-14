@@ -4,6 +4,15 @@
 
 Removed support for Ruby 3.1.
 
+## Commands
+
+Refactored CLI Commands:
+
+- Installation commands now use `Cuprum::Cli`.
+- Installation commands moved to `Docs::Jekyll::Commands` namespace.
+
+Updated file templates.
+
 # 0.2.1
 
 Added support for Ruby 4.0.

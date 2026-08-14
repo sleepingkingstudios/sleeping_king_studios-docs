@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::InstallWorkflow::Generator
+slug: generator
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/commands/install_workflow.rb
+parent_path: sleeping-king-studios/docs/jekyll/commands/install-workflow
+short_description: Generator for writing the workflow template.
+data_path: sleeping-king-studios/docs/jekyll/commands/install-workflow/generator
+constructor: false
+inherited_classes:
+- name: Cuprum::Cli::Files::Generator
+  slug: generator
+version: "*"

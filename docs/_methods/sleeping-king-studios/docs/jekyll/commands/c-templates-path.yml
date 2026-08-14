@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands.templates_path
+parent_path: sleeping-king-studios/docs/jekyll/commands
+signature: templates_path
+slug: templates-path
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/commands/c-templates-path
+short_description: Path to the template files for installing Jekyll.
+version: "*"
