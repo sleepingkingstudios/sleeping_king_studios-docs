@@ -22,16 +22,21 @@ defaults:
     title: 'SleepingKingStudios::Docs'
 exclude:
   - /vendor
-description: |
-  Tools for generating a versioned documentation site from YARD docs.
-github:
-  repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs # The sidebar link for the Dinky theme.
 markdown: kramdown
-theme: jekyll-theme-dinky
-title: 'Docs' # The sidebar title for the Dinky theme.
+
+# Project Configuration
 project_metadata:
+  description:    Tools for generating a versioned documentation site from YARD docs.
   name:           SleepingKingStudios::Docs
   repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs
   versions:
     - 0.1
     - 0.2
+
+# Theme Configuration
+theme: jekyll-theme-dinky
+description: |
+  Tools for generating a versioned documentation site from YARD docs.
+github:
+  repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs
+title: 'Docs'

@@ -12,11 +12,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallWorkflow do
 
   let(:template_path) do
     File.join(
-      SleepingKingStudios::Docs.gem_path,
-      'lib',
-      'sleeping_king_studios',
-      'docs',
-      'templates',
+      SleepingKingStudios::Docs::Jekyll::Commands.templates_path,
       'deploy-pages.yml.erb'
     )
   end

@@ -10,6 +10,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands do
         'lib',
         'sleeping_king_studios',
         'docs',
+        'jekyll',
         'templates'
       )
     end

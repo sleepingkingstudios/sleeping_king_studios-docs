@@ -111,11 +111,7 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
     def templates_path
       File.join(
-        SleepingKingStudios::Docs.gem_path,
-        'lib',
-        'sleeping_king_studios',
-        'docs',
-        'templates',
+        SleepingKingStudios::Docs::Jekyll::Commands.templates_path,
         'includes'
       )
     end

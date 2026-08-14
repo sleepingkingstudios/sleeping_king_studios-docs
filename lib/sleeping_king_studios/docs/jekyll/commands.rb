@@ -13,7 +13,7 @@ module SleepingKingStudios::Docs::Jekyll
       'sleeping_king_studios/docs/jekyll/commands/install_workflow'
 
     # Path to the template files for installing Jekyll.
-    def self.templates_path
+    def self.templates_path # rubocop:disable Metrics/MethodLength
       @templates_path ||=
         File
         .join(
@@ -21,6 +21,7 @@ module SleepingKingStudios::Docs::Jekyll
           'lib',
           'sleeping_king_studios',
           'docs',
+          'jekyll',
           'templates'
         )
         .freeze
