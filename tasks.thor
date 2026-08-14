@@ -3,6 +3,7 @@
 load 'sleeping_king_studios/docs/tasks.rb'
 
 require 'cuprum/cli'
+require 'sleeping_king_studios/docs/jekyll'
 
 Cuprum::Cli.initializer.call
 
@@ -16,3 +17,8 @@ registry.register Cuprum::Cli::Commands::Ci::RSpecEachCommand
 
 # File Commands
 registry.register Cuprum::Cli::Commands::File::NewCommand
+
+# Docs Commands
+registry.register SleepingKingStudios::Docs::Jekyll::Commands::Install
+registry.register SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates
+registry.register SleepingKingStudios::Docs::Jekyll::Commands::InstallWorkflow

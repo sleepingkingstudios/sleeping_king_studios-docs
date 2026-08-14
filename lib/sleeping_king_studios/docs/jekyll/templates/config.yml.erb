@@ -18,7 +18,15 @@ defaults:
     type: 'pages'
   values:
     encoding: 'utf-8'
-    layout: 'default'
-    title: '<%= name %>'
-description: |
-  <%= description %>
+    layout: 'page'
+    title: 'Cuprum::Cli'
+exclude:
+  - /vendor
+markdown: kramdown
+
+# Project Configuration
+project_metadata:
+  description:    '<%= project_description %>'
+  name:           '<%= project_name %>'
+  repository_url: '<%= project_repository %>'
+  versions:       []

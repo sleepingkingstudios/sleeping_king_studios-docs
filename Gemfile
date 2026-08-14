@@ -12,7 +12,7 @@ group :development, :test do
   gem 'readline'
 
   gem 'rspec', '~> 3.13'
-  gem 'rspec-sleeping_king_studios', '~> 2.8', '>= 2.8.4'
+  gem 'rspec-sleeping_king_studios', '~> 2.8', '>= 2.8.6'
 
   gem 'rubocop', '~> 1.88'
   gem 'rubocop-rspec', '~> 3.10'
