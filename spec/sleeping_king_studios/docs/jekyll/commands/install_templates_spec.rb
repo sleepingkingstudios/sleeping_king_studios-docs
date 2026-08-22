@@ -110,7 +110,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
 
           includes_path = File.join(command.docs_path, '_includes')
 
-          expected_files.each_key do |file_path|
+          expected_files.keys.sort.each do |file_path|
             template = file_path[(includes_path.size + 1)...]
             output  += "  - Copying template #{template}\n"
           end
@@ -160,7 +160,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
     it 'should return a passing result' do
       expect(call_command)
         .to be_a_passing_result
-        .with_value(expected_files.keys)
+        .with_value(expected_files.keys.sort)
     end
 
     include_deferred 'should copy the templates'
@@ -174,7 +174,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
       it 'should return a passing result' do
         expect(call_command)
           .to be_a_passing_result
-          .with_value(expected_files.keys)
+          .with_value(expected_files.keys.sort)
       end
 
       include_deferred 'should copy the templates'
@@ -224,8 +224,8 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
       let(:expected_files) { {} }
       let(:expected_error) do
         file_paths = [
-          'docs/_includes/template.md',
-          'docs/_includes/reference/inner.md'
+          'docs/_includes/reference/inner.md',
+          'docs/_includes/template.md'
         ]
         errors = file_paths.map do |file_path|
           message = "unable to write file #{file_path} - file already exists"
@@ -240,9 +240,10 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates do
         Cuprum::Errors::MultipleErrors.new(errors:, message:)
       end
       let(:expected_errors) do
-        '  ! unable to write file docs/_includes/template.md - file already ' \
-          "exists\n  ! unable to write file docs/_includes/reference/" \
-          "inner.md - file already exists\n"
+        <<~ERRORS.each_line.map { |line| "  #{line}" }.join
+          ! unable to write file docs/_includes/reference/inner.md - file already exists
+          ! unable to write file docs/_includes/template.md - file already exists
+        ERRORS
       end
 
       before(:example) do
