@@ -424,6 +424,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
         templates_report =
           expected_templates
           .each_key
+          .sort
           .map do |template_path|
             prefix        = "#{docs_path}/_includes"
             template_path = template_path[(prefix.size + 1)...]
