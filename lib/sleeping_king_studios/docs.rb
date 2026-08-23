@@ -21,7 +21,9 @@ module SleepingKingStudios
     autoload :Commands,      'sleeping_king_studios/docs/commands'
     autoload :Data,          'sleeping_king_studios/docs/data'
     autoload :Errors,        'sleeping_king_studios/docs/errors'
+    autoload :Jekyll,        'sleeping_king_studios/docs/jekyll'
     autoload :Registry,      'sleeping_king_studios/docs/registry'
     autoload :RegistryQuery, 'sleeping_king_studios/docs/registry_query'
+    autoload :Yard,          'sleeping_king_studios/docs/yard'
   end
 end

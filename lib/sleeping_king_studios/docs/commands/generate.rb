@@ -144,7 +144,7 @@ module SleepingKingStudios::Docs::Commands
     end
 
     def parse_registry(file_path:)
-      SleepingKingStudios::Docs::Commands::Parse.new.call(file_path)
+      SleepingKingStudios::Docs::Yard::Parse.new.call(file_path)
     end
 
     def process(file_path: nil)
