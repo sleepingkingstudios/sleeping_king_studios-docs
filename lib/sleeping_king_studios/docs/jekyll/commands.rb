@@ -11,6 +11,8 @@ module SleepingKingStudios::Docs::Jekyll
       'sleeping_king_studios/docs/jekyll/commands/install_templates'
     autoload :InstallWorkflow,
       'sleeping_king_studios/docs/jekyll/commands/install_workflow'
+    autoload :Reference,
+      'sleeping_king_studios/docs/jekyll/commands/reference'
 
     # Path to the template files for installing Jekyll.
     def self.templates_path # rubocop:disable Metrics/MethodLength
