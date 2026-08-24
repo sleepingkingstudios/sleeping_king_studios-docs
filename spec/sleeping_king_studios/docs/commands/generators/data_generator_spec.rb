@@ -132,8 +132,8 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
     end
 
     context 'when initialized with version: value' do
-      let(:version)   { '1.10.101' }
-      let(:options)   { super().merge(version:) }
+      let(:version) { '1.10.101' }
+      let(:options) { super().merge(version:) }
       let(:file_data) do
         YAML.dump(data_object.as_json.merge('version' => version))
       end
