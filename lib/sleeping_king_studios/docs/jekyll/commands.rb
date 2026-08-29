@@ -5,6 +5,8 @@ require 'sleeping_king_studios/docs/jekyll'
 module SleepingKingStudios::Docs::Jekyll
   # Namespace for commands which install the Jekyll application.
   module Commands
+    autoload :Clobber,
+      'sleeping_king_studios/docs/jekyll/commands/clobber'
     autoload :Install,
       'sleeping_king_studios/docs/jekyll/commands/install'
     autoload :InstallTemplates,

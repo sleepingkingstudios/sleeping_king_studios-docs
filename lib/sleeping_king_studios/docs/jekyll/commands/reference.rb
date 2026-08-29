@@ -6,7 +6,7 @@ require 'sleeping_king_studios/docs/jekyll/commands'
 
 module SleepingKingStudios::Docs::Jekyll::Commands
   # Abstract base class for commands that update the reference documentation.
-  class Reference < Cuprum::Cli::Command
+  class Reference < Cuprum::Cli::Command # rubocop:disable Metrics/ClassLength
     dependency :file_system
     dependency :standard_io
 
@@ -15,6 +15,8 @@ module SleepingKingStudios::Docs::Jekyll::Commands
     include Cuprum::Cli::Options::Verbose
 
     option :docs_path, default: 'docs'
+
+    option :dry_run,   type: :boolean, default: false
 
     option :version
 
@@ -76,6 +78,79 @@ module SleepingKingStudios::Docs::Jekyll::Commands
         else
           File.join(docs_path, 'reference')
         end
+    end
+
+    private
+
+    def delete_directory(path, recursive: false)
+      file_system.delete_directory(path, recursive:) unless dry_run?
+
+      success(path)
+    rescue Cuprum::Cli::Dependencies::FileSystem::FileError => exception
+      error = SleepingKingStudios::Docs::Errors::FileError.new(
+        message: exception.message,
+        path:
+      )
+      failure(error)
+    end
+
+    def delete_file(path)
+      file_system.delete_file(path) unless dry_run?
+
+      say("  - Deleting file #{path}", verbose: true)
+
+      success(path)
+    rescue Cuprum::Cli::Dependencies::FileSystem::FileError => exception
+      say("  - Unable to delete file #{path}", verbose: true)
+
+      error = SleepingKingStudios::Docs::Errors::FileError.new(
+        message: exception.message,
+        path:
+      )
+      failure(error)
+    end
+
+    def each_data_directory(directory, &)
+      pattern = File.join(directory, '*')
+      enum    =
+        file_system
+        .each_file(pattern)
+        .select { |path| file_system.directory?(path) }
+
+      enum = enum.reject { |file| file.include?('version--') } unless version
+
+      enum.each(&)
+    end
+
+    def each_data_file(directory, &)
+      pattern = File.join(directory, '**/*')
+      enum    =
+        file_system
+        .each_file(pattern)
+        .select { |path| file_system.file?(path) }
+
+      enum = enum.reject { |file| file.include?('version--') } unless version
+
+      enum.each(&)
+    end
+
+    def each_reference_directory(&)
+      pattern = File.join(reference_directory, '*')
+
+      file_system
+        .each_file(pattern)
+        .select { |path| file_system.directory?(path) }
+        .each(&)
+    end
+
+    def each_reference_file(&)
+      pattern = File.join(reference_directory, '**/*')
+
+      file_system
+        .each_file(pattern)
+        .select { |path| file_system.file?(path) }
+        .reject { |path| path == File.join(reference_directory, 'index.md') }
+        .each(&)
     end
   end
 end
