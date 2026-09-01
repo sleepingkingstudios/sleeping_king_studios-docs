@@ -2,11 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/metadata'
 
-require 'support/contracts/data/base_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::Metadata do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:metadata) { described_class.new(native:) }
@@ -22,7 +22,7 @@ RSpec.describe SleepingKingStudios::Docs::Data::Metadata do
       .as_json
   end
 
-  include_contract 'should be a data object'
+  include_deferred 'should be a data object'
 
   describe '#abstract' do
     include_examples 'should define reader', :abstract, nil

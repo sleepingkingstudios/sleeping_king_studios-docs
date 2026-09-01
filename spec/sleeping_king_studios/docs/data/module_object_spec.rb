@@ -2,13 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/module_object'
 
-require 'support/contracts/data/base_contract'
-require 'support/contracts/data/describable_contract'
-require 'support/contracts/data/namespace_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::ModuleObject do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:module_object) { described_class.new(native:) }
@@ -20,36 +18,30 @@ RSpec.describe SleepingKingStudios::Docs::Data::ModuleObject do
   let(:native) do
     YARD::Registry.find { |obj| obj.title == fixture_name }
   end
-
-  def self.expected_json # rubocop:disable Metrics/MethodLength
-    lambda do
-      {
-        'name'              => module_object.name,
-        'slug'              => module_object.slug,
-        'type'              => module_object.type,
-        'files'             => module_object.files,
-        'short_description' => module_object.short_description,
-        'data_path'         => module_object.data_path,
-        'parent_path'       => module_object.parent_path
-      }
-    end
+  let(:expected_json) do
+    {
+      'name'              => module_object.name,
+      'slug'              => module_object.slug,
+      'type'              => module_object.type,
+      'files'             => module_object.files,
+      'short_description' => module_object.short_description,
+      'data_path'         => module_object.data_path,
+      'parent_path'       => module_object.parent_path
+    }
   end
 
-  include_contract('should be a data object',
-    expected_json:)
+  include_deferred 'should be a data object'
 
-  include_contract('should be a describable object',
-    basic_name:    'Space',
-    complex_name:  'SpaceAndTime',
-    scoped_name:   'Cosmos::LocalDimension::SpaceAndTime',
-    description:   'This module is out of this world.',
-    expected_json:)
+  include_deferred 'should be a describable object',
+    basic_name:   'Space',
+    complex_name: 'SpaceAndTime',
+    scoped_name:  'Cosmos::LocalDimension::SpaceAndTime',
+    description:  'This module is out of this world.'
 
-  include_contract('should implement the namespace methods',
-    expected_json:)
+  include_deferred 'should implement the namespace methods'
 
   describe '#as_json' do
-    let(:expected) { instance_exec(&self.class.expected_json) }
+    let(:expected) { expected_json }
 
     wrap_context 'using fixture', 'with class scoped name' do
       let(:fixture_name) { 'Cosmos::Physics::SpaceAndTime' }

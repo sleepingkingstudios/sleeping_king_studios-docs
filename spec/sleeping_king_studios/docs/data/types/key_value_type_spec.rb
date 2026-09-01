@@ -2,10 +2,10 @@
 
 require 'sleeping_king_studios/docs/data/types/key_value_type'
 
-require 'support/contracts/data/type_contract'
+require 'support/deferred/data_examples'
 
 RSpec.describe SleepingKingStudios::Docs::Data::Types::KeyValueType do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
 
   subject(:type) do
     described_class.new(
@@ -45,6 +45,13 @@ RSpec.describe SleepingKingStudios::Docs::Data::Types::KeyValueType do
   let(:name)   { 'Rocket' }
   let(:keys)   { [] }
   let(:values) { [] }
+  let(:expected_json) do
+    {
+      'keys'   => type.keys.map(&:as_json),
+      'name'   => type.name,
+      'values' => type.values.map(&:as_json)
+    }
+  end
 
   describe '.new' do
     it 'should define the constructor' do
@@ -55,23 +62,10 @@ RSpec.describe SleepingKingStudios::Docs::Data::Types::KeyValueType do
     end
   end
 
-  include_contract 'should be a type object',
-    expected_json: lambda {
-      {
-        'keys'   => type.keys.map(&:as_json),
-        'name'   => type.name,
-        'values' => type.values.map(&:as_json)
-      }
-    }
+  include_deferred 'should be a type object'
 
   describe '#as_json' do
-    let(:expected) do
-      {
-        'keys'   => type.keys.map(&:as_json),
-        'name'   => type.name,
-        'values' => type.values.map(&:as_json)
-      }
-    end
+    let(:expected) { expected_json }
 
     wrap_context 'when initialized with keys' do # rubocop:disable RSpec/RepeatedExampleGroupBody
       it { expect(type.as_json).to be == expected }
