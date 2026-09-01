@@ -2,12 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/method_object'
 
-require 'support/contracts/data/base_contract'
-require 'support/contracts/data/describable_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::MethodObject do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:method_object) { described_class.new(native:) }
@@ -19,22 +18,19 @@ RSpec.describe SleepingKingStudios::Docs::Data::MethodObject do
   let(:native) do
     YARD::Registry.find { |obj| obj.title == fixture_name }
   end
+  let(:expected_json) do
+    json = {
+      'constructor' => method_object.constructor?,
+      'name'        => method_object.name,
+      'slug'        => method_object.slug,
+      'signature'   => method_object.signature,
+      'data_path'   => method_object.data_path,
+      'parent_path' => method_object.parent_path
+    }
 
-  def self.expected_json # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    lambda do
-      json = {
-        'constructor' => method_object.constructor?,
-        'name'        => method_object.name,
-        'slug'        => method_object.slug,
-        'signature'   => method_object.signature,
-        'data_path'   => method_object.data_path,
-        'parent_path' => method_object.parent_path
-      }
+    next json if method_object.short_description.empty?
 
-      next json if method_object.short_description.empty?
-
-      json.merge('short_description' => method_object.short_description)
-    end
+    json.merge('short_description' => method_object.short_description)
   end
 
   def parse_type(type)
@@ -44,17 +40,15 @@ RSpec.describe SleepingKingStudios::Docs::Data::MethodObject do
       .map(&:as_json)
   end
 
-  include_contract('should be a data object',
-    expected_json:)
+  include_deferred 'should be a data object'
 
-  include_contract 'should be a describable object',
-    basic_name:    '#launch',
-    complex_name:  '#retrograde_launch',
-    scoped_name:   'Wonders::FutureEra#use_space_elevator',
-    description:   'You are going to space today.',
-    expected_json:,
-    data_path:     false,
-    separator:     /#|\./
+  include_deferred 'should be a describable object',
+    basic_name:   '#launch',
+    complex_name: '#retrograde_launch',
+    scoped_name:  'Wonders::FutureEra#use_space_elevator',
+    description:  'You are going to space today.',
+    data_path:    false,
+    separator:    /#|\./
 
   describe '#alias?' do
     include_examples 'should define predicate', :alias?, false
@@ -87,7 +81,7 @@ RSpec.describe SleepingKingStudios::Docs::Data::MethodObject do
   end
 
   describe '#as_json' do
-    let(:expected) { instance_exec(&self.class.expected_json) }
+    let(:expected) { expected_json }
 
     wrap_context 'using fixture', 'with aliases' do
       let(:expected) do

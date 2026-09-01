@@ -2,10 +2,10 @@
 
 require 'sleeping_king_studios/docs/data/types/parameterized_type'
 
-require 'support/contracts/data/type_contract'
+require 'support/deferred/data_examples'
 
 RSpec.describe SleepingKingStudios::Docs::Data::Types::ParameterizedType do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
 
   subject(:type) do
     described_class.new(
@@ -46,6 +46,12 @@ RSpec.describe SleepingKingStudios::Docs::Data::Types::ParameterizedType do
   let(:name)                { 'Rocket' }
   let(:items)               { [] }
   let(:constructor_options) { {} }
+  let(:expected_json) do
+    {
+      'items' => type.items.map(&:as_json),
+      'name'  => type.name
+    }
+  end
 
   describe '.new' do
     it 'should define the constructor' do
@@ -56,13 +62,7 @@ RSpec.describe SleepingKingStudios::Docs::Data::Types::ParameterizedType do
     end
   end
 
-  include_contract 'should be a type object',
-    expected_json: lambda {
-      {
-        'items' => type.items.map(&:as_json),
-        'name'  => type.name
-      }
-    }
+  include_deferred 'should be a type object'
 
   describe '#as_json' do
     let(:expected) do

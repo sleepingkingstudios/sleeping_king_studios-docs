@@ -2,10 +2,10 @@
 
 require 'sleeping_king_studios/docs/data/types/type'
 
-require 'support/contracts/data/type_contract'
+require 'support/deferred/data_examples'
 
 RSpec.describe SleepingKingStudios::Docs::Data::Types::Type do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
 
   subject(:type) { described_class.new(name:) }
 
@@ -20,7 +20,7 @@ RSpec.describe SleepingKingStudios::Docs::Data::Types::Type do
     end
   end
 
-  include_contract 'should be a type object'
+  include_deferred 'should be a type object'
 
   describe '#inspect' do
     let(:expected) { "#<Type @name=#{name.inspect}>" }

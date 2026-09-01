@@ -2,11 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/see_tags/base'
 
-require 'support/contracts/data/see_tag_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::Base do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:see_tag) { described_class.new(native:, parent:) }
@@ -17,7 +17,7 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::Base do
   let(:parent)  { YARD::Registry.find { |obj| obj.title == 'Space' } }
   let(:native)  { parent.tags.find { |tag| tag.tag_name == 'see' } }
 
-  include_contract 'should be a see tag object', expected_json: -> { {} }
+  include_deferred 'should be a @see tag object'
 
   describe '#text' do
     let(:expected) { 'This is a plain text message.' }

@@ -2,12 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/constant_object'
 
-require 'support/contracts/data/base_contract'
-require 'support/contracts/data/describable_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::ConstantObject do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:constant_object) { described_class.new(native:) }
@@ -19,32 +18,27 @@ RSpec.describe SleepingKingStudios::Docs::Data::ConstantObject do
   let(:native) do
     YARD::Registry.find { |obj| obj.title == fixture_name }
   end
-
-  def self.expected_json
-    lambda do
-      {
-        'name'              => constant_object.name,
-        'slug'              => constant_object.slug,
-        'value'             => constant_object.value,
-        'short_description' => constant_object.short_description,
-        'data_path'         => constant_object.data_path,
-        'parent_path'       => constant_object.parent_path
-      }
-    end
+  let(:expected_json) do
+    {
+      'name'              => constant_object.name,
+      'slug'              => constant_object.slug,
+      'value'             => constant_object.value,
+      'short_description' => constant_object.short_description,
+      'data_path'         => constant_object.data_path,
+      'parent_path'       => constant_object.parent_path
+    }
   end
 
-  include_contract('should be a data object',
-    expected_json:)
+  include_deferred 'should be a data object'
 
-  include_contract('should be a describable object',
-    basic_name:    'GRAVITY',
-    complex_name:  'SPEED_OF_LIGHT',
-    scoped_name:   'Cosmos::PhysicalConstants::SPEED_OF_LIGHT',
-    description:   'A very attractive force.',
-    expected_json:)
+  include_deferred 'should be a describable object',
+    basic_name:   'GRAVITY',
+    complex_name: 'SPEED_OF_LIGHT',
+    scoped_name:  'Cosmos::PhysicalConstants::SPEED_OF_LIGHT',
+    description:  'A very attractive force.'
 
   describe '#as_json' do
-    let(:expected) { instance_exec(&self.class.expected_json) }
+    let(:expected) { expected_json }
 
     wrap_context 'using fixture', 'with everything' do
       let(:expected) do

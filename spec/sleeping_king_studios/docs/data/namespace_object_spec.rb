@@ -2,12 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/namespace_object'
 
-require 'support/contracts/data/base_contract'
-require 'support/contracts/data/namespace_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::NamespaceObject do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:namespace) { described_class.new(native:) }
@@ -16,23 +15,18 @@ RSpec.describe SleepingKingStudios::Docs::Data::NamespaceObject do
 
   let(:fixture) { 'empty.rb' }
   let(:native)  { YARD::Registry.root }
-
-  def self.expected_json
-    lambda do
-      {
-        'name' => namespace.name,
-        'slug' => namespace.slug,
-        'type' => namespace.type
-      }
-    end
+  let(:expected_json) do
+    {
+      'name' => namespace.name,
+      'slug' => namespace.slug,
+      'type' => namespace.type
+    }
   end
 
-  include_contract('should be a data object',
-    expected_json:)
+  include_deferred 'should be a data object'
 
-  include_contract('should implement the namespace methods',
-    include_mixins: false,
-    expected_json:)
+  include_deferred 'should implement the namespace methods',
+    include_mixins: false
 
   describe '#as_json' do
     wrap_context 'using fixture', 'with everything' do

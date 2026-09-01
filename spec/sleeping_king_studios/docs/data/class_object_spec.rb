@@ -2,13 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/class_object'
 
-require 'support/contracts/data/base_contract'
-require 'support/contracts/data/describable_contract'
-require 'support/contracts/data/namespace_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::ClassObject do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:class_object) { described_class.new(native:) }
@@ -20,39 +18,33 @@ RSpec.describe SleepingKingStudios::Docs::Data::ClassObject do
   let(:native) do
     YARD::Registry.find { |obj| obj.title == fixture_name }
   end
-
-  def self.expected_json # rubocop:disable Metrics/MethodLength
-    lambda do
-      {
-        'name'              => class_object.name,
-        'slug'              => class_object.slug,
-        'type'              => class_object.type,
-        'files'             => class_object.files,
-        'constructor'       => class_object.constructor?,
-        'short_description' => class_object.short_description,
-        'data_path'         => class_object.data_path,
-        'parent_path'       => class_object.parent_path
-      }
-    end
+  let(:expected_json) do
+    {
+      'name'              => class_object.name,
+      'slug'              => class_object.slug,
+      'type'              => class_object.type,
+      'files'             => class_object.files,
+      'constructor'       => class_object.constructor?,
+      'short_description' => class_object.short_description,
+      'data_path'         => class_object.data_path,
+      'parent_path'       => class_object.parent_path
+    }
   end
 
-  include_contract('should be a data object',
-    expected_json:)
+  include_deferred 'should be a data object'
 
-  include_contract('should be a describable object',
-    basic_name:    'Rocketry',
-    complex_name:  'AdvancedRocketry',
-    scoped_name:   'RocketScience::Engineering::Rocketry',
-    description:   'This class is out of this world.',
-    expected_json:)
+  include_deferred 'should be a describable object',
+    basic_name:   'Rocketry',
+    complex_name: 'AdvancedRocketry',
+    scoped_name:  'RocketScience::Engineering::Rocketry',
+    description:  'This class is out of this world.'
 
-  include_contract 'should implement the namespace methods',
-    expected_json:,
+  include_deferred 'should implement the namespace methods',
     include_mixins: true,
     inherit_mixins: true
 
   describe '#as_json' do
-    let(:expected) { instance_exec(&self.class.expected_json) }
+    let(:expected) { expected_json }
 
     wrap_context 'using fixture', 'with class scoped name' do
       let(:fixture_name) { 'RocketScience::Assembly::Rocketry' }
@@ -119,7 +111,7 @@ RSpec.describe SleepingKingStudios::Docs::Data::ClassObject do
         )
       end
 
-      it { expect(class_object.as_json).to deep_match expected }
+      it { expect(class_object.as_json).to be == expected }
     end
   end
 

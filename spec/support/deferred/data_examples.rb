@@ -1,97 +1,727 @@
 # frozen_string_literal: true
 
-require 'rspec/sleeping_king_studios/contract'
-require 'sleeping_king_studios/tools/toolbelt'
+require 'rspec/sleeping_king_studios/deferred/provider'
 
-require 'support/contracts/data'
+require 'support/deferred'
 
-module Spec::Support::Contracts::Data
-  class ShouldImplementTheNamespaceMethods
-    extend RSpec::SleepingKingStudios::Contract
+module Spec::Support::Deferred
+  # Deferred examples for testing data objects.
+  module DataExamples # rubocop:disable Metrics/ModuleLength
+    include RSpec::SleepingKingStudios::Deferred::Provider
 
-    # @!method apply(example_group)
-    #   Adds the contract to the example group.
-    #
-    #   @param expected_json [Hash{String => Object}] the expected base response
-    #     for #as_json.
-    #   @param include_mixins [Boolean] if true, includes expected class and
-    #     instance methods from extend-ed and include-ed modules.
-    #   @param inherit_mixins [Boolean] if true, includes expected class and
-    #     instance methods from inherited classes.
-    contract do |expected_json:, include_mixins: true, inherit_mixins: false|
-      let(:data_object) { subject }
+    deferred_examples 'should be a data object' do |skip_constructor: false|
+      before(:context) do
+        ::YARD::Registry.clear
+
+        SleepingKingStudios::Docs::Registry.clear
+      end
+
+      after(:example) do
+        ::YARD::Registry.clear
+
+        SleepingKingStudios::Docs::Registry.clear
+      end
+
+      unless skip_constructor
+        describe '.new' do
+          it 'should define the constructor' do
+            expect(described_class)
+              .to be_constructible
+              .with(0).arguments
+              .and_keywords(:native)
+          end
+        end
+      end
 
       describe '#as_json' do
-        let(:expected) { instance_exec(&expected_json) }
+        let(:expected_json) do
+          defined?(super()) ? super() : {}
+        end
 
-        it { expect(data_object).to respond_to(:as_json).with(0).arguments }
+        it { expect(subject).to respond_to(:as_json).with(0).arguments }
 
-        it { expect(data_object.as_json).to be == expected }
+        it { expect(subject.as_json).to be == expected_json }
+      end
+
+      describe '#native' do
+        include_examples 'should define private reader', :native, -> { native }
+      end
+
+      describe '#registry' do
+        include_examples 'should define private reader',
+          :registry,
+          -> { be == [::YARD::Registry.root, *::YARD::Registry.to_a] }
+
+        context 'with a mocked registry' do
+          let(:mock_registry) do
+            [::YARD::Registry.root]
+          end
+
+          before(:example) do
+            allow(SleepingKingStudios::Docs::Registry)
+              .to receive(:instance)
+              .and_return(mock_registry)
+          end
+
+          it { expect(subject.send(:registry)).to be == mock_registry }
+        end
+      end
+    end
+
+    deferred_examples 'should be a describable object' do | # rubocop:disable Metrics/ParameterLists
+      basic_name:,
+      complex_name:,
+      description:,
+      scoped_name:,
+      data_path: true,
+      separator: '::'
+    |
+      describe '#as_json' do
+        let(:expected) { expected_json }
+
+        wrap_context 'using fixture', 'undocumented' do
+          it { expect(subject.as_json).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with full description' do
+          let(:expected) do
+            super().merge('description' => subject.description)
+          end
+
+          it { expect(subject.as_json).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with metadata' do
+          let(:expected) do
+            super().merge('metadata' => subject.metadata)
+          end
+
+          it { expect(subject.as_json).to be == expected }
+        end
+      end
+
+      if data_path
+        describe '#data_path' do
+          def tools
+            SleepingKingStudios::Tools::Toolbelt.instance
+          end
+
+          include_examples 'should define reader',
+            :data_path,
+            -> { tools.str.underscore(basic_name) }
+
+          wrap_context 'using fixture', 'with complex name' do
+            let(:fixture_name) { complex_name }
+            let(:expected) do
+              tools.str.underscore(complex_name).tr('_', '-')
+            end
+
+            it { expect(subject.data_path).to be == expected }
+          end
+
+          wrap_context 'using fixture', 'with scoped name' do
+            let(:fixture_name) { scoped_name }
+            let(:expected) do
+              scoped_name
+                .split(separator)
+                .map { |str| tools.str.underscore(str).tr('_', '-') }
+                .join('/')
+            end
+
+            it { expect(subject.data_path).to be == expected }
+          end
+        end
+      end
+
+      describe '#description' do
+        include_examples 'should define reader', :description, nil
+
+        wrap_context 'using fixture', 'undocumented' do
+          it { expect(subject.description).to be nil }
+        end
+
+        wrap_context 'using fixture', 'with full description' do
+          let(:expected) do
+            <<~TEXT.strip
+              This object has a full description. It is comprised of a short description,
+              followed by a multiline explanation, a list, and an essay cliche.
+
+              - This is a description item.
+              - This is another description item.
+
+              In conclusion, space is a land of contrasts.
+            TEXT
+          end
+
+          it { expect(subject.description.class).to be String }
+
+          it { expect(subject.description).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with everything' do
+          let(:expected) do
+            <<~TEXT.strip
+              This object has a full description. It is comprised of a short description,
+              followed by a multiline explanation, a list, and an essay cliche.
+
+              - This is a description item.
+              - This is another description item.
+
+              In conclusion, space is a land of contrasts.
+            TEXT
+          end
+
+          it { expect(subject.description).to be == expected }
+        end
+      end
+
+      describe '#metadata' do
+        include_examples 'should define reader', :metadata, {}
+
+        def format_see_tag(tag)
+          SleepingKingStudios::Docs::Data::SeeTags
+            .build(native: tag, parent: native)
+            .as_json
+        end
+
+        wrap_context 'using fixture', 'with metadata' do
+          let(:see_tags) do
+            native
+              .tags
+              .select { |tag| tag.tag_name == 'see' }
+              .map { |tag| format_see_tag(tag) }
+          end
+          let(:expected) do
+            {
+              'notes'    => ['This is a note.'],
+              'examples' => [
+                {
+                  'name' => 'Named Example',
+                  'text' => '# This is a named example.'
+                }
+              ],
+              'see'      => see_tags,
+              'todos'    => ['Remove the plutonium.']
+            }
+          end
+
+          it { expect(subject.metadata).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with everything' do
+          let(:see_tags) do
+            native
+              .tags
+              .select { |tag| tag.tag_name == 'see' }
+              .map { |tag| format_see_tag(tag) }
+          end
+          let(:expected) do
+            {
+              'notes'    => ['This is a note.'],
+              'examples' => [
+                {
+                  'name' => 'Named Example',
+                  'text' => '# This is a named example.'
+                }
+              ],
+              'see'      => see_tags,
+              'todos'    => ['Remove the plutonium.']
+            }
+          end
+
+          it { expect(subject.metadata).to be == expected }
+        end
+      end
+
+      describe '#name' do
+        include_examples 'should define reader', :name, basic_name
+
+        wrap_context 'using fixture', 'with complex name' do
+          let(:fixture_name) { complex_name }
+
+          it { expect(subject.name).to be == complex_name }
+        end
+
+        wrap_context 'using fixture', 'with scoped name' do
+          let(:fixture_name) { scoped_name }
+
+          it { expect(subject.name).to be == scoped_name }
+        end
+      end
+
+      describe '#short_description' do
+        let(:expected) { description }
+
+        include_examples 'should define reader',
+          :short_description,
+          -> { expected }
+
+        it { expect(subject.short_description.class).to be String }
+
+        wrap_context 'using fixture', 'undocumented' do
+          it { expect(subject.short_description).to be == '' }
+        end
+
+        wrap_context 'using fixture', 'with full description' do
+          it { expect(subject.short_description).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with everything' do
+          it { expect(subject.short_description).to be == expected }
+        end
+      end
+
+      describe '#slug' do
+        let(:expected) do
+          fixture_name
+            .split(separator)
+            .last
+            .then { |str| tools.str.underscore(str) }
+            .tr('_', '-')
+        end
+
+        def tools
+          SleepingKingStudios::Tools::Toolbelt.instance
+        end
+
+        include_examples 'should define reader', :slug, -> { be == expected }
+
+        wrap_context 'using fixture', 'with complex name' do
+          let(:fixture_name) { complex_name }
+
+          it { expect(subject.slug).to be == expected }
+        end
+
+        wrap_context 'using fixture', 'with scoped name' do
+          let(:fixture_name) { scoped_name }
+
+          it { expect(subject.slug).to be == expected }
+        end
+      end
+    end
+
+    deferred_examples 'should be a type object' do
+      shared_context 'when the definition exists' do
+        let(:query) do
+          instance_double(
+            SleepingKingStudios::Docs::RegistryQuery,
+            definition_exists?: true
+          )
+        end
+
+        before(:example) do
+          allow(SleepingKingStudios::Docs::RegistryQuery)
+            .to receive(:new)
+            .and_return(query)
+        end
+      end
+
+      before(:context) do
+        ::YARD::Registry.clear
+
+        SleepingKingStudios::Docs::Registry.clear
+      end
+
+      after(:example) do
+        ::YARD::Registry.clear
+
+        SleepingKingStudios::Docs::Registry.clear
+      end
+
+      describe '#==' do
+        define_method :type_double do |mock_class, json|
+          mock = instance_double(
+            SleepingKingStudios::Docs::Data::Types::Type,
+            as_json: json
+          )
+
+          allow(mock).to receive(:instance_of?) do |expected_class|
+            expected_class == mock_class
+          end
+
+          mock
+        end
+
+        describe 'with nil' do
+          it { expect(type == nil).to be false } # rubocop:disable Style/NilComparison
+        end
+
+        describe 'with an object' do
+          it { expect(type == Object.new.freeze).to be false }
+        end
+
+        describe 'with a type with non-matching class' do
+          let(:other) do
+            type_double(Spec::CustomType, subject.as_json)
+          end
+
+          example_class 'Spec::CustomType',
+            SleepingKingStudios::Docs::Data::Types::Type
+
+          it { expect(type == other).to be false }
+        end
+
+        describe 'with a type with non-matching json' do
+          let(:other) do
+            type_double(subject.class, { 'name' => 'Space' })
+          end
+
+          it { expect(type == other).to be false }
+        end
+
+        describe 'with a type with matching class and json' do
+          let(:other) do
+            type_double(subject.class, subject.as_json)
+          end
+
+          it { expect(type == other).to be true }
+        end
+      end
+
+      describe '#as_json' do
+        let(:expected) do
+          next expected_json if defined?(expected_json)
+
+          { 'name' => subject.name }
+        end
+
+        it { expect(type).to respond_to(:as_json).with(0).arguments }
+
+        it { expect(subject.as_json).to be == expected }
+
+        wrap_context 'when the definition exists' do
+          let(:expected) do
+            super().merge('path' => subject.path)
+          end
+
+          it { expect(subject.as_json).to be == expected }
+        end
+
+        context 'when initialized with a class method name' do
+          let(:name) { '.build' }
+
+          it { expect(subject.as_json).to be == expected }
+        end
+
+        context 'when initialized with an instance method name' do
+          let(:name) { '#call' }
+
+          it { expect(subject.as_json).to be == expected }
+        end
+
+        context 'when initialized with a literal' do
+          let(:name) { 'nil' }
+
+          it { expect(subject.as_json).to be == expected }
+        end
+
+        context 'when initialized with a scoped name' do
+          let(:name) { 'Cosmos::LocalDimension::SpaceAndTime' }
+
+          it { expect(subject.as_json).to be == expected }
+
+          wrap_context 'when the definition exists' do
+            let(:expected) do
+              super().merge('path' => subject.path)
+            end
+
+            it { expect(subject.as_json).to be == expected }
+          end
+        end
+      end
+
+      describe '#exists?' do
+        let(:query) do
+          instance_double(
+            SleepingKingStudios::Docs::RegistryQuery,
+            definition_exists?: false
+          )
+        end
+
+        before(:example) do
+          allow(SleepingKingStudios::Docs::RegistryQuery)
+            .to receive(:new)
+            .and_return(query)
+        end
+
+        include_examples 'should define predicate', :exists?, false
+
+        it 'should query the registry' do
+          subject.exists?
+
+          expect(query)
+            .to have_received(:definition_exists?)
+            .with(subject.name)
+        end
+
+        context 'when the definition exists' do
+          before(:example) do
+            allow(query).to receive(:definition_exists?).and_return(true)
+          end
+
+          it { expect(subject.exists?).to be true }
+        end
+
+        context 'when initialized with a class method name' do
+          let(:name) { '.build' }
+
+          it { expect(subject.exists?).to be false }
+
+          it 'should not query the registry' do
+            subject.exists?
+
+            expect(query)
+              .not_to have_received(:definition_exists?)
+              .with(subject.name)
+          end
+        end
+
+        context 'when initialized with an instance method name' do
+          let(:name) { '#call' }
+
+          it { expect(subject.exists?).to be false }
+
+          it 'should not query the registry' do
+            subject.exists?
+
+            expect(query)
+              .not_to have_received(:definition_exists?)
+              .with(subject.name)
+          end
+        end
+
+        context 'when initialized with a literal' do
+          let(:name) { 'nil' }
+
+          it { expect(subject.exists?).to be false }
+
+          it 'should not query the registry' do
+            subject.exists?
+
+            expect(query)
+              .not_to have_received(:definition_exists?)
+              .with(subject.name)
+          end
+        end
+      end
+
+      describe '#literal?' do
+        include_examples 'should define predicate', :literal?, false
+
+        context 'when initialized with a class method name' do
+          let(:name) { '.build' }
+
+          it { expect(subject.literal?).to be false }
+        end
+
+        context 'when initialized with an instance method name' do
+          let(:name) { '#call' }
+
+          it { expect(subject.literal?).to be false }
+        end
+
+        context 'when initialized with a literal' do
+          let(:name) { 'nil' }
+
+          it { expect(subject.literal?).to be true }
+        end
+      end
+
+      describe '#method?' do
+        include_examples 'should define predicate', :method?, false
+
+        context 'when initialized with a class method name' do
+          let(:name) { '.build' }
+
+          it { expect(subject.method?).to be true }
+        end
+
+        context 'when initialized with an instance method name' do
+          let(:name) { '#call' }
+
+          it { expect(subject.method?).to be true }
+        end
+
+        context 'when initialized with a literal' do
+          let(:name) { 'nil' }
+
+          it { expect(subject.method?).to be false }
+        end
+      end
+
+      describe '#name' do
+        include_examples 'should define reader', :name, -> { name }
+
+        context 'when initialized with a class method name' do
+          let(:name) { '.build' }
+
+          it { expect(subject.name).to be == name }
+        end
+
+        context 'when initialized with an instance method name' do
+          let(:name) { '#call' }
+
+          it { expect(subject.name).to be == name }
+        end
+
+        context 'when initialized with a literal' do
+          let(:name) { 'nil' }
+
+          it { expect(subject.name).to be == name }
+        end
+
+        context 'when initialized with a scoped name' do
+          let(:name) { 'Cosmos::LocalDimension::SpaceAndTime' }
+
+          it { expect(subject.name).to be == name }
+        end
+      end
+
+      describe '#path' do
+        include_examples 'should define reader', :path, nil
+
+        context 'when initialized with a class method name' do
+          let(:name) { '.build' }
+
+          it { expect(subject.path).to be nil }
+        end
+
+        context 'when initialized with an instance method name' do
+          let(:name) { '#call' }
+
+          it { expect(subject.path).to be nil }
+        end
+
+        context 'when initialized with a literal' do
+          let(:name) { 'nil' }
+
+          it { expect(subject.path).to be nil }
+        end
+
+        wrap_context 'when the definition exists' do
+          it { expect(subject.path).to be == 'rocket' }
+        end
+
+        context 'when initialized with a scoped name' do
+          let(:name) { 'Cosmos::LocalDimension::SpaceAndTime' }
+
+          it { expect(subject.path).to be nil }
+
+          wrap_context 'when the definition exists' do
+            let(:expected) { 'cosmos/local-dimension/space-and-time' }
+
+            it { expect(subject.path).to be == expected }
+          end
+        end
+      end
+
+      describe '#registry' do
+        include_examples 'should define private reader',
+          :registry,
+          -> { be == [::YARD::Registry.root, *::YARD::Registry.to_a] }
+
+        context 'with a mocked registry' do
+          let(:mock_registry) do
+            [::YARD::Registry.root]
+          end
+
+          before(:example) do
+            allow(SleepingKingStudios::Docs::Registry)
+              .to receive(:instance)
+              .and_return(mock_registry)
+          end
+
+          it { expect(subject.send(:registry)).to be == mock_registry }
+        end
+      end
+    end
+
+    deferred_examples 'should be a @see tag object' do
+      include_deferred 'should be a data object', skip_constructor: true
+
+      describe '.new' do
+        it 'should define the constructor' do
+          expect(described_class)
+            .to be_constructible
+            .with(0).arguments
+            .and_keywords(:native, :parent)
+        end
+      end
+
+      describe '#parent' do
+        include_examples 'should define reader', :parent, -> { parent }
+      end
+    end
+
+    deferred_examples 'should implement the namespace methods' \
+    do |include_mixins: true, inherit_mixins: false|
+      describe '#as_json' do
+        let(:expected) { expected_json }
 
         wrap_context 'using fixture', 'with class attributes' do
           let(:expected) do
-            super().merge('class_attributes' => data_object.class_attributes)
+            super().merge('class_attributes' => subject.class_attributes)
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
 
         wrap_context 'using fixture', 'with class methods' do
           let(:expected) do
-            super().merge('class_methods' => data_object.class_methods)
+            super().merge('class_methods' => subject.class_methods)
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
 
         wrap_context 'using fixture', 'with constants' do
           let(:expected) do
-            super().merge('constants' => data_object.constants)
+            super().merge('constants' => subject.constants)
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
 
         wrap_context 'using fixture', 'with defined classes' do
           let(:expected) do
-            super().merge('defined_classes' => data_object.defined_classes)
+            super().merge('defined_classes' => subject.defined_classes)
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
 
         wrap_context 'using fixture', 'with defined modules' do
           let(:expected) do
-            super().merge('defined_modules' => data_object.defined_modules)
+            super().merge('defined_modules' => subject.defined_modules)
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
 
         wrap_context 'using fixture', 'with instance attributes' do
           let(:expected) do
             super().merge(
-              'instance_attributes' => data_object.instance_attributes
+              'instance_attributes' => subject.instance_attributes
             )
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
 
         wrap_context 'using fixture', 'with instance methods' do
           let(:expected) do
-            super().merge('instance_methods' => data_object.instance_methods)
+            super().merge('instance_methods' => subject.instance_methods)
           end
 
-          it { expect(data_object.as_json).to be == expected }
+          it { expect(subject.as_json).to be == expected }
         end
       end
 
       describe '#class_attributes' do
         def relative_path(path)
-          return path if data_object.name.empty? || data_object.name == 'root'
+          return path if subject.name.empty? || subject.name == 'root'
 
-          "#{tools.str.underscore(data_object.name)}/#{path}"
+          "#{tools.str.underscore(subject.name)}/#{path}"
         end
 
         include_examples 'should define reader', :class_attributes, []
@@ -126,7 +756,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.class_attributes).to be == expected }
+          it { expect(subject.class_attributes).to be == expected }
         end
 
         if include_mixins
@@ -144,7 +774,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.class_attributes).to deep_match expected }
+            it { expect(subject.class_attributes).to deep_match expected }
           end
         end
 
@@ -163,7 +793,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.class_attributes).to deep_match expected }
+            it { expect(subject.class_attributes).to deep_match expected }
           end
         end
 
@@ -225,15 +855,15 @@ module Spec::Support::Contracts::Data
             ary.sort_by { |hsh| hsh['name'] }
           end
 
-          it { expect(data_object.class_attributes).to be == expected }
+          it { expect(subject.class_attributes).to be == expected }
         end
       end
 
       describe '#class_methods' do
         def relative_path(path)
-          return path if data_object.name.empty? || data_object.name == 'root'
+          return path if subject.name.empty? || subject.name == 'root'
 
-          "#{tools.str.underscore(data_object.name)}/#{path}"
+          "#{tools.str.underscore(subject.name)}/#{path}"
         end
 
         include_examples 'should define reader', :class_methods, []
@@ -256,7 +886,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.class_methods).to be == expected }
+          it { expect(subject.class_methods).to be == expected }
         end
 
         if include_mixins
@@ -278,7 +908,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.class_methods).to be == expected }
+            it { expect(subject.class_methods).to be == expected }
           end
         end
 
@@ -295,7 +925,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.class_methods).to be == expected }
+            it { expect(subject.class_methods).to be == expected }
           end
         end
 
@@ -347,7 +977,7 @@ module Spec::Support::Contracts::Data
             ary.sort_by { |hsh| hsh['name'] }
           end
 
-          it { expect(data_object.class_methods).to be == expected }
+          it { expect(subject.class_methods).to be == expected }
         end
       end
 
@@ -356,11 +986,11 @@ module Spec::Support::Contracts::Data
 
         wrap_context 'using fixture', 'with constants' do
           let(:base_path) do
-            return '' unless data_object.respond_to?(:data_path)
+            return '' unless subject.respond_to?(:data_path)
 
-            return '' if data_object.data_path == 'root'
+            return '' if subject.data_path == 'root'
 
-            "#{data_object.data_path}/"
+            "#{subject.data_path}/"
           end
           let(:expected) do
             [
@@ -379,7 +1009,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.constants).to be == expected }
+          it { expect(subject.constants).to be == expected }
         end
 
         if include_mixins
@@ -395,7 +1025,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.constants).to be == expected }
+            it { expect(subject.constants).to be == expected }
           end
         end
 
@@ -412,17 +1042,17 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.constants).to be == expected }
+            it { expect(subject.constants).to be == expected }
           end
         end
 
         wrap_context 'using fixture', 'with everything' do
           let(:base_path) do
-            return '' unless data_object.respond_to?(:data_path)
+            return '' unless subject.respond_to?(:data_path)
 
-            return '' if data_object.data_path == 'root'
+            return '' if subject.data_path == 'root'
 
-            "#{data_object.data_path}/"
+            "#{subject.data_path}/"
           end
           let(:expected) do
             ary = [
@@ -465,7 +1095,7 @@ module Spec::Support::Contracts::Data
             ary.sort_by { |hsh| hsh['name'] }
           end
 
-          it { expect(data_object.constants).to be == expected }
+          it { expect(subject.constants).to be == expected }
         end
       end
 
@@ -490,7 +1120,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.defined_classes).to be == expected }
+          it { expect(subject.defined_classes).to be == expected }
         end
 
         wrap_context 'using fixture', 'with everything' do
@@ -511,7 +1141,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.defined_classes).to be == expected }
+          it { expect(subject.defined_classes).to be == expected }
         end
       end
 
@@ -536,7 +1166,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.defined_modules).to be == expected }
+          it { expect(subject.defined_modules).to be == expected }
         end
 
         wrap_context 'using fixture', 'with everything' do
@@ -557,15 +1187,15 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.defined_modules).to be == expected }
+          it { expect(subject.defined_modules).to be == expected }
         end
       end
 
       describe '#instance_attributes' do
         def relative_path(path)
-          return path if data_object.name.empty? || data_object.name == 'root'
+          return path if subject.name.empty? || subject.name == 'root'
 
-          "#{tools.str.underscore(data_object.name)}/#{path}"
+          "#{tools.str.underscore(subject.name)}/#{path}"
         end
 
         include_examples 'should define reader', :instance_attributes, []
@@ -601,7 +1231,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.instance_attributes).to be == expected }
+            it { expect(subject.instance_attributes).to be == expected }
           end
         end
 
@@ -620,7 +1250,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.instance_attributes).to be == expected }
+            it { expect(subject.instance_attributes).to be == expected }
           end
         end
 
@@ -654,7 +1284,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.instance_attributes).to be == expected }
+          it { expect(subject.instance_attributes).to be == expected }
         end
 
         wrap_context 'using fixture', 'with everything' do
@@ -731,15 +1361,15 @@ module Spec::Support::Contracts::Data
             ary.sort_by { |hsh| hsh['name'] }
           end
 
-          it { expect(data_object.instance_attributes).to be == expected }
+          it { expect(subject.instance_attributes).to be == expected }
         end
       end
 
       describe '#instance_methods' do
         def relative_path(path)
-          return path if data_object.name.empty? || data_object.name == 'root'
+          return path if subject.name.empty? || subject.name == 'root'
 
-          "#{tools.str.underscore(data_object.name)}/#{path}"
+          "#{tools.str.underscore(subject.name)}/#{path}"
         end
 
         include_examples 'should define reader', :instance_methods, []
@@ -757,7 +1387,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.instance_methods).to be == expected }
+            it { expect(subject.instance_methods).to be == expected }
           end
         end
 
@@ -775,7 +1405,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.instance_methods).to be == expected }
+            it { expect(subject.instance_methods).to be == expected }
           end
 
           wrap_context 'using fixture', 'with inherited constructor' do
@@ -791,7 +1421,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.instance_methods).to be == expected }
+            it { expect(subject.instance_methods).to be == expected }
           end
 
           wrap_context 'using fixture', 'with inherited classes' do
@@ -806,7 +1436,7 @@ module Spec::Support::Contracts::Data
               ]
             end
 
-            it { expect(data_object.instance_methods).to be == expected }
+            it { expect(subject.instance_methods).to be == expected }
           end
         end
 
@@ -828,7 +1458,7 @@ module Spec::Support::Contracts::Data
             ]
           end
 
-          it { expect(data_object.instance_methods).to be == expected }
+          it { expect(subject.instance_methods).to be == expected }
         end
 
         wrap_context 'using fixture', 'with everything' do
@@ -880,7 +1510,7 @@ module Spec::Support::Contracts::Data
             ary.sort_by { |hsh| hsh['name'] }
           end
 
-          it { expect(data_object.instance_methods).to be == expected }
+          it { expect(subject.instance_methods).to be == expected }
         end
       end
     end

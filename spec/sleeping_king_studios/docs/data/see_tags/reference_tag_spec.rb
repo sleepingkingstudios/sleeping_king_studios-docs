@@ -2,11 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/see_tags/reference_tag'
 
-require 'support/contracts/data/see_tag_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:see_tag) { described_class.new(native:, parent:) }
@@ -16,26 +16,19 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::ReferenceTag do
   let(:fixture) { 'definition.rb' }
   let(:parent)  { YARD::Registry.find { |obj| obj.title == 'Space' } }
   let(:native)  { parent.tags.find { |tag| tag.tag_name == 'see' } }
-
-  include_contract 'should be a see tag object',
-    expected_json: lambda {
-      {
-        'label' => 'Time',
-        'path'  => nil,
-        'text'  => nil,
-        'type'  => 'reference'
-      }
+  let(:expected_json) do
+    {
+      'label' => 'Time',
+      'path'  => nil,
+      'text'  => nil,
+      'type'  => 'reference'
     }
+  end
+
+  include_deferred 'should be a @see tag object'
 
   describe '#as_json' do
-    let(:expected) do
-      {
-        'label' => 'Time',
-        'path'  => nil,
-        'text'  => nil,
-        'type'  => 'reference'
-      }
-    end
+    let(:expected) { expected_json }
 
     wrap_context 'using fixture', 'definition with text' do
       let(:expected) do

@@ -2,11 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/base'
 
-require 'support/contracts/data/base_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::Base do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:constant_object) { described_class.new(native:) }
@@ -16,5 +16,5 @@ RSpec.describe SleepingKingStudios::Docs::Data::Base do
   let(:fixture) { 'basic.rb' }
   let(:native)  { YARD::Registry.root }
 
-  include_contract 'should be a data object'
+  include_deferred 'should be a data object'
 end

@@ -2,11 +2,11 @@
 
 require 'sleeping_king_studios/docs/data/see_tags/link_tag'
 
-require 'support/contracts/data/see_tag_contract'
+require 'support/deferred/data_examples'
 require 'support/fixtures'
 
 RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::LinkTag do
-  include Spec::Support::Contracts::Data
+  include Spec::Support::Deferred::DataExamples
   include Spec::Support::Fixtures
 
   subject(:see_tag) { described_class.new(native:, parent:) }
@@ -16,16 +16,16 @@ RSpec.describe SleepingKingStudios::Docs::Data::SeeTags::LinkTag do
   let(:fixture) { 'link.rb' }
   let(:parent)  { YARD::Registry.find { |obj| obj.title == 'Space' } }
   let(:native)  { parent.tags.find { |tag| tag.tag_name == 'see' } }
-
-  include_contract 'should be a see tag object',
-    expected_json: lambda {
-      {
-        'label' => 'https://www.example.com',
-        'path'  => 'https://www.example.com',
-        'text'  => nil,
-        'type'  => 'link'
-      }
+  let(:expected_json) do
+    {
+      'label' => 'https://www.example.com',
+      'path'  => 'https://www.example.com',
+      'text'  => nil,
+      'type'  => 'link'
     }
+  end
+
+  include_deferred 'should be a @see tag object'
 
   describe '.match?' do
     it { expect(described_class).to respond_to(:match?).with(1).argument }
