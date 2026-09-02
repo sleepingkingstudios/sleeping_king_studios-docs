@@ -24,9 +24,9 @@ module SleepingKingStudios::Docs::Commands
       docs_path:,
       error_stream:  $stderr,
       output_stream: $stdout,
-      **options
+      **
     )
-      super(docs_path:, **options)
+      super(docs_path:, **)
 
       @error_stream  = error_stream
       @output_stream = output_stream
@@ -87,12 +87,12 @@ module SleepingKingStudios::Docs::Commands
       end
     end
 
-    def generate_data_file(data_object:, **options)
+    def generate_data_file(data_object:, **)
       report_result(
         command:     data_command,
         data_object:,
-        result:      data_command.call(data_object:, **options),
-        **options
+        result:      data_command.call(data_object:, **),
+        **
       )
     end
 
@@ -121,15 +121,12 @@ module SleepingKingStudios::Docs::Commands
       end
     end
 
-    def generate_reference_file(data_object:, **options)
+    def generate_reference_file(data_object:, **)
       report_result(
         command:     reference_command,
         data_object:,
-        result:      reference_command.call(
-          data_object:,
-          **options
-        ),
-        **options
+        result:      reference_command.call(data_object:, **),
+        **
       )
     end
 

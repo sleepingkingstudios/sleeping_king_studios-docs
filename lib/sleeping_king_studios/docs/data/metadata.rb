@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 require 'sleeping_king_studios/docs/data'
 
 module SleepingKingStudios::Docs::Data
