@@ -10,12 +10,11 @@ RSpec.describe SleepingKingStudios::Docs::Yard::RegistryQuery do
   subject(:query) { described_class.new }
 
   let(:provider) { SleepingKingStudios::Docs::Yard::Registry.provider }
-  let(:registry) { SleepingKingStudios::Docs::Yard::Registry.build }
 
   before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
 
   before(:example) do
-    stub_provider(provider, :registry, registry)
+    stub_provider(provider, :registry, nil)
 
     allow(provider).to receive(:get).with(:registry) do
       SleepingKingStudios::Docs::Yard::Registry.build

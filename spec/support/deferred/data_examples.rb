@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'plumbum/rspec/stub_provider'
 require 'rspec/sleeping_king_studios/deferred/provider'
 
 require 'support/deferred'
@@ -301,18 +302,27 @@ module Spec::Support::Deferred
     end
 
     deferred_examples 'should be a type object' do
+      include Plumbum::RSpec::StubProvider
+
       shared_context 'when the definition exists' do
-        let(:query) do
-          instance_double(
-            SleepingKingStudios::Docs::Yard::RegistryQuery,
-            definition_exists?: true
-          )
+        let(:registry) do
+          items = [
+            instance_double(YARD::CodeObjects::RootObject, type: :root),
+            instance_double(
+              YARD::CodeObjects::ClassObject,
+              title: subject.name,
+              type:  :class
+            )
+          ]
+
+          SleepingKingStudios::Docs::Yard::Registry.new(items:)
+        end
+        let(:provider) do
+          SleepingKingStudios::Docs::Yard::Registry.provider
         end
 
         before(:example) do
-          allow(SleepingKingStudios::Docs::Yard::RegistryQuery)
-            .to receive(:new)
-            .and_return(query)
+          stub_provider(provider, :registry, registry)
         end
       end
 
@@ -612,26 +622,6 @@ module Spec::Support::Deferred
 
             it { expect(subject.path).to be == expected }
           end
-        end
-      end
-
-      describe '#registry' do
-        include_examples 'should define private reader',
-          :registry,
-          -> { be == [::YARD::Registry.root, *::YARD::Registry.to_a] }
-
-        context 'with a mocked registry' do
-          let(:mock_registry) do
-            [::YARD::Registry.root]
-          end
-
-          before(:example) do
-            allow(SleepingKingStudios::Docs::Yard::Registry)
-              .to receive(:instance)
-              .and_return(mock_registry)
-          end
-
-          it { expect(subject.send(:registry)).to be == mock_registry }
         end
       end
     end

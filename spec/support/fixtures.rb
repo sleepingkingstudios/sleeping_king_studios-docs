@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+require 'plumbum/rspec/stub_provider'
 require 'rspec/sleeping_king_studios/concerns/shared_example_group'
 
 require 'sleeping_king_studios/tools/toolbox/mixin'
 
 module Spec::Support
   module Fixtures
-    extend RSpec::SleepingKingStudios::Concerns::SharedExampleGroup
-    extend SleepingKingStudios::Tools::Toolbox::Mixin
+    extend  RSpec::SleepingKingStudios::Concerns::SharedExampleGroup
+    extend  SleepingKingStudios::Tools::Toolbox::Mixin
+    include Plumbum::RSpec::StubProvider
 
     module ClassMethods
       def wrap_context(context_name, *args, **kwargs, &block)
@@ -33,6 +35,9 @@ module Spec::Support
 
     shared_context 'with fixture files' do |directory|
       let(:fixture_directory) { directory }
+      let(:provider) do
+        SleepingKingStudios::Docs::Yard::Registry.provider
+      end
 
       around(:example) do |example|
         filename = File.join('spec/fixtures', fixture_directory, fixture)
@@ -46,6 +51,14 @@ module Spec::Support
         ::YARD::Registry.clear
 
         SleepingKingStudios::Docs::Yard::Registry.clear
+      end
+
+      before(:example) do
+        stub_provider(provider, :registry, nil)
+
+        allow(provider).to receive(:get).with(:registry) do
+          SleepingKingStudios::Docs::Yard::Registry.build
+        end
       end
     end
   end
