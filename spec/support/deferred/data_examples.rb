@@ -13,13 +13,13 @@ module Spec::Support::Deferred
       before(:context) do
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Docs::Registry.clear
+        SleepingKingStudios::Docs::Yard::Registry.clear
       end
 
       after(:example) do
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Docs::Registry.clear
+        SleepingKingStudios::Docs::Yard::Registry.clear
       end
 
       unless skip_constructor
@@ -58,7 +58,7 @@ module Spec::Support::Deferred
           end
 
           before(:example) do
-            allow(SleepingKingStudios::Docs::Registry)
+            allow(SleepingKingStudios::Docs::Yard::Registry)
               .to receive(:instance)
               .and_return(mock_registry)
           end
@@ -319,13 +319,13 @@ module Spec::Support::Deferred
       before(:context) do
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Docs::Registry.clear
+        SleepingKingStudios::Docs::Yard::Registry.clear
       end
 
       after(:example) do
         ::YARD::Registry.clear
 
-        SleepingKingStudios::Docs::Registry.clear
+        SleepingKingStudios::Docs::Yard::Registry.clear
       end
 
       describe '#==' do
@@ -626,7 +626,7 @@ module Spec::Support::Deferred
           end
 
           before(:example) do
-            allow(SleepingKingStudios::Docs::Registry)
+            allow(SleepingKingStudios::Docs::Yard::Registry)
               .to receive(:instance)
               .and_return(mock_registry)
           end

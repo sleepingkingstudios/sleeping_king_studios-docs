@@ -13,7 +13,7 @@ module SleepingKingStudios::Docs::Data
     #   documented object.
     def initialize(native:)
       @native   = native
-      @registry = SleepingKingStudios::Docs::Registry.instance
+      @registry = SleepingKingStudios::Docs::Yard::Registry.instance
     end
 
     # Generates a JSON-compatible representation of the object.

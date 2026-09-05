@@ -57,7 +57,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerat
         .to receive(:new)
         .and_return(write_command)
 
-      allow(SleepingKingStudios::Docs::Registry)
+      allow(SleepingKingStudios::Docs::Yard::Registry)
         .to receive(:instance)
         .and_return(registry)
     end

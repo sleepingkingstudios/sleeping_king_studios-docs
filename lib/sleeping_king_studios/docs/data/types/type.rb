@@ -13,7 +13,7 @@ module SleepingKingStudios::Docs::Data::Types
     # @param name [String] the name of the type.
     def initialize(name:)
       @name     = name
-      @registry = SleepingKingStudios::Docs::Registry.instance
+      @registry = SleepingKingStudios::Docs::Yard::Registry.instance
     end
 
     # @return [String] the name of the type.

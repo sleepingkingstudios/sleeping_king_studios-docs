@@ -171,7 +171,7 @@ module SleepingKingStudios::Docs::Commands
     end
 
     def registry
-      SleepingKingStudios::Docs::Registry.instance
+      SleepingKingStudios::Docs::Yard::Registry.instance
     end
 
     def registry_classes

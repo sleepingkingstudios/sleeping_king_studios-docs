@@ -292,7 +292,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
         .to receive(:new)
         .and_return(reference_command)
 
-      allow(SleepingKingStudios::Docs::Registry)
+      allow(SleepingKingStudios::Docs::Yard::Registry)
         .to receive(:instance)
         .and_return(registry)
 
