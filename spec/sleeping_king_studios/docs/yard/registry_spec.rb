@@ -90,6 +90,18 @@ RSpec.describe SleepingKingStudios::Docs::Yard::Registry do
     end
   end
 
+  describe '.provider' do
+    let(:provider) { described_class.provider }
+
+    include_examples 'should define class reader', :provider
+
+    it { expect(provider).to be_a Plumbum::OneProvider }
+
+    it { expect(provider.key).to eq 'registry' }
+
+    it { expect(provider.value).to be nil }
+  end
+
   describe '#each' do
     it { expect(registry).to respond_to(:each).with(0).arguments.and_a_block }
 

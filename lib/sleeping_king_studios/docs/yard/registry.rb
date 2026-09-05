@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'plumbum'
 require 'yard'
 
 require 'sleeping_king_studios/docs/yard'
@@ -31,6 +32,14 @@ module SleepingKingStudios::Docs::Yard
     # @todo Remove this.
     def self.instance
       @instance ||= [::YARD::Registry.root, *::YARD::Registry.to_a]
+    end
+
+    # Provides an injectable instance of the repository wrapper.
+    #
+    # @return [Plumbum::Provider<SleepingKingStudios::Docs::Registry>] the
+    #   registry provider.
+    def self.provider
+      @provider ||= Plumbum::OneProvider.new(:registry, write_once: true)
     end
 
     # @param items [Array<YARD::CodeObjects::Base>] the defined YARD objects.
