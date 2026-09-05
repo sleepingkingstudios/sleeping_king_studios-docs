@@ -60,7 +60,7 @@ module SleepingKingStudios::Docs::Data::SeeTags
 
     def registry_query
       @registry_query ||=
-        SleepingKingStudios::Docs::RegistryQuery.new(registry:)
+        SleepingKingStudios::Docs::Yard::RegistryQuery.new(registry:)
     end
 
     def qualified_path

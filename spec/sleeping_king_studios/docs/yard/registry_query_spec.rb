@@ -1,13 +1,26 @@
 # frozen_string_literal: true
 
-require 'sleeping_king_studios/docs/registry_query'
+require 'plumbum/rspec/stub_provider'
 
-RSpec.describe SleepingKingStudios::Docs::RegistryQuery do
-  subject(:query) { described_class.new(registry:) }
+require 'sleeping_king_studios/docs/yard/registry_query'
 
-  let(:registry) { YARD::Registry }
+RSpec.describe SleepingKingStudios::Docs::Yard::RegistryQuery do
+  include Plumbum::RSpec::StubProvider
+
+  subject(:query) { described_class.new }
+
+  let(:provider) { SleepingKingStudios::Docs::Yard::Registry.provider }
+  let(:registry) { SleepingKingStudios::Docs::Yard::Registry.build }
 
   before(:context) { YARD::Registry.clear } # rubocop:disable RSpec/BeforeAfterAll
+
+  before(:example) do
+    stub_provider(provider, :registry, registry)
+
+    allow(provider).to receive(:get).with(:registry) do
+      SleepingKingStudios::Docs::Yard::Registry.build
+    end
+  end
 
   after(:example) { YARD::Registry.clear }
 
@@ -226,11 +239,5 @@ RSpec.describe SleepingKingStudios::Docs::RegistryQuery do
         it { expect(query.instance_method_exists?(method_name)).to be true }
       end
     end
-  end
-
-  describe '#registry' do
-    include_examples 'should define private reader',
-      :registry,
-      -> { YARD::Registry }
   end
 end

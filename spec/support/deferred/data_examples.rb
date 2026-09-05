@@ -304,13 +304,13 @@ module Spec::Support::Deferred
       shared_context 'when the definition exists' do
         let(:query) do
           instance_double(
-            SleepingKingStudios::Docs::RegistryQuery,
+            SleepingKingStudios::Docs::Yard::RegistryQuery,
             definition_exists?: true
           )
         end
 
         before(:example) do
-          allow(SleepingKingStudios::Docs::RegistryQuery)
+          allow(SleepingKingStudios::Docs::Yard::RegistryQuery)
             .to receive(:new)
             .and_return(query)
         end
@@ -433,13 +433,13 @@ module Spec::Support::Deferred
       describe '#exists?' do
         let(:query) do
           instance_double(
-            SleepingKingStudios::Docs::RegistryQuery,
+            SleepingKingStudios::Docs::Yard::RegistryQuery,
             definition_exists?: false
           )
         end
 
         before(:example) do
-          allow(SleepingKingStudios::Docs::RegistryQuery)
+          allow(SleepingKingStudios::Docs::Yard::RegistryQuery)
             .to receive(:new)
             .and_return(query)
         end

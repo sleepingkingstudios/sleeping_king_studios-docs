@@ -52,7 +52,7 @@ module SleepingKingStudios::Docs::Data::Types
       return @exists = false if literal? || method?
 
       @exists =
-        SleepingKingStudios::Docs::RegistryQuery
+        SleepingKingStudios::Docs::Yard::RegistryQuery
         .new(registry:)
         .definition_exists?(name)
     end
