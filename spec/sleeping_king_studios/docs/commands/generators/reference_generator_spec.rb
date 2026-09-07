@@ -2,11 +2,14 @@
 
 require 'stringio'
 
+require 'plumbum/rspec/stub_provider'
+
 require 'sleeping_king_studios/docs/commands/generators/reference_generator'
 
 require 'support/contracts/commands/generator_contract'
 
 RSpec.describe SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator do # rubocop:disable Layout/LineLength
+  include Plumbum::RSpec::StubProvider
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path:, **options) }
@@ -23,6 +26,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerat
         call: Cuprum::Result.new(status: :success)
       )
     end
+    let(:provider) { SleepingKingStudios::Docs::Yard::Registry.provider }
     let(:registry) { parse_registry }
     let(:native)   { registry.find { |obj| obj.name == :Rocketry } }
     let(:data_object) do
@@ -40,16 +44,16 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerat
       MARKDOWN
     end
 
-    def call_command
+    define_method :call_command do
       command.call(data_object:)
     end
 
-    def parse_registry
+    define_method :parse_registry do
       YARD::Registry.clear
 
       YARD.parse('spec/fixtures/classes/basic.rb')
 
-      [YARD::Registry.root, *YARD::Registry.to_a]
+      SleepingKingStudios::Docs::Yard::Registry.build
     end
 
     before(:example) do
@@ -57,9 +61,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerat
         .to receive(:new)
         .and_return(write_command)
 
-      allow(SleepingKingStudios::Docs::Yard::Registry)
-        .to receive(:instance)
-        .and_return(registry)
+      stub_provider(provider, :registry, registry)
     end
 
     after(:example) do

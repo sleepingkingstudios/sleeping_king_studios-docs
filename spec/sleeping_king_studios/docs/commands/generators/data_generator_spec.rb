@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+require 'plumbum/rspec/stub_provider'
+
 require 'sleeping_king_studios/docs/commands/generators/data_generator'
 
 require 'support/contracts/commands/generator_contract'
 
 RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
+  include Plumbum::RSpec::StubProvider
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path:, **options) }
@@ -22,6 +25,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
       )
     end
     let(:data_type)   { 'constant' }
+    let(:provider)    { SleepingKingStudios::Docs::Yard::Registry.provider }
     let(:registry)    { parse_registry }
     let(:native)      { registry.find { |obj| obj.name == :GRAVITY } }
     let(:data_object) do
@@ -30,16 +34,16 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
     let(:file_path) { command.file_path(data_object:) }
     let(:file_data) { YAML.dump(data_object.as_json.merge('version' => '*')) }
 
-    def call_command
+    define_method :call_command do
       command.call(data_object:)
     end
 
-    def parse_registry
+    define_method :parse_registry do
       YARD::Registry.clear
 
       YARD.parse('spec/fixtures/constants/basic.rb')
 
-      [YARD::Registry.root, *YARD::Registry.to_a]
+      SleepingKingStudios::Docs::Yard::Registry.build
     end
 
     before(:example) do
@@ -47,9 +51,7 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generators::DataGenerator do
         .to receive(:new)
         .and_return(write_command)
 
-      allow(SleepingKingStudios::Docs::Yard::Registry)
-        .to receive(:instance)
-        .and_return(registry)
+      stub_provider(provider, :registry, registry)
     end
 
     after(:example) do
