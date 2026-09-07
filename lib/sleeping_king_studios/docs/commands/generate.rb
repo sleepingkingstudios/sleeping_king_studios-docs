@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'cuprum/command'
+require 'plumbum'
 require 'sleeping_king_studios/tools/toolbelt'
 
 require 'sleeping_king_studios/docs/commands'
@@ -8,6 +9,13 @@ require 'sleeping_king_studios/docs/commands'
 module SleepingKingStudios::Docs::Commands
   # Generates YARD documentation files.
   class Generate < SleepingKingStudios::Docs::Commands::Generators::Base # rubocop:disable Metrics/ClassLength
+    include Plumbum::Consumer
+
+    dependency :registry,
+      default: SleepingKingStudios::Docs::Yard::Registry::EMPTY
+
+    provider SleepingKingStudios::Docs::Yard::Registry.provider
+
     # @overload initialize(docs_path:, **options)
     #   @param docs_path [String] the directory path for generating the
     #     documentation files.
@@ -35,6 +43,8 @@ module SleepingKingStudios::Docs::Commands
     private
 
     attr_reader :failures
+
+    attr_reader :registry
 
     def build_constant(native:)
       SleepingKingStudios::Docs::Data::ConstantObject.new(native:)
@@ -141,13 +151,24 @@ module SleepingKingStudios::Docs::Commands
     end
 
     def parse_registry(file_path:)
-      SleepingKingStudios::Docs::Commands::Parse.new.call(file_path)
+      @registry = step do
+        SleepingKingStudios::Docs::Yard::Parse.new.call(file_path)
+      end
+
+      SleepingKingStudios::Docs::Yard::Registry
+        .provider
+        .set(:registry, registry)
+    rescue Plumbum::Errors::ImmutableError => exception
+      message = "#{exception.class}: #{exception.message}"
+      error   = SleepingKingStudios::Docs::Errors::RegistryError.new(message:)
+
+      failure(error)
     end
 
     def process(file_path: nil)
-      step { parse_registry(file_path:) }
-
       @failures = []
+
+      step { parse_registry(file_path:) }
 
       generate_root_namespace
       generate_classes
@@ -168,10 +189,6 @@ module SleepingKingStudios::Docs::Commands
       @reference_command ||=
         SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator
         .new(docs_path:, **options)
-    end
-
-    def registry
-      SleepingKingStudios::Docs::Yard::Registry.instance
     end
 
     def registry_classes
