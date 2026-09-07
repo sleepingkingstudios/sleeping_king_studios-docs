@@ -49,23 +49,18 @@ module Spec::Support::Deferred
       end
 
       describe '#registry' do
-        include_examples 'should define private reader',
-          :registry,
-          -> { be == [::YARD::Registry.root, *::YARD::Registry.to_a] }
-
-        context 'with a mocked registry' do
-          let(:mock_registry) do
-            [::YARD::Registry.root]
-          end
-
-          before(:example) do
-            allow(SleepingKingStudios::Docs::Yard::Registry)
-              .to receive(:instance)
-              .and_return(mock_registry)
-          end
-
-          it { expect(subject.send(:registry)).to be == mock_registry }
+        let(:provider) do
+          SleepingKingStudios::Docs::Yard::Registry.provider
         end
+        let(:expected) do
+          next provider.get(:registry) if provider.has?(:registry)
+
+          # :nocov:
+          SleepingKingStudios::Docs::Yard::Registry::EMPTY
+          # :nocov:
+        end
+
+        include_examples 'should define reader', :registry, -> { expected }
       end
     end
 
