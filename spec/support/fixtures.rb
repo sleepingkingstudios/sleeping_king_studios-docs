@@ -49,8 +49,6 @@ module Spec::Support
         example.call
       ensure
         ::YARD::Registry.clear
-
-        SleepingKingStudios::Docs::Yard::Registry.clear
       end
 
       before(:example) do

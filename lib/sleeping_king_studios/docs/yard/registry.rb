@@ -18,22 +18,6 @@ module SleepingKingStudios::Docs::Yard
       new(items: [::YARD::Registry.root, *::YARD::Registry.to_a])
     end
 
-    # Clears the cached registry, if any.
-    #
-    # @todo Remove this.
-    def self.clear
-      @instance = nil
-    end
-
-    # Caches and returns the contents of the YARD registry.
-    #
-    # @return [Array] the cached registry.
-    #
-    # @todo Remove this.
-    def self.instance
-      @instance ||= [::YARD::Registry.root, *::YARD::Registry.to_a]
-    end
-
     # Provides an injectable instance of the repository wrapper.
     #
     # @return [Plumbum::Provider<SleepingKingStudios::Docs::Registry>] the

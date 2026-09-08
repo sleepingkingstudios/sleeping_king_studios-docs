@@ -11,17 +11,9 @@ module Spec::Support::Deferred
     include RSpec::SleepingKingStudios::Deferred::Provider
 
     deferred_examples 'should be a data object' do |skip_constructor: false|
-      before(:context) do
-        ::YARD::Registry.clear
+      before(:context) { ::YARD::Registry.clear }
 
-        SleepingKingStudios::Docs::Yard::Registry.clear
-      end
-
-      after(:example) do
-        ::YARD::Registry.clear
-
-        SleepingKingStudios::Docs::Yard::Registry.clear
-      end
+      after(:example) { ::YARD::Registry.clear }
 
       unless skip_constructor
         describe '.new' do
@@ -321,17 +313,9 @@ module Spec::Support::Deferred
         end
       end
 
-      before(:context) do
-        ::YARD::Registry.clear
+      before(:context) { ::YARD::Registry.clear }
 
-        SleepingKingStudios::Docs::Yard::Registry.clear
-      end
-
-      after(:example) do
-        ::YARD::Registry.clear
-
-        SleepingKingStudios::Docs::Yard::Registry.clear
-      end
+      after(:example) { ::YARD::Registry.clear }
 
       describe '#==' do
         define_method :type_double do |mock_class, json|
