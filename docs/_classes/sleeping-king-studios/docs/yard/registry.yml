@@ -1,0 +1,42 @@
+---
+name: SleepingKingStudios::Docs::Yard::Registry
+slug: registry
+type: class
+files:
+- lib/sleeping_king_studios/docs/yard/registry.rb
+- lib/sleeping_king_studios/docs/yard/registry.rb
+parent_path: sleeping-king-studios/docs/yard
+short_description: Dependency injection provider wrapping the YARD registry.
+class_methods:
+- name: build
+  path: sleeping-king-studios/docs/yard/registry/c-build
+  slug: build
+  inherited: false
+- name: provider
+  path: sleeping-king-studios/docs/yard/registry/c-provider
+  slug: provider
+  inherited: false
+constants:
+- name: EMPTY
+  path: sleeping-king-studios/docs/yard/registry/empty
+  slug: empty
+  inherited: false
+instance_methods:
+- name: each
+  path: sleeping-king-studios/docs/yard/registry/i-each
+  slug: each
+  inherited: false
+- name: initialize
+  path: sleeping-king-studios/docs/yard/registry/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+data_path: sleeping-king-studios/docs/yard/registry
+included_modules:
+- name: Enumerable
+  slug: enumerable
+constructor: true
+inherited_classes:
+- name: Data
+  slug: data
+version: "*"

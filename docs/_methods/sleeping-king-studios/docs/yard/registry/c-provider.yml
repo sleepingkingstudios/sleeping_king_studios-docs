@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Yard::Registry.provider
+parent_path: sleeping-king-studios/docs/yard/registry
+signature: provider
+slug: provider
+constructor: false
+data_path: sleeping-king-studios/docs/yard/registry/c-provider
+returns:
+- description: |-
+    the
+    registry provider.
+  type:
+  - name: Plumbum::Provider
+    items:
+    - name: SleepingKingStudios::Docs::Registry
+short_description: Provides an injectable instance of the repository wrapper.
+version: "*"

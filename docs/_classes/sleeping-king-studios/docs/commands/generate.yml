@@ -46,6 +46,9 @@ instance_methods:
   slug: version
   inherited: true
 data_path: sleeping-king-studios/docs/commands/generate
+included_modules:
+- name: Plumbum::Consumer
+  slug: consumer
 constructor: true
 inherited_classes:
 - name: SleepingKingStudios::Docs::Commands::Generators::Base

@@ -6,6 +6,8 @@ Removed support for Ruby 3.1.
 
 ## Commands
 
+Added dependency on `plumbum` gem.
+
 Refactored CLI Commands:
 
 - Installation commands now use `Cuprum::Cli`.
