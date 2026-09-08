@@ -1,0 +1,33 @@
+---
+name: SleepingKingStudios::Docs::Yard::RegistryQuery
+slug: registry-query
+type: class
+files:
+- lib/sleeping_king_studios/docs/yard/registry_query.rb
+parent_path: sleeping-king-studios/docs/yard
+short_description: Checks for the presence of requested data in the YARD registry.
+instance_methods:
+- name: class_method_exists?
+  path: sleeping-king-studios/docs/yard/registry-query/i-class-method-exists?
+  slug: class-method-exists?
+  inherited: false
+- name: constant_exists?
+  path: sleeping-king-studios/docs/yard/registry-query/i-constant-exists?
+  slug: constant-exists?
+  inherited: false
+- name: definition_exists?
+  path: sleeping-king-studios/docs/yard/registry-query/i-definition-exists?
+  slug: definition-exists?
+  inherited: false
+- name: instance_method_exists?
+  path: sleeping-king-studios/docs/yard/registry-query/i-instance-method-exists?
+  slug: instance-method-exists?
+  inherited: false
+data_path: sleeping-king-studios/docs/yard/registry-query
+included_modules:
+- name: Plumbum::Consumer
+  slug: consumer
+- name: Plumbum::Parameters
+  slug: parameters
+constructor: false
+version: "*"

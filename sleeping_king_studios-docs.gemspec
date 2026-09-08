@@ -41,6 +41,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'cuprum', '~> 1.3', '>= 1.3.1'
   gem.add_runtime_dependency 'cuprum-cli', '~> 0.1'
   gem.add_runtime_dependency 'erubi', '~> 1.13'
+  gem.add_runtime_dependency 'plumbum', '~> 0.1'
   gem.add_runtime_dependency 'sleeping_king_studios-tools', '~> 1.3'
   gem.add_runtime_dependency 'thor', '~> 1.3'
   gem.add_runtime_dependency 'treetop', '~> 1.6'

@@ -1,0 +1,20 @@
+---
+name: SleepingKingStudios::Docs::Yard::Registry#initialize
+parent_path: sleeping-king-studios/docs/yard/registry
+signature: 'initialize(items: [])'
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/yard/registry/i-initialize
+params:
+- description: the defined YARD objects.
+  name: items
+  type:
+  - name: Array
+    items:
+    - name: YARD::CodeObjects::Base
+  default: "[]"
+returns:
+- description: a new instance of Registry
+  type:
+  - name: Registry
+version: "*"

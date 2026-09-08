@@ -1,0 +1,19 @@
+---
+name: SleepingKingStudios::Docs::Yard::Parse
+slug: parse
+type: class
+files:
+- lib/sleeping_king_studios/docs/yard/parse.rb
+parent_path: sleeping-king-studios/docs/yard
+short_description: Adds the specified data to the YARD Registry.
+data_path: sleeping-king-studios/docs/yard/parse
+included_modules:
+- name: Plumbum::Consumer
+  slug: consumer
+- name: Plumbum::Parameters
+  slug: parameters
+constructor: false
+inherited_classes:
+- name: Cuprum::Command
+  slug: command
+version: "*"

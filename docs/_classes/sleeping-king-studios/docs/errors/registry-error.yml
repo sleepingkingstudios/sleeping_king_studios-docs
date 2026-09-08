@@ -1,0 +1,19 @@
+---
+name: SleepingKingStudios::Docs::Errors::RegistryError
+slug: registry-error
+type: class
+files:
+- lib/sleeping_king_studios/docs/errors/registry_error.rb
+parent_path: sleeping-king-studios/docs/errors
+short_description: Error returned when an invalid registry operation is performed.
+constants:
+- name: TYPE
+  path: sleeping-king-studios/docs/errors/registry-error/type
+  slug: type
+  inherited: false
+data_path: sleeping-king-studios/docs/errors/registry-error
+constructor: false
+inherited_classes:
+- name: Cuprum::Error
+  slug: error
+version: "*"

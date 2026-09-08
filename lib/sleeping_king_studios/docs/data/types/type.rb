@@ -12,8 +12,7 @@ module SleepingKingStudios::Docs::Data::Types
 
     # @param name [String] the name of the type.
     def initialize(name:)
-      @name     = name
-      @registry = SleepingKingStudios::Docs::Registry.instance
+      @name = name
     end
 
     # @return [String] the name of the type.
@@ -52,8 +51,8 @@ module SleepingKingStudios::Docs::Data::Types
       return @exists = false if literal? || method?
 
       @exists =
-        SleepingKingStudios::Docs::RegistryQuery
-        .new(registry:)
+        SleepingKingStudios::Docs::Yard::RegistryQuery
+        .new
         .definition_exists?(name)
     end
 
@@ -82,8 +81,6 @@ module SleepingKingStudios::Docs::Data::Types
     end
 
     private
-
-    attr_reader :registry
 
     def inspect_attributes
       "@name=#{name.inspect}"

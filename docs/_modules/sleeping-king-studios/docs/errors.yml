@@ -7,6 +7,7 @@ files:
 - lib/sleeping_king_studios/docs/errors/file_error.rb
 - lib/sleeping_king_studios/docs/errors/invalid_file.rb
 - lib/sleeping_king_studios/docs/errors/file_not_found.rb
+- lib/sleeping_king_studios/docs/errors/registry_error.rb
 - lib/sleeping_king_studios/docs/errors/invalid_directory.rb
 - lib/sleeping_king_studios/docs/errors/file_already_exists.rb
 parent_path: sleeping-king-studios/docs
@@ -23,5 +24,7 @@ defined_classes:
   slug: invalid-directory
 - name: InvalidFile
   slug: invalid-file
+- name: RegistryError
+  slug: registry-error
 data_path: sleeping-king-studios/docs/errors
 version: "*"

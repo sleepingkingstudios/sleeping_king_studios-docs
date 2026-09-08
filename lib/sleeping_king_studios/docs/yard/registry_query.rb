@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
+require 'plumbum'
 require 'sleeping_king_studios/docs'
 
-module SleepingKingStudios::Docs
+module SleepingKingStudios::Docs::Yard
   # Checks for the presence of requested data in the YARD registry.
   class RegistryQuery
-    # @param registry [Enumerable] the YARD registry.
-    def initialize(registry:)
-      @registry = registry
-    end
+    include Plumbum::Consumer
+    prepend Plumbum::Parameters
+
+    dependency :registry,
+      default: SleepingKingStudios::Docs::Yard::Registry::EMPTY
+
+    provider SleepingKingStudios::Docs::Yard::Registry.provider
 
     # Checks if the given class method is defined in the registry.
     #
@@ -71,8 +75,6 @@ module SleepingKingStudios::Docs
     end
 
     private
-
-    attr_reader :registry
 
     def legacy_class_method_exists?(method_name)
       method_name = method_name.reverse.sub('::', '.').reverse

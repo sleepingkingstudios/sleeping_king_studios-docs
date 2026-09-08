@@ -17,6 +17,11 @@ instance_methods:
   inherited: false
   constructor: true
 data_path: sleeping-king-studios/docs/data/base
+included_modules:
+- name: Plumbum::Consumer
+  slug: consumer
+- name: Plumbum::Parameters
+  slug: parameters
 metadata:
   abstract: ''
 constructor: true

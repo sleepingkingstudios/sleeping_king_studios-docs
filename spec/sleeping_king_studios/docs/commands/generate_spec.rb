@@ -2,11 +2,13 @@
 
 require 'stringio'
 
+require 'plumbum/rspec/stub_provider'
 require 'sleeping_king_studios/docs/commands/generate'
 
 require 'support/contracts/commands/generator_contract'
 
 RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
+  include Plumbum::RSpec::StubProvider
   include Spec::Support::Contracts::Commands
 
   subject(:command) { described_class.new(docs_path:, **options) }
@@ -18,14 +20,14 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
 
   describe '#call' do
     shared_context 'when the parsed registry has many items' do
-      let(:registry) { parse_registry }
-
-      def parse_registry
+      let(:registry) do
         YARD::Registry.clear
 
         YARD.parse('spec/fixtures/generators/basic.rb')
 
-        [YARD::Registry.root, *YARD::Registry.to_a]
+        items = [YARD::Registry.root, *YARD::Registry.to_a]
+
+        SleepingKingStudios::Docs::Yard::Registry.new(items:)
       end
     end
 
@@ -232,8 +234,8 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
     end
     let(:parse_command) do
       instance_double(
-        SleepingKingStudios::Docs::Commands::Parse,
-        call: Cuprum::Result.new(status: :success)
+        SleepingKingStudios::Docs::Yard::Parse,
+        call: Cuprum::Result.new(status: :success, value: registry)
       )
     end
     let(:reference_command) do
@@ -244,38 +246,29 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
       )
     end
     let(:output_stream) { StringIO.new }
-    let(:registry)      { parse_registry }
-    let(:expected_root) { registry.first }
+    let(:registry)      { SleepingKingStudios::Docs::Yard::Registry::EMPTY }
 
-    def class_object(native:)
+    define_method :class_object do |native:|
       be_a(SleepingKingStudios::Docs::Data::ClassObject)
         .and(have_attributes(name: native.path))
     end
 
-    def constant_object(native:)
+    define_method :constant_object do |native:|
       be_a(SleepingKingStudios::Docs::Data::ConstantObject)
         .and(have_attributes(name: native.path))
     end
 
-    def method_object(native:)
+    define_method :method_object do |native:|
       be_a(SleepingKingStudios::Docs::Data::MethodObject)
         .and(have_attributes(name: native.path))
     end
 
-    def module_object(native:)
+    define_method :module_object do |native:|
       be_a(SleepingKingStudios::Docs::Data::ModuleObject)
         .and(have_attributes(name: native.path))
     end
 
-    def parse_registry
-      YARD::Registry.clear
-
-      YARD.parse_string('')
-
-      [YARD::Registry.root]
-    end
-
-    def tools
+    define_method :tools do
       SleepingKingStudios::Tools::Toolbelt.instance
     end
 
@@ -284,17 +277,16 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
         .to receive(:new)
         .and_return(data_command)
 
-      allow(SleepingKingStudios::Docs::Commands::Parse)
-        .to receive(:new)
-        .and_return(parse_command)
-
       allow(SleepingKingStudios::Docs::Commands::Generators::ReferenceGenerator)
         .to receive(:new)
         .and_return(reference_command)
 
-      allow(SleepingKingStudios::Docs::Registry)
-        .to receive(:instance)
-        .and_return(registry)
+      allow(SleepingKingStudios::Docs::Yard::Parse)
+        .to receive(:new)
+        .and_return(parse_command)
+
+      allow(SleepingKingStudios::Docs::Yard::Registry.provider)
+        .to receive(:set)
 
       allow(data_command).to receive(:file_path) do |data_object:, data_type:|
         "#{tools.str.pluralize(data_type)}/#{data_object.data_path}.yml"
@@ -320,6 +312,14 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
       command.call
 
       expect(parse_command).to have_received(:call).with(nil)
+    end
+
+    it 'should store the YARD registry in the provider' do
+      command.call
+
+      expect(SleepingKingStudios::Docs::Yard::Registry.provider)
+        .to have_received(:set)
+        .with(:registry, registry)
     end
 
     it 'should initialize the data command' do
@@ -398,6 +398,50 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
         expect { command.call }
           .to change(error_stream, :string)
           .to be == expected
+      end
+    end
+
+    context 'when the registry provider already has a value' do
+      let(:expected_error) do
+        message =
+          'Plumbum::Errors::ImmutableError: unable to change immutable value ' \
+          'for Plumbum::OneProvider with key "registry"'
+
+        SleepingKingStudios::Docs::Errors::RegistryError.new(message:)
+      end
+
+      before(:example) do
+        allow(SleepingKingStudios::Docs::Yard::Registry.provider)
+          .to receive(:set)
+          .and_call_original
+
+        allow(SleepingKingStudios::Docs::Yard::Registry.provider)
+          .to receive(:raw_value)
+          .and_return(registry)
+      end
+
+      it 'should return a failing result' do
+        expect(command.call)
+          .to be_a_failing_result
+          .with_error(expected_error)
+      end
+
+      it 'should not generate data files' do
+        command.call
+
+        expect(data_command).not_to have_received(:call)
+      end
+
+      include_examples 'should not generate reference files'
+
+      wrap_context 'when the parsed registry has many items' do
+        it 'should not generate data files' do
+          command.call
+
+          expect(data_command).not_to have_received(:call)
+        end
+
+        include_examples 'should not generate reference files'
       end
     end
 

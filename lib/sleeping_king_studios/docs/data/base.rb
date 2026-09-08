@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'plumbum'
 require 'sleeping_king_studios/tools/toolbelt'
 
 require 'sleeping_king_studios/docs/data'
@@ -9,11 +10,18 @@ module SleepingKingStudios::Docs::Data
   #
   # @abstract
   class Base
+    include Plumbum::Consumer
+    prepend Plumbum::Parameters
+
+    dependency :registry,
+      default: SleepingKingStudios::Docs::Yard::Registry::EMPTY
+
+    provider SleepingKingStudios::Docs::Yard::Registry.provider
+
     # @param native [YARD::Tags::Tag] the YARD object representing the
     #   documented object.
     def initialize(native:)
-      @native   = native
-      @registry = SleepingKingStudios::Docs::Registry.instance
+      @native = native
     end
 
     # Generates a JSON-compatible representation of the object.
@@ -26,8 +34,6 @@ module SleepingKingStudios::Docs::Data
     private
 
     attr_reader :native
-
-    attr_reader :registry
 
     def empty?(value)
       return true if value.nil?

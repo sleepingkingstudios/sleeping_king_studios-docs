@@ -1,5 +1,5 @@
 ---
-data_path: "sleeping-king-studios/docs/registry-query"
+data_path: "sleeping-king-studios/docs/yard/parse"
 version: "*"
 ---
 

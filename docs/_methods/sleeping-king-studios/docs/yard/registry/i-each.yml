@@ -1,0 +1,29 @@
+---
+name: SleepingKingStudios::Docs::Yard::Registry#each
+parent_path: sleeping-king-studios/docs/yard/registry
+signature: each(&)
+slug: each
+constructor: false
+data_path: sleeping-king-studios/docs/yard/registry/i-each
+overloads:
+- name: SleepingKingStudios::Docs::Yard::Registry#each
+  parent_path: sleeping-king-studios/docs/yard/registry
+  signature: each
+  slug: each
+  constructor: false
+  returns:
+  - description: |-
+      an enumerator that iterates over the registry
+      items.
+    type:
+    - name: Enumerator
+- name: SleepingKingStudios::Docs::Yard::Registry#each
+  parent_path: sleeping-king-studios/docs/yard/registry
+  signature: each(&block)
+  slug: each
+  constructor: false
+  yields:
+  - description: each item in the registry.
+    parameters:
+    - YARD::CodeObjects::Base
+version: "*"

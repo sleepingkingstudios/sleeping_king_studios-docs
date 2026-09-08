@@ -1,0 +1,8 @@
+---
+name: SleepingKingStudios::Docs::Yard::Registry::EMPTY
+parent_path: sleeping-king-studios/docs/yard/registry
+slug: empty
+short_description: ''
+value: new
+data_path: sleeping-king-studios/docs/yard/registry/empty
+version: "*"

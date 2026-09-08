@@ -1,10 +1,10 @@
 ---
-name: SleepingKingStudios::Docs::RegistryQuery#constant_exists?
-parent_path: sleeping-king-studios/docs/registry-query
+name: SleepingKingStudios::Docs::Yard::RegistryQuery#constant_exists?
+parent_path: sleeping-king-studios/docs/yard/registry-query
 signature: constant_exists?(constant_name)
 slug: constant-exists?
 constructor: false
-data_path: sleeping-king-studios/docs/registry-query/i-constant-exists?
+data_path: sleeping-king-studios/docs/yard/registry-query/i-constant-exists?
 params:
 - description: |-
     the name of the constant and defining

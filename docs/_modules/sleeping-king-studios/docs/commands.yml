@@ -4,7 +4,6 @@ slug: commands
 type: module
 files:
 - lib/sleeping_king_studios/docs/commands.rb
-- lib/sleeping_king_studios/docs/commands/parse.rb
 - lib/sleeping_king_studios/docs/commands/generate.rb
 - lib/sleeping_king_studios/docs/commands/generators.rb
 - lib/sleeping_king_studios/docs/commands/write_file.rb
@@ -14,8 +13,6 @@ short_description: Namespace for commands, which parse and generate documentatio
 defined_classes:
 - name: Generate
   slug: generate
-- name: Parse
-  slug: parse
 - name: WriteFile
   slug: write-file
 defined_modules:
