@@ -240,6 +240,38 @@ module SleepingKingStudios::Docs::Data
       @parent_path = parent_object.data_path
     end
 
+    # @return [true, false] true if the method visibility is protected, and the
+    #   method (and its namespace) does not have a @private tag.
+    def protected?
+      return false unless native.visibility == :protected
+
+      !private?
+    end
+
+    # @return [true, false] true if the method visibility is private, or if the
+    #   method (or its namespace) has a @private tag.
+    def private?
+      return true if native.visibility == :private
+
+      object = native
+
+      while object
+        return true if object.tags.any? { |tag| tag.tag_name == 'private' }
+
+        object = object.parent
+      end
+
+      false
+    end
+
+    # @return [true, false] true if the method visibility is public, and the
+    #   method (and its namespace) does not have a @private tag.
+    def public?
+      return false unless native.visibility == :public
+
+      !private?
+    end
+
     # The documented raised exceptions of the method.
     #
     # Each raised exception is a Hash with the following keys:

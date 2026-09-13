@@ -218,6 +218,30 @@ module SleepingKingStudios::Docs::Data
       @name ||= native.path
     end
 
+    # @return [true, false] true if the namespace visibility is private, or if
+    #   the namespace (or its parent namespace) has a @private tag.
+    def private?
+      return true if native.visibility == :private
+
+      object = native
+
+      while object
+        return true if object.tags.any? { |tag| tag.tag_name == 'private' }
+
+        object = object.parent
+      end
+
+      false
+    end
+
+    # @return [true, false] true if the namespace visibility is public, and the
+    #   constant (and its parent namespace) does not have a @private tag.
+    def public?
+      return false unless native.visibility == :public
+
+      !private?
+    end
+
     # The name of the namespace in url-safe format.
     #
     # @return [String] the namespace name.

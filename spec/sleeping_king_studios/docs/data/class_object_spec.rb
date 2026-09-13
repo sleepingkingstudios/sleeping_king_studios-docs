@@ -372,6 +372,54 @@ RSpec.describe SleepingKingStudios::Docs::Data::ClassObject do
     end
   end
 
+  describe '#private?' do
+    include_examples 'should define predicate', :private?, false
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'RocketScience::Engineering::Rocketry' }
+
+      it { expect(class_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Engineering::Rocketry' }
+
+      it { expect(class_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(class_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(class_object.private?).to be true }
+    end
+  end
+
+  describe '#public?' do
+    include_examples 'should define predicate', :public?, true
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'RocketScience::Engineering::Rocketry' }
+
+      it { expect(class_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Engineering::Rocketry' }
+
+      it { expect(class_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(class_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(class_object.public?).to be false }
+    end
+  end
+
   describe '#type' do
     include_examples 'should define reader', :type, 'class'
   end
