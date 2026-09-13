@@ -7,7 +7,6 @@ require 'sleeping_king_studios/docs/yard'
 module SleepingKingStudios::Docs::Yard
   # Command for creating generic data objects from YARD objects.
   class Build < Cuprum::Command
-    # rubocop:disable Layout/HashAlignment
     DATA_TYPES = {
       YARD::CodeObjects::RootObject     =>
         SleepingKingStudios::Docs::Data::RootObject,
@@ -21,7 +20,6 @@ module SleepingKingStudios::Docs::Yard
         SleepingKingStudios::Docs::Data::ModuleObject
     }.freeze
     private_constant :DATA_TYPES
-    # rubocop:enable Layout/HashAlignment
 
     private
 
