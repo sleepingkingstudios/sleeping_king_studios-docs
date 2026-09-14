@@ -252,7 +252,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
     it 'should run the YARD parser' do
       command.call
 
-      expect(parse_command).to have_received(:call).with(nil)
+      expect(parse_command).to have_received(:call).with(no_args)
     end
 
     it 'should store the YARD registry in the provider' do
@@ -425,7 +425,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
       it 'should run the YARD parser' do
         command.call
 
-        expect(parse_command).to have_received(:call).with(nil)
+        expect(parse_command).to have_received(:call).with(no_args)
       end
 
       it 'should store the YARD registry in the provider' do
@@ -666,7 +666,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
       it 'should run the YARD parser' do
         command.call
 
-        expect(parse_command).to have_received(:call).with(nil)
+        expect(parse_command).to have_received(:call).with(no_args)
       end
 
       it 'should store the YARD registry in the provider' do
