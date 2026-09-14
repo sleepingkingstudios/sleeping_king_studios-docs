@@ -12,6 +12,7 @@ Refactored CLI Commands:
 
 - Installation commands now use `Cuprum::Cli`.
 - Installation commands moved to `Docs::Jekyll::Commands` namespace.
+- Reference commands refactored and moved to `Docs::Jekyll::Commands` namespace.
 
 Updated file templates.
 

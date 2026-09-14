@@ -6,12 +6,9 @@ files:
 - lib/sleeping_king_studios/docs.rb
 - lib/sleeping_king_studios/docs/data.rb
 - lib/sleeping_king_studios/docs/yard.rb
-- lib/sleeping_king_studios/docs/tasks.rb
 - lib/sleeping_king_studios/docs/errors.rb
 - lib/sleeping_king_studios/docs/jekyll.rb
 - lib/sleeping_king_studios/docs/version.rb
-- lib/sleeping_king_studios/docs/commands.rb
-- lib/sleeping_king_studios/docs/tasks/base.rb
 parent_path: sleeping-king-studios
 short_description: Tooling for working with YARD documentation.
 class_methods:
@@ -29,16 +26,12 @@ constants:
   slug: version
   inherited: false
 defined_modules:
-- name: Commands
-  slug: commands
 - name: Data
   slug: data
 - name: Errors
   slug: errors
 - name: Jekyll
   slug: jekyll
-- name: Tasks
-  slug: tasks
 - name: Version
   slug: version
 - name: Yard

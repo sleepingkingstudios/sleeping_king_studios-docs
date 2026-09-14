@@ -4,6 +4,7 @@ slug: commands
 type: module
 files:
 - lib/sleeping_king_studios/docs/jekyll/commands.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/update.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/clobber.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/install.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/generate.rb
@@ -30,5 +31,7 @@ defined_classes:
   slug: install-workflow
 - name: Reference
   slug: reference
+- name: Update
+  slug: update
 data_path: sleeping-king-studios/docs/jekyll/commands
 version: "*"
