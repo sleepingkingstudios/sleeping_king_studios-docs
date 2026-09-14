@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-load 'sleeping_king_studios/docs/tasks.rb'
-
 require 'cuprum/cli'
 require 'sleeping_king_studios/docs/jekyll'
 
@@ -24,3 +22,4 @@ registry.register SleepingKingStudios::Docs::Jekyll::Commands::Generate
 registry.register SleepingKingStudios::Docs::Jekyll::Commands::Install
 registry.register SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates
 registry.register SleepingKingStudios::Docs::Jekyll::Commands::InstallWorkflow
+registry.register SleepingKingStudios::Docs::Jekyll::Commands::Update

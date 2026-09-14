@@ -1,56 +1,42 @@
 ---
-name: SleepingKingStudios::Docs::Jekyll::Commands::Reference
-slug: reference
+name: SleepingKingStudios::Docs::Jekyll::Commands::Update
+slug: update
 type: class
 files:
-- lib/sleeping_king_studios/docs/jekyll/commands/reference.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/update.rb
 parent_path: sleeping-king-studios/docs/jekyll/commands
-short_description: Abstract base class for commands that update the reference documentation.
+short_description: Creates or updates reference documentation.
 instance_methods:
 - name: class_data_directory
   path: sleeping-king-studios/docs/jekyll/commands/reference/i-class-data-directory
   slug: class-data-directory
-  inherited: false
+  inherited: true
 - name: constant_data_directory
   path: sleeping-king-studios/docs/jekyll/commands/reference/i-constant-data-directory
   slug: constant-data-directory
-  inherited: false
+  inherited: true
 - name: method_data_directory
   path: sleeping-king-studios/docs/jekyll/commands/reference/i-method-data-directory
   slug: method-data-directory
-  inherited: false
+  inherited: true
 - name: module_data_directory
   path: sleeping-king-studios/docs/jekyll/commands/reference/i-module-data-directory
   slug: module-data-directory
-  inherited: false
+  inherited: true
 - name: namespace_data_directory
   path: sleeping-king-studios/docs/jekyll/commands/reference/i-namespace-data-directory
   slug: namespace-data-directory
-  inherited: false
+  inherited: true
 - name: reference_directory
   path: sleeping-king-studios/docs/jekyll/commands/reference/i-reference-directory
   slug: reference-directory
-  inherited: false
-data_path: sleeping-king-studios/docs/jekyll/commands/reference
-included_modules:
-- name: Cuprum::Cli::Dependencies::StandardIo::Helpers
-  slug: helpers
-- name: Cuprum::Cli::Options::Quiet
-  slug: quiet
-- name: Cuprum::Cli::Options::Verbose
-  slug: verbose
+  inherited: true
+data_path: sleeping-king-studios/docs/jekyll/commands/update
 constructor: false
-direct_subclasses:
-- name: SleepingKingStudios::Docs::Jekyll::Commands::Clobber
-  slug: clobber
-  path: sleeping-king-studios/docs/jekyll/commands/clobber
-- name: SleepingKingStudios::Docs::Jekyll::Commands::Generate
-  slug: generate
-  path: sleeping-king-studios/docs/jekyll/commands/generate
-- name: SleepingKingStudios::Docs::Jekyll::Commands::Update
-  slug: update
-  path: sleeping-king-studios/docs/jekyll/commands/update
 inherited_classes:
+- name: SleepingKingStudios::Docs::Jekyll::Commands::Reference
+  slug: reference
+  path: sleeping-king-studios/docs/jekyll/commands/reference
 - name: Cuprum::Cli::Command
   slug: command
 version: "*"

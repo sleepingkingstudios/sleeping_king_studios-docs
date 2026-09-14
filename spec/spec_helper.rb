@@ -30,6 +30,16 @@ RSpec.configure do |config|
 
   config.disable_monkey_patching!
 
+  config.around(:example) do |example|
+    example.call
+
+    next unless YARD::Registry.any?
+
+    # :nocov:
+    raise 'Example did not clean up YARD::Registry'
+    # :nocov:
+  end
+
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata.
   config.filter_run_when_matching :focus

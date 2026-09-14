@@ -9,8 +9,6 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
     description 'Generates reference documentation for the current version'
 
-    option :file_path, type: :string
-
     private
 
     attr_reader :errors
@@ -145,7 +143,7 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
     def parse_registry
       @registry = step do
-        SleepingKingStudios::Docs::Yard::Parse.new.call(file_path)
+        SleepingKingStudios::Docs::Yard::Parse.new.call
       end
 
       SleepingKingStudios::Docs::Yard::Registry
