@@ -32,6 +32,11 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
     default: 'docs'
 
   include_deferred 'should define option',
+    :dry_run,
+    type:    :boolean,
+    default: false
+
+  include_deferred 'should define option',
     :version,
     type: :string
 
