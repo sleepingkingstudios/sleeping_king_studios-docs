@@ -15,7 +15,9 @@ require 'yard'
 # Isolated namespace for defining spec-only or transient objects.
 module Spec; end
 
-SleepingKingStudios::Tools.initializer.call
+require 'sleeping_king_studios/docs'
+
+SleepingKingStudios::Docs.initializer.call
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

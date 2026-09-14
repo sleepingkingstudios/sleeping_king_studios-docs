@@ -3,7 +3,7 @@
 require 'cuprum/cli'
 require 'sleeping_king_studios/docs/jekyll'
 
-Cuprum::Cli.initializer.call
+SleepingKingStudios::Docs.initializer.call
 
 require 'cuprum/cli/integrations/thor/registry'
 

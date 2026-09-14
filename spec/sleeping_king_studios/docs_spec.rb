@@ -11,7 +11,7 @@ RSpec.describe SleepingKingStudios::Docs do
     end
   end
 
-  describe '::gem_path' do
+  describe '.gem_path' do
     let(:expected) do
       __dir__.sub(
         /#{File.join('', 'spec', 'sleeping_king_studios', '')}?\z/,
@@ -24,7 +24,13 @@ RSpec.describe SleepingKingStudios::Docs do
       -> { be == expected }
   end
 
-  describe '::version' do
+  describe '.initializer' do
+    include_examples 'should define class reader',
+      :initializer,
+      -> { be_a(SleepingKingStudios::Tools::Toolbox::Initializer) }
+  end
+
+  describe '.version' do
     it 'should define the reader' do
       expect(described_class)
         .to have_reader(:version)

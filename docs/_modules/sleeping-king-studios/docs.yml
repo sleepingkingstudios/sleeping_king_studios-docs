@@ -16,6 +16,10 @@ class_methods:
   path: sleeping-king-studios/docs/c-gem-path
   slug: gem-path
   inherited: false
+- name: initializer
+  path: sleeping-king-studios/docs/c-initializer
+  slug: initializer
+  inherited: false
 - name: version
   path: sleeping-king-studios/docs/c-version
   slug: version
