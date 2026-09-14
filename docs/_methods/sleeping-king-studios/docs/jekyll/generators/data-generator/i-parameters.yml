@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator#parameters
+parent_path: sleeping-king-studios/docs/jekyll/generators/data-generator
+signature: parameters
+slug: parameters
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/generators/data-generator/i-parameters
+returns:
+- description: parameters used to resolve output file paths and contents.
+  type:
+  - name: Hash
+version: "*"

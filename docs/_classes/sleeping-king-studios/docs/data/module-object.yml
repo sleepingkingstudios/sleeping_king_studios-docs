@@ -76,6 +76,14 @@ instance_methods:
   path: sleeping-king-studios/docs/data/module-object/i-parent-path
   slug: parent-path
   inherited: false
+- name: private?
+  path: sleeping-king-studios/docs/data/namespace-object/i-private?
+  slug: private?
+  inherited: true
+- name: public?
+  path: sleeping-king-studios/docs/data/namespace-object/i-public?
+  slug: public?
+  inherited: true
 - name: short_description
   path: sleeping-king-studios/docs/data/module-object/i-short-description
   slug: short-description

@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Reference#method_data_directory
+parent_path: sleeping-king-studios/docs/jekyll/commands/reference
+signature: method_data_directory
+slug: method-data-directory
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/commands/reference/i-method-data-directory
+returns:
+- description: the directory for defining method data YAML files.
+  type:
+  - name: String
+version: "*"

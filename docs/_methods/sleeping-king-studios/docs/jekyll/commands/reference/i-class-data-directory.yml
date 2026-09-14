@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Reference#class_data_directory
+parent_path: sleeping-king-studios/docs/jekyll/commands/reference
+signature: class_data_directory
+slug: class-data-directory
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/commands/reference/i-class-data-directory
+returns:
+- description: the directory for defining class data YAML files.
+  type:
+  - name: String
+version: "*"

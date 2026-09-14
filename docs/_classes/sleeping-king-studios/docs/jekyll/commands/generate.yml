@@ -1,0 +1,42 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Generate
+slug: generate
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/commands/generate.rb
+parent_path: sleeping-king-studios/docs/jekyll/commands
+short_description: Generates new reference documentation.
+instance_methods:
+- name: class_data_directory
+  path: sleeping-king-studios/docs/jekyll/commands/reference/i-class-data-directory
+  slug: class-data-directory
+  inherited: true
+- name: constant_data_directory
+  path: sleeping-king-studios/docs/jekyll/commands/reference/i-constant-data-directory
+  slug: constant-data-directory
+  inherited: true
+- name: method_data_directory
+  path: sleeping-king-studios/docs/jekyll/commands/reference/i-method-data-directory
+  slug: method-data-directory
+  inherited: true
+- name: module_data_directory
+  path: sleeping-king-studios/docs/jekyll/commands/reference/i-module-data-directory
+  slug: module-data-directory
+  inherited: true
+- name: namespace_data_directory
+  path: sleeping-king-studios/docs/jekyll/commands/reference/i-namespace-data-directory
+  slug: namespace-data-directory
+  inherited: true
+- name: reference_directory
+  path: sleeping-king-studios/docs/jekyll/commands/reference/i-reference-directory
+  slug: reference-directory
+  inherited: true
+data_path: sleeping-king-studios/docs/jekyll/commands/generate
+constructor: false
+inherited_classes:
+- name: SleepingKingStudios::Docs::Jekyll::Commands::Reference
+  slug: reference
+  path: sleeping-king-studios/docs/jekyll/commands/reference
+- name: Cuprum::Cli::Command
+  slug: command
+version: "*"

@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Yard::Build
+slug: build
+type: class
+files:
+- lib/sleeping_king_studios/docs/yard/build.rb
+parent_path: sleeping-king-studios/docs/yard
+short_description: Command for creating generic data objects from YARD objects.
+data_path: sleeping-king-studios/docs/yard/build
+constructor: false
+inherited_classes:
+- name: Cuprum::Command
+  slug: command
+version: "*"

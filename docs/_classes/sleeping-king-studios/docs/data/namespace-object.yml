@@ -48,6 +48,14 @@ instance_methods:
   path: sleeping-king-studios/docs/data/namespace-object/i-name
   slug: name
   inherited: false
+- name: private?
+  path: sleeping-king-studios/docs/data/namespace-object/i-private?
+  slug: private?
+  inherited: false
+- name: public?
+  path: sleeping-king-studios/docs/data/namespace-object/i-public?
+  slug: public?
+  inherited: false
 - name: slug
   path: sleeping-king-studios/docs/data/namespace-object/i-slug
   slug: slug

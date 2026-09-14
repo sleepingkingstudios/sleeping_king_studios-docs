@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#public?
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: public?
+slug: public?
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-public?
+returns:
+- description: |-
+    true if the namespace visibility is public, and the
+    constant (and its parent namespace) does not have a @private tag.
+  type:
+  - name: 'true'
+  - name: 'false'
+version: "*"
