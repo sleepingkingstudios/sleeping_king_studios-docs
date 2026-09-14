@@ -1,0 +1,18 @@
+---
+name: SleepingKingStudios::Docs::Data::SeeTags::UnstructuredTag.matches?
+parent_path: sleeping-king-studios/docs/data/see-tags/unstructured-tag
+signature: match?(native)
+slug: matches?
+constructor: false
+data_path: sleeping-king-studios/docs/data/see-tags/unstructured-tag/c-matches?
+params:
+- description: the tag object.
+  name: native
+  type:
+  - name: YARD::Tags::Tag
+returns:
+- description: true for all tags.
+  type:
+  - name: 'true'
+short_description: Always returns true.
+version: "*"

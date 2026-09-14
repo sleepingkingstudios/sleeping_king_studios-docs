@@ -36,6 +36,14 @@ instance_methods:
   path: sleeping-king-studios/docs/data/constant-object/i-parent-path
   slug: parent-path
   inherited: false
+- name: private?
+  path: sleeping-king-studios/docs/data/constant-object/i-private?
+  slug: private?
+  inherited: false
+- name: public?
+  path: sleeping-king-studios/docs/data/constant-object/i-public?
+  slug: public?
+  inherited: false
 - name: short_description
   path: sleeping-king-studios/docs/data/constant-object/i-short-description
   slug: short-description

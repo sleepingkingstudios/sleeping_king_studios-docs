@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Reference#reference_directory
+parent_path: sleeping-king-studios/docs/jekyll/commands/reference
+signature: reference_directory
+slug: reference-directory
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/commands/reference/i-reference-directory
+returns:
+- description: the directory for defining reference Markdown files.
+  type:
+  - name: String
+version: "*"

@@ -1,0 +1,22 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
+slug: reference-generator
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/generators/reference_generator.rb
+parent_path: sleeping-king-studios/docs/jekyll/generators
+short_description: Generator class for writing reference data and files to the filesystem.
+instance_methods:
+- name: parameters
+  path: sleeping-king-studios/docs/jekyll/generators/reference-generator/i-parameters
+  slug: parameters
+  inherited: false
+data_path: sleeping-king-studios/docs/jekyll/generators/reference-generator
+constructor: false
+inherited_classes:
+- name: SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator
+  slug: data-generator
+  path: sleeping-king-studios/docs/jekyll/generators/data-generator
+- name: Cuprum::Cli::Files::Generator
+  slug: generator
+version: "*"

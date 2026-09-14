@@ -49,6 +49,14 @@ RSpec.describe SleepingKingStudios::Docs::Data::NamespaceObject do
     end
   end
 
+  describe '#private?' do
+    include_examples 'should define predicate', :private?, false
+  end
+
+  describe '#public?' do
+    include_examples 'should define predicate', :public?, true
+  end
+
   describe '#name' do
     include_examples 'should define reader', :name, ''
   end

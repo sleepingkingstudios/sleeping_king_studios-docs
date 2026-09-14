@@ -616,6 +616,114 @@ RSpec.describe SleepingKingStudios::Docs::Data::MethodObject do
     end
   end
 
+  describe '#protected?' do
+    include_examples 'should define predicate', :protected?, false
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'Space::Rocket#launch' }
+
+      it { expect(method_object.protected?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Rocket#launch' }
+
+      it { expect(method_object.protected?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(method_object.protected?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with visibility protected' do
+      it { expect(method_object.protected?).to be true }
+    end
+
+    wrap_context 'using fixture',
+      'with visibility protected and private parent' \
+    do
+      let(:fixture_name) { 'Rocket#launch' }
+
+      it { expect(method_object.protected?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(method_object.protected?).to be false }
+    end
+  end
+
+  describe '#private?' do
+    include_examples 'should define predicate', :private?, false
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'Space::Rocket#launch' }
+
+      it { expect(method_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Rocket#launch' }
+
+      it { expect(method_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(method_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with visibility protected' do
+      it { expect(method_object.private?).to be false }
+    end
+
+    wrap_context 'using fixture',
+      'with visibility protected and private parent' \
+    do
+      let(:fixture_name) { 'Rocket#launch' }
+
+      it { expect(method_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(method_object.private?).to be true }
+    end
+  end
+
+  describe '#public?' do
+    include_examples 'should define predicate', :public?, true
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'Space::Rocket#launch' }
+
+      it { expect(method_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Rocket#launch' }
+
+      it { expect(method_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(method_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with visibility protected' do
+      it { expect(method_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture',
+      'with visibility protected and private parent' \
+    do
+      let(:fixture_name) { 'Rocket#launch' }
+
+      it { expect(method_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(method_object.public?).to be false }
+    end
+  end
+
   describe '#raises' do
     include_examples 'should define reader', :raises, []
 

@@ -102,6 +102,30 @@ module SleepingKingStudios::Docs::Data
       @parent_path = parent_object.data_path
     end
 
+    # @return [true, false] true if the constant visibility is private, or if
+    #   the constant (or its namespace) has a @private tag.
+    def private?
+      return true if native.visibility == :private
+
+      object = native
+
+      while object
+        return true if object.tags.any? { |tag| tag.tag_name == 'private' }
+
+        object = object.parent
+      end
+
+      false
+    end
+
+    # @return [true, false] true if the constant visibility is public, and the
+    #   constant (and its namespace) does not have a @private tag.
+    def public?
+      return false unless native.visibility == :public
+
+      !private?
+    end
+
     # A short description of the constant.
     #
     # The first part of the constant description, separated by the first

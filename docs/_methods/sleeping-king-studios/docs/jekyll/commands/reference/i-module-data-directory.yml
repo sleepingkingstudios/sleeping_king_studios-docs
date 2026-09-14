@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Reference#module_data_directory
+parent_path: sleeping-king-studios/docs/jekyll/commands/reference
+signature: module_data_directory
+slug: module-data-directory
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/commands/reference/i-module-data-directory
+returns:
+- description: the directory for defining module data YAML files.
+  type:
+  - name: String
+version: "*"

@@ -72,6 +72,18 @@ instance_methods:
   path: sleeping-king-studios/docs/data/method-object/i-parent-path
   slug: parent-path
   inherited: false
+- name: private?
+  path: sleeping-king-studios/docs/data/method-object/i-private?
+  slug: private?
+  inherited: false
+- name: protected?
+  path: sleeping-king-studios/docs/data/method-object/i-protected?
+  slug: protected?
+  inherited: false
+- name: public?
+  path: sleeping-king-studios/docs/data/method-object/i-public?
+  slug: public?
+  inherited: false
 - name: raises
   path: sleeping-king-studios/docs/data/method-object/i-raises
   slug: raises

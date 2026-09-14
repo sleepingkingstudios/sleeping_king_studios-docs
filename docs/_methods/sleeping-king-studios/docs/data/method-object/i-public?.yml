@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::MethodObject#public?
+parent_path: sleeping-king-studios/docs/data/method-object
+signature: public?
+slug: public?
+constructor: false
+data_path: sleeping-king-studios/docs/data/method-object/i-public?
+returns:
+- description: |-
+    true if the method visibility is public, and the
+    method (and its namespace) does not have a @private tag.
+  type:
+  - name: 'true'
+  - name: 'false'
+version: "*"

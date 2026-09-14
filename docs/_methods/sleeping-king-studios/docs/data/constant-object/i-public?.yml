@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::ConstantObject#public?
+parent_path: sleeping-king-studios/docs/data/constant-object
+signature: public?
+slug: public?
+constructor: false
+data_path: sleeping-king-studios/docs/data/constant-object/i-public?
+returns:
+- description: |-
+    true if the constant visibility is public, and the
+    constant (and its namespace) does not have a @private tag.
+  type:
+  - name: 'true'
+  - name: 'false'
+version: "*"

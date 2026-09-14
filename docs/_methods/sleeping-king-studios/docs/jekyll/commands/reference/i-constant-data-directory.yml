@@ -1,0 +1,12 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Commands::Reference#constant_data_directory
+parent_path: sleeping-king-studios/docs/jekyll/commands/reference
+signature: constant_data_directory
+slug: constant-data-directory
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/commands/reference/i-constant-data-directory
+returns:
+- description: the directory for defining constant data YAML files.
+  type:
+  - name: String
+version: "*"

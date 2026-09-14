@@ -248,6 +248,54 @@ RSpec.describe SleepingKingStudios::Docs::Data::ModuleObject do
     end
   end
 
+  describe '#private?' do
+    include_examples 'should define predicate', :private?, false
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'Cosmos::LocalDimension::SpaceAndTime' }
+
+      it { expect(module_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Cosmos::SpaceAndTime' }
+
+      it { expect(module_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(module_object.private?).to be true }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(module_object.private?).to be true }
+    end
+  end
+
+  describe '#public?' do
+    include_examples 'should define predicate', :public?, true
+
+    wrap_context 'using fixture', 'with private ancestor' do
+      let(:fixture_name) { 'Cosmos::LocalDimension::SpaceAndTime' }
+
+      it { expect(module_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private parent' do
+      let(:fixture_name) { 'Cosmos::SpaceAndTime' }
+
+      it { expect(module_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with private tag' do
+      it { expect(module_object.public?).to be false }
+    end
+
+    wrap_context 'using fixture', 'with visibility private' do
+      it { expect(module_object.public?).to be false }
+    end
+  end
+
   describe '#type' do
     include_examples 'should define reader', :type, 'module'
   end
