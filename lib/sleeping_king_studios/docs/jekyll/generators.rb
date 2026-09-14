@@ -7,5 +7,7 @@ module SleepingKingStudios::Docs::Jekyll
   module Generators
     autoload :DataGenerator,
       'sleeping_king_studios/docs/jekyll/generators/data_generator'
+    autoload :ReferenceGenerator,
+      'sleeping_king_studios/docs/jekyll/generators/reference_generator'
   end
 end
