@@ -18,6 +18,8 @@ RSpec.describe SleepingKingStudios::Docs::Yard::Build do
       SleepingKingStudios::Docs::Errors::RegistryError.new(message:)
     end
 
+    after(:example) { YARD::Registry.clear }
+
     describe 'with nil' do
       let(:native) { nil }
 

@@ -29,6 +29,8 @@ RSpec.describe SleepingKingStudios::Docs::Commands::Generate do
 
         SleepingKingStudios::Docs::Yard::Registry.new(items:)
       end
+
+      after(:example) { YARD::Registry.clear }
     end
 
     shared_examples 'should only generate root data file' do
