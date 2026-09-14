@@ -13,7 +13,11 @@ module Spec::Support::Deferred
       describe '#class_data_directory' do
         let(:expected) { 'docs/_classes' }
 
-        before(:example) { command.call(**options) }
+        before(:example) do
+          allow(subject).to receive(:process)
+
+          subject.call(**options)
+        end
 
         include_examples 'should define reader', :class_data_directory
 
@@ -39,7 +43,11 @@ module Spec::Support::Deferred
       describe '#constant_data_directory' do
         let(:expected) { 'docs/_constants' }
 
-        before(:example) { command.call(**options) }
+        before(:example) do
+          allow(subject).to receive(:process)
+
+          subject.call(**options)
+        end
 
         include_examples 'should define reader', :constant_data_directory
 
@@ -65,7 +73,11 @@ module Spec::Support::Deferred
       describe '#method_data_directory' do
         let(:expected) { 'docs/_methods' }
 
-        before(:example) { command.call(**options) }
+        before(:example) do
+          allow(subject).to receive(:process)
+
+          subject.call(**options)
+        end
 
         include_examples 'should define reader', :method_data_directory
 
@@ -91,7 +103,11 @@ module Spec::Support::Deferred
       describe '#module_data_directory' do
         let(:expected) { 'docs/_modules' }
 
-        before(:example) { command.call(**options) }
+        before(:example) do
+          allow(subject).to receive(:process)
+
+          subject.call(**options)
+        end
 
         include_examples 'should define reader', :method_data_directory
 
@@ -117,7 +133,11 @@ module Spec::Support::Deferred
       describe '#namespace_data_directory' do
         let(:expected) { 'docs/_namespaces' }
 
-        before(:example) { command.call(**options) }
+        before(:example) do
+          allow(subject).to receive(:process)
+
+          subject.call(**options)
+        end
 
         include_examples 'should define reader', :namespace_data_directory
 
@@ -143,7 +163,11 @@ module Spec::Support::Deferred
       describe '#reference_directory' do
         let(:expected) { 'docs/reference' }
 
-        before(:example) { command.call(**options) }
+        before(:example) do
+          allow(subject).to receive(:process)
+
+          subject.call(**options)
+        end
 
         include_examples 'should define reader', :reference_directory
 

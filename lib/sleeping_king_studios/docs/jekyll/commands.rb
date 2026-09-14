@@ -7,6 +7,8 @@ module SleepingKingStudios::Docs::Jekyll
   module Commands
     autoload :Clobber,
       'sleeping_king_studios/docs/jekyll/commands/clobber'
+    autoload :Generate,
+      'sleeping_king_studios/docs/jekyll/commands/generate'
     autoload :Install,
       'sleeping_king_studios/docs/jekyll/commands/install'
     autoload :InstallTemplates,
