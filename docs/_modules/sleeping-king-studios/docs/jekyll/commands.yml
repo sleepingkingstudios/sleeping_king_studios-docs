@@ -10,6 +10,7 @@ files:
 - lib/sleeping_king_studios/docs/jekyll/commands/generate.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/reference.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/install_workflow.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/backfill_versions.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/install_templates.rb
 parent_path: sleeping-king-studios/docs/jekyll
 short_description: Namespace for commands which install the Jekyll application.
@@ -19,6 +20,8 @@ class_methods:
   slug: templates-path
   inherited: false
 defined_classes:
+- name: BackfillVersions
+  slug: backfill-versions
 - name: Clobber
   slug: clobber
 - name: Generate
