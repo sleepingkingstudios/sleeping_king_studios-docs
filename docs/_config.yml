@@ -12,6 +12,8 @@ collections:
     output: false
   namespaces:
     output: false
+  versions:
+    output: false
 defaults:
 - scope:
     path: ''
@@ -29,9 +31,6 @@ project_metadata:
   description:    Tools for generating a versioned documentation site from YARD docs.
   name:           SleepingKingStudios::Docs
   repository_url: https://github.com/sleepingkingstudios/sleeping_king_studios-docs
-  versions:
-    - 0.1
-    - 0.2
 
 # Theme Configuration
 theme: jekyll-theme-dinky

@@ -5,6 +5,8 @@ require 'sleeping_king_studios/docs/jekyll'
 module SleepingKingStudios::Docs::Jekyll
   # Namespace for commands which install the Jekyll application.
   module Commands
+    autoload :BackfillVersions,
+      'sleeping_king_studios/docs/jekyll/commands/backfill_versions'
     autoload :Clobber,
       'sleeping_king_studios/docs/jekyll/commands/clobber'
     autoload :Generate,

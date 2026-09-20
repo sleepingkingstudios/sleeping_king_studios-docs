@@ -17,6 +17,7 @@ registry.register Cuprum::Cli::Commands::Ci::RSpecEachCommand
 registry.register Cuprum::Cli::Commands::File::NewCommand
 
 # Docs Commands
+registry.register SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions
 registry.register SleepingKingStudios::Docs::Jekyll::Commands::Clobber
 registry.register SleepingKingStudios::Docs::Jekyll::Commands::Generate
 registry.register SleepingKingStudios::Docs::Jekyll::Commands::Install

@@ -20,6 +20,7 @@ Removed support for Ruby 3.1.
 > registry = Cuprum::Cli::Integrations::Thor::Registry.new
 >
 > # Docs Commands
+> registry.register SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::Clobber
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::Generate
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::Install
@@ -29,6 +30,8 @@ Removed support for Ruby 3.1.
 > ```
 >
 > Skip any commands that are not relevant for your project, such as installation commands for a project that already has a Jekyll application installed.
+>
+> Update `\_config.yml` to include `collections: { versions: { output: false } }`.
 
 ## Commands
 
@@ -41,6 +44,18 @@ Refactored CLI Commands:
 - Reference commands refactored and moved to `Docs::Jekyll::Commands` namespace.
 
 Updated file templates.
+
+## Jekyll
+
+Updated site configuration to include project metadata, including name, description, and repository information.
+
+Added `_versions` collection for tracking documented versions.
+
+Added updated site templates.
+
+- Updated page breadcrumbs to be relative to the root path.
+- Updated named headers to reference project metadata.
+- Updated versions page to enumerate documented versions.
 
 # 0.2.1
 
