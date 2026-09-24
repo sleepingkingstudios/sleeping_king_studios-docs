@@ -143,6 +143,14 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           - In #{docs_path}/_config.yml, add `versions: { output: false }` to `collections`.
           - In #{docs_path}/_config.yml, remove `project_metadata.versions`.
 
+          Update _includes/pages/index-versions.md:
+
+          - In #{docs_path}/_includes/pages/index-versions.md, replace the latest_version check with the following:
+
+          ```ruby
+          {% assign latest_version = site.versions | sort: "sortable" | map: "version" | last %}
+          ```
+
           Update versions/index.md:
 
           - In #{docs_path}/versions/index.md, replace the versions loop with the following:

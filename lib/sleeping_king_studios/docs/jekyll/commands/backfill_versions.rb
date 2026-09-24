@@ -30,6 +30,14 @@ module SleepingKingStudios::Docs::Jekyll::Commands
         - In %<docs_path>s/_config.yml, add `versions: { output: false }` to `collections`.
         - In %<docs_path>s/_config.yml, remove `project_metadata.versions`.
 
+        Update _includes/pages/index-versions.md:
+
+        - In %<docs_path>s/_includes/pages/index-versions.md, replace the latest_version check with the following:
+
+        ```ruby
+        {%% assign latest_version = site.versions | sort: "sortable" | map: "version" | last %%}
+        ```
+
         Update versions/index.md:
 
         - In %<docs_path>s/versions/index.md, replace the versions loop with the following:
