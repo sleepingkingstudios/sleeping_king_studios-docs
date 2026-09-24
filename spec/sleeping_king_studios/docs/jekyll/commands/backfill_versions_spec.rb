@@ -30,58 +30,6 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
 
   include_deferred 'should define --verbose option'
 
-  describe '::Generator' do
-    include Cuprum::Cli::RSpec::Deferred::GeneratorsExamples
-
-    subject(:generator) do
-      described_class.new(file_system:, standard_io:, **options)
-    end
-
-    let(:described_class) { super()::Generator }
-    let(:version)         { '0.10' }
-    let(:options)         { { version: } }
-    let(:expected_contents) do
-      <<~YAML
-        ---
-        version: "0.10"
-        sortable: "000.010"
-      YAML
-    end
-
-    include_deferred 'should define option',
-      :docs_path,
-      type:    :string,
-      default: 'docs'
-
-    include_deferred 'should define option',
-      :version,
-      type:     :string,
-      required: true
-
-    include_deferred 'should output file',
-      '%<docs_path>s/_versions/%<version_slug>s.yml'
-
-    describe '#sortable_version' do
-      include_examples 'should define reader', :sortable_version, '000.010'
-
-      context 'when initialized with a version with non-numeric values' do
-        let(:version) { '2.10.3.patch.123' }
-
-        it { expect(generator.sortable_version).to eq('002.010.003.patch.123') }
-      end
-    end
-
-    describe '#version_slug' do
-      include_examples 'should define reader', :version_slug, '0-10'
-
-      context 'when initialized with a version with non-numeric values' do
-        let(:version) { '2.10.3.patch.123' }
-
-        it { expect(generator.version_slug).to eq('2-10-3-patch-123') }
-      end
-    end
-  end
-
   describe '#call' do
     deferred_examples 'should output to STDOUT' do |with_error: false|
       it 'should output to STDOUT' do

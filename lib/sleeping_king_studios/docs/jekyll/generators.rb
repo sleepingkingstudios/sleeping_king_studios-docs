@@ -9,5 +9,7 @@ module SleepingKingStudios::Docs::Jekyll
       'sleeping_king_studios/docs/jekyll/generators/data_generator'
     autoload :ReferenceGenerator,
       'sleeping_king_studios/docs/jekyll/generators/reference_generator'
+    autoload :VersionGenerator,
+      'sleeping_king_studios/docs/jekyll/generators/version_generator'
   end
 end
