@@ -9,6 +9,7 @@ files:
 - lib/sleeping_king_studios/docs/jekyll/commands/install.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/generate.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/reference.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/document_version.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/install_workflow.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/backfill_versions.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/install_templates.rb
@@ -24,6 +25,8 @@ defined_classes:
   slug: backfill-versions
 - name: Clobber
   slug: clobber
+- name: DocumentVersion
+  slug: document-version
 - name: Generate
   slug: generate
 - name: Install

@@ -92,7 +92,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
   include_deferred 'should implement the path helpers'
 
   describe '#call' do
-    deferred_examples 'should output to STDOUT' do
+    deferred_examples 'should output to standard IO' do
       it 'should output to STDOUT' do
         call_command
 
@@ -363,7 +363,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
         .with_value(nil)
     end
 
-    include_deferred 'should output to STDOUT'
+    include_deferred 'should output to standard IO'
 
     it 'should not update the filesystem' do
       expect { call_command }.not_to change(file_system, :files)
@@ -379,7 +379,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
           .with_value(nil)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       it 'should not update the filesystem' do
         expect { call_command }.not_to change(file_system, :files)
@@ -395,7 +395,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
           .with_value(nil)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       it 'should not update the filesystem' do
         expect { call_command }.not_to change(file_system, :files)
@@ -440,7 +440,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
           .with_value(nil)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       it 'should not update the filesystem' do
         expect { call_command }.not_to change(file_system, :files)
@@ -496,7 +496,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
           .with_value(nil)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       include_deferred 'should remove the files for the current version'
 
@@ -510,7 +510,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
             .with_value(nil)
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         include_deferred 'should remove the files for the current version'
       end
@@ -524,7 +524,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
             .with_value(nil)
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         it 'should not update the filesystem' do
           expect { call_command }.not_to change(file_system, :files)
@@ -582,7 +582,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Clobber do
             .with_value(nil)
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         include_deferred 'should remove the files for the specified version'
       end

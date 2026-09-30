@@ -1,0 +1,27 @@
+---
+name: SleepingKingStudios::Docs::Jekyll::Generators::VersionGenerator
+slug: version-generator
+type: class
+files:
+- lib/sleeping_king_studios/docs/jekyll/generators/version_generator.rb
+parent_path: sleeping-king-studios/docs/jekyll/generators
+short_description: Generator class for writing versions as Jekyll collection items.
+instance_methods:
+- name: parameters
+  path: sleeping-king-studios/docs/jekyll/generators/version-generator/i-parameters
+  slug: parameters
+  inherited: false
+- name: sortable_version
+  path: sleeping-king-studios/docs/jekyll/generators/version-generator/i-sortable-version
+  slug: sortable-version
+  inherited: false
+- name: version_slug
+  path: sleeping-king-studios/docs/jekyll/generators/version-generator/i-version-slug
+  slug: version-slug
+  inherited: false
+data_path: sleeping-king-studios/docs/jekyll/generators/version-generator
+constructor: false
+inherited_classes:
+- name: Cuprum::Cli::Files::Generator
+  slug: generator
+version: "*"
