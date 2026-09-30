@@ -22,6 +22,7 @@ Removed support for Ruby 3.1.
 > # Docs Commands
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::Clobber
+> registry.register SleepingKingStudios::Docs::Jekyll::Commands::DocumentVersion
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::Generate
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::Install
 > registry.register SleepingKingStudios::Docs::Jekyll::Commands::InstallTemplates

@@ -7,9 +7,6 @@ files:
 parent_path: sleeping-king-studios/docs/jekyll/commands
 short_description: Helper command to populate the versions collection with past version
   data.
-defined_classes:
-- name: Generator
-  slug: generator
 data_path: sleeping-king-studios/docs/jekyll/commands/backfill-versions
 included_modules:
 - name: Cuprum::Cli::Dependencies::StandardIo::Helpers
