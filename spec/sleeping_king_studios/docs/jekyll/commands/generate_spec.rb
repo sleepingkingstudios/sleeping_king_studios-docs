@@ -96,7 +96,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
       end
     end
 
-    deferred_examples 'should output to STDOUT' do
+    deferred_examples 'should output to standard IO' do
       it 'should output to STDOUT' do
         call_command
 
@@ -272,7 +272,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
       expect { call_command }.not_to change(file_system, :files)
     end
 
-    include_deferred 'should output to STDOUT'
+    include_deferred 'should output to standard IO'
 
     describe 'when initialized with docs_path: value' do
       let(:docs_path) { 'path/to/docs' }
@@ -288,7 +288,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
         expect { call_command }.not_to change(file_system, :files)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
     end
 
     describe 'when initialized with dry_run: true' do
@@ -304,7 +304,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
         expect { call_command }.not_to change(file_system, :files)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
     end
 
     describe 'when initialized with version: value' do
@@ -321,7 +321,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
         expect { call_command }.not_to change(file_system, :files)
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
     end
 
     context 'when the YARD parser returns a failing result' do
@@ -450,7 +450,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
         end
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       describe 'when initialized with docs_path: value' do
         let(:docs_path) { 'path/to/docs' }
@@ -471,7 +471,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
           end
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
 
       describe 'when initialized with dry_run: true' do
@@ -487,7 +487,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
           expect { call_command }.not_to change(file_system, :files)
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
 
       describe 'when initialized with version: value' do
@@ -509,7 +509,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
           end
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
 
       context 'when writing the data files returns failing results' do
@@ -691,7 +691,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
         end
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       context 'when the data directories have directories' do
         let(:directory_paths) do
@@ -729,7 +729,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
           end
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         describe 'with dry_run: true' do
           let(:options) { super().merge(dry_run: true) }
@@ -744,7 +744,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
             expect { call_command }.not_to change(file_system, :files)
           end
 
-          include_deferred 'should output to STDOUT'
+          include_deferred 'should output to standard IO'
         end
       end
 

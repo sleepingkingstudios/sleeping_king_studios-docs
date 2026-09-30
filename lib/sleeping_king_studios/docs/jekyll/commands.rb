@@ -9,6 +9,8 @@ module SleepingKingStudios::Docs::Jekyll
       'sleeping_king_studios/docs/jekyll/commands/backfill_versions'
     autoload :Clobber,
       'sleeping_king_studios/docs/jekyll/commands/clobber'
+    autoload :DocumentVersion,
+      'sleeping_king_studios/docs/jekyll/commands/document_version'
     autoload :Generate,
       'sleeping_king_studios/docs/jekyll/commands/generate'
     autoload :Install,

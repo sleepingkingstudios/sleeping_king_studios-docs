@@ -31,7 +31,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
   include_deferred 'should define --verbose option'
 
   describe '#call' do
-    deferred_examples 'should output to STDOUT' do |with_error: false|
+    deferred_examples 'should output to standard IO' do |with_error: false|
       it 'should output to STDOUT' do
         command.call(**options)
 
@@ -194,7 +194,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
       expect(file_system.directory?(collection_path)).to be true
     end
 
-    include_deferred 'should output to STDOUT', with_error: true
+    include_deferred 'should output to standard IO', with_error: true
 
     describe 'with docs_path: value' do
       let(:docs_path) { 'path/to/docs' }
@@ -214,7 +214,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         expect(file_system.directory?(collection_path)).to be true
       end
 
-      include_deferred 'should output to STDOUT', with_error: true
+      include_deferred 'should output to standard IO', with_error: true
     end
 
     describe 'with dry_run: true' do
@@ -230,7 +230,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         expect { call_command }.not_to change(file_system, :files)
       end
 
-      include_deferred 'should output to STDOUT', with_error: true
+      include_deferred 'should output to standard IO', with_error: true
     end
 
     context 'when the config file exists with invalid YAML' do
@@ -257,7 +257,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         expect(file_system.directory?(collection_path)).to be true
       end
 
-      include_deferred 'should output to STDOUT', with_error: true
+      include_deferred 'should output to standard IO', with_error: true
     end
 
     context 'when the config file exists with missing versions' do
@@ -285,7 +285,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         expect(file_system.directory?(collection_path)).to be true
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
     end
 
     context 'when the config file exists with defined versions' do
@@ -352,7 +352,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         end
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       describe 'with docs_path: value' do
         let(:docs_path) { 'path/to/docs' }
@@ -380,7 +380,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           end
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
 
       describe 'with dry_run: true' do
@@ -396,7 +396,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           expect { call_command }.not_to change(file_system, :files)
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
     end
 
@@ -417,7 +417,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         expect(file_system.directory?(collection_path)).to be true
       end
 
-      include_deferred 'should output to STDOUT', with_error: true
+      include_deferred 'should output to standard IO', with_error: true
     end
 
     context 'when the versions directory has versions' do
@@ -483,7 +483,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         end
       end
 
-      include_deferred 'should output to STDOUT', with_error: true
+      include_deferred 'should output to standard IO', with_error: true
 
       describe 'with docs_path: value' do
         let(:docs_path) { 'path/to/docs' }
@@ -511,7 +511,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           end
         end
 
-        include_deferred 'should output to STDOUT', with_error: true
+        include_deferred 'should output to standard IO', with_error: true
       end
 
       describe 'with dry_run: true' do
@@ -527,7 +527,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           expect { call_command }.not_to change(file_system, :files)
         end
 
-        include_deferred 'should output to STDOUT', with_error: true
+        include_deferred 'should output to standard IO', with_error: true
       end
 
       context 'when the versions directory has non-version directories' do
@@ -564,7 +564,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           end
         end
 
-        include_deferred 'should output to STDOUT', with_error: true
+        include_deferred 'should output to standard IO', with_error: true
       end
     end
 
@@ -651,7 +651,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
         end
       end
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       describe 'with docs_path: value' do
         let(:docs_path) { 'path/to/docs' }
@@ -679,7 +679,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           end
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
 
       describe 'with dry_run: true' do
@@ -695,7 +695,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::BackfillVersions do
           expect { call_command }.not_to change(file_system, :files)
         end
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
     end
   end

@@ -170,7 +170,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
       end
     end
 
-    deferred_examples 'should output to STDOUT' do
+    deferred_examples 'should output to standard IO' do
       it 'should output to STDOUT' do
         call_command
 
@@ -228,7 +228,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
     deferred_examples 'should install the Jekyll application' do
       include_deferred 'should generate the expected files'
 
-      include_deferred 'should output to STDOUT'
+      include_deferred 'should output to standard IO'
 
       describe 'with docs_path: value' do
         let(:docs_path) { 'path/to/docs' }
@@ -236,7 +236,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
 
         include_deferred 'should generate the expected files'
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
 
       describe 'with dry_run: true' do
@@ -255,7 +255,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
 
         include_deferred 'should generate the expected files'
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         it 'should not update the Gemfile', :aggregate_failures do
           existing = file_system.file?('Gemfile')
@@ -276,7 +276,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
 
         include_deferred 'should generate the expected files'
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         it 'should not update the .gitignore', :aggregate_failures do
           existing = file_system.file?('.gitignore')
@@ -297,7 +297,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
 
         include_deferred 'should generate the expected files'
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
 
         it 'should not generate the template files', :aggregate_failures do
           call_command
@@ -321,7 +321,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
 
         include_deferred 'should generate the expected files', workflow: true
 
-        include_deferred 'should output to STDOUT'
+        include_deferred 'should output to standard IO'
       end
     end
 
