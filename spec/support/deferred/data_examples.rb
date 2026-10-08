@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'digest'
+
 require 'plumbum/rspec/stub_provider'
 require 'rspec/sleeping_king_studios/deferred/provider'
 
@@ -34,6 +36,27 @@ module Spec::Support::Deferred
         it { expect(subject).to respond_to(:as_json).with(0).arguments }
 
         it { expect(subject.as_json).to be == expected_json }
+      end
+
+      describe '#checksum' do
+        let(:expected) do
+          string =
+            "#{subject.class.name}:#{JSON.fast_generate(subject.as_json)}"
+
+          Digest::MD5.base64digest(string)
+        end
+
+        it { expect(subject).to respond_to(:checksum).with(0).arguments }
+
+        it { expect(subject.checksum).to eq(expected) }
+
+        it 'should memoize the value' do
+          allow(Digest::MD5).to receive(:base64digest).and_return(expected)
+
+          3.times { subject.checksum }
+
+          expect(Digest::MD5).to have_received(:base64digest).exactly(1).times
+        end
       end
 
       describe '#native' do
