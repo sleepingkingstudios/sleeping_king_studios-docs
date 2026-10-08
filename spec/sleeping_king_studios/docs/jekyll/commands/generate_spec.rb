@@ -178,7 +178,11 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
     define_method :data_contents_for do |object|
       version = defined?(self.version) ? self.version || '*' : '*'
 
-      YAML.safe_dump(object.as_json.merge('version' => version))
+      YAML.safe_dump(
+        object
+          .as_json
+          .merge('version' => version, 'checksum' => object.checksum)
+      )
     end
 
     define_method :data_path_for do |object|

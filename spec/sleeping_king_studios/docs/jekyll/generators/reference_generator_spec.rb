@@ -37,6 +37,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
       data_class,
       as_json:   { 'name' => name },
       class:     data_class,
+      checksum:  'D34DB33F',
       data_path:,
       name:,
       **params
@@ -117,6 +118,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
         ---
         name: #{object.name}
         version: "*"
+        checksum: #{object.checksum}
       YAML
     end
     let(:reference_file) { "#{docs_path}/reference/space.md" }
@@ -143,6 +145,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
           ---
           name: #{object.name}
           version: "*"
+          checksum: #{object.checksum}
 
         Generating file #{reference_file}...
 
@@ -236,6 +239,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
           ---
           name: #{object.name}
           version: #{version}
+          checksum: #{object.checksum}
         YAML
       end
       let(:reference_file) do
@@ -258,6 +262,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
             ---
             name: #{object.name}
             version: #{version}
+            checksum: #{object.checksum}
 
           Generating file #{reference_file}...
 
@@ -322,6 +327,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::ReferenceGenerator
             ---
             name: #{object.name}
             version: "*"
+            checksum: #{object.checksum}
 
           Generating file #{reference_file}...
 
