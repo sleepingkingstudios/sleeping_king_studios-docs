@@ -32,3 +32,4 @@ returns:
     - name: Object
 short_description: Generates a JSON-compatible representation of the namespace.
 version: "*"
+checksum: vDAWelgelYs/5xaFuYmgjg==

@@ -11,3 +11,4 @@ returns:
   - name: Hash
 short_description: Generates a JSON-compatible representation of the object.
 version: "*"
+checksum: tKwMiqR3gVQoslmCOdLFLA==

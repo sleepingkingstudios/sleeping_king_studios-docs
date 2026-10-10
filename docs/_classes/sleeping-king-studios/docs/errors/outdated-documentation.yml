@@ -1,0 +1,58 @@
+---
+name: SleepingKingStudios::Docs::Errors::OutdatedDocumentation
+slug: outdated-documentation
+type: class
+files:
+- lib/sleeping_king_studios/docs/errors/outdated_documentation.rb
+parent_path: sleeping-king-studios/docs/errors
+short_description: Error returned when the checked documentation does not match the
+  code.
+constants:
+- name: TYPE
+  path: sleeping-king-studios/docs/errors/outdated-documentation/type
+  slug: type
+  inherited: false
+instance_attributes:
+- name: changed_files
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/outdated-documentation/i-changed-files
+  slug: changed-files
+  inherited: false
+- name: docs_path
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/outdated-documentation/i-docs-path
+  slug: docs-path
+  inherited: false
+- name: extra_files
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/outdated-documentation/i-extra-files
+  slug: extra-files
+  inherited: false
+- name: missing_files
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/outdated-documentation/i-missing-files
+  slug: missing-files
+  inherited: false
+- name: version
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/errors/outdated-documentation/i-version
+  slug: version
+  inherited: false
+instance_methods:
+- name: initialize
+  path: sleeping-king-studios/docs/errors/outdated-documentation/i-initialize
+  slug: initialize
+  inherited: false
+  constructor: true
+data_path: sleeping-king-studios/docs/errors/outdated-documentation
+constructor: true
+inherited_classes:
+- name: Cuprum::Error
+  slug: error
+version: "*"
+checksum: dn5aA0JUp2KAU4GLiNoxDQ==

@@ -14,3 +14,4 @@ returns:
   - name: 'false'
 short_description: Checks if the referenced code object exists in the registry.
 version: "*"
+checksum: AdtpqmSxvmxmPMJ4d/Jq2g==

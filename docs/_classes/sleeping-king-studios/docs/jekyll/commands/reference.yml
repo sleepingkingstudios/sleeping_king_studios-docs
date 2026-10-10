@@ -41,6 +41,9 @@ included_modules:
   slug: verbose
 constructor: false
 direct_subclasses:
+- name: SleepingKingStudios::Docs::Jekyll::Commands::Check
+  slug: check
+  path: sleeping-king-studios/docs/jekyll/commands/check
 - name: SleepingKingStudios::Docs::Jekyll::Commands::Clobber
   slug: clobber
   path: sleeping-king-studios/docs/jekyll/commands/clobber
@@ -54,3 +57,4 @@ inherited_classes:
 - name: Cuprum::Cli::Command
   slug: command
 version: "*"
+checksum: DHpjKxwn6pVHudpgW/u4Ug==

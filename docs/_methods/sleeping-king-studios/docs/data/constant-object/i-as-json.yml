@@ -30,3 +30,4 @@ returns:
     - name: Object
 short_description: Generates a JSON-compatible representation of the constant.
 version: "*"
+checksum: KfNHcetIS0UfH3vtbGG7MQ==

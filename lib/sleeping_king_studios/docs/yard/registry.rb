@@ -9,6 +9,9 @@ module SleepingKingStudios::Docs::Yard
   Registry = ::Data.define(:items)
 
   # Dependency injection provider wrapping the YARD registry.
+  #
+  # @!attribute [r] items
+  #   @return [Array<YARD::CodeObjects::Base>] the defined YARD objects.
   class Registry < ::Data
     include Enumerable
 
@@ -31,9 +34,6 @@ module SleepingKingStudios::Docs::Yard
       super
     end
 
-    # @return [Array<YARD::CodeObjects::Base>] the defined YARD objects.
-    alias to_a items
-
     # @overload each
     #   @return [Enumerator] an enumerator that iterates over the registry
     #     items.
@@ -43,9 +43,12 @@ module SleepingKingStudios::Docs::Yard
     def each(&)
       block_given? ? items.each(&) : enum_for(:each)
     end
+
+    alias to_a items
   end
 
   class Registry
+    # An empty registry instance.
     EMPTY = new
   end
 end

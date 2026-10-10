@@ -13,3 +13,4 @@ returns:
     - name: String
 short_description: Collects the @since tags defined for the module.
 version: "*"
+checksum: 5JxwvUZvJGClUxEL214cTA==

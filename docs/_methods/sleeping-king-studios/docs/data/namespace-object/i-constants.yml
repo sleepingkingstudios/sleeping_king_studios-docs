@@ -13,3 +13,4 @@ returns:
     - name: String
 short_description: Finds the names of the constants defined under this namespace.
 version: "*"
+checksum: Ky6a/O106atj18hRRShhwg==

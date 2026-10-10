@@ -16,3 +16,4 @@ returns:
   - name: 'true'
 short_description: Always returns true.
 version: "*"
+checksum: pauSXZaxTUXJg7dLh4nKeA==

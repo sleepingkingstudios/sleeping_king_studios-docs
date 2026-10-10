@@ -17,3 +17,4 @@ returns:
   - name: Hash
 short_description: Generates a JSON-compatible representation of the type.
 version: "*"
+checksum: S0RBb5JAZM1flzoR6zQIog==

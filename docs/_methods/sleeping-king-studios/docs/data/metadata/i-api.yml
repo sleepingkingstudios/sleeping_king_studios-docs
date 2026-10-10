@@ -14,3 +14,4 @@ returns:
   - name: nil
 short_description: Returns the @api tag, if any, defined for the module.
 version: "*"
+checksum: iafzys4AzPZcdds7m4+9Wg==

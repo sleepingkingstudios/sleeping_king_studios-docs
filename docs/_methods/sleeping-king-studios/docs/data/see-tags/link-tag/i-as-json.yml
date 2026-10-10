@@ -14,3 +14,4 @@ description: |-
   - 'type': The string 'link'.
 short_description: Generates a JSON-compatible representation of the tag.
 version: "*"
+checksum: Q7g7/eSOI9pTE8MuzOI6FQ==

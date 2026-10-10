@@ -43,3 +43,4 @@ returns:
     - name: Object
 short_description: Generates a JSON-compatible representation of the method.
 version: "*"
+checksum: oqKCH2xaCGeqslqsAFI2zA==

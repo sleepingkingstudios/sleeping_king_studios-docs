@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The name of the constant in url-safe format.
 version: "*"
+checksum: rEcS1MQATrCy9xu2Il87yw==

@@ -40,6 +40,10 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
     :version,
     type: :string
 
+  include_deferred 'should define --quiet option'
+
+  include_deferred 'should define --verbose option'
+
   include_deferred 'should implement the path helpers'
 
   describe '#call' do
@@ -178,7 +182,11 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
     define_method :data_contents_for do |object|
       version = defined?(self.version) ? self.version || '*' : '*'
 
-      YAML.safe_dump(object.as_json.merge('version' => version))
+      YAML.safe_dump(
+        object
+          .as_json
+          .merge('version' => version, 'checksum' => object.checksum)
+      )
     end
 
     define_method :data_path_for do |object|

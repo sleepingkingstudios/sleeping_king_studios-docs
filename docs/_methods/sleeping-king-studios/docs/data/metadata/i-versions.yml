@@ -13,3 +13,4 @@ returns:
     - name: String
 short_description: Collects the @version tags defined for the module.
 version: "*"
+checksum: T15bu9nNYWhk+o3BAt6Bhg==

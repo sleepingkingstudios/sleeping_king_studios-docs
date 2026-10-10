@@ -53,7 +53,12 @@ module SleepingKingStudios::Docs::Jekyll::Generators
 
     def data_contents
       YAML.safe_dump(
-        object.as_json.merge('version' => version_string)
+        object
+          .as_json
+          .merge(
+            'version'  => version_string,
+            'checksum' => object.checksum
+          )
       )
     end
 

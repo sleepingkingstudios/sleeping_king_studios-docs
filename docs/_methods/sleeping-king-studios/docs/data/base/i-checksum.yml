@@ -1,0 +1,15 @@
+---
+name: SleepingKingStudios::Docs::Data::Base#checksum
+parent_path: sleeping-king-studios/docs/data/base
+signature: checksum
+slug: checksum
+constructor: false
+data_path: sleeping-king-studios/docs/data/base/i-checksum
+description: The checksum is stored as a Base64-encoded String.
+returns:
+- description: the checksum value.
+  type:
+  - name: String
+short_description: Generates an MD5 checksum of the data properties.
+version: "*"
+checksum: oEUS7ydZUe0ex9n7sMfEuQ==

@@ -18,3 +18,4 @@ returns:
   - name: Boolean
 short_description: Checks if the given constant is defined in the registry.
 version: "*"
+checksum: BuXlZZ7ikpjX8ncufyqcgQ==

@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The full, qualified name of the namespace.
 version: "*"
+checksum: vBRBcjUacEw/OeEMDock4Q==

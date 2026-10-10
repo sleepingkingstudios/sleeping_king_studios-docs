@@ -24,3 +24,4 @@ returns:
   - name: String
 short_description: Generates a sortable copy of the version string.
 version: "*"
+checksum: Qr1tOleQaAqNIAQ+B/v5Rw==

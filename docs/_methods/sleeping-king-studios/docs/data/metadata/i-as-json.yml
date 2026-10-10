@@ -23,3 +23,4 @@ returns:
     - name: Object
 short_description: Generates a JSON-compatible representation of the metadata.
 version: "*"
+checksum: 4FHIgyZ+bn9oF2vPe9Abqw==

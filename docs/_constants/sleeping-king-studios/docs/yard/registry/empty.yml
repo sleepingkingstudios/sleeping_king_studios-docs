@@ -2,7 +2,8 @@
 name: SleepingKingStudios::Docs::Yard::Registry::EMPTY
 parent_path: sleeping-king-studios/docs/yard/registry
 slug: empty
-short_description: ''
+short_description: An empty registry instance.
 value: new
 data_path: sleeping-king-studios/docs/yard/registry/empty
 version: "*"
+checksum: yqziVocIa7fe5SsEUwKIMg==

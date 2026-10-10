@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The full, qualified name of the method.
 version: "*"
+checksum: bWoPTfRv8WpZbNWweI3zsA==

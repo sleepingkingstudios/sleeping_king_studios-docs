@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Yard::Registry#items
+parent_path: sleeping-king-studios/docs/yard/registry
+signature: items
+slug: items
+aliases:
+- to_a
+constructor: false
+data_path: sleeping-king-studios/docs/yard/registry/i-items
+returns:
+- description: the defined YARD objects.
+  type:
+  - name: Array
+    items:
+    - name: YARD::CodeObjects::Base
+version: "*"
+checksum: H00K7eYyKudXWt1yjeVsEQ==

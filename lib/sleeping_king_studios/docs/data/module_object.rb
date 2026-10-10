@@ -117,7 +117,7 @@ module SleepingKingStudios::Docs::Data
     #
     # @return [Array<String>] the list of files.
     def files
-      @files ||= native.files.map(&:first)
+      @files ||= native.files.map(&:first).uniq
     end
 
     # A list of the modules that are included in the original module.

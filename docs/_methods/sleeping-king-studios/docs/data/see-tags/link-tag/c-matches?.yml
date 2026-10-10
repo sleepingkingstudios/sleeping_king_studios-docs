@@ -17,3 +17,4 @@ returns:
   - name: 'false'
 short_description: Checks if the given tag object is a link.
 version: "*"
+checksum: PqE0s4FdXwSqY8Pt61UxFQ==

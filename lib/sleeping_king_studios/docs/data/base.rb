@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'digest'
+require 'json'
+
 require 'plumbum'
 require 'sleeping_king_studios/tools/toolbelt'
 
@@ -29,6 +32,17 @@ module SleepingKingStudios::Docs::Data
     # @return [Hash] the JSON representation.
     def as_json
       {}
+    end
+
+    # Generates an MD5 checksum of the data properties.
+    #
+    # The checksum is stored as a Base64-encoded String.
+    #
+    # @return [String] the checksum value.
+    def checksum
+      @checksum ||= Digest::MD5.base64digest(
+        "#{self.class.name}:#{JSON.fast_generate(as_json)}"
+      )
     end
 
     private

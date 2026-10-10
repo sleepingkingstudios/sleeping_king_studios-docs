@@ -12,3 +12,4 @@ inherited_classes:
 - name: Cuprum::Command
   slug: command
 version: "*"
+checksum: "+BNo2THBjQBLlRktq0o+sQ=="

@@ -37,6 +37,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator do
       data_class,
       as_json:   { 'name' => name },
       class:     data_class,
+      checksum:  'D34DB33F',
       data_path:,
       name:,
       **params
@@ -117,6 +118,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator do
         ---
         name: #{object.name}
         version: "*"
+        checksum: #{object.checksum}
       YAML
     end
     let(:expected_output) do
@@ -131,6 +133,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator do
           ---
           name: #{object.name}
           version: "*"
+          checksum: #{object.checksum}
 
       OUTPUT
     end
@@ -199,6 +202,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator do
           ---
           name: #{object.name}
           version: #{version}
+          checksum: #{object.checksum}
         YAML
       end
       let(:verbose_output) do
@@ -208,6 +212,7 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator do
             ---
             name: #{object.name}
             version: #{version}
+            checksum: #{object.checksum}
 
         OUTPUT
       end

@@ -7,3 +7,4 @@ constructor: false
 data_path: sleeping-king-studios/docs/jekyll/commands/c-templates-path
 short_description: Path to the template files for installing Jekyll.
 version: "*"
+checksum: q8GMCHwPIdfu+eL38BMVdw==

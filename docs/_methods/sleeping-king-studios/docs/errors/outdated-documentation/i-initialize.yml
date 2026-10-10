@@ -1,0 +1,52 @@
+---
+name: SleepingKingStudios::Docs::Errors::OutdatedDocumentation#initialize
+parent_path: sleeping-king-studios/docs/errors/outdated-documentation
+signature: 'initialize(docs_path:, changed_files: [], extra_files: [], missing_files:
+  [], version: nil)'
+slug: initialize
+constructor: true
+data_path: sleeping-king-studios/docs/errors/outdated-documentation/i-initialize
+params:
+- description: the path to the generated documentation.
+  name: docs_path
+  type:
+  - name: String
+- description: the version of the generated documentation.
+  name: version
+  type:
+  - name: String
+  - name: nil
+  default: nil
+- description: |-
+    the list of docs files with missing
+    or non-matching checksums.
+  name: changed_files
+  type:
+  - name: Array
+    items:
+    - name: String
+  default: "[]"
+- description: |-
+    the list of additional files in the
+    docs directory.
+  name: extra_files
+  type:
+  - name: Array
+    items:
+    - name: String
+  default: "[]"
+- description: |-
+    the list of missing docs files based
+    on the registered code.
+  name: missing_files
+  type:
+  - name: Array
+    items:
+    - name: String
+  default: "[]"
+returns:
+- description: a new instance of OutdatedDocumentation
+  type:
+  - name: OutdatedDocumentation
+version: "*"
+checksum: t4FbGkdJEuATfxKs1v2KQQ==

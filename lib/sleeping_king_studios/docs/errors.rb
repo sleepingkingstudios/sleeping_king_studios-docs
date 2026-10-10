@@ -15,6 +15,8 @@ module SleepingKingStudios::Docs
       'sleeping_king_studios/docs/errors/invalid_directory'
     autoload :InvalidFile,
       'sleeping_king_studios/docs/errors/invalid_file'
+    autoload :OutdatedDocumentation,
+      'sleeping_king_studios/docs/errors/outdated_documentation'
     autoload :RegistryError,
       'sleeping_king_studios/docs/errors/registry_error'
   end

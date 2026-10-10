@@ -172,6 +172,12 @@ RSpec.describe SleepingKingStudios::Docs::Data::ModuleObject do
 
       it { expect(module_object.files).to be == expected }
     end
+
+    context 'when the module is defined multiple times in the same file' do
+      include_context 'using fixture', 'with multiple definitions'
+
+      it { expect(module_object.files).to be == expected }
+    end
   end
 
   describe '#included_modules' do

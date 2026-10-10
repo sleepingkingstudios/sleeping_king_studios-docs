@@ -11,6 +11,10 @@ instance_methods:
   path: sleeping-king-studios/docs/data/constant-object/i-as-json
   slug: as-json
   inherited: false
+- name: checksum
+  path: sleeping-king-studios/docs/data/base/i-checksum
+  slug: checksum
+  inherited: true
 - name: data_path
   path: sleeping-king-studios/docs/data/constant-object/i-data-path
   slug: data-path
@@ -66,3 +70,4 @@ inherited_classes:
   slug: base
   path: sleeping-king-studios/docs/data/base
 version: "*"
+checksum: AEz5aAu1uYcoHJQjxs89lQ==

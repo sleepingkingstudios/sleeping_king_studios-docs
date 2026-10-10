@@ -19,3 +19,4 @@ returns:
     - name: Hash
 short_description: The parameters of the yielded to the block.
 version: "*"
+checksum: QMmmiQ4992gvkVwdF/7ekw==

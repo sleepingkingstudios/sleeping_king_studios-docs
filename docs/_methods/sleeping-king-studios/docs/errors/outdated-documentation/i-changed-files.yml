@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Errors::OutdatedDocumentation#changed_files
+parent_path: sleeping-king-studios/docs/errors/outdated-documentation
+signature: changed_files
+slug: changed-files
+constructor: false
+data_path: sleeping-king-studios/docs/errors/outdated-documentation/i-changed-files
+returns:
+- description: |-
+    the list of docs files with missing or
+    non-matching checksums.
+  type:
+  - name: Array
+    items:
+    - name: String
+version: "*"
+checksum: Wt3go4iWz31sVhcBUVMYBg==

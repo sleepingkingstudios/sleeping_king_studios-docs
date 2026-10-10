@@ -11,6 +11,10 @@ instance_methods:
   path: sleeping-king-studios/docs/data/base/i-as-json
   slug: as-json
   inherited: false
+- name: checksum
+  path: sleeping-king-studios/docs/data/base/i-checksum
+  slug: checksum
+  inherited: false
 - name: initialize
   path: sleeping-king-studios/docs/data/base/i-initialize
   slug: initialize
@@ -42,3 +46,4 @@ direct_subclasses:
   slug: base
   path: sleeping-king-studios/docs/data/see-tags/base
 version: "*"
+checksum: De3aCEFi5JO7vWnmzieQrg==

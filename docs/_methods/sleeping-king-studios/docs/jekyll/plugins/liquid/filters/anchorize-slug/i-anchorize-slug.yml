@@ -20,3 +20,4 @@ returns:
   - name: String
 short_description: Converts the slug to a string usable as an HTML anchor.
 version: "*"
+checksum: rIB2auRRUDedzrQCEITx8w==

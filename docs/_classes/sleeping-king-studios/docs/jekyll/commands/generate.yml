@@ -40,3 +40,4 @@ inherited_classes:
 - name: Cuprum::Cli::Command
   slug: command
 version: "*"
+checksum: FRvIscpM3F6AYMJHic+l3g==

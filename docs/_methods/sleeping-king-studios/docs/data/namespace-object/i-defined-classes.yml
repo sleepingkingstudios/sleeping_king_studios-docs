@@ -27,3 +27,4 @@ returns:
     - name: Hash
 short_description: Finds the Classes defined under this namespace, if any.
 version: "*"
+checksum: lSF1l0mt220JS9Znm5aijQ==
