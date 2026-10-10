@@ -4,7 +4,6 @@ slug: registry
 type: class
 files:
 - lib/sleeping_king_studios/docs/yard/registry.rb
-- lib/sleeping_king_studios/docs/yard/registry.rb
 parent_path: sleeping-king-studios/docs/yard
 short_description: Dependency injection provider wrapping the YARD registry.
 class_methods:
@@ -20,6 +19,13 @@ constants:
 - name: EMPTY
   path: sleeping-king-studios/docs/yard/registry/empty
   slug: empty
+  inherited: false
+instance_attributes:
+- name: items
+  read: true
+  write: false
+  path: sleeping-king-studios/docs/yard/registry/i-items
+  slug: items
   inherited: false
 instance_methods:
 - name: each
@@ -40,4 +46,4 @@ inherited_classes:
 - name: Data
   slug: data
 version: "*"
-checksum: GgcsNM5oKEjpGY9+QKIyrA==
+checksum: 0r+BoZzXFVGf0nVzm71oXQ==
