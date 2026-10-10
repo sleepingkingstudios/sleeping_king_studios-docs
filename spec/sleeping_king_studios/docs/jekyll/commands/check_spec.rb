@@ -42,6 +42,12 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
     default: 'docs'
 
   include_deferred 'should define option',
+    :inspect_changes,
+    type:    :boolean,
+    default: false,
+    aliases: %i[inspect]
+
+  include_deferred 'should define option',
     :version,
     type: :string
 
@@ -238,6 +244,18 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
       include_deferred 'should output to StandardIo'
     end
 
+    describe 'with inspect: true' do
+      let(:options) { super().merge(inspect: true) }
+
+      it 'should return a passing result' do
+        expect(call_command)
+          .to be_a_passing_result
+          .with_value(expected_value)
+      end
+
+      include_deferred 'should output to StandardIo'
+    end
+
     describe 'with version: value' do
       let(:version) { '1.12.3' }
       let(:options) { super().merge(version:) }
@@ -293,6 +311,18 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
       describe 'with docs_path: value' do
         let(:docs_path) { 'path/to/docs' }
         let(:options)   { super().merge(docs_path:) }
+
+        it 'should return a failing result with an outdated docs error' do
+          expect(call_command)
+            .to be_a_failing_result
+            .with_error(expected_error)
+        end
+
+        include_deferred 'should output to StandardIo'
+      end
+
+      describe 'with inspect: true' do
+        let(:options) { super().merge(inspect: true) }
 
         it 'should return a failing result with an outdated docs error' do
           expect(call_command)
@@ -511,6 +541,18 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
           include_deferred 'should output to StandardIo'
         end
 
+        describe 'with inspect: true' do
+          let(:options) { super().merge(inspect: true) }
+
+          it 'should return a failing result with an outdated docs error' do
+            expect(call_command)
+              .to be_a_failing_result
+              .with_error(expected_error)
+          end
+
+          include_deferred 'should output to StandardIo'
+        end
+
         describe 'with version: value' do
           let(:version) { '1.12.3' }
           let(:options) { super().merge(version:) }
@@ -537,6 +579,18 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
         describe 'with docs_path: value' do
           let(:docs_path) { 'path/to/docs' }
           let(:options)   { super().merge(docs_path:) }
+
+          it 'should return a passing result' do
+            expect(call_command)
+              .to be_a_passing_result
+              .with_value(expected_value)
+          end
+
+          include_deferred 'should output to StandardIo'
+        end
+
+        describe 'with inspect: true' do
+          let(:options) { super().merge(inspect: true) }
 
           it 'should return a passing result' do
             expect(call_command)
@@ -604,6 +658,64 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
           include_deferred 'should output to StandardIo'
         end
 
+        describe 'with inspect: true' do
+          let(:options) { super().merge(inspect: true) }
+          let(:changed_file_contents) do
+            native    = registry.find { |native| native.name == :initialize }
+            object    =
+              SleepingKingStudios::Docs::Yard::Build
+              .new
+              .call(native)
+              .value
+            mock_fs   = Cuprum::Cli::Dependencies::FileSystem::Mock.new
+            file_path =
+              SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator
+              .new(object:, file_system: mock_fs, standard_io:, quiet: true)
+              .call
+              .value
+              .first
+
+            mock_fs.read_file(file_path)
+          end
+          let(:expected_output) do
+            output = super()
+
+            output << "\n" << ('-' * 80) << "\n"
+
+            output << "\nChanged file #{changed_files.first}:\n\n"
+
+            output << indent(changed_file_contents) << "\n"
+          end
+          let(:verbose_output) do
+            output = super()
+
+            output << "\n" << ('-' * 80) << "\n"
+
+            output << "\nChanged file #{changed_files.first}:\n\n"
+
+            output << indent(changed_file_contents) << "\n"
+          end
+
+          define_method :indent do |contents|
+            contents
+              .each_line
+              .map do |line|
+                next "\n" if line == "\n"
+
+                "  #{line}"
+              end
+              .join
+          end
+
+          it 'should return a failing result with an outdated docs error' do
+            expect(call_command)
+              .to be_a_failing_result
+              .with_error(expected_error)
+          end
+
+          include_deferred 'should output to StandardIo'
+        end
+
         describe 'with version: value' do
           let(:version) { '1.12.3' }
           let(:options) { super().merge(version:) }
@@ -660,6 +772,18 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
         describe 'with docs_path: value' do
           let(:docs_path) { 'path/to/docs' }
           let(:options)   { super().merge(docs_path:) }
+
+          it 'should return a failing result with an outdated docs error' do
+            expect(call_command)
+              .to be_a_failing_result
+              .with_error(expected_error)
+          end
+
+          include_deferred 'should output to StandardIo'
+        end
+
+        describe 'with inspect: true' do
+          let(:options) { super().merge(inspect: true) }
 
           it 'should return a failing result with an outdated docs error' do
             expect(call_command)
@@ -745,6 +869,64 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Check do
         describe 'with docs_path: value' do
           let(:docs_path) { 'path/to/docs' }
           let(:options)   { super().merge(docs_path:) }
+
+          it 'should return a failing result with an outdated docs error' do
+            expect(call_command)
+              .to be_a_failing_result
+              .with_error(expected_error)
+          end
+
+          include_deferred 'should output to StandardIo'
+        end
+
+        describe 'with inspect: true' do
+          let(:options) { super().merge(inspect: true) }
+          let(:changed_file_contents) do
+            native    = registry.find { |native| native.name == :initialize }
+            object    =
+              SleepingKingStudios::Docs::Yard::Build
+              .new
+              .call(native)
+              .value
+            mock_fs   = Cuprum::Cli::Dependencies::FileSystem::Mock.new
+            file_path =
+              SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator
+              .new(object:, file_system: mock_fs, standard_io:, quiet: true)
+              .call
+              .value
+              .first
+
+            mock_fs.read_file(file_path)
+          end
+          let(:expected_output) do
+            output = super()
+
+            output << "\n" << ('-' * 80) << "\n"
+
+            output << "\nChanged file #{changed_files.first}:\n\n"
+
+            output << indent(changed_file_contents) << "\n"
+          end
+          let(:verbose_output) do
+            output = super()
+
+            output << "\n" << ('-' * 80) << "\n"
+
+            output << "\nChanged file #{changed_files.first}:\n\n"
+
+            output << indent(changed_file_contents) << "\n"
+          end
+
+          define_method :indent do |contents|
+            contents
+              .each_line
+              .map do |line|
+                next "\n" if line == "\n"
+
+                "  #{line}"
+              end
+              .join
+          end
 
           it 'should return a failing result with an outdated docs error' do
             expect(call_command)

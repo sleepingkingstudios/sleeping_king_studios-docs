@@ -11,6 +11,11 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
     description 'Checks whether the current documentation is up to date'
 
+    option :inspect_changes,
+      aliases: %i[inspect],
+      type:    :boolean,
+      default: false
+
     private
 
     attr_reader :changed_files
@@ -18,6 +23,8 @@ module SleepingKingStudios::Docs::Jekyll::Commands
     attr_reader :extra_files
 
     attr_reader :missing_files
+
+    attr_reader :registry
 
     def build_command
       @build_command ||= SleepingKingStudios::Docs::Yard::Build.new
@@ -97,7 +104,7 @@ module SleepingKingStudios::Docs::Jekyll::Commands
         .to_h { |file_path| [file_path, step { read_checksum(file_path) }] }
     end
 
-    def find_expected_files(registry)
+    def find_expected_files
       expected_data      = {}
       expected_reference = {}
 
@@ -124,8 +131,65 @@ module SleepingKingStudios::Docs::Jekyll::Commands
       expected.each_key.reject { |key| actual.key?(key) }
     end
 
+    def find_native_object_for(file_path)
+      registry.each do |native|
+        data = step { build_command.call(native) }
+
+        next unless data.public?
+
+        next unless file_path == data_file_for(data)
+
+        return data
+      end
+
+      # :nocov:
+      nil
+      # :nocov:
+    end
+
     def find_reference_files
       each_reference_file.to_h { |file_path| [file_path, true] }
+    end
+
+    def generate_inspect_contents_for(object, mock_fs:)
+      SleepingKingStudios::Docs::Jekyll::Generators::DataGenerator
+        .new(object:, file_system: mock_fs, standard_io:, quiet: true)
+        .call
+    end
+
+    def indent(contents)
+      contents
+        .each_line
+        .map do |line|
+          next "\n" if line == "\n"
+
+          "  #{line}"
+        end
+        .join
+    end
+
+    def inspect_changed_files # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      return unless inspect_changes? && !changed_files.empty?
+
+      say "\n"
+      say '-' * 80
+      say "\n"
+
+      mock_fs = Cuprum::Cli::Dependencies::FileSystem::Mock.new
+
+      changed_files.each do |file_path|
+        data   = find_native_object_for(file_path)
+        result = generate_inspect_contents_for(data, mock_fs:)
+
+        next unless result.success?
+
+        say "Changed file #{file_path}:\n\n"
+
+        contents = mock_fs.read(file_path)
+
+        say indent(contents)
+        say "\n"
+      end
     end
 
     def outdated_documentation_error
@@ -139,7 +203,7 @@ module SleepingKingStudios::Docs::Jekyll::Commands
     end
 
     def parse_registry # rubocop:disable Metrics/MethodLength
-      registry = step do
+      @registry = step do
         SleepingKingStudios::Docs::Yard::Parse.new.call
       end
 
@@ -164,10 +228,11 @@ module SleepingKingStudios::Docs::Jekyll::Commands
       @changed_files  = []
       data_files      = step { find_data_files }
       reference_files = step { find_reference_files }
-      registry        = step { parse_registry }
+
+      step { parse_registry }
 
       expected_data_files, expected_reference_files = step do
-        find_expected_files(registry)
+        find_expected_files
       end
 
       compare_files(actual: data_files,      expected: expected_data_files)
@@ -263,6 +328,8 @@ module SleepingKingStudios::Docs::Jekyll::Commands
       report_changed_files
 
       say 'Failure!'
+
+      inspect_changed_files
 
       failure(outdated_documentation_error)
     end
