@@ -21,3 +21,4 @@ returns:
     - name: Hash
 short_description: Finds the instance attributes defined for the namespace.
 version: "*"
+checksum: vsGYH3AhtQEf0a8xyV7a+Q==

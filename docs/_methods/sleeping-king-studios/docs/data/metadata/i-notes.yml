@@ -13,3 +13,4 @@ returns:
     - name: String
 short_description: Collects the @note tags defined for the module.
 version: "*"
+checksum: WPbKw2ILYHd3xiGnl4tPog==

@@ -16,3 +16,4 @@ returns:
   - name: nil
 short_description: Returns the @abstract tag, if any, defined for the module.
 version: "*"
+checksum: lxnu8amm7Gm5D0nIdlTYpQ==

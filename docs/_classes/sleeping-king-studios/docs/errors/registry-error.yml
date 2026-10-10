@@ -17,3 +17,4 @@ inherited_classes:
 - name: Cuprum::Error
   slug: error
 version: "*"
+checksum: 0lmA5rHsTwqfXQnvIuEXOA==

@@ -23,3 +23,4 @@ returns:
       - name: String
 short_description: A list of the modules that are included in the original module.
 version: "*"
+checksum: 6IHqlWfOUozJjTSQGUVElA==

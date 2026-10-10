@@ -4,6 +4,7 @@ slug: commands
 type: module
 files:
 - lib/sleeping_king_studios/docs/jekyll/commands.rb
+- lib/sleeping_king_studios/docs/jekyll/commands/check.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/update.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/clobber.rb
 - lib/sleeping_king_studios/docs/jekyll/commands/install.rb
@@ -23,6 +24,8 @@ class_methods:
 defined_classes:
 - name: BackfillVersions
   slug: backfill-versions
+- name: Check
+  slug: check
 - name: Clobber
   slug: clobber
 - name: DocumentVersion
@@ -41,3 +44,4 @@ defined_classes:
   slug: update
 data_path: sleeping-king-studios/docs/jekyll/commands
 version: "*"
+checksum: 1LeYxeu3yIRTMzBMpNTufQ==

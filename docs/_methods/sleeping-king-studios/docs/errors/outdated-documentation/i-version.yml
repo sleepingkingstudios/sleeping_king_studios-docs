@@ -1,0 +1,14 @@
+---
+name: SleepingKingStudios::Docs::Errors::OutdatedDocumentation#version
+parent_path: sleeping-king-studios/docs/errors/outdated-documentation
+signature: version
+slug: version
+constructor: false
+data_path: sleeping-king-studios/docs/errors/outdated-documentation/i-version
+returns:
+- description: the version of the generated documentation.
+  type:
+  - name: String
+  - name: nil
+version: "*"
+checksum: 7tXE4zIbsTcXgTakRLTE2Q==

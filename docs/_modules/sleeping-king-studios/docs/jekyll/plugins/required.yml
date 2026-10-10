@@ -17,3 +17,4 @@ included_modules:
   slug: anchorize-slug
   path: sleeping-king-studios/docs/jekyll/plugins/liquid/filters/anchorize-slug
 version: "*"
+checksum: 9cYrqf0EMi6udaLqpRS4MQ==

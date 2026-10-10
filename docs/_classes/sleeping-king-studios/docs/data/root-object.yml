@@ -11,6 +11,10 @@ instance_methods:
   path: sleeping-king-studios/docs/data/namespace-object/i-as-json
   slug: as-json
   inherited: true
+- name: checksum
+  path: sleeping-king-studios/docs/data/base/i-checksum
+  slug: checksum
+  inherited: true
 - name: class_attributes
   path: sleeping-king-studios/docs/data/namespace-object/i-class-attributes
   slug: class-attributes
@@ -93,3 +97,4 @@ inherited_classes:
   slug: base
   path: sleeping-king-studios/docs/data/base
 version: "*"
+checksum: wYygyZoJHdLi4YOO5cmPlg==

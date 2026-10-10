@@ -1,0 +1,9 @@
+---
+name: SleepingKingStudios::Docs::Errors::OutdatedDocumentation::TYPE
+parent_path: sleeping-king-studios/docs/errors/outdated-documentation
+slug: type
+short_description: Short string used to identify the type of error.
+value: "'sleeping_king_studios.docs.errors.outdated_documentation'"
+data_path: sleeping-king-studios/docs/errors/outdated-documentation/type
+version: "*"
+checksum: fbyKdcL0kPqMgLO4hvQppg==

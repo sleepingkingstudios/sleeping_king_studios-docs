@@ -23,6 +23,10 @@ instance_methods:
   path: sleeping-king-studios/docs/data/see-tags/text-tag/i-as-json
   slug: as-json
   inherited: false
+- name: checksum
+  path: sleeping-king-studios/docs/data/base/i-checksum
+  slug: checksum
+  inherited: true
 - name: initialize
   path: sleeping-king-studios/docs/data/see-tags/base/i-initialize
   slug: initialize
@@ -46,3 +50,4 @@ inherited_classes:
   slug: base
   path: sleeping-king-studios/docs/data/base
 version: "*"
+checksum: ZlwJ6pFznYVhMFILNcJNKg==

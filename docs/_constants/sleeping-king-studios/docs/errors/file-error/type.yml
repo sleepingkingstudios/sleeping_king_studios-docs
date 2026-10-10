@@ -6,3 +6,4 @@ short_description: Short string used to identify the type of error.
 value: "'sleeping_king_studios.docs.errors.file_error'"
 data_path: sleeping-king-studios/docs/errors/file-error/type
 version: "*"
+checksum: UR+85mMlePz3cLI69U6d9Q==

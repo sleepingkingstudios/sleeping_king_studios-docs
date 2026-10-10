@@ -20,3 +20,4 @@ inherited_classes:
 - name: Cuprum::Cli::Command
   slug: command
 version: "*"
+checksum: pA5Z8SV0Hda/prbN2yt7nw==

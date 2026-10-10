@@ -12,3 +12,4 @@ inherited_classes:
 - name: Cuprum::Cli::Files::Generator
   slug: generator
 version: "*"
+checksum: jNULnrCPf3LTz65cmC0qIQ==

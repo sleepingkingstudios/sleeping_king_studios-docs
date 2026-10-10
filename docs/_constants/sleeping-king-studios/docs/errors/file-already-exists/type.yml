@@ -6,3 +6,4 @@ short_description: Short string used to identify the type of error.
 value: "'sleeping_king_studios.docs.errors.file_already_exists'"
 data_path: sleeping-king-studios/docs/errors/file-already-exists/type
 version: "*"
+checksum: cvMYVI9a4xodnIfZsUog1g==

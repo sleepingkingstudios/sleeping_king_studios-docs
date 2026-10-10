@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The text to display when rendering the tag.
 version: "*"
+checksum: 8ZaTCXpShdUgiLA4aGvTRg==

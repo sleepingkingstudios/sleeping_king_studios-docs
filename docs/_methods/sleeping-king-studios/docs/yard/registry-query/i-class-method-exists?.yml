@@ -18,3 +18,4 @@ returns:
   - name: Boolean
 short_description: Checks if the given class method is defined in the registry.
 version: "*"
+checksum: kuLL8Fv4IaEd/F9OiBz/sg==

@@ -19,3 +19,4 @@ returns:
     - name: Hash
 short_description: The documented raised exceptions of the method.
 version: "*"
+checksum: s1vzbUccj7tGELU7EafRuw==

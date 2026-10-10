@@ -19,3 +19,4 @@ returns:
     - name: "[SleepingKingStudios::Docs::Data::Types::Type]"
 short_description: Parses a YARD type list.
 version: "*"
+checksum: 9kjZ5X8Q+hMgN85SsoJ8ZA==

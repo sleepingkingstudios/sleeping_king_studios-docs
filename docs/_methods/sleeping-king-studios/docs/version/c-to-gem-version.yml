@@ -18,3 +18,4 @@ metadata:
     type: reference
 short_description: Generates the gem version string from the Version constants.
 version: "*"
+checksum: 8wAOkxyC15k6kakLJyMOtQ==

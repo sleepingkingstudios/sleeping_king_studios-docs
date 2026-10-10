@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Errors::OutdatedDocumentation#extra_files
+parent_path: sleeping-king-studios/docs/errors/outdated-documentation
+signature: extra_files
+slug: extra-files
+constructor: false
+data_path: sleeping-king-studios/docs/errors/outdated-documentation/i-extra-files
+returns:
+- description: |-
+    the list of additional files in the docs
+    directory.
+  type:
+  - name: Array
+    items:
+    - name: String
+version: "*"
+checksum: 4oz3mycKF44Jiv+qi5v7hA==

@@ -16,3 +16,4 @@ returns:
   - name: nil
 short_description: Returns the @deprecated tag, if any, defined for the module.
 version: "*"
+checksum: snc/yCVRjP42oYJLcehb2Q==

@@ -18,3 +18,4 @@ returns:
   - name: Boolean
 short_description: Checks if the given instance method is defined in the registry.
 version: "*"
+checksum: xwHmaAGY25h3OoFihs2c2A==

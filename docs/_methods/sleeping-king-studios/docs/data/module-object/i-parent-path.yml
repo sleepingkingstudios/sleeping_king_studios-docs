@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The path to the defining class or module's data file.
 version: "*"
+checksum: S+Idhi9Hnb+x1GF+3uloHQ==

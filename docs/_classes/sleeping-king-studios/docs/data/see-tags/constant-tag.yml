@@ -23,6 +23,10 @@ instance_methods:
   path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-as-json
   slug: as-json
   inherited: true
+- name: checksum
+  path: sleeping-king-studios/docs/data/base/i-checksum
+  slug: checksum
+  inherited: true
 - name: exists?
   path: sleeping-king-studios/docs/data/see-tags/reference-tag/i-exists?
   slug: exists?
@@ -72,3 +76,4 @@ inherited_classes:
   slug: base
   path: sleeping-king-studios/docs/data/base
 version: "*"
+checksum: 1kIlYHa5ncOPfeeyJhEJ/Q==

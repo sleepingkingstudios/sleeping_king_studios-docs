@@ -23,6 +23,10 @@ instance_methods:
   path: sleeping-king-studios/docs/data/metadata/i-authors
   slug: authors
   inherited: false
+- name: checksum
+  path: sleeping-king-studios/docs/data/base/i-checksum
+  slug: checksum
+  inherited: true
 - name: deprecated
   path: sleeping-king-studios/docs/data/metadata/i-deprecated
   slug: deprecated
@@ -82,3 +86,4 @@ inherited_classes:
   slug: base
   path: sleeping-king-studios/docs/data/base
 version: "*"
+checksum: AmS/Jyun3NzyoEl8d49c+A==

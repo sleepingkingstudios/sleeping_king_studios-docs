@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The name of the namespace in url-safe format.
 version: "*"
+checksum: VhrKfGDfNXMxwCueIK2EbA==

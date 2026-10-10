@@ -19,3 +19,4 @@ returns:
   - name: 'false'
 short_description: Checks if the given tag object is a reference to an instance method.
 version: "*"
+checksum: Nz5zNXdFkISqEIsg+5LpYw==

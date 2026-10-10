@@ -27,3 +27,4 @@ returns:
     - name: Hash
 short_description: Finds the Modules defined under this namespace, if any.
 version: "*"
+checksum: 6l1OQmKBM7T+CGuqv4CDMg==

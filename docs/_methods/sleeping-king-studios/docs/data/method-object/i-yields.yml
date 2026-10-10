@@ -29,3 +29,4 @@ returns:
     - name: Hash
 short_description: The yielded block or blocks of method.
 version: "*"
+checksum: lUQgFerNeun086fHbeBdnw==

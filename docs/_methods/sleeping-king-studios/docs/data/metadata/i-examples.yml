@@ -22,3 +22,4 @@ returns:
       - name: String
 short_description: Collects the @example tags defined for the module.
 version: "*"
+checksum: 92NDtHiC2UdlomSrz79I0w==

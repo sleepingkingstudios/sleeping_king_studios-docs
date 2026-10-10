@@ -23,3 +23,4 @@ returns:
       - name: String
 short_description: Finds the instance methods defined for the namespace.
 version: "*"
+checksum: Ka5fwbqMTqavquSNwbBV9A==

@@ -41,3 +41,4 @@ returns:
     - name: Object
 short_description: Generates a JSON-compatible representation of the module.
 version: "*"
+checksum: canujv86xltlWnl6/sPw5Q==

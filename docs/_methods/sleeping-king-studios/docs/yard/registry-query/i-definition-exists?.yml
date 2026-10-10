@@ -18,3 +18,4 @@ returns:
   - name: Boolean
 short_description: Checks if the given class or module is defined in the registry.
 version: "*"
+checksum: QLqfgY0ymQcBfR7gqbBMyw==

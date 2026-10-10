@@ -6,3 +6,4 @@ short_description: Short string used to identify the type of error.
 value: "'sleeping_king_studios.docs.errors.registry_error'"
 data_path: sleeping-king-studios/docs/errors/registry-error/type
 version: "*"
+checksum: hwdjoec1w/XqTxpWo1+Wjw==

@@ -11,3 +11,4 @@ returns:
   - name: String
 short_description: The path to the data file.
 version: "*"
+checksum: gFur7nAiNak1hXsDK7DA0w==

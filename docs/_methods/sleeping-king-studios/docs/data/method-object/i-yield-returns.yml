@@ -25,3 +25,4 @@ returns:
     - name: Hash
 short_description: The return type or types of the yielded block.
 version: "*"
+checksum: yhGZFW9ieDc5D/RoyQfNZg==

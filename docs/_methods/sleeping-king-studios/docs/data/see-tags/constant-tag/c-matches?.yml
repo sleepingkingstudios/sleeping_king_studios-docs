@@ -19,3 +19,4 @@ returns:
   - name: 'false'
 short_description: Checks if the given tag object is a reference to a constant.
 version: "*"
+checksum: VRAZ8yZ3ijEuMZyJDVax9Q==

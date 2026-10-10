@@ -21,3 +21,4 @@ returns:
   - name: 'false'
 short_description: Checks if the given tag object is plain text.
 version: "*"
+checksum: waoNvNK28mA6FTsvUi4v5w==

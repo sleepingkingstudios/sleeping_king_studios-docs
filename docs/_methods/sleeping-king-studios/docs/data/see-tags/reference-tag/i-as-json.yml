@@ -14,3 +14,4 @@ description: |-
   - 'type': The string 'reference'.
 short_description: Generates a JSON-compatible representation of the tag.
 version: "*"
+checksum: m2EBOisQP4BmGinRxtBaGA==

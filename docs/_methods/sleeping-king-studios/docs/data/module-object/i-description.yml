@@ -20,3 +20,4 @@ returns:
   - name: String
 short_description: The full description of the module, minus the first clause.
 version: "*"
+checksum: jju9mBfmMPfigKmsh3LFQQ==

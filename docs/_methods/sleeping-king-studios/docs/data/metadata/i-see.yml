@@ -21,3 +21,4 @@ returns:
       - name: String
 short_description: Collects the @see tags defined the for the module.
 version: "*"
+checksum: niZQpkY1JV338FHGcKWBaQ==

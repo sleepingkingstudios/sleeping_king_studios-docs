@@ -13,3 +13,4 @@ returns:
     - name: String
 short_description: Collects the @author tags defined for the module.
 version: "*"
+checksum: KyiVS8mqOqc5CNIOa6ARyA==
