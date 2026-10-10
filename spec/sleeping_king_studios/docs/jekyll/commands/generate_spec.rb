@@ -40,6 +40,10 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Generate do
     :version,
     type: :string
 
+  include_deferred 'should define --quiet option'
+
+  include_deferred 'should define --verbose option'
+
   include_deferred 'should implement the path helpers'
 
   describe '#call' do
