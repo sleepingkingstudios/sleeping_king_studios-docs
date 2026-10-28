@@ -4,8 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'cuprum-cli',
-  git: 'https://github.com/sleepingkingstudios/cuprum-cli/'
+gem 'cuprum-cli', '~> 0.2'
 
 group :development, :test do
   gem 'byebug', '~> 11.1'
