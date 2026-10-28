@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Jekyll.commands
+parent_path: sleeping-king-studios/docs/jekyll
+signature: commands
+slug: commands
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/c-commands
+returns:
+- description: |-
+    the default commands for generating documentation
+    for a Jekyll site.
+  type:
+  - name: Array
+    items:
+    - name: Class
+version: "*"
+checksum: JXLFFanV5n9mU+RV6bIaRw==
