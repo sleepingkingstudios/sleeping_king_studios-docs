@@ -57,7 +57,17 @@ Generate or update your `tasks.thor` file:
 ```ruby
 # frozen_string_literal: true
 
-load 'sleeping_king_studios/docs/tasks.rb'
+require 'cuprum/cli/integrations/thor/registry'
+
+registry = Cuprum::Cli::Integrations::Thor::Registry.new
+
+require 'sleeping_king_studios/docs/jekyll'
+
+# Docs Commands
+registry.register SleepingKingStudios::Docs::Jekyll.commands
+
+# Installation Commands (Creating or Updating Projects)
+registry.register SleepingKingStudios::Docs::Jekyll.install_commands
 ```
 
 ### Installation Script
@@ -65,37 +75,41 @@ load 'sleeping_king_studios/docs/tasks.rb'
 Use the installation script to quickly install the Jekyll application:
 
 ```bash
-bundle exec thor docs:install --name="Orichalcum" --description="A real gem." --repository="www.example.com"
+bundle exec thor docs:jekyll:install
 ```
 
 You can also install a GitHub pages workflow to automatically deploy to GitHub Pages. Make sure that Pages is configured for your repository to deploy from a GitHub action.
 
 ```bash
-bundle exec thor docs:install:workflow
+bundle exec thor docs:jekyll:install_workflow
 ```
 
 ## Generating Documentation
 
 Use the [Thor CLI](https://www.sleepingkingstudios.com/sleeping_king_studios-docs/tasks#documentation) to generate and update the reference documentation for your project.
 
-The `docs:generate` task will generate the documentation files for each Ruby file in your project. It does not update any existing files by default, so if you have made changes to existing code use the `docs:update` command or use the `--force` command line option.
+The `docs:jekyll:generate` task will generate the documentation files for each Ruby file in your project.
 
 ```bash
-bundle exec thor docs:generate
+bundle exec thor docs:jekyll:generate
 ```
 
-The `docs:update` task will generate and updates th documentation files for each Ruby file in your project. It will update any existing documentation files.
+The `docs:jekyll:update` task will generate and update the documentation files for each Ruby file in your project. It will update any existing documentation files and remove old files that no longer correspond to objects or methods in the code.
 
 ```bash
-bundle exec thor docs:update
+bundle exec thor docs:jekyll:update
 ```
 
 ### Versioned Documentation
 
-You can pass a `--version` flag to the `docs:generate` or `docs:update` tasks, indicating that the generated documentation is for a specific version of the software. This is recommended for each major and minor release; patch-level changes may or may not need to be documented depending on the degree of change.
+You can generate reference docs and copy non-release documentation into the newly created version scope using the `document_version` command. This is recommended for each major and minor release; patch-level changes may or may not need to be documented depending on the degree of change.
 
 ```bash
-bundle exec thor docs:generate --version="1.2.3"
+bundle exec thor docs:jekyll:document_version "1.2.3"
 ```
 
-Any non-reference documentation should be copied into the newly created version scope. Make sure to update the `versions/index.md` file to link the new scope.
+You can also pass a `--version` flag to the `docs:jekyll:generate` or `docs:jekyll:update` tasks, indicating that the generated documentation is for a specific version of the software.
+
+```bash
+bundle exec thor docs:jekyll:generate --version="1.2.3"
+```

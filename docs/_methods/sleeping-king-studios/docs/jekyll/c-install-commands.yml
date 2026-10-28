@@ -1,0 +1,17 @@
+---
+name: SleepingKingStudios::Docs::Jekyll.install_commands
+parent_path: sleeping-king-studios/docs/jekyll
+signature: install_commands
+slug: install-commands
+constructor: false
+data_path: sleeping-king-studios/docs/jekyll/c-install-commands
+returns:
+- description: |-
+    the default commands for installing a Jekyll
+    documentation site.
+  type:
+  - name: Array
+    items:
+    - name: Class
+version: "*"
+checksum: CiECSLHI+n87kIvIEUye9A==
