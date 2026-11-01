@@ -56,8 +56,6 @@ module SleepingKingStudios::Docs::Jekyll::Commands
 
     option :dry_run,   type: :boolean, default: false
 
-    option :force,     type: :boolean, default: false
-
     option :gemfile,   type: :boolean, default: true
 
     option :gitignore, type: :boolean, default: true
