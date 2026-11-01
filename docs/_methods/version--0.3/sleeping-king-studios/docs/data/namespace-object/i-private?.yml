@@ -1,0 +1,16 @@
+---
+name: SleepingKingStudios::Docs::Data::NamespaceObject#private?
+parent_path: sleeping-king-studios/docs/data/namespace-object
+signature: private?
+slug: private?
+constructor: false
+data_path: sleeping-king-studios/docs/data/namespace-object/i-private?
+returns:
+- description: |-
+    true if the namespace visibility is private, or if
+    the namespace (or its parent namespace) has a @private tag.
+  type:
+  - name: 'true'
+  - name: 'false'
+version: '0.3'
+checksum: RV8mDboBdtXecdKn18YUUA==

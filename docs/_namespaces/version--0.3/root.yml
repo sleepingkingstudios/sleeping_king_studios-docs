@@ -1,0 +1,9 @@
+---
+name: root
+slug: root
+type: namespace
+defined_modules:
+- name: SleepingKingStudios
+  slug: sleeping-king-studios
+version: '0.3'
+checksum: ku9wt5HyIUjeTnNs7CUkxQ==
