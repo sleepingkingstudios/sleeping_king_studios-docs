@@ -115,11 +115,6 @@ RSpec.describe SleepingKingStudios::Docs::Jekyll::Commands::Install do
     default: false
 
   include_deferred 'should define option',
-    :force,
-    type:    :boolean,
-    default: false
-
-  include_deferred 'should define option',
     :gemfile,
     type:    :boolean,
     default: true

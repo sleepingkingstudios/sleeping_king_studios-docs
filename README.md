@@ -21,7 +21,7 @@ Documentation is generated using [YARD](https://yardoc.org/), and can be generat
 
 ### License
 
-Copyright (c) 2022-2025 Rob Smith
+Copyright (c) 2022-2026 Rob Smith
 
 SleepingKingStudios::Docs is released under the [MIT License](https://opensource.org/licenses/MIT).
 
@@ -42,9 +42,11 @@ Please note that the `SleepingKingStudios::Docs` project is released with a [Con
 Add the docs dependencies to your Gemfile:
 
 ```ruby
+# Ensure that the CLI tool is available in development environment.
+gem 'sleeping_king_studios-docs', groups: %w[docs development]
+
 group :docs do
   gem 'jekyll'
-  gem 'sleeping_king_studios-docs'
   gem 'webrick'
   gem 'yard',  require: false
 end
@@ -86,7 +88,7 @@ bundle exec thor docs:jekyll:install_workflow
 
 ## Generating Documentation
 
-Use the [Thor CLI](https://www.sleepingkingstudios.com/sleeping_king_studios-docs/tasks#documentation) to generate and update the reference documentation for your project.
+Use the [Thor CLI](https://www.sleepingkingstudios.com/sleeping_king_studios-docs/commands) to generate and update the reference documentation for your project.
 
 The `docs:jekyll:generate` task will generate the documentation files for each Ruby file in your project.
 
